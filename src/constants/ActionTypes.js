@@ -1,0 +1,3 @@
+// Sample
+export const SAMPLE_INCREASE = 'SAMPLE_INCREASE';
+export const SAMPLE_DECREASE = 'SAMPLE_DECREASE';

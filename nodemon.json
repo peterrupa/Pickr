@@ -1,0 +1,10 @@
+{
+    "ignore": ["src/**/*.*"],
+    "watch": [
+        "app.js",
+        "bin",
+        "controllers",
+        "routes",
+        "models"
+    ]
+}

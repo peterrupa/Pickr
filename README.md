@@ -1,4 +1,4 @@
-# pickr
+# Pickr
 An awesome application for randomizing volunteers.
 
 ## Get Started

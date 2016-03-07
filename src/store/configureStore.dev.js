@@ -5,7 +5,7 @@
 import { applyMiddleware, createStore, compose } from 'redux';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools.jsx';
-// import thunkMiddleware from 'redux-thunk';
+import thunkMiddleware from 'redux-thunk';
 
 export default function configureStore(initialState, storemiddlewareHistory) {
     // Add middleware
@@ -13,7 +13,7 @@ export default function configureStore(initialState, storemiddlewareHistory) {
         // Middleware you want to use in development:
         applyMiddleware(
                 storemiddlewareHistory,
-                // thunkMiddleware
+                thunkMiddleware
         ),
         // Required! Enable Redux DevTools with the monitors you chose
         window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument()

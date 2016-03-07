@@ -5,17 +5,19 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
 // Import actions associated to this page
-import { sampleIncrease, sampleDecrease } from '../actions/sampleActions';
+import { sampleIncrease, sampleDecrease, fetchInitialSample } from '../actions/sampleActions';
 
 // Be sure to rename your class name
 class SamplePage extends React.Component {
     // the componentDidMount function will be performed after the component has been rendered.
     // useful for Materialize or DOM-related functions
-    componentDidMount() {
+    componentWillMount() {
+        // fetch data from server
+        this.props.fetchInitialSample();
     }
     // the render function describes the view of the page. it should return a JSX.
     render() {
-        const { sampleAppState, sampleIncrease, sampleDecrease } = this.props;
+        const { sampleAppState, sampleIncrease, sampleDecrease, fetchInitialSample } = this.props;
         
         let pages = [];
         
@@ -25,17 +27,7 @@ class SamplePage extends React.Component {
             );
         }
         
-        let students = [
-            {
-                name: 'Peter'
-            },
-            {
-                name: 'Bernard'
-            },
-            {
-                name: 'Rupa'
-            }
-        ];
+        let samples = sampleAppState.samples;
 
         return (
             <div>
@@ -45,9 +37,9 @@ class SamplePage extends React.Component {
                 <button onClick={() => sampleIncrease(1)}>Increase</button>
                 <button onClick={() => sampleDecrease(1)}>Decrease</button>
                 {pages}
-                {students.map((student) => {
+                {samples.map((sample) => {
                     return (
-                        <p key={student.name}>{student.name}</p>
+                        <p key={sample.id}>{sample.title}</p>
                     );
                 })}
             </div>
@@ -60,11 +52,11 @@ SamplePage.propTypes = {
     sampleAppState: PropTypes.object.isRequired,
     sampleIncrease: PropTypes.func.isRequired,
     sampleDecrease: PropTypes.func.isRequired,
-    sampleToggle: PropTypes.func.isRequired
+    fetchInitialSample: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ sampleAppState: state.sampleAppState }),
-    { sampleIncrease, sampleDecrease }
+    { sampleIncrease, sampleDecrease, fetchInitialSample }
 )(SamplePage);

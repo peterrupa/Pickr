@@ -19,8 +19,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/student', student);
-app.use('/sample', sample);
+app.use('/api/student', student);
+app.use('/api/sample', sample);
 
 // send routing to client
 app.get('*', (req, res) => {

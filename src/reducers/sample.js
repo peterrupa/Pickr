@@ -1,11 +1,12 @@
 // a reducer takes an input state and an action, does some process, and returns the transformed state
 
 // import your action type constants
-import {SAMPLE_INCREASE, SAMPLE_DECREASE, SAMPLE_TOGGLE} from '../constants/ActionTypes';
+import {SAMPLE_INCREASE, SAMPLE_DECREASE, FETCH_SAMPLES} from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
-    sampleCounter: 1
+    sampleCounter: 1,
+    samples: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -23,6 +24,11 @@ export default function sampleCounterAppState(state = initialState, action) {
         case SAMPLE_DECREASE:
             return Object.assign({}, state, {
                 sampleCounter: state.sampleCounter > 0 ? state.sampleCounter - action.amount : state.sampleCounter
+            });
+            
+        case FETCH_SAMPLES:
+            return Object.assign({}, state, {
+                samples: action.samples
             });
 
         default:

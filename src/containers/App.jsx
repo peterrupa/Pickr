@@ -5,19 +5,19 @@ import React, { PropTypes } from 'react';
 import MainMenu from '../components/MainMenu.jsx';
 
 class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <MainMenu />
-        {this.props.children}
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <MainMenu />
+                {this.props.children}
+            </div>
+        );
+    }
 
 }
 
 App.propTypes = {
-  children: PropTypes.node
+    children: PropTypes.node
 };
 
 export default App;

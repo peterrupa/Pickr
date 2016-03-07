@@ -47,7 +47,7 @@ class SamplePage extends React.Component {
                 {pages}
                 {students.map((student) => {
                     return (
-                        <p>{student.name}</p>
+                        <p key={student.name}>{student.name}</p>
                     );
                 })}
             </div>

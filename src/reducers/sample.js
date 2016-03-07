@@ -22,7 +22,7 @@ export default function sampleCounterAppState(state = initialState, action) {
 
         case SAMPLE_DECREASE:
             return Object.assign({}, state, {
-                sampleCounter: state.sampleCounter > 0? state.sampleCounter - action.amount: state.sampleCounter
+                sampleCounter: state.sampleCounter > 0 ? state.sampleCounter - action.amount : state.sampleCounter
             });
 
         default:

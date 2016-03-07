@@ -2,20 +2,20 @@
     Controller for the model "sample".
 */
 
-var express = require('express');
-var router  = express.Router();
+import express from 'express';
+let router  = express.Router();
 
 // be sure to import your model here
-var Sample = require('../models').Sample;
+import { Sample } from '../models';
 
-exports.getAll = function(req, res) {
+export function getAll(req, res) {
     Sample.findAll()
     .then(function(samples) {
         res.send(samples);
     });
 }
 
-exports.insert = function(req, res) {
+export function insert(req, res) {
     Sample.create({
         title: req.body.title,
     }).then(function(sample) {

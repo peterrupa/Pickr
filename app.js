@@ -1,14 +1,14 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+import express from 'express';
+import path from 'path';
+import favicon from 'serve-favicon';
+import logger from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 
-var student = require('./routes/student');
-var sample = require('./routes/sample');
+import student from './routes/student';
+import sample from './routes/sample';
 
-var app = express();
+let app = express();
 
 app.set('view engine', 'ejs');
 
@@ -23,8 +23,8 @@ app.use('/student', student);
 app.use('/sample', sample);
 
 // send routing to client
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
     res.sendFile(__dirname + '/src/index.html');
 });
 
-module.exports = app;
+export default app;

@@ -2,7 +2,7 @@
     "ignore": ["src/**/*.*"],
     "watch": [
         "app.js",
-        "bin",
+        "bin/www",
         "controllers",
         "routes",
         "models"

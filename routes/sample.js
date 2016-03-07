@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var sampleController = require('../controllers/sampleController');
+import express from 'express';
+let router = express.Router();
+import * as sampleController from '../controllers/sampleController';
 
 router.get('/', sampleController.getAll);
 router.post('/', sampleController.insert);
 
-module.exports = router;
+export default router;

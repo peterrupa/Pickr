@@ -1,8 +1,7 @@
-var express = require('express');
-var router = express.Router();
+import express from 'express';
+let router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
     res.send([{
         _id: '12345',
         name: 'Peter Bernard',
@@ -10,7 +9,7 @@ router.get('/', function(req, res, next) {
     }]);   
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', (req, res, next) => {
     res.send({
         _id: '12345',
         name: 'Peter Bernard',
@@ -18,4 +17,4 @@ router.get('/:id', function(req, res, next) {
     });   
 });
 
-module.exports = router;
+export default router;

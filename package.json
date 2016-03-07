@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start:server": "./node_modules/nodemon/bin/nodemon.js ./bin/www",
+    "start:server": "./node_modules/nodemon/bin/nodemon.js --exec npm run babel-node -- ./bin/www",
+    "babel-node": "babel-node --presets=es2015",
     "prestart": "npm run remove-dist",
     "start": "parallelshell \"npm run lint:tools\" \"npm run test:watch\" \"npm run open:src\" \"npm run start:server\"",
     "open:src": "babel-node tools/srcServer.js",

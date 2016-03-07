@@ -12,7 +12,8 @@ This will run the automated build process, start up a browsersync server proxied
 1. **Install [Node 4.0.0 or greater](https://nodejs.org)**
 2. **Install [Git](https://git-scm.com/downloads)**. 
 3. **Install [React developer tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en) and [Redux Dev Tools](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en)** in Chrome. (Optional, but helpful. The latter offers time-travel debugging.)
-4. On a Mac? You're all set. If you're on Linux or Windows, complete the steps for your OS below.  
+4. **Install [sequelize/cli](https://github.com/sequelize/cli)**. 
+5. On a Mac? You're all set. If you're on Linux or Windows, complete the steps for your OS below.  
  
 **On Linux:**  
 

@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var student = require('./routes/student');
+var sample = require('./routes/sample');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/student', student);
+app.use('/sample', sample);
 
 // send routing to client
 app.get('*', function(req, res) {

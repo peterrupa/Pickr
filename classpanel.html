@@ -13,6 +13,36 @@
   <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
   <style type='text/css' media='screen'>
 	body{ font-family:"Montserrat", arial, sans-serif;}
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+
+  .dropdown-content a:hover {background-color: #f1f1f1}
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+      background-color: #3e8e41;
+  }
   </style>
 </head>
 <body>
@@ -28,12 +58,20 @@
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+            <li class="collection-item"><a href="setup.html">CMSC 170</a></li>
+            <li class="collection-item">CMSC 132</li>
+            <li class="collection-item">CMSC 125</li>
+            <li class="collection-item">CMSC 141</li>
+        </li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
 
-  
+    
     <div class="classDropDown" style="float:right;">
     <br/><br/><br/>
        
@@ -44,10 +82,13 @@
       <li class="collection-item">CMSC 141</li>
     </ul>
     </div>
-
+      <br/><br/><br/><br/><br/><br/>
+      <div style="text-align:center;
+margin:auto;
+"><a class="waves-effect waves-light btn modal-trigger green" href="#addclass">Add Class</a></div>
   	  <div class="carousel">
         <a class="carousel-item" href="setup.html">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 170</h5>
+          <div class="classroomPallete"><i class="material-icons right">delete</i><h5>CMSC 170</h5>
               <h6>U-6l</h6>
               <br/>
               <h6>Katherine Loren Tan</h6>
@@ -56,7 +97,7 @@
           Exer: Spam and Ham</div>
         </a>
         <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 132</h5>
+          <div class="classroomPallete"><i class="material-icons right">delete</i><h5>CMSC 132</h5>
               <h6>T-1L</h6>
               <br/>
               <h6>Kristine Elaine Bautista</h6>
@@ -65,7 +106,7 @@
           Exer4: Sequential circuit</div>
         </a> 
         <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 125</h5>
+          <div class="classroomPallete"><i class="material-icons right">delete</i><h5>CMSC 125</h5>
               <h6>ST-1l</h6>
               <br/>
               <h6>John Emmanuel Encinas</h6>
@@ -73,7 +114,7 @@
           <div class="notes"></div>
         </a>
          <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 141</h5>
+          <div class="classroomPallete"><i class="material-icons right">delete</i><h5>CMSC 141</h5>
               <h6>2L</h6>
               <br/>
               <h6>Donna Drio</h6>
@@ -82,6 +123,27 @@
         </a>
          
       </div>
+  <div id="addclass" class="modal">
+    <div class="modal-content">
+      <h3>Add Class</h3>
+      <div class="row">
+          <div class="input-field col s12">
+            <input id="className" type="text" class="validate">
+            <label for="className">Class Name</label>
+          </div>
+      </div>
+      <div class="row">
+          <div class="input-field col s12">
+            <input id="classSection" type="text" class="validate">
+            <label for="classSection">Class Section</label>
+          </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+      <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add Class</a>
+    </div>
+  </div>
 
   <footer class="page-footer">
     <div class="container">

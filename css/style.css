@@ -13,7 +13,7 @@ nav {
 }
 h1{
   color: white;
-  background-color: #6FBEB6; 
+  background-color: #6FBEB6;
   border-radius: 250px;
 }
 .h1cont{
@@ -112,9 +112,9 @@ nav.navbar{
 
 .login{
   min-width:25%;
-  right:0px; 
+  right:0px;
   background-color: #E9E8E7;
-  z-index: 1; 
+  z-index: 1;
   position: fixed;
   border-radius: 20px;
   border-color: #567E80;
@@ -148,11 +148,25 @@ nav.navbar{
 
 .classDropDown{
   min-width:25%;
-  right:0px; 
+  right:0px;
   background-color: #E9E8E7;
-  z-index: 1; 
+  z-index: 1;
   position: fixed;
   border-radius: 20px;
   border-color: #567E80;
   border-style:solid;
+}
+
+.tagLabel{
+    border-radius: 20px;
+    font-weight: bold;
+    color: #EEEEEE;
+    background-color: #999999;
+    padding: 2px 7px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.bold{
+    font-weight: bold;
 }

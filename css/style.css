@@ -142,7 +142,7 @@ nav.navbar{
 }
 
 .carousel{
-  height: 700px;
+  height: 500px;
   width:90%;
 }
 
@@ -169,4 +169,39 @@ nav.navbar{
 
 .bold{
     font-weight: bold;
+=======
+.studentPallete{
+  background-color: #6FBEB6;
+  color:white;
+  min-width: 250px;
+  border-color: #567E80;
+  border-style: solid;
+}
+
+#clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
 }

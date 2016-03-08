@@ -11,6 +11,7 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+  <script src="random.js"></script>
   <style type='text/css' media='screen'>
 	body{ font-family:"Montserrat", arial, sans-serif;}
   </style>
@@ -40,56 +41,61 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-
-  
-    <div class="classDropDown" style="float:right;">
-    <br/><br/><br/>
-       
-    <ul class="collection">
-      <li class="collection-item"><a href="setup.html">CMSC 170</a></li>
-      <li class="collection-item">CMSC 132</li>
-      <li class="collection-item">CMSC 125</li>
-      <li class="collection-item">CMSC 141</li>
-    </ul>
+  <h5 style="margin-top: 100px;float:left;margin-left: 20%"> Insert activity name</h5>
+   <div class="countDown" style="position:fixed;float:right;bottom: 0px;right: 0px;">
+  <h4>Countdown Clock</h4>
+  <div id="clockdiv">
+    <div>
+      <span class="hours"></span>
+      <div class="smalltext">Hours</div>
     </div>
-
-  	  <div class="carousel">
-        <a class="carousel-item" href="setup.html">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 170</h5>
-              <h6>U-6l</h6>
-              <br/>
-              <h6>Katherine Loren Tan</h6>
+    <div>
+      <span class="minutes"></span>
+      <div class="smalltext">Minutes</div>
+    </div>
+    <div>
+      <span class="seconds"></span>
+      <div class="smalltext">Seconds</div>
+    </div>
+  </div>
+  </div>
+  <a id="start"class="waves-effect waves-light btn" style="margin-top: 100px;float:right;margin-right: 5%;">Randomize</a>
+  <div id="deck" class="carousel" style="">
+    <div class="carousel">
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Prince Karlo Aragones</h5>
+              
           </div>
-          <div class="notes">Due Friday
-          Exer: Spam and Ham</div>
         </a>
-        <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 132</h5>
-              <h6>T-1L</h6>
-              <br/>
-              <h6>Kristine Elaine Bautista</h6>
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Angeli Tomagos</h5>
+             
           </div>
-          <div class="notes">Due Tomorrow
-          Exer4: Sequential circuit</div>
         </a> 
-        <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 125</h5>
-              <h6>ST-1l</h6>
-              <br/>
-              <h6>John Emmanuel Encinas</h6>
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Narom Santos</h5>
+             
           </div>
-          <div class="notes"></div>
         </a>
-         <a class="carousel-item" href="#one!">
-          <div class="classroomPallete"><i class="material-icons right">settings</i><h5>CMSC 141</h5>
-              <h6>2L</h6>
-              <br/>
-              <h6>Donna Drio</h6>
+         <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Van Santos</h5>
+             
           </div>
-          <div class="notes"></div>
         </a>
-         
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Graceal Villamor</h5>
+             
+          </div>
+        </a>
       </div>
+
+  </div>
+ 
 
   <footer class="page-footer">
     <div class="container">

@@ -169,8 +169,6 @@ nav.navbar{
 
 .bold{
     font-weight: bold;
-}
-    
 .studentPallete{
   background-color: #6FBEB6;
   color:white;

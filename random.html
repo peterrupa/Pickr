@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title>Pickr</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+  <script src="random.js"></script>
+  <style type='text/css' media='screen'>
+	body{ font-family:"Montserrat", arial, sans-serif;}
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo"><img src="CMSC_Prince_wbox.png" alt="logo" style="height:40px;width:40px;">Pickr</a>
+      <ul class="right hide-on-med-and-down">
+
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a id="classDD">Classes</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+            <li class="collection-item"><a href="setup.html">CMSC 170</a></li>
+            <li class="collection-item">CMSC 132</li>
+            <li class="collection-item">CMSC 125</li>
+            <li class="collection-item">CMSC 141</li>
+        </li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+  <h5 style="margin-top: 100px;float:left;margin-left: 20%"> Insert activity name</h5>
+   <div class="countDown" style="position:fixed;float:right;bottom: 0px;right: 0px;">
+  <h4>Countdown Clock</h4>
+  <div id="clockdiv">
+    <div>
+      <span class="hours"></span>
+      <div class="smalltext">Hours</div>
+    </div>
+    <div>
+      <span class="minutes"></span>
+      <div class="smalltext">Minutes</div>
+    </div>
+    <div>
+      <span class="seconds"></span>
+      <div class="smalltext">Seconds</div>
+    </div>
+  </div>
+  </div>
+  <a id="start"class="waves-effect waves-light btn" style="margin-top: 100px;float:right;margin-right: 5%;">Randomize</a>
+  <div id="deck" class="carousel" style="">
+    <div class="carousel">
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Prince Karlo Aragones</h5>
+              
+          </div>
+        </a>
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Angeli Tomagos</h5>
+             
+          </div>
+        </a> 
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Narom Santos</h5>
+             
+          </div>
+        </a>
+         <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Van Santos</h5>
+             
+          </div>
+        </a>
+        <a class="carousel-item" >
+          <div class="studentPhoto"> <img class="" src="defaultPP.png" style="width:250px"></div>
+          <div class="studentPallete"><i class="material-icons right">settings</i><h5>Graceal Villamor</h5>
+             
+          </div>
+        </a>
+      </div>
+
+  </div>
+ 
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+
+          <h5 class="white-text" >Company Bio</h5>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Settings</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+        <div class="col l3 s12">
+          <h5 class="white-text">Connect</h5>
+          <ul>
+            <li><a class="white-text" href="#!">Link 1</a></li>
+            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="#!">Link 3</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>

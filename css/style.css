@@ -13,7 +13,7 @@ nav {
 }
 h1{
   color: white;
-  background-color: #6FBEB6; 
+  background-color: #6FBEB6;
   border-radius: 250px;
 }
 .h1cont{
@@ -112,9 +112,9 @@ nav.navbar{
 
 .login{
   min-width:25%;
-  right:0px; 
+  right:0px;
   background-color: #E9E8E7;
-  z-index: 1; 
+  z-index: 1;
   position: fixed;
   border-radius: 20px;
   border-color: #567E80;
@@ -142,17 +142,66 @@ nav.navbar{
 }
 
 .carousel{
-  height: 700px;
+  height: 500px;
   width:90%;
 }
 
 .classDropDown{
   min-width:25%;
-  right:0px; 
+  right:0px;
   background-color: #E9E8E7;
-  z-index: 1; 
+  z-index: 1;
   position: fixed;
   border-radius: 20px;
   border-color: #567E80;
   border-style:solid;
+}
+
+.tagLabel{
+    border-radius: 20px;
+    font-weight: bold;
+    color: #EEEEEE;
+    background-color: #999999;
+    padding: 2px 7px;
+    display: inline-block;
+    margin: 2px;
+}
+
+.bold{
+    font-weight: bold;
+=======
+.studentPallete{
+  background-color: #6FBEB6;
+  color:white;
+  min-width: 250px;
+  border-color: #567E80;
+  border-style: solid;
+}
+
+#clockdiv{
+    font-family: sans-serif;
+    color: #fff;
+    display: inline-block;
+    font-weight: 100;
+    text-align: center;
+    font-size: 30px;
+}
+
+#clockdiv > div{
+    padding: 10px;
+    border-radius: 3px;
+    background: #00BF96;
+    display: inline-block;
+}
+
+#clockdiv div > span{
+    padding: 15px;
+    border-radius: 3px;
+    background: #00816A;
+    display: inline-block;
+}
+
+.smalltext{
+    padding-top: 5px;
+    font-size: 16px;
 }

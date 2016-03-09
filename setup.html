@@ -73,9 +73,9 @@
                            <div class=" s6 m12 l4" >
                                 <ul id="task-card" class="collection with-header">
                                     <li class="collection-header cyan">
-                                        <h4 class="task-card-title">Activities</h4>
-                                        <p class="task-card-date">March 26, 2015</p>
-                                        <a class="waves-effect waves-light btn modal-trigger  light-blue" href="#addactivity">Add Activity</a>
+                                        <span><h4 class="task-card-title">Activities</h4>
+                                        <p class="task-card-date">March 26, 2015<a class="waves-effect waves-light btn modal-trigger  green right" href="#addactivity">Add Activity</a></p></span>
+                                        
                                     </li>
                                     <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
                                         <input type="checkbox" id="task1">
@@ -115,7 +115,7 @@
                     </div>
   <a name="list"></a><div class="row">
   <ul class="collection with-header">
-        <li class="collection-header"><h4>Student List</h4><a class="waves-effect waves-light btn modal-trigger  light-blue" href="#addstudent">Add Student</a></li>
+        <li class="collection-header"><h4>Student List</h4><a class="waves-effect waves-light btn modal-trigger green" href="#addstudent">Add Student</a></li>
         <li class="collection-item"><a href="student.html">Roger Waters</a></li>
         <li class="collection-item">Roger Waters</li>
         <li class="collection-item">Roger Waters</li>
@@ -227,18 +227,19 @@
 
 
   <!--  Scripts-->
-  <!-- jQuery Library -->
-    <script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>    
-    <!--materialize js-->
-    <script type="text/javascript" src="js/materialize.js"></script>
-    <!--prism-->
+  
+    
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <!--prism-->
     <script type="text/javascript" src="js/prism.js"></script>
     <!--scrollbar-->
     <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
- 
+    <!-- chartist -->
+    <script type="text/javascript" src="js/plugins/chartist-js/chartist.min.js"></script>   
+    
     <!--plugins.js - Some Specific JS codes for Plugin Settings-->
     <script type="text/javascript" src="js/plugins.js"></script>
-
-  <script src="js/init.js"></script>
   </body>
 </html>

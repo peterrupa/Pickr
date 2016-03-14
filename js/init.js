@@ -19,7 +19,7 @@ $(function(){
   
   $(window).scroll(function(){
 	if ($(document).scrollTop() > 50) {
-	    $('nav').addClass('shrink');
+	  //  $('nav').addClass('shrink');
 	    $('nav i').addClass('shrink');
 	} else {
 	    $('nav').removeClass('shrink');

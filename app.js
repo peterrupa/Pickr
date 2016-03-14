@@ -20,7 +20,7 @@ let sequelize = new Sequelize(config.database, config.username, config.password,
 app.set('view engine', 'ejs');
 
 app.use(session({
-	name: 'sid',
+    name: 'sid',
     secret: 'PUT01SL0V3_PUT01SL1F3',
     store: new Store(sequelize),
     resave: false,

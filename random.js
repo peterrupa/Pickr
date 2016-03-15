@@ -1,38 +1,3 @@
-var students = [
-	{
-		"name": "Prince Aragones"
-	},
-	{
-		"name": "Angeli Tomagos"
-	},
-	{
-		"name": "Graceal Villamor"
-	},
-	{
-		"name": "Van Santos"
-	},
-	{
-		"name": "Narom Santos"
-	}
-];
-
-function renderStudents(){
-	var maindiv = document.getElementById("deck");
-	 students.forEach(function(student){
-	 /*	var maina = document.createElement("a");
-	 	maina.classList.add("carousel-item");
-	 	var icon = document.createElement("i");
-	 	maina.classList.add("material-icons right");
-	 	icon.innerHTML = "settings";
-	 	var header = document.createElement("h6");
-	 	header.innerHTML = 
-	 	maina= document.appendChild(icon);
-	 	maindiv.appendChild(maina);
-	 	*/
-	 	
-	 });
-}
-
 $( document ).ready(function() {
 	$('.countDown').hide();
 	

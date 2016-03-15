@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Pickr</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <style type='text/css' media='screen'>
+        body {
+            font-family: "Montserrat", arial, sans-serif;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo"><img src="img/CMSC_Prince_wbox.png" alt="logo" style="height:40px;width:40px;">Pickr</a>
+            <ul class="right hide-on-med-and-down">
+
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a id="classDD">Classes</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li>
+                    <li class="collection-item"><a href="setup.html">CMSC 170</a></li>
+                    <li class="collection-item">CMSC 132</li>
+                    <li class="collection-item">CMSC 125</li>
+                    <li class="collection-item">CMSC 141</li>
+                </li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+
+
+    <div class="classDropDown" style="float:right;">
+        <br/>
+        <br/>
+        <br/>
+
+        <ul class="collection">
+            <li class="collection-item"><a href="setup.html">CMSC 170</a></li>
+            <li class="collection-item">CMSC 132</li>
+            <li class="collection-item">CMSC 125</li>
+            <li class="collection-item">CMSC 141</li>
+        </ul>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div style="text-align:center;margin:auto;">
+        <a class="waves-effect waves-light btn modal-trigger green" href="#addclass">Add Class</a>
+        <button class='btn waves-effect waves-light grey darken-3' type='submit' name='action' onclick='toggle()'>Toggle View</button>
+    </div>
+
+    <div class='container'>
+        <h4>Classes</h4>
+        <div id='classCarousel' class="carousel" style='position: relative; top: -80px;'>
+            <a class="carousel-item" href="setup.html">
+                <div class="classroomPallete"><i class="material-icons right">delete</i>
+                    <h5>CMSC 170</h5>
+                    <h6>U-6l</h6>
+                    <br/>
+                    <h6>Artificial Intelligence</h6>
+                </div>
+                <div class="notes">Due Friday Activity: Karakot dakot na activity about probability</div>
+            </a>
+            <a class="carousel-item" href="#one!">
+                <div class="classroomPallete"><i class="material-icons right">delete</i>
+                    <h5>CMSC 132</h5>
+                    <h6>T-1L</h6>
+                    <br/>
+                    <h6>Kristine Elaine Bautista</h6>
+                </div>
+                <div class="notes">Due Tomorrow Activity: Sequential circuit</div>
+            </a>
+            <a class="carousel-item" href="#one!">
+                <div class="classroomPallete"><i class="material-icons right">delete</i>
+                    <h5>CMSC 125</h5>
+                    <h6>ST-1l</h6>
+                    <br/>
+                    <h6>John Emmanuel Encinas</h6>
+                </div>
+                <div class="notes"></div>
+            </a>
+            <a class="carousel-item" href="#one!">
+                <div class="classroomPallete"><i class="material-icons right">delete</i>
+                    <h5>CMSC 141</h5>
+                    <h6>2L</h6>
+                    <br/>
+                    <h6>Donna Drio</h6>
+                </div>
+                <div class="notes"></div>
+            </a>
+
+        </div>
+
+        <div id='classCards' class=container style='position: relative; top: -450px;'>
+            <div class='row'>
+                <ul>
+                    <li>
+                        <div class='col s12 m6 l4'>
+                            <div class='card-panel green darken-2 class-card'>
+                                <h5><a href=''>CMSC 128</a></h5>
+                                <h6>AB-3L</h6>
+                                <p>
+                                    Introduction to Software Engineering
+                                </p>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <div class='col s12 m6 l4'>
+                            <div class='card-panel green darken-2 class-card'>
+                                <h5><a href=''>CMSC 128</a></h5>
+                                <h6>AB-3L</h6>
+                                <p>
+                                    Introduction to Software Engineering
+                                </p>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <div class='col s12 m6 l4'>
+                            <div class='card-panel green darken-2 class-card'>
+                                <h5><a href=''>CMSC 128</a></h5>
+                                <h6>AB-3L</h6>
+                                <p>
+                                    Introduction to Software Engineering
+                                </p>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <div class='col s12 m6 l4'>
+                            <div class='card-panel green darken-2 class-card'>
+                                <h5><a href=''>CMSC 128</a></h5>
+                                <h6>AB-3L</h6>
+                                <p>
+                                    Introduction to Software Engineering
+                                </p>
+                            </div>
+                        </div>
+
+                    </li>
+
+                    <li>
+                        <div class='col s12 m6 l4'>
+                            <div class='card-panel green darken-2 class-card'>
+                                <h5><a href=''>CMSC 128</a></h5>
+                                <h6>AB-3L</h6>
+                                <p>
+                                    Introduction to Software Engineering
+                                </p>
+                            </div>
+                        </div>
+
+                    </li>
+
+
+
+
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="addclass" class="modal">
+        <div class="modal-content">
+            <h3>Add Class</h3>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="className" type="text" class="validate">
+                    <label for="className">Class Name</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="classSection" type="text" class="validate">
+                    <label for="classSection">Class Section</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+            <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add Class</a>
+        </div>
+    </div>
+
+    <footer class="page-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+
+                    <h5 class="white-text">Company Bio</h5>
+                    <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Settings</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+                <div class="col l3 s12">
+                    <h5 class="white-text">Connect</h5>
+                    <ul>
+                        <li><a class="white-text" href="#!">Link 1</a></li>
+                        <li><a class="white-text" href="#!">Link 2</a></li>
+                        <li><a class="white-text" href="#!">Link 3</a></li>
+                        <li><a class="white-text" href="#!">Link 4</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!--  Scripts-->
+
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <script src="js/init.js"></script>
+    <!--prism-->
+    <script type="text/javascript" src="js/prism.js"></script>
+    <!--scrollbar-->
+    <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <!-- chartist -->
+    <script type="text/javascript" src="js/plugins/chartist-js/chartist.min.js"></script>
+
+    <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+    <script type="text/javascript" src="js/plugins.js"></script>
+
+    <script>
+        var carousel = document.getElementById('classCarousel');
+        carousel.style.visibility = 'visible';
+
+        var cards = document.getElementById('classCards');
+        cards.style.visibility = 'hidden';
+
+        function toggle(){
+            if(carousel.style.visibility == 'visible'){
+                carousel.style.visibility = 'hidden';
+            }else{
+                carousel.style.visibility = 'visible';
+            }
+            if(cards.style.visibility == 'visible'){
+                cards.style.visibility = 'hidden';
+            }else{
+                cards.style.visibility = 'visible';
+            }
+        }
+    </script>
+</body>
+</html>

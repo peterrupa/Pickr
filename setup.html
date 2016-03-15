@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
+    <title>Pickr</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <style type='text/css' media='screen'>
+        body {
+            font-family: "Montserrat", arial, sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo"><img src="img/CMSC_Prince_wbox.png" alt="logo" style="height:40px;width:40px;">Pickr</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="classpanel.html">Home</a></li>
+            </ul>
+
+            <ul id="nav-mobile" class="side-nav">
+                <li><a href="#">Sign up</a></li>
+                <li><a href="#">Log In</a></li>
+                <li><a href="">About</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+        </div>
+    </nav>
+    <br/>
+    <br/>
+
+    <div id="index-banner" class="parallax-container" style="height:30%;">
+        <div class="section no-pad-bot">
+            <div class="container coolh1">
+                <br>
+                <br>
+                <div class="h1cont">
+                    <h1 class="header center" style="margin-top: 25%">WELCOME TO CMSC 170!</h1></div>
+                <div class="row center">
+                    <h5 class="header col s6 light right">Introduction to Artificial Intelligence</h5>
+                </div>
+
+                <br>
+                <br>
+
+            </div>
+        </div>
+        <div class="parallax"><img src="img/cbbg.jpg" alt="Unsplashed background img 1"></div>
+    </div>
+
+    <div class="row">
+        <!-- blog card -->
+        <div class="col s12 m12 l4">
+            <div class="blog-card">
+                <div class="card small">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="img/students-icon.png">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Number of students: 4<i class="material-icons right">more_vert</i></span>
+                        <p><a href="#list">Student List</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Students<i class="material-icons right">close</i></span>
+                        <p>Here is some more information about this product that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- product-card -->
+        <div class=" s6 m12 l4">
+            <ul id="task-card" class="collection with-header">
+                <li class="collection-header cyan">
+                    <span><h4 class="task-card-title">Activities</h4>
+                                        <p class="task-card-date">March 26, 2015<a class="waves-effect waves-light btn modal-trigger  green right" href="#addactivity">Add Activity</a></p></span>
+
+                </li>
+                <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                    <input type="checkbox" id="task1">
+                    <label for="task1" style="text-decoration: none;"><a href="random.html">Create Mobile App UI. </a><a href="#" class="secondary-content"><span class="ultra-small">Today</span></a>
+                    </label>
+                    <span class="task-cat teal">Mobile App</span>
+                    <a href="controlPanel.html"><i class="mdi-action-settings right"></i></a>
+                    <a href="random.html"><i class="mdi-image-color-lens right"></i></a>
+                </li>
+                <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                    <input type="checkbox" id="task2">
+                    <label for="task2" style="text-decoration: none;">Check the new API standerds. <a href="#" class="secondary-content"><span class="ultra-small">Monday</span></a>
+                    </label>
+                    <span class="task-cat purple">Web API</span>
+                    <a href="#"><i class="mdi-action-settings right"></i></a>
+                    <a href="#"><i class="mdi-image-color-lens right"></i></a>
+                </li>
+                <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                    <input type="checkbox" id="task3" checked="checked">
+                    <label for="task3" style="text-decoration: line-through;">Check the new Mockup of ABC. <a href="#" class="secondary-content"><span class="ultra-small">Wednesday</span></a>
+                    </label>
+                    <span class="task-cat pink">Mockup</span>
+                    <a href="#"><i class="mdi-action-settings right"></i></a>
+                    <a href="#"><i class="mdi-image-color-lens right"></i></a>
+                </li>
+                <li class="collection-item dismissable" style="touch-action: pan-y; -webkit-user-drag: none; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
+                    <input type="checkbox" id="task4" checked="checked" disabled="disabled">
+                    <label for="task4" style="text-decoration: line-through;">I did it !</label>
+                    <span class="task-cat cyan">Mobile App</span>
+                    <a href="#"><i class="mdi-action-settings right"></i></a>
+                    <a href="#"><i class="mdi-image-color-lens right"></i></a>
+                </li>
+            </ul>
+
+            <!-- map-card -->
+
+        </div>
+        <a name="list"></a>
+        <div class="row">
+            <ul class="collection with-header">
+                <li class="collection-header">
+                    <h4>Student List</h4><a class="waves-effect waves-light btn modal-trigger green" href="#addstudent">Add Student</a></li>
+                <li class="collection-item"><a href="student.html">Roger Waters</a></li>
+                <li class="collection-item">Roger Waters</li>
+                <li class="collection-item">Roger Waters</li>
+                <li class="collection-item">Roger Waters</li>
+            </ul>
+        </div>
+        <div id="addstudent" class="modal">
+            <div class="modal-content">
+                <h3>Add Student</h3>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="lastName" type="text" class="validate">
+                        <label for="lastName">Last Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="firstName" type="text" class="validate">
+                        <label for="firstName">First Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="studentNumber" type="text" class="validate">
+                        <label for="studentNumber">Middle Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="middleName" type="text" class="validate">
+                        <label for="middleName">Student Number</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="course" type="text" class="validate">
+                        <label for="course">Course</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+                <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add Student</a>
+            </div>
+        </div>
+        <div id="addactivity" class="modal">
+            <div class="modal-content">
+                <h3>Add Activity</h3>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="activity" type="text" class="validate">
+                        <label for="activity">Activity</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="dueDate" type="text" class="validate">
+                        <label for="dueDate">Due Date</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="tags" type="text" class="validate">
+                        <label for="tags">Tags (separate by comma)</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
+                <a href="#" class="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</a>
+            </div>
+        </div>
+        <footer class="page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+
+                        <h5 class="white-text">Company Bio</h5>
+                        <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+
+
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Settings</h5>
+                        <ul>
+                            <li><a class="white-text" href="#!">Link 1</a></li>
+                            <li><a class="white-text" href="#!">Link 2</a></li>
+                            <li><a class="white-text" href="#!">Link 3</a></li>
+                            <li><a class="white-text" href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
+                    <div class="col l3 s12">
+                        <h5 class="white-text">Connect</h5>
+                        <ul>
+                            <li><a class="white-text" href="#!">Link 1</a></li>
+                            <li><a class="white-text" href="#!">Link 2</a></li>
+                            <li><a class="white-text" href="#!">Link 3</a></li>
+                            <li><a class="white-text" href="#!">Link 4</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+                </div>
+            </div>
+        </footer>
+
+
+        <!--  Scripts-->
+
+
+        <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script src="js/materialize.js"></script>
+        <script src="js/init.js"></script>
+        <!--prism-->
+        <script type="text/javascript" src="js/prism.js"></script>
+        <!--scrollbar-->
+        <script type="text/javascript" src="js/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+        <!-- chartist -->
+        <script type="text/javascript" src="js/plugins/chartist-js/chartist.min.js"></script>
+
+        <!--plugins.js - Some Specific JS codes for Plugin Settings-->
+        <script type="text/javascript" src="js/plugins.js"></script>
+</body>
+
+</html>

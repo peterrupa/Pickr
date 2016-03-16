@@ -2,6 +2,6 @@ import express from 'express';
 let router = express.Router();
 import * as accountController from '../controllers/accountController';
 
-router.post('/', accountController.insert);
+router.post('/createAccount', accountController.insert);
 
 export default router;

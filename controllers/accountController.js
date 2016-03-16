@@ -65,6 +65,9 @@ export function login(req, res) {
 export function logout(req, res) {
     if (req.session.user) {
         req.session.destroy();
+        res.status(200).send({status:'logged out'});
+    } else {
+        res.status(403).send(new Error('Invalid logout'));
     }
-    res.send([{status:'logged out'}]);
+    
 }

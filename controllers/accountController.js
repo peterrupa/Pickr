@@ -1,16 +1,28 @@
 /*
-    Controller for the model "user".
+    Controller for the model "account".
 */
 
 import express from 'express';
-import expressSession from 'express-session';
-
 let router  = express.Router();
 
-import { User } from '../models';
+// be sure to import your model here
+import { Account } from '../models';
+
+export function insert(req, res) {
+    Account.create({
+        fname: req.body.fname,
+        mi: req.body.mi,
+        lname: req.body.lname,
+        username: req.body.username,
+        emailAddress: req.body.email,
+        password: req.body.password
+    }).then(function(account) {
+        res.send(account);
+    });
+}
 
 export function login(req, res) {
-    User.findOne({
+    Account.findOne({
         where: {
             username: req.body.username,
             password: req.body.password 

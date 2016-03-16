@@ -1,6 +1,6 @@
 export default function (sequelize, DataTypes) {
     let Activity = sequelize.define("Activity", {
-        id: DataTypes.STRING,
+        activityId: DataTypes.STRING,
         name: DataTypes.STRING,
         desc: DataTypes.STRING(1000)
     });

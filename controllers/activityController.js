@@ -9,7 +9,7 @@ let router  = express.Router();
 import { Activity } from '../models';
 
 export function getAll(req, res) {
-    Activity.findAll()
+		Activity.findAll()
     .then(function(activities) {
         res.send(activities);
     });
@@ -17,7 +17,7 @@ export function getAll(req, res) {
 
 //GET ACTIVITY
 export function getOne(req, res) {
-    Activity.find({ where: {id: req.body.id} }).on('success', function(activity) {
+    Activity.find({ where: {activityId: req.body.searchId} }).on('success', function(activity) {
     	res.send(activity);
     });
 }
@@ -25,7 +25,7 @@ export function getOne(req, res) {
 //CREATE ACTIVITY
 export function insert(req, res) {
     Activity.create({
-        id: req.body.id,
+        activityId: req.body.activityId,
         name: req.body.name,
         desc: req.body.desc,
     }).then(function(activity) {
@@ -35,23 +35,24 @@ export function insert(req, res) {
 
 //UPDATE ATTRIBUTES
 export function update(req, res) {
-    Activity.find({ where: {id: req.body.id} }).on('success', function(activity) {
+    Activity.find({ where: {activityId: req.body.searchId} })
+    .then(function(activity) {
     	if(activity){
 			activity.updateAttributes({
-				id: req.body.id,
+				activityId: req.body.activityId,
 				name: req.body.name,
 				desc: req.body.desc
-			}).success(function() {});
+			}).then(function(activity) {});
 			res.send(activity);
 		}
     });
 }
 
 //DELETE ACTIVITY
-export function delete(req, res) {
-    Activity.find({ where: {id: req.body.id} }).on('success', function(activity) {
+export function deleteActivity(req, res) {
+    Activity.find({ where: {activityId: req.body.searchId} }).on('success', function(activity) {
         if(activity){
-			activity.destroy();
-		}
+					activity.destroy();
+				}
     });
 }

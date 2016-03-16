@@ -1,10 +1,10 @@
 import chai from 'chai';
 import request from 'supertest';
+import error from './../src/constants/ErrorTypes';
 
 const should = chai.should();
 const assert = chai.assert;
-
-let api = request.agent("localhost:8000/");
+const api    = request.agent("localhost:8000");
 
 function login (expectedStatusCode, username, password) {
     return api.post('/api/account/login')
@@ -12,63 +12,82 @@ function login (expectedStatusCode, username, password) {
             .expect(expectedStatusCode);
 }
 
-function logout () {
-    return api.get('/api/account/logout');
+function logout (expectedStatusCode) {
+    return api.get('/api/account/logout').expect(expectedStatusCode);
 }
 
-function normalLogout () {
-    return logout()
+describe('Login', () => {
+    it('should login if the username and password match is correct', (done) => {
+        login(200,'PJHRobles','ultimatesecret')
             .end((err,res) => {
                 should.not.exist(err);
-                should.exist(res);
+                logout(200)
+                    .end((err,res) => {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+    });
+
+    it('should allow case-insensitive login', (done) => {
+        login(200,'PJhROBleS','ultimatesecret')
+            .end((err,res) => {
+                should.not.exist(err);
+                logout(200)
+                    .end((err,res) => {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+    });
+
+    it('should fail if a session already exists', (done) => {
+        login(200,'PJHRobles','ultimatesecret')
+            .end((err,res) => {
+                should.not.exist(err);
+                login(403,'test','ultimatesecret')
+                    .end((err,res) => {
+                        should.exist(res);
+                    });
+                logout(200)
+                    .end((err,res) => {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
+    });
+
+    it('should fail if the password is incorrect', (done) => {
+        login(401, 'PJHRobles', 'notasecret')
+            .end((err,res) => {
                 done();
             });
-} 
+    });
 
-describe('Login', () => {
-    it('should login if the username and password match is correct', () => {
-        login(200,'PJHRobles','ultimatesecret')
+    it('should fail if the username and password is not in the database', (done) => {
+        login(404, 'notausername', 'notapassword')
             .end((err,res) => {
-                should.not.exist(err);
-                should.exist(res);
-            });
-        normalLogout();
-    });
-
-    it('should allow case-insensitive login', () => {
-        login(200,'PJHRobles','ultimatesecret')
-            .end((err,res) => {
-                should.not.exist(err);
-                should.exist(res);
-            });
-        normalLogout();
-    });
-
-    it('should fail if a session already exists', () => {
-        login(200,'PJHRobles','ultimatesecret');
-        login(403,'test','ultimatesecret');
-        normalLogout();
-    });
-
-    it('should fail if the password is incorrect', () => {
-        
-    });
-
-    it('should fail if the username and password is not in the database', () => {
-        
+                done();
+            }); 
     });
 });
 
 describe('Logout', () => {
-    it('should login if the username and password match in the database', () => {
-        
+    it('should logout normally', (done) => {
+        login(200, 'PJHRobles', 'ultimatesecret')
+            .end((err,res) => {
+                logout(200)
+                    .end((err,res) => {
+                        should.not.exist(err);
+                        done();
+                    });
+            });
     });
 
-    it('should fail if the username and password does not match in the database', () => {
-        
-    });
-
-    it('should fail if the username and password is not in the database', () => {
-        
+    it('should not logout when no one is logged in', (done) => {
+        logout(403)
+            .end((err,res) => {
+                done();
+            });
     });
 });

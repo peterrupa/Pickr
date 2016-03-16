@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -8,10 +9,17 @@ import bodyParser from 'body-parser';
 import student from './routes/student';
 import sample from './routes/sample';
 import volunteer from './routes/volunteer';
+import account from './routes/account';
 
 let app = express();
 
 app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'PUT01SL0V3_PUT01SL1F3',
+    resave: false,
+    saveUninitialized: true
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -22,6 +30,7 @@ app.use(cookieParser());
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);
+app.use('/api/account', account);
 
 // send routing to client
 app.get('*', (req, res) => {

@@ -5,6 +5,8 @@ import configureStore from './store/configureStore';
 
 // stylesheets
 import './styles/styles.scss';
+import './styles/style.css';
+//import './styles/materialize.css';
 
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
@@ -19,11 +21,13 @@ const store = configureStore(undefined, storemiddlewareHistory);
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Containers.App}>
-                <Route path="sample" component={Containers.SamplePage}/>
-                <Route path="test" component={Containers.TestPage}/>
-                <Route path="*" component={Containers.NotFoundPage}/>
+            <Route path="/" component={Containers.HomePage}>
+                // <Route path="sample" component={Containers.SamplePage}/>
+                // <Route path="test" component={Containers.TestPage}/>
+                // <Route path="*" component={Containers.NotFoundPage}/>
+
             </Route>
+
         </Router>
     </Provider>, document.getElementById('app')
 );

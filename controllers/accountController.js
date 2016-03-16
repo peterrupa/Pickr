@@ -61,7 +61,7 @@ exports.logout = (req, res) => {
         req.session.destroy();
         res.status(200).send({status:'logged out'});
     } else {
-        res.status(403).send({UNAUTH: error.UNAUTH});
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH});
     }
     
 }

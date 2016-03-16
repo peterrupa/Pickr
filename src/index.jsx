@@ -22,6 +22,7 @@ render(
             <Route path="/" component={Containers.App}>
                 <Route path="sample" component={Containers.SamplePage}/>
                 <Route path="test" component={Containers.TestPage}/>
+                <Route path="control-panel" component={Containers.ControlPanel}/>
                 <Route path="*" component={Containers.NotFoundPage}/>
             </Route>
         </Router>

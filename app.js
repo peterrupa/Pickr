@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -12,6 +13,12 @@ import account from './routes/account';
 let app = express();
 
 app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'PUT01SL0V3_PUT01SL1F3',
+    resave: false,
+    saveUninitialized: true
+}));
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

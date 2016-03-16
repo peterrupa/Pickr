@@ -7,6 +7,5 @@ export default function (sequelize, DataTypes) {
         EmailAddress: DataTypes.STRING,
         Password: DataTypes.STRING
     });
-
     return Account;
 };

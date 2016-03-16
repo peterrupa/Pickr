@@ -7,6 +7,7 @@ import bodyParser from 'body-parser';
 
 import student from './routes/student';
 import sample from './routes/sample';
+import volunteer from './routes/volunteer';
 
 let app = express();
 

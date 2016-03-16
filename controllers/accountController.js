@@ -29,7 +29,7 @@ exports.login = (req, res) => {
         }
     }).then((user) => {
         if(!user && !req.session.user) {
-            res.status(404).send({INV_USER: error.INV_USER});
+            res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
         } else {
             Account.findOne({
                 where: {
@@ -38,21 +38,21 @@ exports.login = (req, res) => {
                 }
             }).then((user) => {
                 if(!user && !req.session.user) {
-                    res.status(401).send({INV_PASS: error.INV_PASS})
+                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
                 } else {
                     if (!req.session.user) {
                         req.session.user = req.body.username;
                         res.status(200).send({username:user.dataValues.Username, status:'logged in'});
                     } else {
-                        res.status(403).send({UNAUTH: error.UNAUTH});
+                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
                     }
                 }
             }).catch((err) => {
-                res.status(500).send({LOG_FAIL: error.LOG_FAIL});
+                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
             });
         }
     }).catch((err) => {
-        res.status(500).send({LOG_FAIL: error.LOG_FAIL});
+        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     });
 }
 

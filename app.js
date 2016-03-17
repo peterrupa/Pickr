@@ -11,7 +11,7 @@ import sample from './routes/sample';
 let app = express();
 
 app.set('view engine', 'ejs');
-
+app.use(express.static(__dirname+"/public"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));

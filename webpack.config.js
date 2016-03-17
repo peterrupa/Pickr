@@ -61,7 +61,20 @@ const getLoaders = function (env) {
             test: /\.jsx$/,
             include: path.join(__dirname, 'src'),
             loaders: ['babel', 'eslint']
+        },{
+            test   : /\.woff/,
+            loader : 'file-loader'
+        }, {
+            test   : /\.ttf/,
+            loader : 'file?prefix=font/'
+        }, {
+            test   : /\.eot/,
+            loader : 'file?prefix=font/'
+        }, {
+            test   : /\.svg/,
+            loader : 'file?prefix=font/'
         }
+
     ];
 
     if (env === productionEnvironment) {

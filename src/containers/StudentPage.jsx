@@ -8,6 +8,9 @@ import NavBar from '../components/NavBar.jsx';
 
 // Be sure to rename your className name
 class StudentPage extends React.Component {
+    componentDidMount() {
+        // code
+    }
     render() {
         return (
             <div>
@@ -30,7 +33,7 @@ class StudentPage extends React.Component {
                                     <div id="profile-page-header" className="card">
 
                                         <figure className="card-profile-image">
-                                            <img src="./img/defaultPP.png" alt="profile image" className="circle z-depth-2 responsive-img activator" style={{
+                                            <img src="./img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
                                                 width: '20%',
                                                 height: '20%'
                                             }}/>

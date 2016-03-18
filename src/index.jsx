@@ -5,6 +5,7 @@ import configureStore from './store/configureStore';
 
 // stylesheets
 import '../node_modules/materialize-css/sass/materialize.scss';
+//import '../node_modules/materialize-css/js/materialize.js';
 import './styles/styles.scss';
 import './styles/style.css';
 //import '../node_modules/materialize-css/sass/style.scss';

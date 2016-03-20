@@ -9,6 +9,7 @@ import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
 import activity from './routes/activity';
+import classRoute from './routes/class';
 
 let app = express();
 
@@ -25,6 +26,8 @@ app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
 app.use('/api/activity', activity);
+app.use('/api/class', classRoute);
+app.use('/api/student', student);
 
 // send routing to client
 app.get('*', (req, res) => {

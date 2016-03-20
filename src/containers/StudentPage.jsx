@@ -6,10 +6,14 @@ import { connect } from 'react-redux';
 
 import NavBar from '../components/NavBar.jsx';
 
+// IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
+const Materialize = window.Materialize;
+
 // Be sure to rename your className name
 class StudentPage extends React.Component {
     componentDidMount() {
         // code
+        Materialize.toast('Hey, JS works now!', 4000, 'green white-text');
     }
     render() {
         return (
@@ -71,7 +75,8 @@ class StudentPage extends React.Component {
                                                 </span>
                                                 <span>
                                                     <i className="mdi-action-perm-identity cyan-text text-darken-2"></i>
-                                                    Student</span>
+                                                    Student
+                                                </span>
                                             </p>
 
                                             <p>This student is so bibo, like so angas in his answers pero walang point? get my point?</p>

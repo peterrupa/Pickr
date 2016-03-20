@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 // stylesheets
-import '../node_modules/materialize-css/sass/materialize.scss';
-//import '../node_modules/materialize-css/js/materialize.js';
 import './styles/styles.scss';
 import './styles/style.css';
-//import '../node_modules/materialize-css/sass/style.scss';
-//import './styles/materialize.css';
+
+// js
+import '../externalDependencies/js/jquery-1.12.2.js';
+import '../externalDependencies/js/materialize.js';
 
 import { Router, Route, browserHistory } from 'react-router';
 import { syncHistory } from 'react-router-redux';
@@ -24,10 +24,9 @@ render(
     <Provider store={store}>
         <Router history={browserHistory}>
             <Route path="/" component={Containers.StudentPage}>
-                // <Route path="sample" component={Containers.SamplePage}/>
-                // <Route path="test" component={Containers.TestPage}/>
-               <Route path="*" component={Containers.NotFoundPage}/>
-
+                <Route path="sample" component={Containers.SamplePage}/>
+                <Route path="test" component={Containers.TestPage}/>
+                <Route path="*" component={Containers.NotFoundPage}/>
             </Route>
 
         </Router>

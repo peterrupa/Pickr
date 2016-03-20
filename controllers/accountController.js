@@ -6,68 +6,62 @@ import express from 'express';
 let router  = express.Router();
 
 // be sure to import your model here
+import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 
-export function insert(req, res) {
+exports.insert = (req, res) => {
     Account.create({
-        fname: req.body.fname,
-        mi: req.body.mi,
-        lname: req.body.lname,
-        username: req.body.username,
+        fname:        req.body.fname,
+        mi:           req.body.mi,
+        lname:        req.body.lname,
+        username:     req.body.username,
         emailAddress: req.body.email,
-        password: req.body.password
+        password:     req.body.password
     }).then(function(account) {
-        res.send(account);
+        res.status(200).send(account);
     });
 }
 
-export function login(req, res) {
+exports.login = (req, res) => {
     Account.findOne({
         where: {
             username: req.body.username
         }
     }).then((user) => {
-        console.log(user.username);
-        if(!user) {
-            res.status(404).send(new Error("User does not exist!"));
+        if(!user && !req.session.user) {
+            res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
         } else {
             Account.findOne({
                 where: {
                     username: req.body.username,
                     password: req.body.password
                 }
-            }).then((userwithpw) => {
-                if(!userwithpw) {
-                    res.status(401).send(new Error("Incorrect password!"));
+            }).then((user) => {
+                if(!user && !req.session.user) {
+                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
                 } else {
                     if (!req.session.user) {
                         req.session.user = req.body.username;
-                        req.session.success = 'You are successfully logged in ' + req.body.username + '!';
-                        res.status(200).send(userwithpw);
+                        res.status(200).send({username:user.dataValues.Username, status:'logged in'});
                     } else {
-                        req.session.error = 'Someone is currently logged in.';
-                        res.status(403).send(new Error("Forbidden!"));
+                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
                     }
                 }
             }).catch((err) => {
-                console.log(err);
-                req.session.error = 'Login Failed. Please try again';
-                res.status(500).send(err);
+                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
             });
         }
     }).catch((err) => {
-        console.log(err);
-        req.session.error = 'Login Failed. Please try again';
-        res.status(500).send(err);
+        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     });
 }
 
-export function logout(req, res) {
+exports.logout = (req, res) => {
     if (req.session.user) {
         req.session.destroy();
         res.status(200).send({status:'logged out'});
     } else {
-        res.status(403).send(new Error('Invalid logout'));
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH});
     }
     
 }

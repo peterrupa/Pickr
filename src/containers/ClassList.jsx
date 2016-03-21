@@ -1,4 +1,4 @@
-// This is an example page. Use this as your guideline when you make your own page.
+
 
 // Import dependencies
 import React, {PropTypes} from 'react';
@@ -12,40 +12,46 @@ import './../styles/style.css';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
+const $ = window.$;
 
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentDidMount() {
+        $('.carousel').carousel();
+
         let carousel = document.getElementById('classCarousel');
-        carousel.style.visibility = "visible";
+        carousel.style.visibility = "hidden";
 
         let cards = document.getElementById('classCards');
-        cards.style.visibility = "hidden";
-
-        function toggle() {
-            if (carousel.style.visibility == 'visible') {
-                carousel.style.visibility = 'hidden';
-            } else {
-                carousel.style.visibility = 'visible';
-            }
-            if (cards.style.visibility == 'visible') {
-                cards.style.visibility = 'hidden';
-            } else {
-                cards.style.visibility = 'visible';
-            }
-        }
-
+        cards.style.visibility = "visible";
     }
+
+    handleClick(){
+        let carousel = document.getElementById('classCarousel');
+        let cards = document.getElementById('classCards');
+        if(carousel.style.visibility == 'visible'){
+            carousel.style.visibility = 'hidden';
+        }else{
+            carousel.style.visibility = 'visible';
+        }
+        if(cards.style.visibility == 'visible'){
+            cards.style.visibility = 'hidden';
+        }else{
+            cards.style.visibility = 'visible';
+        }
+    }
+
     render() {
         return (
             <div>
                 <NavBar />
                 <div style={{
                     textAlign: 'center',
-                    margin: 'auto'
+                    margin: 'auto',
+                    paddingTop: '8%'
                 }}>
                     <a className="waves-effect waves-light btn modal-trigger green" href="#addclass">Add Class</a>
-                    <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick={this.toggle}>Toggle View</button>
+                    <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick={this.handleClick} >Toggle View</button>
                 </div>
                 <div className="container">
                     <h4>Classes</h4>

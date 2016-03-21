@@ -8,6 +8,10 @@ import './../styles/index_style.css';
 
 class LandingPage extends React.Component {
     render() {
+        let imgUrl = '../../img/ph.png';
+        let divStyle = {
+            backgroundImage: 'url(' + imgUrl + ')'
+        };
         return (
     <div id="top" className="scrollspy">
         {/*}<!-- Pre Loader -->
@@ -60,7 +64,7 @@ class LandingPage extends React.Component {
         </div>
 
         {/*<!--Hero-->*/}
-        <div className="section no-pad-bot" id="index-banner">
+        <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
                 <h1 className="text_h center header cd-headline letters type">
                     <span>We pick the</span >
@@ -134,7 +138,7 @@ class LandingPage extends React.Component {
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
-                                <img src="./img/samp1.png" className="product"/>
+                                <img src="../../img/samp1.png" className="product"/>
                             </div>
                         </div>
                     </div>

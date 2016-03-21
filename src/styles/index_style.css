@@ -22,7 +22,7 @@
     position: relative;
     display: flex;
     background-color: black;
-  /*  background-image: url("./../../public/img/ph.png");*/
+  /*  background-image: "url('./../../public/img/ph.png')";*/
     align-items: center;
     padding: 0 !important;
 }

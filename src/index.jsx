@@ -4,8 +4,6 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 // stylesheets
-import './styles/styles.scss';
-import './styles/style.css';
 
 // js
 import '../externalDependencies/js/jquery-1.12.2.js';
@@ -23,12 +21,9 @@ const store = configureStore(undefined, storemiddlewareHistory);
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Containers.StudentPage}>
-                <Route path="sample" component={Containers.SamplePage}/>
-                <Route path="test" component={Containers.TestPage}/>
-                <Route path="*" component={Containers.NotFoundPage}/>
-            </Route>
-
+            <Route path="/index" component={Containers.LandingPage}/>
+            <Route path="/student" component={Containers.StudentPage}/>
+            <Route path="/class" component={Containers.ClassList}/>
         </Router>
     </Provider>, document.getElementById('app')
 );

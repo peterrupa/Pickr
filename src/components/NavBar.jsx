@@ -15,13 +15,10 @@ class NavBar extends React.Component {
             <div>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
-                            <img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
-                            }}/>
-                            Pickr
-                        </a>
+                        <a id="logo-container" href="#" className="brand-logo"><img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
+                            height: '40px',
+                            width: '40px'
+                        }}/>Pickr</a>
                         <ul className="right hide-on-med-and-down">
 
                             <li>

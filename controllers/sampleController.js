@@ -2,9 +2,6 @@
     Controller for the model "sample".
 */
 
-import express from 'express';
-let router  = express.Router();
-
 // be sure to import your model here
 import { Sample } from '../models';
 

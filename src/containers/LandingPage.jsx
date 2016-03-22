@@ -3,7 +3,7 @@
 import React, {PropTypes} from 'react';
 
 import '../styles/index_style.css';
-import '../../externalDependencies/js/plugin-min.js';
+//import '../../externalDependencies/js/plugin-min.js';
 
 class LandingPage extends React.Component {
     componentDidMount() {

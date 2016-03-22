@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 
 // Be sure to rename your class name
 class SignUp extends React.Component {
-  componentDidMount(){
-
-    let body = document.getElementByTagName('body');
-    body.background = "./img/full-classroom.jpg";
-  }
+    componentDidMount(){
+        let body = document.getElementByTagName('body');
+        body.background = "./img/full-classroom.jpg";
+    }
 
     render() {
 
@@ -53,47 +52,57 @@ class SignUp extends React.Component {
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                          <form className="login-form">
-        <div className="row">
-          <div className="input-field col s12 center">
-            <img src="./img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
-            <p className="center login-form-text">Pickr Log-In Form</p>
-          </div>
-        </div>
-        <div className="row margin">
-          <div className="input-field col s12">
-            <i className="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text"/>
-            <label htmlFor="username" className="center-align">Username</label>
-          </div>
-        </div>
-        <div className="row margin">
-          <div className="input-field col s12">
-            <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password"/>
-            <label htmlFor="password">Password</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field login-text">
-              <input type="checkbox" id="remember-me"/>
-              <label htmlFor="remember-me">Remember me</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s12">
-            <a href="classpanel.html" className="btn waves-effect waves-light col s12">Login</a>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s6 m6 l6">
-            <p className="margin medium-small"><a href="sign-up.html">Register Now!</a></p>
-          </div>
-          <div className="input-field col s6 m6 l6">
-              <p className="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>
-          </div>
-        </div>
-    </form>
+                            <form className="login-form">
+                                <div className="row">
+                                    <div className="input-field col s12 center">
+                                        <img src="img/CMSC_Prince_cropped.png " alt=" " className="responsive-img valign profile-image-login" style={{
+                                            height: '60px',
+                                            width: '60px'
+                                        }}/>
+                                        <p className="center login-form-text">
+                                            Pickr Sign - Up Form
+                                        </p>
+                                    </div >
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-social-person-outline prefix"></i>
+                                        <input id="username" type="text" className="validate"/>
+                                        <label htmlFor="username" className="center-align">Username</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-communication-email prefix"></i>
+                                        <input id="email" type="email" className="validate"/>
+                                        <label htmlFor="email" className="center-align">Email</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="password" type="password" className="validate"/>
+                                        <label htmlFor="password">Password</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="password-again" type="password"/>
+                                        <label htmlFor="password-again">Re-type password</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <a href="register.html" className="btn waves-effect waves-light col s12">Register Now</a>
+                                    </div>
+                                    <div className="input-field col s12">
+                                        <p className="margin center medium-small sign-up">Already have an account?
+                                            <a href="log-in.html">Login</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

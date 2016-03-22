@@ -17,6 +17,7 @@ const $ = window.$;
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentDidMount() {
+        $('.modal-trigger').leanModal();
         $('.carousel').carousel();
 
         let carousel = document.getElementById('classCarousel');

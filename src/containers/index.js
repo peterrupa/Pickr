@@ -5,5 +5,9 @@ import TestPage from './TestPage.jsx';
 import StudentPage from './StudentPage.jsx';
 import ClassList from './ClassList.jsx';
 import LandingPage from './LandingPage.jsx';
+import ControlPanel from './ControlPanel.jsx';
+import ClassRoom from './ClassRoom.jsx';
+import LogIn from './LogIn.jsx';
+import SignUp from './SignUp.jsx';
 
-module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage};
+module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp};

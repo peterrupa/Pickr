@@ -2,20 +2,24 @@
 // to support hot reloading in Redux
 import React, {PropTypes} from 'react';
 
-import './../styles/index_style.css';
-//import './../../externalDependencies/js/plugin-min.js';
-//import './../../externalDependencies/js/custom-min.js';
+import '../styles/index_style.css';
+import '../../externalDependencies/js/plugin-min.js';
 
 class LandingPage extends React.Component {
+    componentDidMount() {
+        $('.parallax').parallax();
+        $('.scrollSpy').scrollSpy();
+    }
+
     render() {
         let imgUrl = '../../img/ph.png';
         let divStyle = {
             backgroundImage: 'url(' + imgUrl + ')'
         };
         return (
-    <div id="top" className="scrollspy">
-        {/*}<!-- Pre Loader -->
-        */}<div id="loader-wrapper">
+    <div id="top" className="scrollSpy">
+        {/*}<!-- Pre Loader -->*/}
+        <div id="loader-wrapper">
             <div id="loader"></div>
             <div className="loader-section section-left"></div>
             <div className="loader-section section-right"></div>

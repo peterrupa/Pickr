@@ -3,11 +3,7 @@ nav {
     position: fixed;
     z-index: 2;
 }
-h1 {
-    color: white;
-    background-color: #6FBEB6;
-    border-radius: 250px;
-}
+
 .h1cont {
     opacity: 0.8;
     width: 100%;

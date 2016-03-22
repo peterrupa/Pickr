@@ -18,7 +18,7 @@ class ClassRoom extends React.Component {
                             <img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{height:'40px',width:'40px'}}/>Pickr</a>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <a href="classpanel.html">Home</a>
+                                <a href="/class">Home</a>
                             </li>
                         </ul>
 
@@ -111,7 +111,7 @@ class ClassRoom extends React.Component {
                             <div className="block-content">
                                 <ul className="nav-users push">
                                     <li>
-                                        <a href="student.html">
+                                        <a href="/student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
@@ -124,7 +124,7 @@ class ClassRoom extends React.Component {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="student.html">
+                                        <a href="student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Joshua Munoz
                                             <div className="font-w400 text-muted">
@@ -135,7 +135,7 @@ class ClassRoom extends React.Component {
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="student.html">
+                                        <a href="student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Amber Walker
                                             <div className="font-w400 text-muted">
@@ -174,7 +174,7 @@ class ClassRoom extends React.Component {
                                         <span className="ultra-small">Today</span>
                                     </a>
                                 </label>
-                                <a href="controlPanel.html">
+                                <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
                                 <a href="random.html">
@@ -188,7 +188,7 @@ class ClassRoom extends React.Component {
                                         <span className="ultra-small">Monday</span>
                                     </a>
                                 </label>
-                                <a href="#">
+                                <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
                                 <a href="#">
@@ -202,7 +202,7 @@ class ClassRoom extends React.Component {
                                         <span className="ultra-small">Wednesday</span>
                                     </a>
                                 </label>
-                                <a href="#">
+                                <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
                                 <a href="#">
@@ -212,7 +212,7 @@ class ClassRoom extends React.Component {
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task4" defaultChecked="checked" disabled="disabled"/>
                                 <label htmlFor="task4" style={{textDecoration: 'line-through'}}>I did it !</label>
-                                <a href="#">
+                                <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
                                 <a href="#">

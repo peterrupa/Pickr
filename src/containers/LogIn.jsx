@@ -25,10 +25,10 @@ class LogIn extends React.Component {
                         <ul className="right hide-on-med-and-down">
 
                             <li>
-                                <a href="classpanel.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="#about">About</a>
+                                <a href="/#intro">About</a>
                             </li>
                         </ul>
 
@@ -48,7 +48,7 @@ class LogIn extends React.Component {
                 <br/>
                 <br/>
                 <div style={{
-                    height: '400px',
+                    height: '900px',
                     width: '400px',
                     margin: '0 auto'
                 }}>
@@ -83,12 +83,12 @@ class LogIn extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <a href="classpanel.html" className="btn waves-effect waves-light col s12">Login</a>
+            <a href="/class" className="btn waves-effect waves-light col s12">Login</a>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s6 m6 l6">
-            <p className="margin medium-small"><a href="sign-up.html">Register Now!</a></p>
+            <p className="margin medium-small"><a href="/signup">Register Now!</a></p>
           </div>
           <div className="input-field col s6 m6 l6">
               <p className="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>

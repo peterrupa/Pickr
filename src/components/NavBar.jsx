@@ -22,7 +22,7 @@ class NavBar extends React.Component {
                         <ul className="right hide-on-med-and-down">
 
                             <li>
-                                <a href="classNamepanel.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
                                 <a href="#about">About</a>
@@ -49,7 +49,7 @@ class NavBar extends React.Component {
 
                     <ul className="collection">
                         <li className="collection-item">
-                            <a href="setup.html">CMSC 170</a>
+                            <a href="/classroom">CMSC 170</a>
                         </li>
                         <li className="collection-item">CMSC 132</li>
                         <li className="collection-item">CMSC 125</li>

@@ -57,7 +57,7 @@ class ClassList extends React.Component {
                 <div className="container">
                     <h4>Classes</h4>
                     <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-80px'}}>
-                        <a className="carousel-item" href="setup.html">
+                        <a className="carousel-item" href="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 170</h5>
@@ -67,7 +67,7 @@ class ClassList extends React.Component {
                             </div>
                             <div className="notes">Due Friday Activity: Karakot dakot na activity about probability</div>
                         </a>
-                        <a className="carousel-item" href="#one!">
+                        <a className="carousel-item" href="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 132</h5>
@@ -77,7 +77,7 @@ class ClassList extends React.Component {
                             </div>
                             <div className="notes">Due Tomorrow Activity: Sequential circuit</div>
                         </a>
-                        <a className="carousel-item" href="#one!">
+                        <a className="carousel-item" href="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 125</h5>
@@ -87,7 +87,7 @@ class ClassList extends React.Component {
                             </div>
                             <div className="notes"></div>
                         </a>
-                        <a className="carousel-item" href="#one!">
+                        <a className="carousel-item" href="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 141</h5>
@@ -107,7 +107,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="">CMSC 128</a>
+                                                <a href="/classroom">CMSC 128</a>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -120,7 +120,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="">CMSC 128</a>
+                                                <a href="/classroom">CMSC 128</a>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -133,7 +133,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="">CMSC 128</a>
+                                                <a href="/classroom">CMSC 128</a>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -146,7 +146,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="">CMSC 128</a>
+                                                <a href="/classroom">CMSC 128</a>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -159,7 +159,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="">CMSC 128</a>
+                                                <a href="/classroom">CMSC 128</a>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>

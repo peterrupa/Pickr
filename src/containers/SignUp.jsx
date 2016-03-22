@@ -12,7 +12,7 @@ class SignUp extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url('+'./img/full-classroom.jpg'+')'}}>
+            <div style={{backgroundImage:'url(./img/full-classroom.jpg)',margin:'0'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <a id="logo-container" href="#" className="brand-logo">
@@ -23,10 +23,10 @@ class SignUp extends React.Component {
                         <ul className="right hide-on-med-and-down">
 
                             <li>
-                                <a href="classpanel.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="#about">About</a>
+                                <a href="/#intro">About</a>
                             </li>
                         </ul>
 
@@ -46,7 +46,7 @@ class SignUp extends React.Component {
                 <br/>
                 <br/>
                 <div style={{
-                    height: '400px',
+                    height: '900px',
                     width: '400px',
                     margin: '0 auto'
                 }}>
@@ -94,11 +94,11 @@ class SignUp extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <a href="register.html" className="btn waves-effect waves-light col s12">Register Now</a>
+                                        <a href="/login" className="btn waves-effect waves-light col s12">Register Now</a>
                                     </div>
                                     <div className="input-field col s12">
                                         <p className="margin center medium-small sign-up">Already have an account?
-                                            <a href="log-in.html">Login</a>
+                                            <a href="/login">Login</a>
                                         </p>
                                     </div>
                                 </div>

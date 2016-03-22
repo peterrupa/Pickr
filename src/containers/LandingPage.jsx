@@ -36,10 +36,10 @@ class LandingPage extends React.Component {
                                 <a href="#intro">About</a>
                             </li>
                             <li>
-                                <a href="#login">Log in</a>
+                                <a href="/login">Log in</a>
                             </li>
                             <li>
-                                <a href="#team">Sign up</a>
+                                <a href="/signup">Sign up</a>
                             </li>
                             <li>
                                 <a href="#contact">Contact</a>

@@ -1,0 +1,29 @@
+/*
+    This is a sample configuration file for your reference. You should copy the contents below into config.json.
+
+    config.json is ignored by git by default. This is to ensure that your sensitive credentials won't be pushed into our repository.
+*/
+
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

@@ -14,11 +14,11 @@ class Presentation extends React.Component {
     
     render() {     
         const { presentationState, fetchInitialSample } = this.props;
-                   
+
         return (
             <div>
                 <h1>Presentation</h1>
-                <p>{presentationState.volunteer.studentID}</p>
+                <p>{presentationState.volunteer.studentLName}, {presentationState.volunteer.studentFName}</p>
             </div>
         );
     }

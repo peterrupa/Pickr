@@ -13,7 +13,20 @@ export function insert(req, res) {
         studentID: req.body.studentID,
         dateVolunteered: new Date(),
         note: req.body.note
-    }).then(function(account) {
-        res.send(account);
+    }).then(function(volunteer) {
+        res.send(volunteer);
     });
+}
+
+export function findOne(req, res) {
+
+	Volunteer.find({
+		where: {
+			activityID: req.params.activityID,
+			studentID: req.params.studentID,
+			dateVolunteered: req.params.dateVolunteered
+		}
+	}).then(function(volunteer) {
+		res.send(volunteer);
+	});
 }

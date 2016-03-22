@@ -89,31 +89,31 @@ class LandingPage extends React.Component {
                     <div className="col s12">
                         <h2 className="center header text_h2">
                             Here at
-                            <span className="span_h2">
-                                pickr
+                            <span className="span_h2" style={{margin:'1%'}}>
+                                pickr:
                             </span>
-                            we chepar chepar your students.</h2>
+                            Load Off Choosing, Be Best In Teaching!</h2>
                     </div>
 
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-image-flash-on"></i>
-                            <h5 className="promo-caption">Speeds up Discussions</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                            <h5 className="promo-caption">Great in classroom environment</h5>
+                            <p className="light center">With all the tools in your hands, we assure you that you can master this application in a matter of minutes. We provided a guide to help you out in learning.</p>
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-social-group"></i>
                             <h5 className="promo-caption">Student Oriented</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <p className="light center">We want you to experience high-end web application to aid you in your everyday lectures. We showcase necesarry tools needed in a classroom setup aligned with your goals.</p>
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-hardware-desktop-windows"></i>
                             <h5 className="promo-caption">Split screen UI</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                            <p className="light center">In every action done in your activities, it will be updated in your records including the real time changes in the chances of a student to be called in your class</p>
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@ class LandingPage extends React.Component {
                             <div className="col s12">
                                 <h2 className="center header text_h2">
                                     Want to know more about
-                                    <span className="span_h2">
+                                    <span className="span_h2" style={{margin:'1%'}}>
                                         pickr</span >?
                                 </h2>
                                 <div className="center">

@@ -1,5 +1,6 @@
 export default function (sequelize, DataTypes) {
 		let Class =sequelize.import(__dirname + "/class");
+		
     let Student = sequelize.define("Student", {
       studentId: {
       	type: DataTypes.STRING,
@@ -13,7 +14,7 @@ export default function (sequelize, DataTypes) {
     	tagName: DataTypes.STRING
     });
     
-    Student.belongsTo(Class);
+    Student.belongsTo(Class, {foreignKey:'classCode'});
     Student.hasMany(Tags);
     return Student;
 };

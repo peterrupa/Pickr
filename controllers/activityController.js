@@ -11,16 +11,26 @@ import { Activity } from '../models';
 export function getAll(req, res) {
 		Activity.findAll()
     .then(function(activities) {
-        res.send(activities);
+        if(activities)
+        	res.status(200).send(activities);
+        else
+        	res.status(404).send(null);
     });
 }
 
 export function getOne(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} }).on('success', function(activity) {
-    	res.send(activity);
+    Activity.find({
+    	where: {
+    		activityId: req.body.activityId
+    	} 
+    }).then(function(activity){
+    	if(activity)
+    		res.status(200).send(activity);
+    	else
+    		res.status(404).send(null);	
     });
 }
-
+	
 //CREATE ACTIVITY
 export function insert(req, res) {
     Activity.create({
@@ -28,7 +38,10 @@ export function insert(req, res) {
         activityName: req.body.activityName,
         activityDesc: req.body.activityDesc,
     }).then(function(activity) {
-        res.send(activity);
+        if(activity)
+        	res.status(200).send(activity);
+        else
+        	res.status(404).send(null);
     });
 }
 
@@ -37,13 +50,19 @@ export function update(req, res) {
     Activity.find({ where: {activityId: req.body.activityId} })
     .then(function(activity) {
     	if(activity){
-			activity.updateAttributes({
-				activityId: req.body.activityId,
-				activityName: req.body.activityName,
-				activityDesc: req.body.activityDesc
-			}).then(function(activity) {});
-			res.send(activity);
-		}
+				activity.updateAttributes({
+					activityId: req.body.activityId,
+					activityName: req.body.activityName,
+					activityDesc: req.body.activityDesc
+				}).then(function(activity) {
+					if(activity)
+						res.status(200).send(activity);
+					else
+						res.status(404).send(null);
+				});
+			} else {
+				res.status(404).send(null);
+			}
     });
 }
 
@@ -54,8 +73,9 @@ export function deleteActivity(req, res) {
         if(activity){
 					activity.destroy()
 					.then(function(){
-						res.send("Hello");
+						res.status(200).send("Delete successful");
 					});
-				}
+				} else 
+					res.status(404).send("Activity not found");
     });
 }

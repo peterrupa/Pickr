@@ -3,5 +3,6 @@ let router = express.Router();
 import * as volunteerController from '../controllers/volunteerController';
 
 router.post('/', volunteerController.insert);
+router.get('/:id', volunteerController.findOne);
 
 export default router;

@@ -22,9 +22,7 @@ export function findOne(req, res) {
 
 	Volunteer.find({
 		where: {
-			activityID: req.params.activityID,
-			studentID: req.params.studentID,
-			dateVolunteered: req.params.dateVolunteered
+		    volunteerID: req.params.id
 		}
 	}).then(function(volunteer) {
 		res.send(volunteer);

@@ -2,14 +2,35 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
+import { fetchInitialSample } from '../actions/presentationActions.js';
+
 // Be sure to rename your class name
 class Presentation extends React.Component {
-    render() {
+    
+    componentWillMount() {
+        // fetch data from server
+        this.props.fetchInitialSample();
+    }    
+    
+    render() {     
+        const { presentationState, fetchInitialSample } = this.props;
+                   
         return (
-            <h1>Presentation</h1>
+            <div>
+                <h1>Presentation</h1>
+                <p>{presentationState.volunteer.studentID}</p>
+            </div>
         );
     }
 }
 
+Presentation.propTypes = {
+    presentationState: PropTypes.object.isRequired,
+    fetchInitialSample: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default Presentation;
+export default connect(
+    state => ({ presentationState: state.presentationState }),
+    { fetchInitialSample }
+)(Presentation);

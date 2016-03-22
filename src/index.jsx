@@ -28,6 +28,7 @@ render(
             <Route path="/classroom" component={Containers.ClassRoom}/>
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
+            <Route path="/presentation" component={Containers.Presentation}/>
             <Route path="*" component={Containers.NotFoundPage}/>
         </Router>
     </Provider>, document.getElementById('app')

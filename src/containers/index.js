@@ -9,5 +9,6 @@ import ControlPanel from './ControlPanel.jsx';
 import ClassRoom from './ClassRoom.jsx';
 import LogIn from './LogIn.jsx';
 import SignUp from './SignUp.jsx';
+import Presentation from './Presentation.jsx';
 
-module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp};
+module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation};

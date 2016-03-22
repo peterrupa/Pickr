@@ -168,7 +168,7 @@ class ClassRoom extends React.Component {
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task1"/>
                                 <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                                    <a href="random.html">Create Mobile App UI.
+                                    <a href="/presentation">Create Mobile App UI.
                                     </a>
                                     <a href="#" className="secondary-content">
                                         <span className="ultra-small">Today</span>
@@ -177,7 +177,7 @@ class ClassRoom extends React.Component {
                                 <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
-                                <a href="random.html">
+                                <a href="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
                                 </a>
                             </li>
@@ -191,7 +191,7 @@ class ClassRoom extends React.Component {
                                 <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
-                                <a href="#">
+                                <a href="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
                                 </a>
                             </li>
@@ -205,7 +205,7 @@ class ClassRoom extends React.Component {
                                 <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
-                                <a href="#">
+                                <a href="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
                                 </a>
                             </li>
@@ -215,7 +215,7 @@ class ClassRoom extends React.Component {
                                 <a href="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </a>
-                                <a href="#">
+                                <a href="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
                                 </a>
                             </li>

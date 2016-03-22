@@ -71,12 +71,13 @@ class LandingPage extends React.Component {
         <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
                 <h1 className="text_h center header cd-headline letters type">
-                    <span>We pick the</span >
+                    {/*<span>We pick the</span >
                     <span className="cd-words-wrapper waiting">
                         <b className="is-visible">best</b>
                         <b>largest</b>
                         <b>hottest</b>
-                    </span>
+                    </span>*/}
+                    Picker
                 </h1>
             </div >
         </div>

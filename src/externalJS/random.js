@@ -2,7 +2,7 @@ $(document).ready(function() {
     $('.countDown').hide();
 
     $("#start").click(function() {
-        $('.carousel').carousel('next', [Math.floor(Math.random() * 100000000)]);
+        $('.carousel').carousel('next', [Math.floor(Math.random() * 100000)]);
         let deadline = new Date(Date.parse(new Date()) + 60 * 60 * 1000);
         initializeClock('clockdiv', deadline);
       //  $('.countDown').show();

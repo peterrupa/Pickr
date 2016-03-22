@@ -13,8 +13,8 @@ class Presentation extends React.Component {
 
     render() {
         return (
-            <div style={{backgroundImage:'url('+'./img/presentation1.png'+')'}}>
-                <div className="countDown" style={{position:'fixed',float:'right',bottom: '10p',xright: '5px'}}>
+            <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
+                <div className="countDown" style={{position:'fixed',float:'right',bottom: '10px',xright: '5px'}}>
                     <div id="clockdiv">
                         <div>
                             <span id="sw_m">00</span>

@@ -56,7 +56,7 @@ class ClassList extends React.Component {
                 </div>
                 <div className="container">
                     <h4>Classes</h4>
-                    <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-80px'}}>
+                    <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-50px'}}>
                         <a className="carousel-item" href="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
@@ -100,7 +100,7 @@ class ClassList extends React.Component {
 
                     </div>
 
-                    <div id="classCards" className="container" style={{position: 'relative', top: '-450px'}}>
+                    <div id="classCards" className="container" style={{position: 'relative', top: '-400px'}}>
                         <div className="row">
                             <ul>
                                 <li>

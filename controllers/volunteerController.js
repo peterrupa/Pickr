@@ -4,7 +4,7 @@ import express from 'express';
 let router  = express.Router();
 
 
-import { Volunteer } from '../models';
+import { Volunteer, Student } from '../models';
 
 export function insert(req, res) {
 
@@ -18,13 +18,20 @@ export function insert(req, res) {
     });
 }
 
-export function findOne(req, res) {
+export function getOne(req, res) {
 
-	Volunteer.find({
-		where: {
-		    volunteerID: req.params.id
-		}
-	}).then(function(volunteer) {
-		res.send(volunteer);
-	});
+    Volunteer.findOne({
+        where: {
+            volunteerID: req.params.id
+        }
+    }).then(function(volunteer) {
+        Student.findOne({
+            where: {
+                studentId: volunteer.studentID,
+                ClassClassCode: volunteer.classCode
+            }
+        }).then(function(student) {
+            res.send(student);
+        });
+    });
 }

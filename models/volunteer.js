@@ -8,6 +8,7 @@ export default function (sequelize, DataTypes) {
             },
 		activityID: DataTypes.STRING,
 		studentID: DataTypes.STRING,
+        classCode: DataTypes.STRING,
 		dateVolunteered: DataTypes.DATE,
 		note: DataTypes.STRING
     });

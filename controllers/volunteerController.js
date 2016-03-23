@@ -3,7 +3,6 @@
 import express from 'express';
 let router  = express.Router();
 
-
 import { Volunteer, Student } from '../models';
 
 export function insert(req, res) {
@@ -15,6 +14,16 @@ export function insert(req, res) {
         note: req.body.note
     }).then(function(volunteer) {
         res.send(volunteer);
+    });
+}
+
+export function getAvailableVolunteers(req, res) {
+    Student.findAll({
+        where: {
+            ClassClassCode: req.params.classCpde
+        }
+    }).then(function(students) {
+        res.send(students);
     });
 }
 

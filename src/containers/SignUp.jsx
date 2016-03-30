@@ -52,7 +52,7 @@ class SignUp extends React.Component {
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                            <form className="login-form">
+                            <form className="login-form" method="POST" action="http://localhost:8000/api/account/createAccount"> //-----------------
                                 <div className="row">
                                     <div className="input-field col s12 center">
                                         <img src="img/CMSC_Prince_cropped.png " alt=" " className="responsive-img valign profile-image-login" style={{
@@ -64,6 +64,34 @@ class SignUp extends React.Component {
                                         </p>
                                     </div >
                                 </div>
+                                
+                                /*chika----------------------------*/
+                                
+                                
+                                 <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-social-person-outline prefix"></i>
+                                        <input id="fname" type="text" className="validate"/>
+                                        <label htmlFor="fname" className="center-align">First Name</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-communication-email prefix"></i>
+                                        <input id="mi" type="text" className="validate"/>
+                                        <label htmlFor="mi" className="center-align">Middle Initial</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="lname" type="text" className="validate"/>
+                                        <label htmlFor="lname">Last Name</label>
+                                    </div>
+                                </div>
+                                
+                                /*chika-----------------------------------*/
+                                
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
@@ -85,13 +113,15 @@ class SignUp extends React.Component {
                                         <label htmlFor="password">Password</label>
                                     </div>
                                 </div>
-                                <div className="row margin">
+                                
+                                /*<div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
                                         <input id="password-again" type="password"/>
                                         <label htmlFor="password-again">Re-type password</label>
                                     </div>
-                                </div>
+                                </div>*/
+                                
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <a href="/login" className="btn waves-effect waves-light col s12">Register Now</a>

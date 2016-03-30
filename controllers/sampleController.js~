@@ -22,11 +22,3 @@ export function insert(req, res) {
         res.send(sample);
     });
 }
-
-export function insert1(req, res) {
-    Sample.create({
-        title: req.body.title,
-    }).then(function(sample) {
-        res.send(sample);
-    });
-}

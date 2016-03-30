@@ -1,20 +1,11 @@
 import express from 'express';
 let router = express.Router();
+import * as studentController from '../controllers/studentController';
 
-router.get('/', (req, res, next) => {
-    res.send([{
-        _id: '12345',
-        name: 'Peter Bernard',
-        tags: ['AB-3L', 'male', 'pogi']
-    }]);   
-});
-
-router.get('/:id', (req, res, next) => {
-    res.send({
-        _id: '12345',
-        name: 'Peter Bernard',
-        tags: ['AB-3L', 'male', 'pogi']
-    });   
-});
+router.get('/', studentController.getAll);
+router.get('/', studentController.getOne);
+router.post('/', studentController.insert);
+router.put('/', studentController.update);
+router.delete('/', studentController.deleteStudent);
 
 export default router;

@@ -9,7 +9,7 @@ const developmentEnvironment = 'development';
 const productionEnvironment = 'production';
 const testEnvironment = 'test';
 
-const getPlugins = function (env) {
+const getPlugins = function(env) {
     const GLOBALS = {
         'process.env.NODE_ENV': JSON.stringify(env),
         __DEV__: env === developmentEnvironment
@@ -38,7 +38,7 @@ const getPlugins = function (env) {
     return plugins;
 };
 
-const getEntry = function (env) {
+const getEntry = function(env) {
     const entry = [];
 
     if (env === developmentEnvironment) { // only want hot reloading when in dev.
@@ -50,25 +50,28 @@ const getEntry = function (env) {
     return entry;
 };
 
-const getLoaders = function (env) {
-    const loaders = [
-        {
-            test: /\.js$/,
-            include: path.join(__dirname, 'src'),
-            loaders: ['babel', 'eslint']
-        },
-        {
-            test: /\.jsx$/,
-            include: path.join(__dirname, 'src'),
-            loaders: ['babel', 'eslint']
-        }
-    ];
+const getLoaders = function(env) {
+    const loaders = [{
+        test: /\.js$/,
+        include: path.join(__dirname, 'src'),
+        loaders: ['babel', 'eslint']
+    }, {
+        test: /\.jsx$/,
+        include: path.join(__dirname, 'src'),
+        loaders: ['babel', 'eslint']
+    }];
 
     if (env === productionEnvironment) {
         // generate separate physical stylesheet for production build using ExtractTextPlugin. This provides separate caching and avoids a flash of unstyled content on load.
-        loaders.push({ test: /(\.css|\.scss)$/, loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap") });
+        loaders.push({
+            test: /(\.css|\.scss)$/,
+            loader: ExtractTextPlugin.extract("css?sourceMap!sass?sourceMap")
+        });
     } else {
-        loaders.push({ test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap'] });
+        loaders.push({
+            test: /(\.css|\.scss)$/,
+            loaders: ['style', 'css?sourceMap', 'sass?sourceMap']
+        });
     }
 
     return loaders;

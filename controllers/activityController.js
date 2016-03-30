@@ -9,7 +9,7 @@ import { Activity } from '../models';
 
 //GET ACTIVITY
 export function getAll(req, res) {
-		Activity.findAll()
+    Activity.findAll()
     .then(function(activities) {
         if(activities)
         	res.status(200).send(activities);
@@ -33,8 +33,7 @@ export function getOne(req, res) {
 	
 //CREATE ACTIVITY
 export function insert(req, res) {
-    Activity.create({
-        activityId: req.body.activityId,
+    Activity.addActivity({
         activityName: req.body.activityName,
         activityDesc: req.body.activityDesc,
     }).then(function(activity) {
@@ -42,7 +41,7 @@ export function insert(req, res) {
         	res.status(200).send(activity);
         else
         	res.status(404).send(null);
-    });
+    });;
 }
 
 //UPDATE ATTRIBUTES

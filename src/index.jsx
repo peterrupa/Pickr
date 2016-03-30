@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 
 // stylesheets
+import './styles/style.css';
+import './styles/styles.scss';
 
 // js
 import '../externalDependencies/js/jquery-1.12.2.js';
@@ -26,10 +28,10 @@ render(
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
             <Route path="/" component={Containers.App}>
-                <Route path="/student" component={Containers.StudentPage}/>
-                <Route path="/class" component={Containers.ClassList}/>
-                <Route path="/controlPanel" component={Containers.ControlPanel}/>
-                <Route path="/classroom" component={Containers.ClassRoom}/>
+                <Route path="student" component={Containers.StudentPage}/>
+                <Route path="class" component={Containers.ClassList}/>
+                <Route path="controlPanel" component={Containers.ControlPanel}/>
+                <Route path="classroom/:classId" component={Containers.ClassRoom}/>
                 <Route path="*" component={Containers.NotFoundPage}/>
             </Route>
         </Router>

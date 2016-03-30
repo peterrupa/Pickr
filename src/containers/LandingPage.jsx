@@ -12,7 +12,7 @@ class LandingPage extends React.Component {
     }
 
     render() {
-        let imgUrl = '../../img/ph.png';
+        let imgUrl = '/img/ph.png';
         let divStyle = {
             backgroundImage: 'url(' + imgUrl + ')'
         };
@@ -122,14 +122,14 @@ class LandingPage extends React.Component {
 
                 {/*<!--Work-->*/}
                 <div className="parallax-container">
-                    <div className="parallax"><img src="./img/room.jpg "/></div>
+                    <div className="parallax"><img src="/img/room.jpg "/></div>
                 </div>
 
                 <div className="container" id="login">
                     <div className="row">
                         <div className="col s12 l3">
                             <div>
-                                <img src="./img/samp1.png " className=" product "/>
+                                <img src="/img/samp1.png " className=" product "/>
                             </div>
                         </div >
                         <div className="col s12 l6 offset-l3">
@@ -143,7 +143,7 @@ class LandingPage extends React.Component {
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
-                                <img src="../../img/samp1.png" className="product"/>
+                                <img src="/img/samp1.png" className="product"/>
                             </div>
                         </div>
                     </div>

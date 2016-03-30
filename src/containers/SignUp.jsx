@@ -6,13 +6,13 @@ import { connect } from 'react-redux';
 class SignUp extends React.Component {
     componentDidMount(){
         let body = document.getElementByTagName('body');
-        body.background = "./img/full-classroom.jpg";
+        body.background = "/img/full-classroom.jpg";
     }
 
     render() {
 
         return (
-            <div style={{backgroundImage:'url(./img/full-classroom.jpg)',margin:'0'}}>
+            <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <a id="logo-container" href="#" className="brand-logo">

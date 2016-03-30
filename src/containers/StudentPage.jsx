@@ -6,9 +6,6 @@ import { connect } from 'react-redux';
 
 import NavBar from '../components/NavBar.jsx';
 
-import './../styles/styles.scss';
-import './../styles/style.css';
-
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
 
@@ -38,7 +35,7 @@ class StudentPage extends React.Component {
                                     <div id="profile-page-header" className="card">
 
                                         <figure className="card-profile-image">
-                                            <img src="./img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
+                                            <img src="/img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
                                                 width: '20%',
                                                 height: '20%'
                                             }}/>

@@ -7,5 +7,6 @@ export default function (sequelize, DataTypes) {
         className: DataTypes.STRING,
         classDesc: DataTypes.STRING(1000)
     });
+    
     return Class;
 };

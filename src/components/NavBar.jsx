@@ -16,7 +16,7 @@ class NavBar extends React.Component {
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <Link id="logo-container" to="/class" className="brand-logo">
-                            <img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
+                            <img src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
                                 height: '40px',
                                 width: '40px'
                             }}/>

@@ -3,12 +3,36 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+// Import actions associated to this page
+import { addActivity } from '../actions/classroomActions';
+
 import '../styles/oneUI.css';
+
+const Materialize = window.Materialize;
 
 // Be sure to rename your class name
 class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
+        
+        // fetch initial data 
+    }
+    addActivity(e) {
+        e.preventDefault();
+        
+        // @TODO: validation
+        
+        let activity = {
+            activityName: $('#activityName').val(),
+            activityDesc: $('#activityDesc').val()
+        };
+        
+        this.props.addActivity(activity).then((res) => {
+            Materialize.toast('Successfully added activity.', 4000, 'toast-success');
+        })
+        .catch((err) => {
+            Materialize.toast('Error adding activity.', 4000, 'toast-error');
+        });
     }
     render() {
         return (
@@ -16,7 +40,7 @@ class ClassRoom extends React.Component {
                 <div className="tint" style={{  position: 'relative',
                     cursor: 'pointer',
                     boxShadow: 'rgba(0,0,0,.2) 3px 5px 5px'}}>
-                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'./img/bg.jpg'+')'}}>
+                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">WELCOME TO CMSC 170!</h1>
                             <h2 className="h5 text-white-op animated zoomIn">Introduction to Artificial Intelligence</h2>
@@ -85,7 +109,7 @@ class ClassRoom extends React.Component {
                                 <ul className="nav-users push">
                                     <li>
                                         <Link to="/student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -98,7 +122,7 @@ class ClassRoom extends React.Component {
                                     </li>
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Joshua Munoz
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -109,7 +133,7 @@ class ClassRoom extends React.Component {
                                     </li>
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Amber Walker
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -237,31 +261,27 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
                     <div id="addactivity" className="modal">
-                        <div className="modal-content">
-                            <h3>Add Activity</h3>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="activity" type="text" className="validate"/>
-                                    <label htmlFor="activity">Activity</label>
+                        <form onSubmit={(e) => this.addActivity(e)}>
+                            <div className="modal-content">
+                                <h3>Add Activity</h3>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="activityName" type="text" className="validate"/>
+                                        <label htmlFor="activityName">Activity</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="activityDesc" type="text" className="validate"/>
+                                        <label htmlFor="activityDesc">Description</label>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="dueDate" type="text" className="validate"/>
-                                    <label htmlFor="dueDate">Due Date</label>
-                                </div>
+                            <div className="modal-footer">
+                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="tags" type="text" className="validate"/>
-                                    <label htmlFor="tags">Tags (separate by comma)</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</Link>
-                        </div>
+                        </form>
                     </div>
                     <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
                         <div className="pull-right">
@@ -282,5 +302,13 @@ class ClassRoom extends React.Component {
     }
 }
 
+ClassRoom.propTypes = {
+    classroomAppState: PropTypes.object.isRequired,
+    addActivity: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default ClassRoom;
+export default connect(
+state => ({ classroomAppState: state.classroomAppState }),
+    { addActivity }
+)(ClassRoom);

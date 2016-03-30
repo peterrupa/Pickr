@@ -1,6 +1,7 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
@@ -195,16 +196,16 @@ class ControlPanel extends React.Component {
                                     </li>
                                     <li className="collection-item">
                                         <div>
-                                            <i className="material-icons circle">perm_contact_calendar</i>Jason Todd<a href="#!" className="secondary-content">
+                                            <i className="material-icons circle">perm_contact_calendar</i>Jason Todd<Link to="#!" className="secondary-content">
                                                 <i className="material-icons">check</i>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </li>
                                     <li className="collection-item">
                                         <div>
-                                            <i className="material-icons circle">perm_contact_calendar</i>Barbara Gordon<a href="#!" className="secondary-content">
+                                            <i className="material-icons circle">perm_contact_calendar</i>Barbara Gordon<Link to="#!" className="secondary-content">
                                                 <i className="material-icons">check</i>
-                                            </a>
+                                            </Link>
                                         </div>
                                     </li>
                                 </ul>

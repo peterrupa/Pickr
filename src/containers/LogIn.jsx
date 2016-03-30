@@ -3,10 +3,11 @@ import {connect} from 'react-redux';
 
 // Be sure to rename your class name
 
+import $ from 'jquery';
 
 class LogIn extends React.Component {
     componentDidMount(){
-
+        //let url = 'localhost:8000/api/account/login';
         let body = document.getElementByTagName('body');
         body.background = "./img/full-classroom.jpg";
     }
@@ -71,19 +72,19 @@ class LogIn extends React.Component {
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password"/>
+            <input id="password" type="password" required/>
             <label htmlFor="password">Password</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field login-text">
-              <input type="checkbox" id="remember-me"/>
+              <input type="checkbox" id="remember-me" required/>
               <label htmlFor="remember-me">Remember me</label>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <a href="/class" className="btn waves-effect waves-light col s12">Login</a>
+            <button className="btn waves-effect waves-light col s12">Login</button>
           </div>
         </div>
         <div className="row">

@@ -8,7 +8,10 @@ import { connect } from 'react-redux';
 class TestPage extends React.Component {
     render() {
         return (
-            <h1>Hello!</h1>
+            <div>
+                <h1>Hello!</h1>
+                <h2>hello</h2>
+            </div>
         );
     }
 }

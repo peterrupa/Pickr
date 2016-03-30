@@ -9,10 +9,10 @@ export function getVolunteer(volunteers, n) {
     };
 }
 
-export function setVolunteers(volunteers) {
+export function setVolunteers(students) {
     return {
         type: types.FETCH_AVAILABLE_VOLUNTEERS,
-        volunteers
+        students
     };
 }
 

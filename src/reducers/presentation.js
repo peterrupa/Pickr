@@ -5,7 +5,7 @@ import {PRESENTATION_SAMPLES} from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
-    volunter: ''
+    volunteer: ''
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.

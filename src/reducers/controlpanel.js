@@ -17,24 +17,22 @@ const initialState = {
 export default function availableStudentsState(state = initialState, action) {
     switch (action.type) {
         case FETCH_AVAILABLE_VOLUNTEERS:
-            Object.assign({}, state, {
-                availableVolunteers: action.availableVolunteers
+            return Object.assign({}, state, {
+                availableVolunteers: action.students
             });
-            break;
         default:
             return state;
     }
 }
 
-export default function selectedStudentsState(state = initialState, action) {
+/*export default function selectedStudentsState(state = initialState, action) {
     switch(action.type) {
         case GET_VOLUNTEER:
-            Object.assign({}, state, {
+            return Object.assign({}, state, {
                 availableVolunteers: state.availableVolunteers,
                 volunteer: action.volunteer
             });
-            break;
         default:
             return state;
     }
-}
+}*/

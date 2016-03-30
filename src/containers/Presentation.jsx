@@ -15,7 +15,7 @@ class Presentation extends React.Component {
 
         let imgUrl = '../../img/presentation1.png';
         return (
-            <div style={{backgroundImage:'url('+imgUrl+')',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
+            <div style={{backgroundImage:'url('+imgUrl+')',flex: 1}}>
                 <div className="countDown" style={{position:'fixed',float:'right',bottom: '10px',xright: '5px'}}>
                     <div id="clockdiv">
                         <div>

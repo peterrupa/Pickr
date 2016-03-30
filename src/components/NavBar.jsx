@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 import $ from 'jquery';
 
@@ -15,26 +15,16 @@ class NavBar extends React.Component {
             <div>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo"><img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
-                            height: '40px',
-                            width: '40px'
-                        }}/>Pickr</a>
+                        <Link id="logo-container" to="/class" className="brand-logo">
+                            <img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                height: '40px',
+                                width: '40px'
+                            }}/>
+                            Pickr
+                        </Link>
                         <ul className="right hide-on-med-and-down">
-
                             <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="#about">About</a>
-                            </li>
-                            <li>
-                                <a id="classDD">Classes</a>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <a href="index.html#about">About</a>
+                                <a id="classDD" href="#">Classes</a>
                             </li>
                         </ul>
                         <a href="#" data-activates="nav-mobile" className="button-collapse">
@@ -49,11 +39,17 @@ class NavBar extends React.Component {
 
                     <ul className="collection">
                         <li className="collection-item">
-                            <a href="/classroom">CMSC 170</a>
+                            <Link to="/classroom">CMSC 170</Link>
                         </li>
-                        <li className="collection-item">CMSC 132</li>
-                        <li className="collection-item">CMSC 125</li>
-                        <li className="collection-item">CMSC 141</li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 132</Link>
+                        </li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 125</Link>
+                        </li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 141</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

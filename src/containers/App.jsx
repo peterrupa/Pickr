@@ -2,13 +2,13 @@
 // to support hot reloading in Redux
 import React, { PropTypes } from 'react';
 
-import MainMenu from '../components/MainMenu.jsx';
+import NavBar from '../components/NavBar.jsx';
 
 class App extends React.Component {
     render() {
         return (
             <div>
-                <MainMenu />
+                <NavBar />
                 {this.props.children}
             </div>
         );

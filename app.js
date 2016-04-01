@@ -38,6 +38,11 @@ app.use('/api/activity', activity);
 app.use('/api/class', classRoute);
 app.use('/api/student', student);
 
+// 404 for api
+app.get('/api/*', (req, res) => {
+    res.sendStatus(404);
+})
+
 // send routing to client
 app.get('*', (req, res) => {
     res.sendFile(__dirname + '/src/index.html');

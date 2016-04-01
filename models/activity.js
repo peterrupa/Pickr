@@ -1,5 +1,3 @@
-// @TODO: Allow null values on activity desc
-
 import uuid from 'node-uuid';
 
 export default function (sequelize, DataTypes) {

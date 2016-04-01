@@ -43,18 +43,12 @@ export function getOne(req, res) {
 export function insert(req, res) {
     // @TOOD: Upload image here
         
-    Student.create({
-		fname: req.body.fname,
+    Student.addStudent({
+        fname: req.body.fname,
 		lname: req.body.lname,
 		mname: req.body.mname,
-		image: req.body.image
-    }).then((student) => {
-        // create tags
-        let tags = req.body.tags.map((tag) => student.createTag({
-            name: tag
-        }));
-         
-        return Promise.all(tags);
+		image: req.body.image,
+        tags: req.body.tags
     }).then((student) => {
         res.send(student);
     });

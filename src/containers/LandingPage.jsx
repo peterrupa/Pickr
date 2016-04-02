@@ -99,33 +99,21 @@ class LandingPage extends React.Component {
                         <div className="center promo promo-example">
                             <i className="mdi-image-flash-on"></i>
                             <h5 className="promo-caption">Great in classroom environment</h5>
-<<<<<<< HEAD
-                            <p className="light center">We want you to experience high-end web application to aid you in selecting volunteers for your everyday class activities. We showcased necessary tools needed in a classroom setup in order to achieve your goals.</p>
-=======
                             <p className="light center">With all the tools in your hands, we assure you that you can master this application in a matter of minutes. We provided a guide to help you out in learning.</p>
->>>>>>> 3ed6614b4275b4ea8629c4bbb9f8ff2aa045f1ca
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-social-group"></i>
                             <h5 className="promo-caption">Student Oriented</h5>
-<<<<<<< HEAD
                             <p className="light center">With the guided help in using the application, Pickr is so easy to learn and use that you can master it in just few minutes.</p>
-=======
-                            <p className="light center">We want you to experience high-end web application to aid you in your everyday lectures. We showcase necesarry tools needed in a classroom setup aligned with your goals.</p>
->>>>>>> 3ed6614b4275b4ea8629c4bbb9f8ff2aa045f1ca
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-hardware-desktop-windows"></i>
                             <h5 className="promo-caption">Split screen UI</h5>
-<<<<<<< HEAD
                             <p className="light center">In every action done in your activities, it will be automatically be updated in your records including the real time changes in the chances of a student to be called in your class.</p>
-=======
-                            <p className="light center">In every action done in your activities, it will be updated in your records including the real time changes in the chances of a student to be called in your class</p>
->>>>>>> 3ed6614b4275b4ea8629c4bbb9f8ff2aa045f1ca
                         </div>
                     </div>
                 </div>

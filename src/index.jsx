@@ -21,16 +21,23 @@ const store = configureStore(undefined, storemiddlewareHistory);
 render(
     <Provider store={store}>
         <Router history={browserHistory}>
-            <Route path="/" component={Containers.LandingPage}/>
-            <Route path="/student" component={Containers.StudentPage}/>
-            <Route path="/class" component={Containers.ClassList}/>
-            <Route path="/controlPanel" component={Containers.ControlPanel}/>
-            <Route path="/classroom" component={Containers.ClassRoom}/>
+            {/* @TODO: Render server side non-app pages */}
+            <Route path="/presentation" component={Containers.Presentation}/>
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
+<<<<<<< HEAD
             <Route path="/presentation" component={Containers.Presentation}/>
             <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
             <Route path="*" component={Containers.NotFoundPage}/>
+=======
+            <Route path="/" component={Containers.App}>
+                <Route path="/student" component={Containers.StudentPage}/>
+                <Route path="/class" component={Containers.ClassList}/>
+                <Route path="/controlPanel" component={Containers.ControlPanel}/>
+                <Route path="/classroom" component={Containers.ClassRoom}/>
+                <Route path="*" component={Containers.NotFoundPage}/>
+            </Route>
+>>>>>>> 3ed6614b4275b4ea8629c4bbb9f8ff2aa045f1ca
         </Router>
     </Provider>, document.getElementById('app')
 );

@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import path from 'path';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
@@ -7,7 +8,17 @@ import bodyParser from 'body-parser';
 
 import student from './routes/student';
 import sample from './routes/sample';
+import account from './routes/account';
+
 let app = express();
+
+app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'PUT01SL0V3_PUT01SL1F3',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
@@ -20,6 +31,7 @@ app.use(cookieParser());
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);
+app.use('/api/account', account);
 
 // send routing to client
 app.get('*', (req, res) => {

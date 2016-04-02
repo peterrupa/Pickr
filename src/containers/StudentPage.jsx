@@ -21,8 +21,6 @@ class StudentPage extends React.Component {
     render() {
         return (
             <div>
-                <NavBar />
-
                 <div id="main">
                     {/* <!-- START WRAPPER -->*/}
                     <div className="wrapper">

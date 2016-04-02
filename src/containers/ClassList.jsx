@@ -1,8 +1,7 @@
-
-
 // Import dependencies
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 import NavBar from '../components/NavBar.jsx';
 
@@ -28,6 +27,7 @@ class ClassList extends React.Component {
     }
 
     handleClick(){
+      //TODO: avoid manipulating DOM tree in jsx files (using actions and queries)
         let carousel = document.getElementById('classCarousel');
         let cards = document.getElementById('classCards');
         if(carousel.style.visibility == 'visible'){
@@ -45,19 +45,20 @@ class ClassList extends React.Component {
     render() {
         return (
             <div>
-                <NavBar />
                 <div style={{
                     textAlign: 'center',
                     margin: 'auto',
                     paddingTop: '8%'
                 }}>
-                    <a className="waves-effect waves-light btn modal-trigger green" href="#addclass">Add Class</a>
+                    <Link className="waves-effect waves-light btn modal-trigger green" to="#addclass">Add Class</Link>
                     <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick={this.handleClick} >Toggle View</button>
                 </div>
                 <div className="container">
                     <h4>Classes</h4>
+
+                {  /*start of carousel view*/}
                     <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-50px'}}>
-                        <a className="carousel-item" href="/classroom">
+                        <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 170</h5>
@@ -66,8 +67,8 @@ class ClassList extends React.Component {
                                 <h6>Artificial Intelligence</h6>
                             </div>
                             <div className="notes">Due Friday Activity: Karakot dakot na activity about probability</div>
-                        </a>
-                        <a className="carousel-item" href="/classroom">
+                        </Link>
+                        <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 132</h5>
@@ -76,8 +77,8 @@ class ClassList extends React.Component {
                                 <h6>Kristine Elaine Bautista</h6>
                             </div>
                             <div className="notes">Due Tomorrow Activity: Sequential circuit</div>
-                        </a>
-                        <a className="carousel-item" href="/classroom">
+                        </Link>
+                        <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 125</h5>
@@ -86,8 +87,8 @@ class ClassList extends React.Component {
                                 <h6>John Emmanuel Encinas</h6>
                             </div>
                             <div className="notes"></div>
-                        </a>
-                        <a className="carousel-item" href="/classroom">
+                        </Link>
+                        <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
                                 <h5>CMSC 141</h5>
@@ -96,10 +97,11 @@ class ClassList extends React.Component {
                                 <h6>Donna Drio</h6>
                             </div>
                             <div className="notes"></div>
-                        </a>
-
+                        </Link>
                     </div>
+                    {/*end of carousel view*/}
 
+                    {/*start of card view*/}
                     <div id="classCards" className="container" style={{position: 'relative', top: '-400px'}}>
                         <div className="row">
                             <ul>
@@ -107,7 +109,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="/classroom">CMSC 128</a>
+                                                <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -120,7 +122,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="/classroom">CMSC 128</a>
+                                                <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -133,7 +135,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="/classroom">CMSC 128</a>
+                                                <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -146,7 +148,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="/classroom">CMSC 128</a>
+                                                <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -159,7 +161,7 @@ class ClassList extends React.Component {
                                     <div className="col s12 m6 l4">
                                         <div className="card-panel green darken-2 class-card">
                                             <h5>
-                                                <a href="/classroom">CMSC 128</a>
+                                                <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
                                             <p>
@@ -172,7 +174,10 @@ class ClassList extends React.Component {
                         </div>
                     </div>
                 </div>
+                {/*end of class view*/}
 
+
+                {/*start of modal form*/}
                 <div id="addclass" className="modal">
                     <div className="modal-content">
                         <h3>Add Class</h3>
@@ -190,8 +195,8 @@ class ClassList extends React.Component {
                         </div>
                     </div>
                     <div className="modal-footer">
-                        <a href="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                        <a href="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Class</a>
+                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                        <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Class</Link>
                     </div>
                 </div>
             </div>

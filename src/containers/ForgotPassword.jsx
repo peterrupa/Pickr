@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 // Be sure to rename your className name
 
@@ -17,29 +18,29 @@ class ForgotPassword extends React.Component {
             <div style={{backgroundImage:'url('+'./img/full-classroom.jpg'+')'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
+                        <Link id="logo-container" to="#" className="brand-logo">
                             <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
                                 height: '40px',
                                 width: '40px'
-                            }}/>Pickr</a>
+                            }}/>Pickr</Link>
                         <ul className="right hide-on-med-and-down">
 
                             <li>
-                                <a href="/">Home</a>
+                                <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <a href="/#intro">About</a>
+                                <Link to="/#intro">About</Link>
                             </li>
                         </ul>
 
                         <ul id="nav-mobile" className="side-nav">
                             <li>
-                                <a href="index.html#about">About</a>
+                                <Link to="index.html#about">About</Link>
                             </li>
                         </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
+                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
                             <i className="material-icons">menu</i>
-                        </a>
+                        </Link>
                     </div>
                 </nav>
                 <br/>
@@ -75,15 +76,15 @@ class ForgotPassword extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <a href="/login" className="btn waves-effect waves-light col s12">Recover my Password</a>
+                                        <Link to="/login" className="btn waves-effect waves-light col s12">Recover my Password</Link>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s6 m6 l6">
-                                        <p className="margin medium-small"><a href="/signup">Register Now!</a></p>
+                                        <p className="margin medium-small"><Link to="/signup">Register Now!</Link></p>
                                     </div>
                                     <div className="input-field col s6 m6 l6">
-                                        <p className="margin right-align medium-small"><a href="/login">Log In!</a></p>
+                                        <p className="margin right-align medium-small"><Link to="/login">Log In!</Link></p>
                                     </div>
                                     </div>
                             </form>

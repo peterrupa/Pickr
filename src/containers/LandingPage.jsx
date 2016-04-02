@@ -150,7 +150,7 @@ class LandingPage extends React.Component {
                     <div className="row">
                         <div className="col s12 l6">
                             <br/>
-                            <p className="light">Let's work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
+                            <p className="light">Lets work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
@@ -188,16 +188,16 @@ class LandingPage extends React.Component {
                                                 <h5 className="white-text">Settings</h5>
                                                 <ul>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 1</Link>
+                                                        <Link className="white-text" to="#!">Link 1</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 2</Link>
+                                                        <Link className="white-text" to="#!">Link 2</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 3</Link>
+                                                        <Link className="white-text" to="#!">Link 3</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 4</Link>
+                                                        <Link className="white-text" to="#!">Link 4</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -205,16 +205,16 @@ class LandingPage extends React.Component {
                                                 <h5 className="white-text">Connect</h5>
                                                 <ul>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 1</Link>
+                                                        <Link className="white-text" to="#!">Link 1</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 2</Link>
+                                                        <Link className="white-text" to="#!">Link 2</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 3</Link>
+                                                        <Link className="white-text" to="#!">Link 3</Link>
                                                     </li>
                                                     <li>
-                                                        <Link className="white-text" href="#!">Link 4</Link>
+                                                        <Link className="white-text" to="#!">Link 4</Link>
                                                     </li>
                                                 </ul>
                                             </div>

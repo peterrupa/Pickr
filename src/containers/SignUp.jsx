@@ -1,6 +1,7 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 // Be sure to rename your class name
 class SignUp extends React.Component {
@@ -15,29 +16,29 @@ class SignUp extends React.Component {
             <div style={{backgroundImage:'url(./img/full-classroom.jpg)',margin:'0'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
+                        <Link id="logo-container" to="#" className="brand-logo">
                             <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
                                 height: '40px',
                                 width: '40px'
-                            }}/>Pickr</a>
+                            }}/>Pickr</Link>
                         <ul className="right hide-on-med-and-down">
 
                             <li>
-                                <a href="/">Home</a>
+                                <Link to="/">Home</Link>
                             </li>
                             <li>
-                                <a href="/#intro">About</a>
+                                <Link to="/#intro">About</Link>
                             </li>
                         </ul>
 
                         <ul id="nav-mobile" className="side-nav">
                             <li>
-                                <a href="index.html#about">About</a>
+                                <Link to="index.html#about">About</Link>
                             </li>
                         </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
+                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
                             <i className="material-icons">menu</i>
-                        </a>
+                        </Link>
                     </div>
                 </nav>
                 <br/>
@@ -97,8 +98,8 @@ class SignUp extends React.Component {
                                         <input type="submit" value="Register Now" className="btn waves-effect waves-light col s12"/>
                                     </div>
                                     <div className="input-field col s12">
-                                        <p className="margin center medium-small sign-up">Already have an account? 
-                                            <a href="/login"> Login</a>
+                                        <p className="margin center medium-small sign-up">Already have an account?
+                                            <Link to="/login"> Login</Link>
                                         </p>
                                     </div>
                                 </div>

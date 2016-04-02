@@ -111,13 +111,14 @@ class LandingPage extends React.Component {
                             <i className="mdi-social-group"></i>
                             <h5 className="promo-caption">Student Oriented</h5>
                             <p className="light center">We want you to experience high-end web application to aid you in your everyday lectures. We showcase necesarry tools needed in Link classroom setup aligned with your goals.</p>
+
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-hardware-desktop-windows"></i>
                             <h5 className="promo-caption">Split screen UI</h5>
-                            <p className="light center">In every action done in your activities, it will be updated in your records including the real time changes in the chances of a student to be called in your class</p>
+                            <p className="light center">In every action done in your activities, it will be automatically be updated in your records including the real time changes in the chances of a student to be called in your class.</p>
                         </div>
                     </div>
                 </div>
@@ -137,13 +138,19 @@ class LandingPage extends React.Component {
                             </div>
                         </div >
                         <div className="col s12 l6 offset-l3">
-                            <p className="light">Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..</p>
+                            <p className="light">With its goal to provide a simple and user-friendly aid for busy teachers, Pickr is changing your perspective of a high-end randomizer. Provided with guided tools, the application is so easy to learn and master in just a few minutes. It it also equipped with advanced features such as computations of class and student statistics that will further guide the teacher in selecting volunteers.</p>
                         </div>
                     </div>
-                    <div className="row"></div >
+                    <div className="center">
+                            <br/>
+                            <h2 style={{margin:'0 auto'}}> "With Pickr, we can serve you bettr" </h2>
+                            <br/>
+                            <br/>
+                    </div >
                     <div className="row">
                         <div className="col s12 l6">
-                            <p className="light">Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.. Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..</p>
+                            <br/>
+                            <p className="light">Let's work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>

@@ -64,14 +64,14 @@ class LogIn extends React.Component {
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text"/>
+            <input id="username" type="text" required="true"/>
             <label htmlFor="username" className="center-align">Username</label>
           </div>
         </div>
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password"/>
+            <input id="password" type="password" required="true"/>
             <label htmlFor="password">Password</label>
           </div>
         </div>
@@ -83,7 +83,7 @@ class LogIn extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <a href="/class" className="btn waves-effect waves-light col s12">Login</a>
+            <input type="submit" value="Register Now" className="btn waves-effect waves-light col s12"/>
           </div>
         </div>
         <div className="row">
@@ -91,7 +91,7 @@ class LogIn extends React.Component {
             <p className="margin medium-small"><a href="/signup">Register Now!</a></p>
           </div>
           <div className="input-field col s6 m6 l6">
-              <p className="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>
+              <p className="margin right-align medium-small"><a href="/forgotpassword">Forgot password?</a></p>
           </div>
         </div>
     </form>

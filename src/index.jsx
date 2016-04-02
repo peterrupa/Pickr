@@ -25,6 +25,9 @@ render(
             <Route path="/presentation" component={Containers.Presentation}/>
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
+            <Route path="/presentation" component={Containers.Presentation}/>
+            <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
+            <Route path="*" component={Containers.NotFoundPage}/>
             <Route path="/" component={Containers.App}>
                 <Route path="/index" component={Containers.LandingPage}/>
                 <Route path="/student" component={Containers.StudentPage}/>

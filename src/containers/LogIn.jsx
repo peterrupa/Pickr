@@ -7,9 +7,6 @@ import { Link } from 'react-router';
 
 class LogIn extends React.Component {
     componentDidMount(){
-
-        let body = document.getElementByTagName('body');
-        body.background = "./img/full-classroom.jpg";
     }
 
     render() {

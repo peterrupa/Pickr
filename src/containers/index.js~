@@ -12,4 +12,4 @@ import SignUp from './SignUp.jsx';
 import Presentation from './Presentation.jsx';
 import ForgotPassword from './ForgotPassword.jsx';
 
-module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation, ForgotPassword};
+module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation};

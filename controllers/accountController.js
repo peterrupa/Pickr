@@ -24,12 +24,12 @@ exports.insert = (req, res) => {
             res.status(error.DUP_ENTRY.code).send({DUP_ENTRY: error.DUP_ENTRY.message});
         } else {
             Account.create({
-                Fname:        req.body.fname,
-                MI:           req.body.mi,
-                Lname:        req.body.lname,
-                Username:     req.body.username,
-                EmailAddress: req.body.email,
-                Password:     req.body.password
+                fname:        req.body.fname,
+                mi:           req.body.mi,
+                lname:        req.body.lname,
+                username:     req.body.username,
+                emailAddress: req.body.email,
+                password:     req.body.password
             }).then((account) => {
                 res.status(200).send(account);
             }).catch((err) => {

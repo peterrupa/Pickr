@@ -8,15 +8,14 @@ import bodyParser from 'body-parser';
 
 import student from './routes/student';
 import sample from './routes/sample';
-
+import account from './routes/account';
 let app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
 
-import account from './routes/account';
 
-let app = express();
+
 
 app.set('view engine', 'ejs');
 

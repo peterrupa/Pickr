@@ -2,14 +2,20 @@
     Controller for the model class.
 */
 
+// @TODO: Authentications, Error Messages
+
 import express from 'express';
 let router  = express.Router();
 
-import { Class } from '../models';
+import { Class, Account } from '../models';
 
 //GET CLASS
 export function getAll(req, res) {
-		Class.findAll()
+    Class.findAll({
+        where: {
+            AccountId: req.query.AccountId
+        }
+    })
     .then(function(classes) {
         if(classes)
         	res.status(200).send(classes);
@@ -21,59 +27,50 @@ export function getAll(req, res) {
 export function getOne(req, res) {
     Class.find({
     	where: {
-    		classCode: req.body.classCode
+    		classCode: req.params.id
     	}
-    }).on('success', function(classInstance) {
-    	res.status(200).send(classInstance);
-    }).on('error', function(){
-    	res.status(404).send(null);
+    })
+    .then((classInstance) => {
+        if(classInstance) {
+            res.status(200).send(classInstance);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+    	res.sendStatus(500);
     });
 }
 
 //CREATE CLASS
 export function insert(req, res) {
-    Class.create({
-        classCode: req.body.classCode,
-        className: req.body.className,
-        classDesc: req.body.classDesc,
-    }).then(function(classInstance) {
-        if(classInstance)
-        	res.status(200).send(classInstance);
-        else
-        	res.status(404).send(null);
+    Account.findById(req.body.AccountId)
+    .then((account) => {
+        if(account) {
+            return account.createNewClass({
+                className: req.body.className,
+                classDesc: req.body.classDesc
+            });
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .then((classInstance) => {
+        res.send(classInstance);
+    })
+    .catch((err) => {
+        res.sendStatus(500);
     });
 }
 
 //UPDATE CLASS
 export function update(req, res) {
-    Class.find({ where: {classCode: req.body.classCode} })
-    .then(function(classInstance) {
-    	if(classInstance){
-				classInstance.updateAttributes({
-					classCode: req.body.classCode,
-					className: req.body.className,
-					classDesc: req.body.classDesc
-				}).then(function(classInstance) {
-					if(classInstance)
-						res.send(200).send(classInstace);
-					else
-						res.send(400).send(null);
-				});
-			} else 
-				res.send(400).send(null);
-    });
+    // @TODO: Me
 }
 
 //DELETE CLASS
 export function deleteClass(req, res) {
-    Class.find({ where: {classCode: req.body.classCode} })
-    .then(function(classEntity){
-        if(classEntity){
-					classEntity.destroy()
-					.then(function(){
-						res.status(200).send("Delete successful");
-					});
-				} else 
-					res.status(404).send("Class not found");
-    });
+    // @TODO: Me
 }

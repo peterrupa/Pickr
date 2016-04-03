@@ -31,7 +31,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
 app.use('/api/activity', activity);

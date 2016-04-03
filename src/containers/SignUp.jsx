@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 // Be sure to rename your class name
 class SignUp extends React.Component {
-    componentDidMount()
+    componentDidMount(){
     }
 
     render() {

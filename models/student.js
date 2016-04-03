@@ -1,5 +1,4 @@
 import uuid from 'node-uuid';
-import { Tag, Class } from '../models';
 
 export default function (sequelize, DataTypes) {
     let Student = sequelize.define("Student", {

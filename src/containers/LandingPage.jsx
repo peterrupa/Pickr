@@ -1,9 +1,13 @@
 // This file bootstraps the app with the boilerplate necessary
 // to support hot reloading in Redux
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 import '../styles/index_style.css';
 //import '../../externalDependencies/js/plugin-min.js';
+const Materialize = window.Materialize;
+const $ = window.$;
 
 class LandingPage extends React.Component {
     componentDidMount() {
@@ -30,38 +34,38 @@ class LandingPage extends React.Component {
             <nav id="nav_f" className="default_color" role="navigation">
                 <div className="container">
                     <div className="nav-wrapper">
-                        <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                        <Link to="#" id="logo-container" className="brand-logo">pickr</Link >
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <a href="#intro">About</a>
+                                <Link to="#intro">About</Link>
                             </li>
                             <li>
-                                <a href="/login">Log in</a>
+                                <Link to="login">Log in</Link>
                             </li>
                             <li>
-                                <a href="/signup">Sign up</a>
+                                <Link to="signup">Sign up</Link>
                             </li>
                             <li>
-                                <a href="#contact">Contact</a>
+                                <Link to="#contact">Contact</Link>
                             </li>
                         </ul>
                         <ul id="nav-mobile" className="side-nav">
                             <li>
-                                <a href="#intro">About</a>
+                                <Link to="#intro">About</Link>
                             </li>
                             <li>
-                                <a href="#login">Log in</a>
+                                <Link to="#login">Log in</Link>
                             </li>
                             <li>
-                                <a href="#team">Sign up</a >
+                                <Link to="#team">Sign up</Link >
                             </li>
                             <li>
-                                <a href="#contact">Contact</a>
+                                <Link to="#contact">Contact</Link>
                             </li>
                         </ul >
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
+                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
                             <i className="mdi-navigation-menu"></i>
-                        </a>
+                        </Link>
                     </div>
                 </div >
             </nav>
@@ -89,31 +93,32 @@ class LandingPage extends React.Component {
                     <div className="col s12">
                         <h2 className="center header text_h2">
                             Here at
-                            <span className="span_h2">
-                                pickr
+                            <span className="span_h2" style={{margin:'1%'}}>
+                                pickr:
                             </span>
-                            we chepar chepar your students.</h2>
+                            Load Off Choosing, Be Best In Teaching!</h2>
                     </div>
 
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-image-flash-on"></i>
-                            <h5 className="promo-caption">Speeds up Discussions</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                            <h5 className="promo-caption">Great in classroom environment</h5>
+                            <p className="light center">With all the tools in your hands, we assure you that you can master this application in a matter of minutes. We provided a guide to help you out in learning.</p>
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-social-group"></i>
                             <h5 className="promo-caption">Student Oriented</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                            <p className="light center">We want you to experience high-end web application to aid you in your everyday lectures. We showcase necesarry tools needed in Link classroom setup aligned with your goals.</p>
+
                         </div>
                     </div>
                     <div className="col s12 m4 l4">
                         <div className="center promo promo-example">
                             <i className="mdi-hardware-desktop-windows"></i>
                             <h5 className="promo-caption">Split screen UI</h5>
-                            <p className="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                            <p className="light center">In every action done in your activities, it will be automatically be updated in your records including the real time changes in the chances of a student to be called in your class.</p>
                         </div>
                     </div>
                 </div>
@@ -133,13 +138,19 @@ class LandingPage extends React.Component {
                             </div>
                         </div >
                         <div className="col s12 l6 offset-l3">
-                            <p className="light">Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..</p>
+                            <p className="light">With its goal to provide a simple and user-friendly aid for busy teachers, Pickr is changing your perspective of a high-end randomizer. Provided with guided tools, the application is so easy to learn and master in just a few minutes. It it also equipped with advanced features such as computations of class and student statistics that will further guide the teacher in selecting volunteers.</p>
                         </div>
                     </div>
-                    <div className="row"></div >
+                    <div className="center">
+                            <br/>
+                            <h2 style={{margin:'0 auto'}}> "With Pickr, we can serve you bettr" </h2>
+                            <br/>
+                            <br/>
+                    </div >
                     <div className="row">
                         <div className="col s12 l6">
-                            <p className="light">Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.. Insert brief description here baby baby Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa..</p>
+                            <br/>
+                            <p className="light">Lets work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
@@ -156,7 +167,7 @@ class LandingPage extends React.Component {
                             <div className="col s12">
                                 <h2 className="center header text_h2">
                                     Want to know more about
-                                    <span className="span_h2">
+                                    <span className="span_h2" style={{margin:'1%'}}>
                                         pickr</span >?
                                 </h2>
                                 <div className="center">
@@ -171,22 +182,22 @@ class LandingPage extends React.Component {
                                         <div className="row">
                                             <div className="col l6 s12">
                                                 <h5 className="white-text">Company Bio</h5>
-                                                <p className="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+                                                <p className="grey-text text-lighten-4">We are a team of college students working on this project like its our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
                                             </div>
                                             <div className="col l3 s12">
                                                 <h5 className="white-text">Settings</h5>
                                                 <ul>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 1</a>
+                                                        <Link className="white-text" to="#!">Link 1</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 2</a>
+                                                        <Link className="white-text" to="#!">Link 2</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 3</a>
+                                                        <Link className="white-text" to="#!">Link 3</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 4</a>
+                                                        <Link className="white-text" to="#!">Link 4</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -194,16 +205,16 @@ class LandingPage extends React.Component {
                                                 <h5 className="white-text">Connect</h5>
                                                 <ul>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 1</a>
+                                                        <Link className="white-text" to="#!">Link 1</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 2</a>
+                                                        <Link className="white-text" to="#!">Link 2</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 3</a>
+                                                        <Link className="white-text" to="#!">Link 3</Link>
                                                     </li>
                                                     <li>
-                                                        <a className="white-text" href="#!">Link 4</a>
+                                                        <Link className="white-text" to="#!">Link 4</Link>
                                                     </li>
                                                 </ul>
                                             </div>

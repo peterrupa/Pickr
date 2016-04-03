@@ -1,5 +1,3 @@
-
-
 // Import dependencies
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
@@ -29,6 +27,7 @@ class ClassList extends React.Component {
     }
 
     handleClick(){
+      //TODO: avoid manipulating DOM tree in jsx files (using actions and queries)
         let carousel = document.getElementById('classCarousel');
         let cards = document.getElementById('classCards');
         if(carousel.style.visibility == 'visible'){
@@ -56,6 +55,8 @@ class ClassList extends React.Component {
                 </div>
                 <div className="container">
                     <h4>Classes</h4>
+
+                {  /*start of carousel view*/}
                     <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-50px'}}>
                         <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
@@ -97,9 +98,10 @@ class ClassList extends React.Component {
                             </div>
                             <div className="notes"></div>
                         </Link>
-
                     </div>
+                    {/*end of carousel view*/}
 
+                    {/*start of card view*/}
                     <div id="classCards" className="container" style={{position: 'relative', top: '-400px'}}>
                         <div className="row">
                             <ul>
@@ -172,7 +174,10 @@ class ClassList extends React.Component {
                         </div>
                     </div>
                 </div>
+                {/*end of class view*/}
 
+
+                {/*start of modal form*/}
                 <div id="addclass" className="modal">
                     <div className="modal-content">
                         <h3>Add Class</h3>

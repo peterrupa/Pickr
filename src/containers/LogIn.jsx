@@ -6,9 +6,6 @@ import {connect} from 'react-redux';
 
 class LogIn extends React.Component {
     componentDidMount(){
-
-        let body = document.getElementByTagName('body');
-        body.background = "./img/full-classroom.jpg";
     }
 
     render() {

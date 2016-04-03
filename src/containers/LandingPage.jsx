@@ -12,7 +12,17 @@ const $ = window.$;
 class LandingPage extends React.Component {
     componentDidMount() {
         $('.parallax').parallax();
-        $('.scrollSpy').scrollSpy();
+        $('.scrollspy').scrollSpy();
+
+        let tiles = $(".showy").fadeTo(0, 0);
+
+        $(window).scroll(function(d,h) {
+            tiles.each(function(i) {
+                let a = $(this).offset().top + $(this).height();
+                let b = $(window).scrollTop() + $(window).height();
+                if (a < b) $(this).fadeTo(500,1);
+            });
+        });
     }
 
     render() {
@@ -81,7 +91,7 @@ class LandingPage extends React.Component {
                         <b>largest</b>
                         <b>hottest</b>
                     </span>*/}
-                    Picker
+                    Pickr
                 </h1>
             </div >
         </div>
@@ -99,7 +109,7 @@ class LandingPage extends React.Component {
                             Load Off Choosing, Be Best In Teaching!</h2>
                     </div>
 
-                    <div className="col s12 m4 l4">
+                    <div className="col s12 m4 l4 ">
                         <div className="center promo promo-example">
                             <i className="mdi-image-flash-on"></i>
                             <h5 className="promo-caption">Great in classroom environment</h5>
@@ -126,7 +136,7 @@ class LandingPage extends React.Component {
             < /div>
 
                 {/*<!--Work-->*/}
-                <div className="parallax-container">
+                <div className="parallax-container" >
                     <div className="parallax"><img src="./img/room.jpg "/></div>
                 </div>
 
@@ -184,40 +194,7 @@ class LandingPage extends React.Component {
                                                 <h5 className="white-text">Company Bio</h5>
                                                 <p className="grey-text text-lighten-4">We are a team of college students working on this project like its our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
                                             </div>
-                                            <div className="col l3 s12">
-                                                <h5 className="white-text">Settings</h5>
-                                                <ul>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 1</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 2</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 3</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 4</Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div className="col l3 s12">
-                                                <h5 className="white-text">Connect</h5>
-                                                <ul>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 1</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 2</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 3</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="white-text" to="#!">Link 4</Link>
-                                                    </li>
-                                                </ul>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </footer>

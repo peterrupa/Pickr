@@ -12,9 +12,19 @@ nav {
 body {
     background-color: #E9E8E7;
 }
-nav:hover, ul:hover, a:hover {
-    color: #6FBEB6;
+
+#classes:hover {
+    color: white;
 }
+
+#classes {
+    border-radius: 25px;
+}
+
+nav:hover, li:hover, a:hover {
+    color: #00838f;
+}
+
 nav ul a, nav .brand-logo {
     color: white;
 }
@@ -194,4 +204,8 @@ body {
 }
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+#classCards ul a{
+    color: white;
 }

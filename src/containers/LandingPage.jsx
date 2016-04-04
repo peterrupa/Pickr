@@ -184,7 +184,7 @@ class LandingPage extends React.Component {
                                         pickr</span >?
                                 </h2>
                                 <div className="center">
-                                    <button className="btn-large" href="/signup">Sign up now</button>
+                                    <a className="btn-large" href="signup">Sign up now</a>
                                     </div></div >
                                 </div>
                                 </div></div >

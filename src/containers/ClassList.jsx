@@ -50,7 +50,7 @@ class ClassList extends React.Component {
                     margin: 'auto',
                     paddingTop: '8%'
                 }}>
-                    <Link className="waves-effect waves-light btn modal-trigger green" to="#addclass">Add Class</Link>
+                    <Link className="waves-effect waves-light btn modal-trigger" to="#addclass">Add Class</Link>
                     <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick={this.handleClick} >Toggle View</button>
                 </div>
                 <div className="container">
@@ -102,17 +102,17 @@ class ClassList extends React.Component {
                     {/*end of carousel view*/}
 
                     {/*start of card view*/}
-                    <div id="classCards" className="container" style={{position: 'relative', top: '-400px'}}>
+                    <div id="classCards" className="container" style={{position: 'relative', top: '-400px', color: 'black'}}>
                         <div className="row">
                             <ul>
                                 <li>
                                     <div className="col s12 m6 l4">
-                                        <div className="card-panel green darken-2 class-card">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
                                             <h5>
                                                 <Link to="/classroom">CMSC 128</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
-                                            <p>
+                                            <p style={{textAlign: 'center'}}>
                                                 Introduction to Software Engineering
                                             </p>
                                         </div>
@@ -120,52 +120,65 @@ class ClassList extends React.Component {
                                 </li>
                                 <li>
                                     <div className="col s12 m6 l4">
-                                        <div className="card-panel green darken-2 class-card">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
                                             <h5>
-                                                <Link to="/classroom">CMSC 128</Link>
+                                                <Link to="/classroom">CMSC 125</Link>
                                             </h5>
-                                            <h6>AB-3L</h6>
-                                            <p>
-                                                Introduction to Software Engineering
+                                            <h6>ST-1L</h6>
+                                            <p style={{textAlign: 'center'}}>
+                                                Introduction to Operating Systems
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="col s12 m6 l4">
-                                        <div className="card-panel green darken-2 class-card">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
                                             <h5>
-                                                <Link to="/classroom">CMSC 128</Link>
+                                                <Link to="/classroom">CMSC 170</Link>
                                             </h5>
-                                            <h6>AB-3L</h6>
-                                            <p>
-                                                Introduction to Software Engineering
+                                            <h6>U-6L</h6>
+                                            <p style={{textAlign: 'center'}}>
+                                                Introduction to Artificial Intelligence
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="col s12 m6 l4">
-                                        <div className="card-panel green darken-2 class-card">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
                                             <h5>
-                                                <Link to="/classroom">CMSC 128</Link>
+                                                <Link to="/classroom">CMSC 132</Link>
                                             </h5>
-                                            <h6>AB-3L</h6>
-                                            <p>
-                                                Introduction to Software Engineering
+                                            <h6>T-2L</h6>
+                                            <p style={{textAlign: 'center'}}>
+                                                Computer Architecture
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
                                     <div className="col s12 m6 l4">
-                                        <div className="card-panel green darken-2 class-card">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
                                             <h5>
-                                                <Link to="/classroom">CMSC 128</Link>
+                                                <Link to="/classroom">CMSC 127</Link>
                                             </h5>
                                             <h6>AB-3L</h6>
-                                            <p>
-                                                Introduction to Software Engineering
+                                            <p style={{textAlign: 'center'}}>
+                                                File Processing and Database System
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div className="col s12 m6 l4">
+                                        <div id="classes" className="card-panel cyan darken-3 class-card">
+                                            <h5>
+                                                <Link to="/classroom">CMSC 100</Link>
+                                            </h5>
+                                            <h6>UV-3L</h6>
+                                            <p style={{textAlign: 'center'}}>
+                                                Web Programming
                                             </p>
                                         </div>
                                     </div>

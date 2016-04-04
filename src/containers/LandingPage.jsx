@@ -1,8 +1,8 @@
 // This file bootstraps the app with the boilerplate necessary
 // to support hot reloading in Redux
 import React, {PropTypes} from 'react';
-
 import '../styles/index_style.css';
+
 //import '../../externalDependencies/js/plugin-min.js';
 
 class LandingPage extends React.Component {
@@ -16,6 +16,9 @@ class LandingPage extends React.Component {
         let divStyle = {
             backgroundImage: 'url(' + imgUrl + ')'
         };
+
+        let best = ["best", "hottest", "coolest"];  
+
         return (
     <div id="top" className="scrollSpy">
         {/*}<!-- Pre Loader -->*/}
@@ -71,13 +74,8 @@ class LandingPage extends React.Component {
         <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
                 <h1 className="text_h center header cd-headline letters type">
-                    {/*<span>We pick the</span >
-                    <span className="cd-words-wrapper waiting">
-                        <b className="is-visible">best</b>
-                        <b>largest</b>
-                        <b>hottest</b>
-                    </span>*/}
-                    Picker
+                    <span>We pick the </span >
+                         <b className="underline is-visible">{best[0]}</b>
                 </h1>
             </div >
         </div>
@@ -88,11 +86,9 @@ class LandingPage extends React.Component {
                 <div className="row">
                     <div className="col s12">
                         <h2 className="center header text_h2">
-                            Here at
-                            <span className="span_h2">
-                                pickr
-                            </span>
-                            we chepar chepar your students.</h2>
+                            Here at <span className="span_h2"> pickr </span>
+                            we chepar chepar your students.
+                        </h2>
                     </div>
 
                     <div className="col s12 m4 l4">
@@ -155,12 +151,10 @@ class LandingPage extends React.Component {
                         <div className="row">
                             <div className="col s12">
                                 <h2 className="center header text_h2">
-                                    Want to know more about
-                                    <span className="span_h2">
-                                        pickr</span >?
+                                    Want to know more about <span className="span_h2"> pickr</span >?
                                 </h2>
                                 <div className="center">
-                                    <button className="btn-large">Sign up now</button>
+                                    <button className="btn-large" href="/signup">Sign up now</button>
                                     </div></div >
                                 </div>
                                 </div></div >

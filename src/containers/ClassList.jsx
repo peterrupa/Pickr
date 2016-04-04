@@ -5,8 +5,8 @@ import { Link } from 'react-router';
 
 import NavBar from '../components/NavBar.jsx';
 
-import './../styles/styles.scss';
 import './../styles/style.css';
+import './../styles/styles.scss';
 //import classListJS from '../../externalDependencies/js/classList.js';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.

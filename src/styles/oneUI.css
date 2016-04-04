@@ -16,7 +16,6 @@ body {
   outline: 0 !important;
 }
 a {
-  color: #5c90d2;
   -webkit-transition: color 0.12s ease-out;
   transition: color 0.12s ease-out;
 }

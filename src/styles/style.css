@@ -118,6 +118,11 @@ nav.navbar {
     border-width: 0;
     padding: 5px;
 }
+#classCards ul a{
+  color: white;
+
+}
+
 .carousel {
     height: 500px;
     width: 90%;

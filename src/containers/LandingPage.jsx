@@ -30,10 +30,12 @@ class LandingPage extends React.Component {
     render() {
         let imgUrl = '../../img/ph.png';
         let divStyle = {
-            backgroundImage: 'url(' + imgUrl + ')'
+            backgroundColor: '#3E3E4B',
+            backgroundRepeat: 'no-repeat',
+            height:'90%'
         };
 
-        let best = ["best", "hottest", "coolest"];  
+        let best = ["best", "hottest", "coolest"];
 
         return (
     <div id="top" className="scrollSpy">
@@ -45,9 +47,9 @@ class LandingPage extends React.Component {
         </div>
 
         {/*<!--Navigation-->*/}
-        <div className="navbar-fixed">
+        <div className="navbar-fixed" >
             <nav id="nav_f" className="default_color" role="navigation">
-                <div className="container">
+                <div className="container" style={{zDepth: '0'}}>
                     <div className="nav-wrapper">
                         <Link to="#" id="logo-container" className="brand-logo">pickr</Link >
                         <ul className="right hide-on-med-and-down">
@@ -89,7 +91,8 @@ class LandingPage extends React.Component {
         {/*<!--Hero-->*/}
         <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
-                <h1 className="text_h center header cd-headline letters type">
+                <img className="center" src="./img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}> </img>
+                <h1 className="text_h center header cd-headline letters type" style={{fontFamily: 'Indie Flower'}}>
                     <span>We pick the </span >
                          <b className="underline is-visible">{best[0]}</b>
                 </h1>

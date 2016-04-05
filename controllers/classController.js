@@ -67,7 +67,6 @@ export function insert(req, res) {
 
 //UPDATE CLASS
 export function update(req, res) {
-    // @TODO: Me
     Class.findById(req.params.id)
     .then((classInstance) => {
         if(classInstance) {
@@ -95,5 +94,19 @@ export function update(req, res) {
 
 //DELETE CLASS
 export function deleteClass(req, res) {
-    // @TODO: Me
+    Class.findById(req.params.id)
+    .then((classInstance) => {
+        if(classInstance) {
+            return classInstance.destroy();
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
+    .then((classInstance) => {
+        res.send(classInstance);
+    })
+    .catch((err) => {
+        res.send(500);
+    });    
 }

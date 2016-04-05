@@ -68,6 +68,29 @@ export function insert(req, res) {
 //UPDATE CLASS
 export function update(req, res) {
     // @TODO: Me
+    Class.findById(req.params.id)
+    .then((classInstance) => {
+        if(classInstance) {
+            return classInstance.updateAttributes({
+                className: req.body.className,
+                classDesc: req.body.classDesc
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
+    .then((classInstance) => {
+        if(classInstance) {
+            res.send(classInstance);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });
 }
 
 //DELETE CLASS

@@ -10,5 +10,6 @@ import ClassRoom from './ClassRoom.jsx';
 import LogIn from './LogIn.jsx';
 import SignUp from './SignUp.jsx';
 import Presentation from './Presentation.jsx';
+import ForgotPassword from './ForgotPassword.jsx';
 
-module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation};
+module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation, ForgotPassword};

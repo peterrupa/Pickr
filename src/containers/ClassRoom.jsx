@@ -74,6 +74,7 @@ class ClassRoom extends React.Component {
                                         <Link className="modal-trigger" to="#addstudent">
                                             <i className="material-icons">add</i>
                                         </Link>
+
                                     </li>
                                     <li>
                                         <i className="material-icons">edit</i>
@@ -93,8 +94,11 @@ class ClassRoom extends React.Component {
                                                     <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
                                                     <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
                                                 </small>
+
+                                                <i className="material-icons right">delete</i>
                                             </div>
                                         </Link>
+
                                     </li>
                                     <li>
                                         <Link to="student">
@@ -104,6 +108,10 @@ class ClassRoom extends React.Component {
                                                 <small>
                                                     <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
+
+                                                  <i className="material-icons right">mode_edit</i>
+                                                  <i className="material-icons right">delete</i>
+
                                             </div>
                                         </Link>
                                     </li>
@@ -115,6 +123,9 @@ class ClassRoom extends React.Component {
                                                 <small>
                                                     <span className="task-cat pink" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
+
+                                                  <i className="material-icons right">mode_edit</i>
+                                                  <i className="material-icons right">delete</i>
                                             </div>
                                         </Link>
                                     </li>
@@ -232,10 +243,13 @@ class ClassRoom extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</Link>
+                            <Link to="/classroom" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</Link>
                         </div>
                     </div>
+
+                  
+
                     <div id="addactivity" className="modal">
                         <div className="modal-content">
                             <h3>Add Activity</h3>
@@ -263,6 +277,9 @@ class ClassRoom extends React.Component {
                             <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</Link>
                         </div>
                     </div>
+
+
+
                     <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
                         <div className="pull-right">
                             Crafted with

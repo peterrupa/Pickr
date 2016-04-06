@@ -6,6 +6,16 @@ import { getVolunteer, fetchAvailableVolunteers } from '../actions/controlpanelA
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+    getVolunteer2() {
+            {JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
+            var selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+      return <div>
+        { this.props.selectedVolunteer.map(function (volunteer) {
+            return <div>{JSON.stringify(volunteer.selectedVolunteer)}</div>
+            })
+        }
+      </div>
+    }
 
     componentWillMount() {
         this.props.fetchAvailableVolunteers('cmsc128');
@@ -15,10 +25,9 @@ class ControlPanel extends React.Component {
         const { availableStudentsState, getVolunteer } = this.props;
 
         return (
-            <div>
+            <div id="main">
             <h1>Control Panel</h1>
-            <button>Select "Volunteer"</button>
-            {JSON.stringify(availableStudentsState.availableVolunteers)}
+            <button onClick={this.getVolunteer2}>Select "Volunteer"</button>
             </div>
         );
     }

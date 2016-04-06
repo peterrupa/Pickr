@@ -140,7 +140,7 @@ class LandingPage extends React.Component {
             < /div>
 
                 {/*<!--Work-->*/}
-                <div className="parallax-container" >
+                <div className="parallax-container hide-on-med-and-down" >
                     <div className="parallax"><img src="/img/room.jpg "/></div>
                 </div>
 

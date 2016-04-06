@@ -3,6 +3,7 @@
 */
 
 import express from 'express';
+import bcrypt from 'bcrypt';
 let router  = express.Router();
 
 // be sure to import your model here
@@ -42,37 +43,59 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
+
     Account.findOne({
         where: {
             username: req.body.username
         }
-    }).then((user) => {
+    })
+    .then((user) => {
+
         if(!user && !req.session.user) {
+
             res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
-        } else {
-            Account.findOne({
-                where: {
-                    username: req.body.username,
-                    password: req.body.password
-                }
-            }).then((user) => {
-                if(!user && !req.session.user) {
-                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
-                } else {
-                    if (!req.session.user) {
-                        req.session.user = req.body.username;
-                        res.status(200).send({username:user.dataValues.Username, status:'logged in'});
-                    } else {
-                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
-                    }
-                }
-            }).catch((err) => {
-                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-            });
         }
-    }).catch((err) => {
+
+        return user;
+
+    })
+    .then((user) => {
+
+        Account.findOne({
+            where: {
+                username: req.body.username,
+                password: req.body.password
+            }
+        })
+        .then((user) => {
+
+            if(!user && !req.session.user) {
+                res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
+            } 
+
+        })
+        .catch((err) => {
+            res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+        });
+
+        return user;
+
+    })
+    .then((user) => {
+
+        if (!req.session.user) {
+            req.session.user = req.body.username;
+            res.status(200).send({username:user.dataValues.Username, status:'logged in'});
+        } 
+        else {
+             res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+        }
+
+    })
+    .catch((err) => {
         res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     });
+
 }
 
 exports.logout = (req, res) => {

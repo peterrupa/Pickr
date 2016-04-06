@@ -2,11 +2,38 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Be sure to rename your class name
-
 
 class LogIn extends React.Component {
     componentDidMount(){
+    }
+
+    post(e){
+        e.preventDefault();
+
+        let username = $('#username').val();
+        let password = $('#password').val();
+        let data = "username=" + username + "&password=" + password;
+
+        if (username !== '' && password !== '') {
+
+            fetch('/api/account/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept':'application/json'
+                },
+                body: data
+            })
+            .then((res) => {
+                if (res.status === 200) {
+                    window.location.href = '/class';
+                }
+                else {
+                    window.location.href = '/login';
+                }
+            });
+
+        }
     }
 
     render() {
@@ -52,7 +79,7 @@ class LogIn extends React.Component {
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                          <form className="login-form">
+                          <form onSubmit={(e) => this.post(e)} className="login-form">
         <div className="row">
           <div className="input-field col s12 center">
             <img src="./img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
@@ -81,7 +108,7 @@ class LogIn extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <input type="submit" value="Login" className="btn waves-effect waves-light col s12" formAction="class"/>
+            <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
           </div>
         </div>
         <div className="row">

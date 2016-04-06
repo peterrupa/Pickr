@@ -208,21 +208,21 @@ $(document).ready(function() {
             $('.countDown').show();
         });
 
-        $('#cd_start').live('click', function() {
+        $('#cd_start').on('click', function() {
             $.APP.startTimer('cd');
         });
-        $('#sw_start').live('click', function() {
+        $('#sw_start').on('click', function() {
             $.APP.startTimer('sw');
         });
-        $('#sw_stop,#cd_stop').live('click', function() {
+        $('#sw_stop,#cd_stop').on('click', function() {
             $.APP.stopTimer();
         });
 
-        $('#sw_reset,#cd_reset').live('click', function() {
+        $('#sw_reset,#cd_reset').on('click', function() {
             $.APP.resetTimer();
         });
 
-        $('#sw_pause,#cd_pause').live('click', function() {
+        $('#sw_pause,#cd_pause').on('click', function() {
             $.APP.pauseTimer();
         });
 

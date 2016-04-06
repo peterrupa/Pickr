@@ -6,28 +6,28 @@ import { getVolunteer, fetchAvailableVolunteers } from '../actions/controlpanelA
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
-    getVolunteer2() {
-            {JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
-            var selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
-      return <div>
-        { this.props.selectedVolunteer.map(function (volunteer) {
-            return <div>{JSON.stringify(volunteer.selectedVolunteer)}</div>
-            })
-        }
-      </div>
-    }
 
     componentWillMount() {
         this.props.fetchAvailableVolunteers('cmsc128');
     }
 
+    get() {
+      {JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
+      var selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+        alert(JSON.stringify(selectedVolunteer));
+        return (
+          <div> (JSON.stringify(selectedVolunteer) </div>
+        );
+    }
+
+
     render() {
         const { availableStudentsState, getVolunteer } = this.props;
 
         return (
-            <div id="main">
+            <div>
             <h1>Control Panel</h1>
-            <button onClick={this.getVolunteer2}>Select "Volunteer"</button>
+            <button onClick={() => this.get().bind(this)}>Select "Volunteer"</button>
             </div>
         );
     }

@@ -3,12 +3,26 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 
 import '../styles/oneUI.css';
+import { addStudent2 } from '../actions/studentActions';
 
 // Be sure to rename your class name
 class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
     }
+    
+    handleClick(){
+        let data = {
+            body:{
+                classCode: 2,
+                fname: document.getElementById('firstName').value,
+                lname: document.getElementById('lastName').value,
+                mname: document.getElementById('middleName').value
+            }
+        };
+        addStudent2(data);
+    }
+    
     render() {
         return (
             <div>
@@ -260,7 +274,7 @@ class ClassRoom extends React.Component {
                         </div>
                         <div className="modal-footer">
                             <a href="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                            <a href="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</a>
+                            <a href="#" className="waves-effect waves-green btn-flat modal-action modal-close" onClick={this.handleClick} >Add Student</a>
                         </div>
                     </div>
                     <div id="addactivity" className="modal">

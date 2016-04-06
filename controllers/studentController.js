@@ -1,91 +1,119 @@
-/*
-    Controller for the model student.
-*/
-
-import express from 'express';
-let router  = express.Router();
-
 import { Student } from '../models';
-import { Class } from '../models';
 
-//GET STUDENT
 export function getAll(req, res) {
-		Student.findAll()
-		.then(function(students){
-			if(students)
-				res.status(200).send(students);
-			else
-				res.status(404).send(null);
-		});
-}
-
-export function getOne(req, res) {
-    Student.find({
-    	where: {
-    		studentId: req.body.studentId
+    Student.findAll({
+    	where:{
+    		classCode: req.params.id
     	}
-    }).on('success', function(student) {
-    	res.status(200).send(student);
-    }).on('error', function(){
-    	res.status(404).send(null);
+    })
+    .then((students) => {
+        // fetch tags for each student
+        let promises = students.map((student) => {
+            return student.getTags().then((data) => {
+                student.dataValues.tags = data.map((tag) => tag.dataValues.name);
+                return student.dataValues;
+            });
+        });
+        
+        return Promise.all(promises);
+    })
+    .then((students) => {
+        res.send(students);
     });
 }
 
-//CREATE STUDENT
+//GET Student
+export function getOne(req, res) {
+    Student.findById(req.params.studentId).then((student) => {
+        if(student) {
+            student.getTags().then((data) => {
+                student.dataValues.tags = data.map((tag) => tag.dataValues.name);
+                res.send(student);
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
+    });
+}
+
+//CREATE Student
 export function insert(req, res) {
-		Class.find({
-			where:{
-				classCode: req.body.classCode
-			}
-		}).then(function(classEntity){
-			if(classEntity){
-				Student.create({
-				    studentId: req.body.studentId,
-				    studentFName: req.body.studentFName,
-				    studentLName: req.body.studentLName,
-				    classCode: req.body.classCode
-				}).then(function(student){
-						if(student)
-							res.status(200).send(student);
-						else
-							res.status(404).send(null);
-				});
-			}
-			else
-				res.status(404).send(null);
-		});
+    // @TODO: Upload image here
+        
+    Student.create({
+			fname: req.body.fname,
+			lname: req.body.lname,
+			mname: req.body.mname,
+			image: req.body.image,
+			classCode: req.params.id	
+    }).then((student) => {
+        // create tags
+        let tags = req.body.tags.map((tag) => student.createTag({
+            name: tag
+        }));
+         
+        return Promise.all(tags);
+    }).then((student) => {
+        res.send(student);
+    });
 }
 
-//UPDATE STUDENT
+//UPDATE ATTRIBUTES
 export function update(req, res) {
-    Student.find({ where: {studentId: req.body.studentId} })
-    .then(function(student) {
-    	if(student){
-				student.updateAttributes({
-					studentId: req.body.studentId,
-					studentFName: req.body.studentFName,
-					studentLName: req.body.studentLName
-				}).then(function(student) {
-					if(student)
-						res.status(200).send(student);
-					else
-						res.status(404).send(null);
-				});
-			} else
-				res.status(404).send(null);
+    // @TODO: Make another function for updating images
+    Student.update({
+        fname: req.body.fname,
+        lname: req.body.lname,
+       	mname: req.body.mname,
+        image: req.body.image
+    }, {
+        where: {
+            id: req.params.studentId
+        }
+    }).then((affectedCount) => {
+        if(affectedCount > 0) {
+            // retrieve updated model
+            Student.findById(req.params.studentId).then((student) => {
+                if(student) {
+                    res.send(student);
+                }
+                else {
+                    res.sendStatus(404);
+                }
+            });
+        }
+        else {
+            res.send({});
+        }
+    }).catch((err) => {
+        res.sendStatus(500);
     });
 }
 
-//DELETE STUDENT
-export function deleteStudent(req, res) {
-     Student.find({ where: {studentId: req.body.studentId} })
-    .then(function(student){
-        if(student){
-					student.destroy()
-					.then(function(){
-						res.status(200).send("Delete successful");
-					});
-				} else 
-					res.status(404).send("Student not found");
+//DELETE Student
+export function remove(req, res) {
+    // initially get student data
+    Student.findById(req.params.studentId).then((student) => {
+        if(student) {
+            // remove if found
+            Student.destroy({
+                where: {
+                    id: req.params.studentId
+                },
+                limit: 1,
+                cascade: true
+            }).then((affectedCount) => {
+                if(affectedCount > 0) {
+                    res.send(student);
+                }
+                else {
+                    res.send({});
+                }
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
-}
+}	

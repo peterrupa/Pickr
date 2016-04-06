@@ -25,9 +25,14 @@ app.use(cookieParser());
 app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
-app.use('/api/activity', activity);
+app.use('/api/class', activity);
 app.use('/api/class', classRoute);
-app.use('/api/student', student);
+app.use('/api/class', student);
+
+// 404 for api
+app.get('/api/*', (req, res) => {
+    res.sendStatus(404);
+})
 
 // send routing to client
 app.get('*', (req, res) => {

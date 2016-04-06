@@ -24,7 +24,7 @@ export function setSamples(samples) {
 export function fetchInitialSample() {
     return (dispatch) => {
         // ajax request to /api/sample
-        fetch('/api/sample', {
+        fetch('/api/class', {
             method: 'GET'
         }).then((res) => {
             // convert response to json

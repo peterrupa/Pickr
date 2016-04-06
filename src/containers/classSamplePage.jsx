@@ -21,27 +21,13 @@ class SamplePage extends React.Component {
         
         let pages = [];
         
-        /*for(let i = 0; i < sampleAppState.sampleCounter; i++) {
-            pages.push(
-                <p key={i}>{i + 1}</p>
-            );
-        }*/
-        
         let samples = sampleAppState.samples;
-        samples.forEach(function(classInstance){
+        sample.forEach(function(sample){
             pages.push(
-                 <a className="carousel-item" href="/classroom">
-                   <div className="classroomPallete">
-                     <i className="material-icons right">delete</i>
-                     <h5>{classInstance.classCode}</h5>
-                     <h6>{classInstance.classSection}</h6>
-                     <br/>
-                     <h6>{classInstance.className}</h6>
-                   </div>
-                </a>
+                <p key={i}>{sample.classCode}</p>
             );
-        });
-        
+        })
+
         return (
             <div>
                 <h1>The Simple Counter Page</h1>

@@ -9,73 +9,94 @@ import { Activity } from '../models';
 
 //GET ACTIVITY
 export function getAll(req, res) {
-		Activity.findAll()
+		Activity.findAll({
+			where: {
+				classCode: req.params.id
+			}
+		})
     .then(function(activities) {
         if(activities)
-        	res.status(200).send(activities);
+        	res.send(activities);
         else
-        	res.status(404).send(null);
+        	res.sendStatus(404);
     });
 }
 
 export function getOne(req, res) {
-    Activity.find({
-    	where: {
-    		activityId: req.body.activityId
-    	} 
-    }).then(function(activity){
+    Activity.findById(req.params.activityId)
+    .then(function(activity){
     	if(activity)
-    		res.status(200).send(activity);
+    		res.send(activity);
     	else
-    		res.status(404).send(null);	
+    		res.sendStatus(404);
     });
 }
 	
 //CREATE ACTIVITY
 export function insert(req, res) {
     Activity.create({
-        activityId: req.body.activityId,
         activityName: req.body.activityName,
         activityDesc: req.body.activityDesc,
+        classCode: req.params.id
     }).then(function(activity) {
         if(activity)
-        	res.status(200).send(activity);
+        	res.send(activity);
         else
-        	res.status(404).send(null);
+        	res.sendStatus(404);
     });
 }
 
 //UPDATE ATTRIBUTES
 export function update(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} })
-    .then(function(activity) {
-    	if(activity){
-				activity.updateAttributes({
-					activityId: req.body.activityId,
-					activityName: req.body.activityName,
-					activityDesc: req.body.activityDesc
-				}).then(function(activity) {
-					if(activity)
-						res.status(200).send(activity);
-					else
-						res.status(404).send(null);
-				});
-			} else {
-				res.status(404).send(null);
-			}
-    });
+		Activity.update({
+				activityName: req.body.activityName,
+				activityDesc: req.body.activityDesc
+		}, {
+		    where: {
+		        id: req.params.activityId
+		    }
+		}).then((affectedCount) => {
+		    if(affectedCount > 0) {
+		        // retrieve updated model
+		        Activity.findById(req.params.activityId).then((activity) => {
+		            if(activity) {
+		                res.send(activity);
+		            }
+		            else {
+		                res.sendStatus(404);
+		            }
+		        });
+		    }
+		    else {
+		        res.send({});
+		    }
+		}).catch((err) => {
+		    res.sendStatus(500);
+		});
 }
 
 //DELETE ACTIVITY
-export function deleteActivity(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} })
-    .then(function(activity){
-        if(activity){
-					activity.destroy()
-					.then(function(){
-						res.status(200).send("Delete successful");
-					});
-				} else 
-					res.status(404).send("Activity not found");
+export function remove(req, res) {
+    Activity.findById(req.params.activityId).then((activity) => {
+        if(activity) {
+            // remove if found
+            activity.destroy({
+                where: {
+                    id: req.params.activityId
+                },
+                limit: 1,
+                cascade: true
+            }).then((affectedCount) => {
+                if(affectedCount > 0) {
+                    res.send(activity);
+                }
+                else {
+                    res.send({});
+                }
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
 }

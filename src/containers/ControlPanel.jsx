@@ -12,11 +12,11 @@ class ControlPanel extends React.Component {
     }
 
     get() {
-      {JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
-      var selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
-        alert(JSON.stringify(selectedVolunteer));
+        //{JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
+        let selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+        alert(selectedVolunteer.studentLName + ", " + selectedVolunteer.studentFName);
         return (
-          <div> (JSON.stringify(selectedVolunteer) </div>
+        <div> {selectedVolunteer.studentLName},  {selectedVolunteer.studentFName} </div>
         );
     }
 
@@ -27,7 +27,7 @@ class ControlPanel extends React.Component {
         return (
             <div>
             <h1>Control Panel</h1>
-            <button onClick={() => this.get().bind(this)}>Select "Volunteer"</button>
+            <button onClick={() => this.get()}>Select "Volunteer"</button>
             </div>
         );
     }

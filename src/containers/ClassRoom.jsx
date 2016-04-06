@@ -16,7 +16,7 @@ class ClassRoom extends React.Component {
                 <div className="tint" style={{  position: 'relative',
                     cursor: 'pointer',
                     boxShadow: 'rgba(0,0,0,.2) 3px 5px 5px'}}>
-                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'./img/bg.jpg'+')'}}>
+                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">WELCOME TO CMSC 170!</h1>
                             <h2 className="h5 text-white-op animated zoomIn">Introduction to Artificial Intelligence</h2>
@@ -86,7 +86,7 @@ class ClassRoom extends React.Component {
                                 <ul className="nav-users push">
                                     <li>
                                         <Link to="/student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -102,7 +102,7 @@ class ClassRoom extends React.Component {
                                     </li>
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Joshua Munoz
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -117,7 +117,7 @@ class ClassRoom extends React.Component {
                                     </li>
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="./img/pic.jpg" alt=""/>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
                                             Amber Walker
                                             <div className="font-w400 text-muted">
                                                 <small>
@@ -248,7 +248,7 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
 
-                  
+
 
                     <div id="addactivity" className="modal">
                         <div className="modal-content">

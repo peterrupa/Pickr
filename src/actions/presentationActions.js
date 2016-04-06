@@ -1,9 +1,9 @@
 import * as types from '../constants/ActionTypes';
 
-export function setSamples(samples) {
+export function setVolunteers(volunteers) {
     return {
-        type: types.PRESENTATION_SAMPLES,
-        samples
+        type: types.SET_VOLUNTEERS,
+        volunteers
     };
 }
 
@@ -15,9 +15,9 @@ export function fetchInitialSample() {
         }).then((res) => {
             // convert response to json
             return res.json();
-        }).then((samples) => {
+        }).then((volunteers) => {
             // dispatch action with data from server
-            dispatch(setSamples(samples));
+            dispatch(setVolunteers(volunteers));
         });
     };
 }

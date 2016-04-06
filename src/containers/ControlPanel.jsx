@@ -2,7 +2,7 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import { getVolunteer, fetchAvailableVolunteers } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers } from '../actions/controlpanelActions';
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
@@ -22,12 +22,12 @@ class ControlPanel extends React.Component {
 
 
     render() {
-        const { availableStudentsState, getVolunteer } = this.props;
+        const { availableStudentsState } = this.props;
 
         return (
             <div>
             <h1>Control Panel</h1>
-            <button onClick={() => this.get()}>Select "Volunteer"</button>
+            <button onClick={() => this.get()}>Select Volunteer</button>
             </div>
         );
     }
@@ -35,12 +35,11 @@ class ControlPanel extends React.Component {
 
 ControlPanel.propTypes = {
     availableStudentsState: PropTypes.object.isRequired,
-    getVolunteer: PropTypes.func.isRequired,
     fetchAvailableVolunteers: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ availableStudentsState: state.availableStudentsState }),
-    { getVolunteer, fetchAvailableVolunteers }
+    { fetchAvailableVolunteers }
 )(ControlPanel);

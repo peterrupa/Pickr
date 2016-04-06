@@ -1,7 +1,7 @@
 // a reducer takes an input state and an action, does some process, and returns the transformed state
 
 // import your action type constants
-import {PRESENTATION_SAMPLES} from '../constants/ActionTypes';
+import {SET_VOLUNTEERS} from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
@@ -15,9 +15,9 @@ const initialState = {
 //and update values on the copy.
 export default function presentationState(state = initialState, action) {
     switch (action.type) {
-        case PRESENTATION_SAMPLES:
+        case SET_VOLUNTEERS:
             return Object.assign({}, state, {
-                volunteer: action.samples
+                volunteer: action.volunteers
             });
 
         default:

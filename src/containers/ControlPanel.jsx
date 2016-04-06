@@ -17,7 +17,7 @@ class ControlPanel extends React.Component {
             <div className="col s12 m5 l4" data-collapsible="accordion">
                 {/* <div className="card-panel'> */}
                 <ul className="collapsible  with-header">
-                    <li className="collection-header">
+                    <li className="collection-header center">
                         <div className="container">
                             <h5>CMSC 128</h5>
                         </div>

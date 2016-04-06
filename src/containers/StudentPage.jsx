@@ -41,7 +41,7 @@ class StudentPage extends React.Component {
                                     <div id="profile-page-header" className="card">
 
                                         <figure className="card-profile-image">
-                                            <img src="./img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
+                                            <img src="/img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
                                                 width: '20%',
                                                 height: '20%'
                                             }}/>

@@ -54,7 +54,7 @@ class LandingPage extends React.Component {
                         <Link to="#" id="logo-container" className="brand-logo">pickr</Link >
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <Link to="#intro">About</Link>
+                                <a href="#intro">About</a>
                             </li>
                             <li>
                                 <Link to="login">Log in</Link>
@@ -63,7 +63,7 @@ class LandingPage extends React.Component {
                                 <Link to="signup">Sign up</Link>
                             </li>
                             <li>
-                                <Link to="#contact">Contact</Link>
+                                <a href="#contact">Contact</a>
                             </li>
                         </ul>
                         <ul id="nav-mobile" className="side-nav">

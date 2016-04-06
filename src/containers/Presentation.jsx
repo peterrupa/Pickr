@@ -83,8 +83,9 @@ class Presentation extends React.Component {
                 </div>
 
                 <div className="countDown" style={{float:'right',bottom: '10px',marginRight: '5%'}}>
-                    {/*<a id="sw_start" className="waves-effect waves-light btn-flat">START</a>
-                                        <a id="sw_stop" className="waves-effect waves-light btn-flat">STOP</a>*/}
+                    <a id="sw_start" className="waves-effect waves-light btn-flat">START</a>
+                    <a id="sw_stop" className="waves-effect waves-light btn-flat">STOP</a>
+                    
                     <div id="clockdiv">
                         <div>
                             <span id="sw_m">00</span>

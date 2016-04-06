@@ -48,6 +48,11 @@ export const LOG_FAIL = {
 	message: 'Log-In failed'
 };
 
+export const SERVER_ERR = {
+	code: 500,
+	message: 'Server error'
+};
+
 export const INV_USER = {
 	code: 404,
 	message: 'Invalid username'

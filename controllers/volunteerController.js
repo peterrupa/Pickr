@@ -10,6 +10,7 @@ export function insert(req, res) {
     Volunteer.create({
         activityID: req.body.activityID,
         studentID: req.body.studentID,
+        classCode: req.body.classCode,
         dateVolunteered: new Date(),
         note: req.body.note
     }).then(function(volunteer) {

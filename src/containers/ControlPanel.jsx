@@ -15,6 +15,22 @@ class ControlPanel extends React.Component {
         //{JSON.stringify(this.props.availableStudentsState.availableVolunteers)}
         let selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
         alert(selectedVolunteer.studentLName + ", " + selectedVolunteer.studentFName);
+        console.log(selectedVolunteer);
+        fetch('/api/volunteer/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                activityID: 'sampleactivity1',
+                studentID: selectedVolunteer.studentId,
+                classCode: selectedVolunteer.ClassClassCode,
+                note: ''
+            })
+        }).then((res) => {
+            console.log(res);
+        });
         return (
         <div> {selectedVolunteer.studentLName},  {selectedVolunteer.studentFName} </div>
         );

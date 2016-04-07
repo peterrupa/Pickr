@@ -24,13 +24,12 @@ class NavBar extends React.Component {
                         </Link>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <a id="classDD" href="login">Log Out</a>
+                              <Link to="/">Logout</Link>
                             </li>
-                        </ul>
-                        <ul className="right hide-on-med-and-down">
                             <li>
                                 <a id="classDD" href="#">Classes</a>
                             </li>
+
                         </ul>
                         <a href="#" data-activates="nav-mobile" className="button-collapse">
                             <i className="material-icons">menu</i>

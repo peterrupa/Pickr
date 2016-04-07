@@ -20,25 +20,25 @@ class ClassList extends React.Component {
         $('.carousel').carousel();
 
         let carousel = document.getElementById('classCarousel');
-        carousel.style.visibility = "hidden";
+        carousel.style.display = "none";
 
         let cards = document.getElementById('classCards');
-        cards.style.visibility = "visible";
+        cards.style.display = "block";
     }
 
     handleClick(){
       //TODO: avoid manipulating DOM tree in jsx files (using actions and queries)
         let carousel = document.getElementById('classCarousel');
         let cards = document.getElementById('classCards');
-        if(carousel.style.visibility == 'visible'){
-            carousel.style.visibility = 'hidden';
+        if(carousel.style.display == 'block'){
+            carousel.style.display = 'none';
         }else{
-            carousel.style.visibility = 'visible';
+            carousel.style.display = 'block';
         }
-        if(cards.style.visibility == 'visible'){
-            cards.style.visibility = 'hidden';
+        if(cards.style.display == 'block'){
+            cards.style.display = 'none';
         }else{
-            cards.style.visibility = 'visible';
+            cards.style.display = 'block';
         }
     }
 
@@ -57,7 +57,7 @@ class ClassList extends React.Component {
                     <h4>Classes</h4>
 
                 {  /*start of carousel view*/}
-                    <div id="classCarousel" className="carousel" style={{position: 'relative', top: '-50px'}}>
+                    <div id="classCarousel" className="carousel" style={{margin:'0'}}>
                         <Link className="carousel-item" to="/classroom">
                             <div className="classroomPallete">
                                 <i className="material-icons right">delete</i>
@@ -102,7 +102,7 @@ class ClassList extends React.Component {
                     {/*end of carousel view*/}
 
                     {/*start of card view*/}
-                    <div id="classCards" className="container" style={{position: 'relative', top: '-400px', color: 'black'}}>
+                    <div id="classCards" className="container" style={{/*{position: 'relative', top: '-400px',*/ color: 'black'}}>
                         <div className="row">
                             <ul>
                                 <li>

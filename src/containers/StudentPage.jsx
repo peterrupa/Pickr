@@ -38,7 +38,7 @@ class StudentPage extends React.Component {
 
                                 <div id="profile-page" className="section">
                                     {/*<!-- profile-page-header -->*/}
-                                    <div id="profile-page-header" className="card">
+                                    <div id="profile-page-header" className="card" style={{paddingTop:'6%'}}>
 
                                         <figure className="card-profile-image">
                                             <img src="/img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{

@@ -24,6 +24,11 @@ class NavBar extends React.Component {
                         </Link>
                         <ul className="right hide-on-med-and-down">
                             <li>
+                                <a id="classDD" href="login">Log Out</a>
+                            </li>
+                        </ul>
+                        <ul className="right hide-on-med-and-down">
+                            <li>
                                 <a id="classDD" href="#">Classes</a>
                             </li>
                         </ul>

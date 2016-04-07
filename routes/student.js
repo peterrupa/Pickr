@@ -3,10 +3,9 @@ let router = express.Router();
 
 import * as studentController from '../controllers/studentController';
 
-router.get('/', studentController.getAll);
-router.post('/', studentController.insert);
-router.get('/:id', studentController.getOne);
-router.post('/:id', studentController.update);
-router.delete('/:id', studentController.remove);
-
+router.get('/:id/student', studentController.getAll);
+router.post('/:id/student', studentController.insert);
+router.get('/:id/student/:studentId', studentController.getOne);
+router.post('/:id/student/studentId', studentController.update);
+router.delete('/:id/student/studentId', studentController.remove);
 export default router;

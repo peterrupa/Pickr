@@ -13,23 +13,19 @@ import { Class, Account } from '../models';
 export function getAll(req, res) {
     Class.findAll({
         where: {
-            AccountId: req.query.AccountId
+            AccountId: req.params.AccountId
         }
     })
     .then(function(classes) {
         if(classes)
-        	res.status(200).send(classes);
+        	res.send(classes);
         else
-        	res.status(404).send(null);
+        	res.sendstatus(404);
     });
 }
 
 export function getOne(req, res) {
-    Class.find({
-    	where: {
-    		classCode: req.params.id
-    	}
-    })
+    Class.findById(req.params.id)
     .then((classInstance) => {
         if(classInstance) {
             res.status(200).send(classInstance);
@@ -45,12 +41,12 @@ export function getOne(req, res) {
 
 //CREATE CLASS
 export function insert(req, res) {
-    Account.findById(req.body.AccountId)
+    Account.findById(req.params.AccountId)
     .then((account) => {
         if(account) {
             return account.createNewClass({
                 className: req.body.className,
-                classDesc: req.body.classDesc
+                classCode: req.body.classCode
             });
         }
         else {
@@ -93,20 +89,27 @@ export function update(req, res) {
 }
 
 //DELETE CLASS
-export function deleteClass(req, res) {
-    Class.findById(req.params.id)
-    .then((classInstance) => {
-        if(classInstance) {
-            return classInstance.destroy();
-        }
-        else {
-            res.sendStatus(404);
-        }
-    })
-    .then((classInstance) => {
-        res.send(classInstance);
-    })
-    .catch((err) => {
-        res.send(500);
-    });    
+export function remove(req, res) {
+  CLass.findById(req.params.id).then((student) => {
+      if(student) {
+          // remove if found
+          Class.destroy({
+              where: {
+                  id: req.params.id
+              },
+              limit: 1,
+              cascade: true
+          }).then((affectedCount) => {
+              if(affectedCount > 0) {
+                  res.send(student);
+              }
+              else {
+                  res.send({});
+              }
+          });
+      }
+      else {
+          res.sendStatus(404);
+      }
+  });
 }

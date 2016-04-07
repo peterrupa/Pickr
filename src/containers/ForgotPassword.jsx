@@ -1,19 +1,18 @@
-// Import dependencies
 import React, {PropTypes} from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Be sure to rename your class name
-class SignUp extends React.Component {
+// Be sure to rename your className name
+
+
+class ForgotPassword extends React.Component {
     componentDidMount(){
-        let body = document.getElementByTagName('body');
-        body.background = "/img/full-classroom.jpg";
     }
 
     render() {
 
         return (
-            <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
+            <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <Link id="logo-container" to="#" className="brand-logo">
@@ -61,48 +60,30 @@ class SignUp extends React.Component {
                                             width: '60px'
                                         }}/>
                                         <p className="center login-form-text">
-                                            Pickr Sign - Up Form
+                                            Pickr Forgot Password Form
                                         </p>
                                     </div >
                                 </div>
                                 <div className="row margin">
                                     <div className="input-field col s12">
-                                        <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="username" type="text" className="validate" required="true"/>
-                                        <label htmlFor="username" className="center-align">Username</label>
-                                    </div>
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s12">
                                         <i className="mdi-communication-email prefix"></i>
-                                        <input id="email" type="email" className="validate" required="true"/>
+                                        <input id="email" type="email" className="validate"/>
                                         <label htmlFor="email" className="center-align">Email</label>
-                                    </div>
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s12">
-                                        <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password" type="password" className="validate" required="true"/>
-                                        <label htmlFor="password">Password</label>
-                                    </div>
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s12">
-                                        <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password-again" type="password" required="true"/>
-                                        <label htmlFor="password-again">Re-type password</label>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input type="submit" value="Register Now" className="btn waves-effect waves-light col s12"/>
-                                    </div>
-                                    <div className="input-field col s12">
-                                        <p className="margin center medium-small sign-up">Already have an account?
-                                            <Link to="/login"> Login</Link>
-                                        </p>
+                                        <Link to="/login" className="btn waves-effect waves-light col s12">Recover my Password</Link>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="input-field col s6 m6 l6">
+                                        <p className="margin medium-small"><Link to="/signup">Register Now!</Link></p>
+                                    </div>
+                                    <div className="input-field col s6 m6 l6">
+                                        <p className="margin right-align medium-small"><Link to="/login">Log In!</Link></p>
+                                    </div>
+                                    </div>
                             </form>
                         </div>
                     </div>
@@ -112,4 +93,4 @@ class SignUp extends React.Component {
     }
 }
 // connect to redux store
-export default SignUp;
+export default ForgotPassword;

@@ -32,6 +32,10 @@
     -webkit-box-shadow:none !important;
 }
 
+.underline {
+   font-style: italic;
+}
+
 .text_h {
     padding: 15% 0;
     font-size: 6.0em;
@@ -48,6 +52,15 @@
     font-weight: 100;
     padding: 0;
     letter-spacing: 7px;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
 
 .text_h2 {font-weight: 100;margin-bottom: 4%; line-height: 4.5rem;}
@@ -283,8 +296,8 @@ footer.page-footer {
  }
  /* label underline focus color */
  .input-field input[type=text]:focus {
-   border-bottom: 1px solid #000;
-   box-shadow: 0 1px 0 0 #000;
+
+
  }
  /* valid color */
  .input-field input[type=text].valid {

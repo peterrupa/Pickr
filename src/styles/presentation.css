@@ -122,3 +122,6 @@
    background: transparent;
     font-size:0;
 }
+#sw_start, #sw_stop {
+    color: #c7a217;
+}

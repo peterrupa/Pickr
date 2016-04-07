@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
 // Import actions associated to this page
-import { addActivity } from '../actions/classroomActions';
+import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
 
 import '../styles/oneUI.css';
 
@@ -14,19 +14,25 @@ const Materialize = window.Materialize;
 class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
-        
-        // fetch initial data 
+        // fetch initial data
+        let path = window.location.pathname;
+        let data = {
+            id: path.substring(11)
+        };
+        this.props.fetchClass(data);
+        this.props.fetchStudents(data);
+        this.props.fetchActivities(data);
     }
     addActivity(e) {
         e.preventDefault();
-        
+
         // @TODO: validation
-        
         let activity = {
+            path: window.location.pathname.substring(11),
             activityName: $('#activityName').val(),
             activityDesc: $('#activityDesc').val()
         };
-        
+
         this.props.addActivity(activity).then((res) => {
             Materialize.toast('Successfully added activity.', 4000, 'toast-success');
         })
@@ -34,16 +40,83 @@ class ClassRoom extends React.Component {
             Materialize.toast('Error adding activity.', 4000, 'toast-error');
         });
     }
+
+    addStudent(e) {
+        e.preventDefault();
+
+      // @TODO: validation
+        let student = {
+            path: window.location.pathname.substring(11),
+            fname: $('#firstName').val(),
+            lname: $('#lastName').val(),
+            mname: $('#middleName').val()
+        };
+
+        this.props.addStudent(student).then((res) => {
+            Materialize.toast('Successfully added student.', 4000, 'toast-success');
+        })
+        .catch((err) => {
+            Materialize.toast('Error adding student.', 4000, 'toast-error');
+        });
+    }
     render() {
+        let activityList = [];
+        let studentList = [];
+        let classViewed = this.props.classroomAppState.classViewed;
+        let students = this.props.classroomAppState.students;
+        let activities = this.props.classroomAppState.activities;
+
+        activities.forEach(function(activity){
+          activityList.push(
+              <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                <label htmlFor="task1" style={{textDecoration: 'none'}}>
+                    <Link to="/presentation">{activity.activityName}
+                    </Link>
+                </label>
+                <Link to="/controlPanel">
+                    <i className="mdi-action-settings right"></i>
+                </Link>
+                <Link to="/presentation">
+                    <i className="mdi-image-color-lens right"></i>
+                </Link>
+            </li>
+          )
+        });
+
+        students.forEach(function(student){
+          studentList.push(
+            <li>
+                <Link to="/student">
+                    <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
+                        <i className="material-icons right">mode_edit</i>
+                    </Link>
+                    <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
+                        <i className="material-icons right">delete</i>
+                    </Link>
+                    <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                    {student.fname + " " + student.mname + " " + student.lname}
+                    <div className="font-w400 text-muted">
+                        <small>
+                            <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
+                            <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
+                            <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
+                        </small>
+
+                    </div>
+                </Link>
+              <br/>
+            </li>
+
+          );
+        })
+
         return (
-            <div>
-                <div className="tint" style={{  position: 'relative',
-                    cursor: 'pointer',
-                    boxShadow: 'rgba(0,0,0,.2) 3px 5px 5px'}}>
+            <div className="wrapper">
+                <div className="tint">
                     <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
                         <div className="push-50-t push-20">
-                            <h1 className="h2 text-white animated zoomIn">WELCOME TO CMSC 170!</h1>
-                            <h2 className="h5 text-white-op animated zoomIn">Introduction to Artificial Intelligence</h2>
+                            <h1 className="h2 text-white animated zoomIn">Welcome to {classViewed.classCode}</h1>
+                            <h2 className="h5 text-white-op animated zoomIn">{classViewed.className}</h2>
                         </div>
                     </div>
                 </div>
@@ -96,52 +169,23 @@ class ClassRoom extends React.Component {
                                 <ul className="block-options">
                                     <li>
                                         <Link className="modal-trigger" to="#addstudent">
-                                            <i className="material-icons">add</i>
+                                            <i className="material-icons right">add</i>
                                         </Link>
                                     </li>
                                     <li>
-                                        <i className="material-icons">edit</i>
+                                        <div className="file_input">
+                                          <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                                            <i className="material-icons right">folder</i>
+                                            <input id="file_input_file" className="none" type="file" />
+                                          </label>
+                                        </div>
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
                             </div>
                             <div className="block-content">
-                                <ul className="nav-users push">
-                                    <li>
-                                        <Link to="/student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
-                                            Amanda Powell
-                                            <div className="font-w400 text-muted">
-                                                <small>
-                                                    <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                                                    <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
-                                                    <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
-                                                </small>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
-                                            Joshua Munoz
-                                            <div className="font-w400 text-muted">
-                                                <small>
-                                                    <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                                                </small>
-                                            </div>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
-                                            Amber Walker
-                                            <div className="font-w400 text-muted">
-                                                <small>
-                                                    <span className="task-cat pink" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                                                </small>
-                                            </div>
-                                        </Link>
-                                    </li>
+                                <ul className="task-card">
+                                    {studentList}
                                 </ul>
                             </div>
                             {/*block cntent*/}
@@ -149,8 +193,8 @@ class ClassRoom extends React.Component {
                     </div>
                     {/* product-card */}
                     <div className=" s6 m12 l4">
-                        <ul id="task-card" className="collection with-header">
-                            <span className="act" style={{color:'white',transition:'.5s'}}>
+                        <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
+                            <span id="act">
                                 <li className="collection-header cyan">
                                     <span>
                                         <h3 className="task-card-title">Activities</h3>
@@ -162,66 +206,14 @@ class ClassRoom extends React.Component {
 
                                 </li>
                             </span>
-                            <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task1"/>
-                                <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                                    <Link to="/presentation">Create Mobile App UI.
-                                    </Link>
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Today</span>
-                                    </Link>
-                                </label>
-                                <Link to="/controlPanel">
-                                    <i className="mdi-action-settings right"></i>
-                                </Link>
-                                <Link to="/presentation">
-                                    <i className="mdi-image-color-lens right"></i>
-                                </Link>
-                            </li>
-                            <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task2"/>
-                                <label htmlFor="task2" style={{textDecoration: 'none'}}>Check the new API standerds.
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Monday</span>
-                                    </Link>
-                                </label>
-                                <Link to="/controlPanel">
-                                    <i className="mdi-action-settings right"></i>
-                                </Link>
-                                <Link to="/presentation">
-                                    <i className="mdi-image-color-lens right"></i>
-                                </Link>
-                            </li>
-                            <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task3" defaultChecked="checked"/>
-                                <label htmlFor="task3" style={{textDecoration: 'line-through'}}>Check the new Mockup of ABC.
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Wednesday</span>
-                                    </Link>
-                                </label>
-                                <Link to="/controlPanel">
-                                    <i className="mdi-action-settings right"></i>
-                                </Link>
-                                <Link to="/presentation">
-                                    <i className="mdi-image-color-lens right"></i>
-                                </Link>
-                            </li>
-                            <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task4" defaultChecked="checked" disabled="disabled"/>
-                                <label htmlFor="task4" style={{textDecoration: 'line-through'}}>I did it !</label>
-                                <Link to="/controlPanel">
-                                    <i className="mdi-action-settings right"></i>
-                                </Link>
-                                <Link to="/presentation">
-                                    <i className="mdi-image-color-lens right"></i>
-                                </Link>
-                            </li>
+                            {activityList}
                         </ul>
 
                         {/* map-card */}
 
                     </div>
                     <div id="addstudent" className="modal">
+                        <form onSubmit={(e) => this.addStudent(e)}>
                         <div className="modal-content">
                             <h3>Add Student</h3>
                             <div className="row">
@@ -238,28 +230,58 @@ class ClassRoom extends React.Component {
                             </div>
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input id="studentNumber" type="text" className="validate"/>
-                                    <label htmlFor="studentNumber">Middle Name</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col s12">
                                     <input id="middleName" type="text" className="validate"/>
-                                    <label htmlFor="middleName">Student Number</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="course" type="text" className="validate"/>
-                                    <label htmlFor="course">Course</label>
+                                    <label htmlFor="middleName">Middle Name</label>
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</Link>
+                            <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
+                        </div>
+                        </form>
+                    </div>
+
+                    <div id="editstudent" className="modal">
+                    <div className="modal-content">
+                        <h3>Edit Student</h3>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="lastName" type="text" className="validate"/>
+                                <label htmlFor="lastName">Last Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="firstName" type="text" className="validate"/>
+                                <label htmlFor="firstName">First Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="studentNumber" type="text" className="validate"/>
+                                <label htmlFor="studentNumber">Middle Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="middleName" type="text" className="validate"/>
+                                <label htmlFor="middleName">Student Number</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="course" type="text" className="validate"/>
+                                <label htmlFor="course">Course</label>
+                            </div>
                         </div>
                     </div>
+                    <div className="modal-footer">
+                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                        <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
+                    </div>
+                </div>
+
                     <div id="addactivity" className="modal">
                         <form onSubmit={(e) => this.addActivity(e)}>
                             <div className="modal-content">
@@ -283,32 +305,51 @@ class ClassRoom extends React.Component {
                             </div>
                         </form>
                     </div>
-                    <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
-                        <div className="pull-right">
-                            Crafted with
-                            <i className="tiny material-icons">favorite</i>
-                            by
-                            <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+
+                    <div id="deletestudent" className="modal">
+                        <div className="modal-content">
+                            <h3>Are you sure you want to delete this student?</h3>
+                                <p>This action cannot be undone.</p>
                         </div>
-                        <div className="pull-left">
-                            <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
-                            &copy;
-                            <span className="js-year-copy"></span>
+                        <div className="modal-footer">
+                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Yes</Link>
+                            <Link to="#" className="waves-effect waves-red btn red modal-action modal-close">Cancel</Link>
                         </div>
-                    </footer>
+                    </div>
+
+
                 </div>
+
+            <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+                <div className="pull-right">
+                    Crafted with
+                    &nbsp;<i className="tiny material-icons">favorite</i>&nbsp;
+                    by&nbsp;
+                    <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+                </div>
+                <div className="pull-left">
+                    <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
+                    &copy;
+                    <span className="js-year-copy"></span>
+                </div>
+            </footer>
             </div>
+
         );
     }
 }
 
 ClassRoom.propTypes = {
     classroomAppState: PropTypes.object.isRequired,
-    addActivity: PropTypes.func.isRequired
+    addActivity: PropTypes.func.isRequired,
+    addStudent: PropTypes.func.isRequired,
+    fetchClass: PropTypes.func.isRequired,
+    fetchStudents: PropTypes.func.isRequired,
+    fetchActivities: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
 state => ({ classroomAppState: state.classroomAppState }),
-    { addActivity }
+    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities }
 )(ClassRoom);

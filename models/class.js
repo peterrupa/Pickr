@@ -2,12 +2,8 @@ import uuid from 'node-uuid';
 
 export default function (sequelize, DataTypes) {
     let Class = sequelize.define("Class", {
-        classCode: {
-        	type: DataTypes.STRING,
-        	primaryKey: true
-        },
-        className: DataTypes.STRING,
-        classDesc: DataTypes.STRING(1000)
+        classCode: DataTypes.STRING,
+        className: DataTypes.STRING(1000)
     }, {
         classMethods: {
             associate(models) {
@@ -17,18 +13,42 @@ export default function (sequelize, DataTypes) {
             addClass(data) {
                 // generate uuid
                 let id = uuid.v4();
-                
+
                 return Class.create({
-                    classCode: id,
+                    id: id,
                     className: data.className,
-                    classDesc: data.classDesc
+                    classCode: data.classCode
                 })
                 .then((classData) => {
                     return classData;
                 });
             }
+        },
+        instanceMethods: {
+            createNewActivity(data) {
+                let id = uuid.v4();
+
+                return this.createActivity({
+                    id: id,
+                    ClassId: data.ClassId,
+                    activityName: data.activityName,
+                    activityDesc: data.activityDesc
+                });
+            },
+            createNewStudent(data){
+               let id = uuid.v4();
+
+               return this.createStudent({
+                 id: id,
+                 ClassId: data.ClassId,
+                 fname: data.fname,
+                 lname: data.lname,
+                 mname: data.mname,
+                 image: data.image
+               });
+            }
         }
     });
-    
+
     return Class;
 };

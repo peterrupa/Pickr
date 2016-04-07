@@ -2,10 +2,10 @@
     Controller for the model "student".
 */
 
-import { Student } from '../models';
+import {Class, Student } from '../models';
 
 export function getAll(req, res) {
-    Student.findAll()
+    Student.findAll({where:{ClassId: req.params.id }})
     .then((students) => {
         // fetch tags for each student
         let promises = students.map((student) => {
@@ -15,21 +15,21 @@ export function getAll(req, res) {
                 return student.dataValues;
             });
         });
-        
+
         return Promise.all(promises);
-    })
-    .then((students) => {
-        res.send(students);
-    });
+      })
+      .then((students) => {
+          res.send(students);
+      });
 }
 
 //GET Student
 export function getOne(req, res) {
-    Student.findById(req.params.id).then((student) => {
+    Student.findById(req.params.studentId).then((student) => {
         if(student) {
             student.getTags().then((data) => {
                 student.dataValues.tags = data.map((tag) => tag.dataValues.name);
-                
+
                 res.send(student);
             });
         }
@@ -42,46 +42,56 @@ export function getOne(req, res) {
 //CREATE Student
 export function insert(req, res) {
     // @TOOD: Upload image here
-        
-    Student.addStudent({
-        fname: req.body.fname,
-		lname: req.body.lname,
-		mname: req.body.mname,
-		image: req.body.image,
-        tags: req.body.tags
-    }).then((student) => {
-        res.send(student);
+    Class.findById(req.params.id)
+    .then((classData) => {
+        if(classData) {
+            return classData.createNewStudent({
+              ClassId: classData.id,
+              fname: req.body.fname,
+              lname: req.body.lname,
+              mname: req.body.mname,
+              image: req.body.image,
+              tags: req.body.tags
+            });
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .then((activity) => {
+        res.send(activity);
+    })
+    .catch((err) => {
+        res.sendStatus(500);
     });
 }
 
 //UPDATE ATTRIBUTES
 export function update(req, res) {
     // @TODO: Make another function for updating images
-    Student.update({
-        fname: req.body.fname,
-        lname: req.body.lname,
-       	mname: req.body.mname,
-        image: req.body.image
-    }, {
-        where: {
-            id: req.params.id
-        }
-    }).then((affectedCount) => {
-        if(affectedCount > 0) {
-            // retrieve updated model
-            Student.findById(req.params.id).then((student) => {
-                if(student) {
-                    res.send(student);
-                }
-                else {
-                    res.sendStatus(404);
-                }
+    Student.findById(req.params.studentId)
+    .then((student) => {
+        if(student) {
+            return student.updateAttributes({
+              fname: req.body.fname,
+              lname: req.body.lname,
+             	mname: req.body.mname,
+              image: req.body.image
             });
         }
         else {
-            res.send({});
+            res.sendStatus(404);
         }
-    }).catch((err) => {
+    })
+    .then((student) => {
+        if(student) {
+            res.send(student);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
         res.sendStatus(500);
     });
 }
@@ -89,7 +99,7 @@ export function update(req, res) {
 //DELETE Student
 export function remove(req, res) {
     // initially get student data
-    Student.findById(req.params.id).then((student) => {
+    Student.findById(req.params.studentId).then((student) => {
         if(student) {
             // remove if found
             Student.destroy({

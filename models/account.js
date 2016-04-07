@@ -17,15 +17,15 @@ export default function (sequelize, DataTypes) {
         instanceMethods: {
             createNewClass(data) {
                 let id = uuid.v4();
-                
+
                 return this.createClass({
-                    classCode: id,
+                    id: id,
                     className: data.className,
-                    classDesc: data.classDesc
+                    classCode: data.classCode
                 });
             }
         }
     });
-    
+
     return Account;
 };

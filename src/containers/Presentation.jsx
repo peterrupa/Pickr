@@ -13,10 +13,10 @@ class Presentation extends React.Component {
 
     render() {
 
-        let imgUrl = '../../img/presentation1.png';
+        let imgUrl = '/img/presentation1.png';
         return (
             <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
-                
+
                 <a id="start" className="waves-effect waves-light btn" style={{marginTop: '100px',float:'right',marginRight: '5%'}}>Randomize</a>
                 <div id="deck" className="carousel" >
                     <div className="carousel">
@@ -83,8 +83,9 @@ class Presentation extends React.Component {
                 </div>
 
                 <div className="countDown" style={{float:'right',bottom: '10px',marginRight: '5%'}}>
-                    {/*<a id="sw_start" className="waves-effect waves-light btn-flat">START</a>
-                                        <a id="sw_stop" className="waves-effect waves-light btn-flat">STOP</a>*/}
+                    <a id="sw_start" className="waves-effect waves-light btn-flat">START</a>
+                    <a id="sw_stop" className="waves-effect waves-light btn-flat">STOP</a>
+                    
                     <div id="clockdiv">
                         <div>
                             <span id="sw_m">00</span>

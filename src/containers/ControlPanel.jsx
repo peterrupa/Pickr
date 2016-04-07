@@ -3,8 +3,14 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+import { getVolunteer, fetchAvailableVolunteers } from '../actions/controlpanelActions';
+
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+    componentWillMount() {
+        this.props.fetchAvailableVolunteers('cmsc128');
+    }
+  
     render() {
         return (
 <div>
@@ -227,5 +233,14 @@ class ControlPanel extends React.Component {
     }
 }
 
+ControlPanel.propTypes = {
+    availableStudentsState: PropTypes.object.isRequired,
+    getVolunteer: PropTypes.func.isRequired,
+    fetchAvailableVolunteers: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default ControlPanel;
+export default connect(
+    state => ({ availableStudentsState: state.availableStudentsState }),
+    { getVolunteer, fetchAvailableVolunteers }
+)(ControlPanel);

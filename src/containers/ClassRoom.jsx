@@ -385,7 +385,6 @@ ClassRoom.propTypes = {
 };
 
 // connect to redux store
-export default connect(
-state => ({ classroomAppState: state.classroomAppState }),
+export default connect( state => ({ classroomAppState: state.classroomAppState }),
     { addActivity }
 )(ClassRoom);

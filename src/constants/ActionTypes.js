@@ -1,4 +1,4 @@
-// Sample
 export const SAMPLE_INCREASE = 'SAMPLE_INCREASE';
 export const SAMPLE_DECREASE = 'SAMPLE_DECREASE';
 export const FETCH_SAMPLES = 'FETCH_SAMPLES';
+export const FETCH_CLASSES = 'FETCH_CLASSES';

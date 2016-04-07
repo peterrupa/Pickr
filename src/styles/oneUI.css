@@ -16,7 +16,6 @@ body {
   outline: 0 !important;
 }
 a {
-  color: #5c90d2;
   -webkit-transition: color 0.12s ease-out;
   transition: color 0.12s ease-out;
 }
@@ -11292,4 +11291,28 @@ div.tagsinput span.tag a:hover {
 }
 .placeholder {
   color: #aaa;
+}
+#act,#act:hover, .task-card-title, .task-card-date { 
+  color:white; 
+}
+.tint {
+  position: relative;
+  cursor: pointer;
+  box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+
+.tint:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(61,61,61, 0.5);
+  transition: all .3s linear;
+}
+
+.none {
+  display: none;
 }

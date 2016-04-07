@@ -3,6 +3,7 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
 import NavBar from '../components/NavBar.jsx';
 
@@ -12,6 +13,8 @@ const Materialize = window.Materialize;
 // Be sure to rename your className name
 class StudentPage extends React.Component {
     componentDidMount() {
+
+        $('.modal-trigger').leanModal();
         // code
         //Materialize.toast('Hey, JS works now!', 4000, 'green white-text');
     }
@@ -32,7 +35,7 @@ class StudentPage extends React.Component {
 
                                 <div id="profile-page" className="section">
                                     {/*<!-- profile-page-header -->*/}
-                                    <div id="profile-page-header" className="card">
+                                    <div id="profile-page-header" className="card" style={{paddingTop:'6%'}}>
 
                                         <figure className="card-profile-image">
                                             <img src="/img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
@@ -98,6 +101,50 @@ class StudentPage extends React.Component {
                             </div>
                             {/*<!-- END MAIN -->*/}
                         </section>
+                    </div>
+                </div>
+                <div className="row center">
+                  <a href="#editstudent"className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
+                  <a className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
+                </div>
+
+                <div id="editstudent" className="modal">
+                    <div className="modal-content">
+                        <h3>Edit Student</h3>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="lastName" type="text" className="validate"/>
+                                <label htmlFor="lastName">Last Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="firstName" type="text" className="validate"/>
+                                <label htmlFor="firstName">First Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="studentNumber" type="text" className="validate"/>
+                                <label htmlFor="studentNumber">Middle Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="middleName" type="text" className="validate"/>
+                                <label htmlFor="middleName">Student Number</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="course" type="text" className="validate"/>
+                                <label htmlFor="course">Course</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <Link to="/classroom" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                        <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
                     </div>
                 </div>
             </div>

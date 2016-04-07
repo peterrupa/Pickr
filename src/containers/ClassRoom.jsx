@@ -12,10 +12,8 @@ class ClassRoom extends React.Component {
     }
     render() {
         return (
-            <div>
-                <div className="tint" style={{  position: 'relative',
-                    cursor: 'pointer',
-                    boxShadow: 'rgba(0,0,0,.2) 3px 5px 5px'}}>
+            <div className="wrapper">
+                <div className="tint">
                     <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">WELCOME TO CMSC 170!</h1>
@@ -72,12 +70,16 @@ class ClassRoom extends React.Component {
                                 <ul className="block-options">
                                     <li>
                                         <Link className="modal-trigger" to="#addstudent">
-                                            <i className="material-icons">add</i>
+                                            <i className="material-icons right">add</i>
                                         </Link>
-
                                     </li>
                                     <li>
-                                        <i className="material-icons">edit</i>
+                                        <div className="file_input">
+                                          <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                                            <i className="material-icons right">folder</i>
+                                            <input id="file_input_file" className="none" type="file" />
+                                          </label>
+                                        </div>
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
@@ -136,8 +138,8 @@ class ClassRoom extends React.Component {
                     </div>
                     {/* product-card */}
                     <div className=" s6 m12 l4">
-                        <ul id="task-card" className="collection with-header">
-                            <span className="act" style={{color:'white',transition:'.5s'}}>
+                        <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
+                            <span className="act" style={{color:'white',transition:'.5s', hover:'false'}}>
                                 <li className="collection-header cyan">
                                     <span>
                                         <h3 className="task-card-title">Activities</h3>
@@ -150,13 +152,9 @@ class ClassRoom extends React.Component {
                                 </li>
                             </span>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task1"/>
                                 <label htmlFor="task1" style={{textDecoration: 'none'}}>
                                     <Link to="/presentation">Create Mobile App UI.
                                     </Link>
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Today</span>
-                                    </Link>
                                 </label>
                                 <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
@@ -166,11 +164,7 @@ class ClassRoom extends React.Component {
                                 </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task2"/>
                                 <label htmlFor="task2" style={{textDecoration: 'none'}}>Check the new API standerds.
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Monday</span>
-                                    </Link>
                                 </label>
                                 <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
@@ -180,11 +174,7 @@ class ClassRoom extends React.Component {
                                 </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task3" defaultChecked="checked"/>
                                 <label htmlFor="task3" style={{textDecoration: 'line-through'}}>Check the new Mockup of ABC.
-                                    <Link to="#" className="secondary-content">
-                                        <span className="ultra-small">Wednesday</span>
-                                    </Link>
                                 </label>
                                 <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
@@ -194,7 +184,6 @@ class ClassRoom extends React.Component {
                                 </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                                <input type="checkbox" id="task4" defaultChecked="checked" disabled="disabled"/>
                                 <label htmlFor="task4" style={{textDecoration: 'line-through'}}>I did it !</label>
                                 <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
@@ -248,7 +237,45 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
 
-
+                    <div id="editstudent" className="modal">
+                    <div className="modal-content">
+                        <h3>Edit Student</h3>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="lastName" type="text" className="validate"/>
+                                <label htmlFor="lastName">Last Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="firstName" type="text" className="validate"/>
+                                <label htmlFor="firstName">First Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="studentNumber" type="text" className="validate"/>
+                                <label htmlFor="studentNumber">Middle Name</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="middleName" type="text" className="validate"/>
+                                <label htmlFor="middleName">Student Number</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input-field col s12">
+                                <input id="course" type="text" className="validate"/>
+                                <label htmlFor="course">Course</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal-footer">
+                        <Link to="/classroom" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                        <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
+                    </div>
+                </div>
 
                     <div id="addactivity" className="modal">
                         <div className="modal-content">
@@ -280,21 +307,24 @@ class ClassRoom extends React.Component {
 
 
 
-                    <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
-                        <div className="pull-right">
-                            Crafted with
-                            <i className="tiny material-icons">favorite</i>
-                            by
-                            <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
-                        </div>
-                        <div className="pull-left">
-                            <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
-                            &copy;
-                            <span className="js-year-copy"></span>
-                        </div>
-                    </footer>
+                    
                 </div>
+
+            <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+                <div className="pull-right">
+                    Crafted with
+                    &nbsp;<i className="tiny material-icons">favorite</i>&nbsp;
+                    by&nbsp;
+                    <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+                </div>
+                <div className="pull-left">
+                    <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
+                    &copy;
+                    <span className="js-year-copy"></span>
+                </div>
+            </footer>
             </div>
+
         );
     }
 }

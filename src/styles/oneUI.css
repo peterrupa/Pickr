@@ -11292,3 +11292,35 @@ div.tagsinput span.tag a:hover {
 .placeholder {
   color: #aaa;
 }
+.act{
+  color:white;
+  -o-transition:.5s;
+  -ms-transition:.5s;
+  -moz-transition:.5s;
+  -webkit-transition:.5s;
+  transition:.5s;
+}
+.act:hover { 
+  color:white; 
+}
+.tint {
+  position: relative;
+  cursor: pointer;
+  box-shadow: rgba(0,0,0,.2) 3px 5px 5px;
+}
+
+.tint:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(61,61,61, 0.5);
+  transition: all .3s linear;
+}
+
+.none {
+  display: none;
+}

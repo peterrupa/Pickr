@@ -158,7 +158,7 @@ class ClassRoom extends React.Component {
                     {/* product-card */}
                     <div className=" s6 m12 l4">
                         <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
-                            <span className="act" style={{color:'white',transition:'.5s', hover:'false'}}>
+                            <span id="act">
                                 <li className="collection-header cyan">
                                     <span>
                                         <h3 className="task-card-title">Activities</h3>

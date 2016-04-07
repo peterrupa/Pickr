@@ -85,52 +85,71 @@ class ClassRoom extends React.Component {
                                 <h3 className="block-title">Students</h3>
                             </div>
                             <div className="block-content">
-                                <ul className="nav-users push">
-                                    <li>
+                                <ul className="task-card">
+                                    <li>    
                                         <Link to="/student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
+
+                                            <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">mode_edit</i>
+                                            </Link>
+                                            <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">delete</i>
+                                            </Link>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
+
+                                                
                                                 <small>
                                                     <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                     <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
                                                     <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
                                                 </small>
 
-                                                <i className="material-icons right">delete</i>
                                             </div>
                                         </Link>
-
                                     </li>
+                                    <br />
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
+
+                                            <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">mode_edit</i>
+                                            </Link>
+                                            <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">delete</i>
+                                            </Link>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                                             Joshua Munoz
                                             <div className="font-w400 text-muted">
                                                 <small>
                                                     <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
 
-                                                  <i className="material-icons right">mode_edit</i>
-                                                  <i className="material-icons right">delete</i>
 
                                             </div>
                                         </Link>
                                     </li>
+                                    <br />
                                     <li>
                                         <Link to="student">
-                                            <img className="img-avatar" src="/img/pic.jpg" alt=""/>
+
+                                            <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">mode_edit</i>
+                                            </Link>
+                                            <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
+                                                <i className="material-icons right">delete</i>
+                                            </Link>
+                                            <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                                             Amber Walker
                                             <div className="font-w400 text-muted">
                                                 <small>
                                                     <span className="task-cat pink" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
-
-                                                  <i className="material-icons right">mode_edit</i>
-                                                  <i className="material-icons right">delete</i>
                                             </div>
                                         </Link>
                                     </li>
+                                    <br />
                                 </ul>
                             </div>
                             {/*block cntent*/}
@@ -305,7 +324,16 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
 
-
+                    <div id="deletestudent" className="modal">
+                        <div className="modal-content">
+                            <h3>Are you sure you want to delete this student?</h3>
+                                <p>This action cannot be undone.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Yes</Link>
+                            <Link to="#" className="waves-effect waves-red btn red modal-action modal-close">Cancel</Link>
+                        </div>
+                    </div>
 
                     
                 </div>

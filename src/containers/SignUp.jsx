@@ -15,7 +15,7 @@ class SignUp extends React.Component {
     }
     create(e) {
         e.preventDefault();
-        
+
         let account = {
             fname: $('#fname').val(),
             mi: $('#mi').val(),
@@ -24,8 +24,15 @@ class SignUp extends React.Component {
             email: $('#email').val(),
             password: $('#password').val()
         };
-        
-        this.props.create(account).then((res) => {
+
+        fetch('/api/accout/createAccount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            },
+            body: account
+        }).success((res) => {
             Materialize.toast('Successfully added account.', 4000, 'toast-success');
         })
         .catch((err) => {
@@ -87,7 +94,7 @@ class SignUp extends React.Component {
                                         </p>
                                     </div >
                                 </div>
-                                
+
                                  <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
@@ -109,7 +116,7 @@ class SignUp extends React.Component {
                                         <label htmlFor="lname">Last Name</label>
                                     </div>
                                 </div>
-                                
+
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
@@ -131,7 +138,7 @@ class SignUp extends React.Component {
                                         <label htmlFor="password">Password</label>
                                     </div>
                                 </div>
-                                
+
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
@@ -139,7 +146,7 @@ class SignUp extends React.Component {
                                         <label htmlFor="password-again">Re-type password</label>
                                     </div>
                                 </div>
-                                
+
                                 <div className="row">
                                     <div className="input-field col s12">
                                         <a href="/login" className="btn waves-effect waves-light col s12" onClick={(e) => this.create(e)}>Register Now</a>
@@ -171,4 +178,3 @@ export default connect(
 state => ({ SignUpAppState: state.SignUpAppState }),
     { create }
 )(SignUp);
-

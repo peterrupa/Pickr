@@ -1,11 +1,11 @@
 export default function (sequelize, DataTypes) {
     let Account = sequelize.define("Account", {
-        Fname: DataTypes.STRING,
-        MI: DataTypes.STRING,
-        Lname: DataTypes.STRING,
-        Username: DataTypes.STRING,
-        EmailAddress: DataTypes.STRING,
-        Password: DataTypes.STRING
+        fname: DataTypes.STRING,
+        mi: DataTypes.STRING,
+        lname: DataTypes.STRING,
+        username: DataTypes.STRING,
+        emailAddress: DataTypes.STRING,
+        password: DataTypes.STRING
     });
     return Account;
 };

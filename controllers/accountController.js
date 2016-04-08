@@ -11,6 +11,9 @@ import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 
 exports.insert = (req, res) => {
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync(req.body.password, salt);
+    
     if (!req.body.fname && !req.body.mi && !req.body.lname && !req.body.username
     && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
@@ -25,12 +28,12 @@ exports.insert = (req, res) => {
             res.status(error.DUP_ENTRY.code).send({DUP_ENTRY: error.DUP_ENTRY.message});
         } else {
             Account.create({
-                Fname:        req.body.fname,
-                MI:           req.body.mi,
-                Lname:        req.body.lname,
-                Username:     req.body.username,
-                EmailAddress: req.body.email,
-                Password:     req.body.password
+                fname:        req.body.fname,
+                mi:           req.body.mi,
+                lname:        req.body.lname,
+                username:     req.body.username,
+                emailAddress: req.body.email,
+                password:     hash
             }).then((account) => {
                 res.status(200).send(account);
             }).catch((err) => {

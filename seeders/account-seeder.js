@@ -1,23 +1,23 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
-    return queryInterface.bulkInsert('Accounts', [
+    return queryInterface.bulkInsert('Account', [
         {
-            FName: 'Paul Joshua',
-            MI: 'H',
-            LName: 'Robles',
-            Username: 'PJHRobles',
-            EmailAddress: 'joshuahrobles@gmail.com',
-            Password: 'ultimatesecret',
+            fname: 'Paul Joshua',
+            mi: 'H',
+            lname: 'Robles',
+            username: 'PJHRobles',
+            emailAddress: 'joshuahrobles@gmail.com',
+            password: 'ultimatesecret',
             createdAt: new Date(),
             updatedAt: new Date()
         },
         {
-            FName: 'Irvin Kean Paulus',
-            MI: 'T',
-            LName: 'Paderes',
-            Username: 'keanpaderes',
-            EmailAddress: 'kean.paderes@gmail.com',
-            Password: 'ultimatesecret1',
+            fname: 'Irvin Kean Paulus',
+            mi: 'T',
+            lname: 'Paderes',
+            username: 'keanpaderes',
+            emailAddress: 'kean.paderes@gmail.com',
+            password: 'ultimatesecret1',
             createdAt: new Date(),
             updatedAt: new Date()
         }
@@ -25,6 +25,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-    return queryInterface.bulkDelete('Accounts', null, {});
+    return queryInterface.bulkDelete('Account', null, {});
   }
 };

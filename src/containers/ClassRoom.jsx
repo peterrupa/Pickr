@@ -1,6 +1,7 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
 
 import '../styles/oneUI.css';
 
@@ -12,34 +13,6 @@ class ClassRoom extends React.Component {
     render() {
         return (
             <div>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
-                            <img src="./img/CMSC_Prince_wbox.png" alt="logo" style={{height:'40px',width:'40px'}}/>Pickr</a>
-                        <ul className="right hide-on-med-and-down">
-                            <li>
-                                <a href="/class">Home</a>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <a href="#">Sign up</a>
-                            </li>
-                            <li>
-                                <a href="#">Log In</a>
-                            </li>
-                            <li>
-                                <a href="">About</a>
-                            </li>
-                        </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </a>
-                    </div>
-                </nav>
-                <br/><br/>
-
                 <div className="tint" style={{  position: 'relative',
                     cursor: 'pointer',
                     boxShadow: 'rgba(0,0,0,.2) 3px 5px 5px'}}>
@@ -59,7 +32,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     Today</small>
                             </div>
-                            <a className="h2 font-w300 text-primary animated flipInX" href="#">150</a>
+                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">150</Link>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
@@ -68,7 +41,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     Today</small>
                             </div>
-                            <a className="h2 font-w300 text-primary animated flipInX" href="#">5</a>
+                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">5</Link>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
@@ -77,7 +50,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     This Month</small>
                             </div>
-                            <a className="h2 font-w300 text-primary animated flipInX" href="#">430</a>
+                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">430</Link>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">ANSWERED</div>
@@ -86,7 +59,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     All Time</small>
                             </div>
-                            <a className="h2 font-w300 text-primary animated flipInX" href="#">20</a>
+                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">20</Link>
                         </div>
                     </div>
                 </div>
@@ -98,9 +71,9 @@ class ClassRoom extends React.Component {
                             <div className="block-header">
                                 <ul className="block-options">
                                     <li>
-                                        <a className="modal-trigger" href="#addstudent">
+                                        <Link className="modal-trigger" to="#addstudent">
                                             <i className="material-icons">add</i>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
                                         <i className="material-icons">edit</i>
@@ -111,7 +84,7 @@ class ClassRoom extends React.Component {
                             <div className="block-content">
                                 <ul className="nav-users push">
                                     <li>
-                                        <a href="/student">
+                                        <Link to="/student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
@@ -121,10 +94,10 @@ class ClassRoom extends React.Component {
                                                     <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
                                                 </small>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="student">
+                                        <Link to="student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Joshua Munoz
                                             <div className="font-w400 text-muted">
@@ -132,10 +105,10 @@ class ClassRoom extends React.Component {
                                                     <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li>
-                                        <a href="student">
+                                        <Link to="student">
                                             <img className="img-avatar" src="./img/pic.jpg" alt=""/>
                                             Amber Walker
                                             <div className="font-w400 text-muted">
@@ -143,7 +116,7 @@ class ClassRoom extends React.Component {
                                                     <span className="task-cat pink" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                 </small>
                                             </div>
-                                        </a>
+                                        </Link>
                                     </li>
                                 </ul>
                             </div>
@@ -157,9 +130,9 @@ class ClassRoom extends React.Component {
                                 <li className="collection-header cyan">
                                     <span>
                                         <h3 className="task-card-title">Activities</h3>
-                                        <p className="task-card-date">March 26, 2015<a className="btn-floating btn-tiny modal-trigger green right z-depth-0" href="#addactivity">
+                                        <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
                                                 <i className="large material-icons">add</i>
-                                            </a>
+                                            </Link>
                                         </p>
                                     </span>
 
@@ -168,56 +141,56 @@ class ClassRoom extends React.Component {
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task1"/>
                                 <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                                    <a href="/presentation">Create Mobile App UI.
-                                    </a>
-                                    <a href="#" className="secondary-content">
+                                    <Link to="/presentation">Create Mobile App UI.
+                                    </Link>
+                                    <Link to="#" className="secondary-content">
                                         <span className="ultra-small">Today</span>
-                                    </a>
+                                    </Link>
                                 </label>
-                                <a href="/controlPanel">
+                                <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
-                                </a>
-                                <a href="/presentation">
+                                </Link>
+                                <Link to="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
-                                </a>
+                                </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task2"/>
                                 <label htmlFor="task2" style={{textDecoration: 'none'}}>Check the new API standerds.
-                                    <a href="#" className="secondary-content">
+                                    <Link to="#" className="secondary-content">
                                         <span className="ultra-small">Monday</span>
-                                    </a>
+                                    </Link>
                                 </label>
-                                <a href="/controlPanel">
+                                <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
-                                </a>
-                                <a href="/presentation">
+                                </Link>
+                                <Link to="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
-                                </a>
+                                </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task3" defaultChecked="checked"/>
                                 <label htmlFor="task3" style={{textDecoration: 'line-through'}}>Check the new Mockup of ABC.
-                                    <a href="#" className="secondary-content">
+                                    <Link to="#" className="secondary-content">
                                         <span className="ultra-small">Wednesday</span>
-                                    </a>
+                                    </Link>
                                 </label>
-                                <a href="/controlPanel">
+                                <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
-                                </a>
-                                <a href="/presentation">
+                                </Link>
+                                <Link to="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
-                                </a>
+                                </Link>
                             </li>
                             <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                                 <input type="checkbox" id="task4" defaultChecked="checked" disabled="disabled"/>
                                 <label htmlFor="task4" style={{textDecoration: 'line-through'}}>I did it !</label>
-                                <a href="/controlPanel">
+                                <Link to="/controlPanel">
                                     <i className="mdi-action-settings right"></i>
-                                </a>
-                                <a href="/presentation">
+                                </Link>
+                                <Link to="/presentation">
                                     <i className="mdi-image-color-lens right"></i>
-                                </a>
+                                </Link>
                             </li>
                         </ul>
 
@@ -259,8 +232,8 @@ class ClassRoom extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <a href="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                            <a href="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</a>
+                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Student</Link>
                         </div>
                     </div>
                     <div id="addactivity" className="modal">
@@ -286,8 +259,8 @@ class ClassRoom extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <a href="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</a>
-                            <a href="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</a>
+                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</Link>
                         </div>
                     </div>
                     <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
@@ -295,10 +268,10 @@ class ClassRoom extends React.Component {
                             Crafted with
                             <i className="tiny material-icons">favorite</i>
                             by
-                            <a className="font-w600" href="#" target="_blank">CMSC128 AB-3L</a>
+                            <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
                         </div>
                         <div className="pull-left">
-                            <a className="font-w600" href="#" target="_blank">Pickr 1.0</a>
+                            <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
                             &copy;
                             <span className="js-year-copy"></span>
                         </div>

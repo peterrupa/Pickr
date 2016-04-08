@@ -14,24 +14,29 @@ class SignUp extends React.Component {
     create(e) {
         e.preventDefault();
 
-        let account = {
-            fname: $('#fname').val(),
-            mi: $('#mi').val(),
-            lname: $('#lname').val(),
-            username: $('#username').val(),
-            email: $('#email').val(),
-            password: $('#password').val()
-        };
+        let account = 
+            'fname=' + $('#fname').val() +
+            '&mi=' + $('#mi').val() +
+            '&lname=' + $('#lname').val() +
+            '&username=' + $('#username').val() +
+            '&email=' + $('#email').val() + 
+            '&password=' + $('#password').val();
 
-        fetch('/api/accout/createAccount', {
+        fetch('/api/account/createAccount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept':'application/json'
             },
             body: account
-        }).success((res) => {
-            Materialize.toast('Successfully added account.', 4000, 'toast-success');
+        })
+        .then((res) => {
+            if (res.status === 200) {
+                Materialize.toast('Successfully added account.', 4000, 'toast-success');
+            } 
+            else {
+                Materialize.toast('Error adding account.', 4000, 'toast-error');
+            }
         })
         .catch((err) => {
             Materialize.toast('Error adding account.', 4000, 'toast-error');

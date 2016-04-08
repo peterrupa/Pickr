@@ -25,7 +25,7 @@ class LogIn extends React.Component {
                 body: data
             })
             .then((res) => {
-                if (res.status === 200) {
+                if (res.status === 200 || res.status === 403) {
                     window.location.href = '/class';
                 }
                 else {

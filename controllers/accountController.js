@@ -3,7 +3,6 @@
 */
 
 import express from 'express';
-import bcrypt from 'bcrypt';
 let router  = express.Router();
 
 // be sure to import your model here
@@ -11,8 +10,6 @@ import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 
 exports.insert = (req, res) => {
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(req.body.password, salt);
     
     if (!req.body.fname && !req.body.mi && !req.body.lname && !req.body.username
     && !req.body.email && !req.body.password) {
@@ -33,7 +30,7 @@ exports.insert = (req, res) => {
                 lname:        req.body.lname,
                 username:     req.body.username,
                 emailAddress: req.body.email,
-                password:     hash
+                password:     req.body.password
             }).then((account) => {
                 res.status(200).send(account);
             }).catch((err) => {
@@ -53,47 +50,34 @@ exports.login = (req, res) => {
         }
     })
     .then((user) => {
-
         if(!user && !req.session.user) {
-
             res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
-        }
-
-        return user;
-
-    })
-    .then((user) => {
-
-        Account.findOne({
-            where: {
-                username: req.body.username,
-                password: req.body.password
-            }
-        })
-        .then((user) => {
-
-            if(!user && !req.session.user) {
-                res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
-            } 
-
-        })
-        .catch((err) => {
-            res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-        });
-
-        return user;
-
-    })
-    .then((user) => {
-
-        if (!req.session.user) {
-            req.session.user = req.body.username;
-            res.status(200).send({username:user.dataValues.Username, status:'logged in'});
         } 
         else {
-             res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+            Account.findOne({
+                where: {
+                    username: req.body.username,
+                    password: req.body.password
+                }
+            })
+            .then((user) => {
+                if(!user && !req.session.user) {
+                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
+                } 
+                else {
+                    if (!req.session.user) {
+                        req.session.user = req.body.username;
+                        res.status(200).send({username:user.dataValues.Username, status:'logged in'});
+                    } 
+                    else {
+                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+                    }
+                }
+            })
+            .catch((err) => {
+                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+            });
         }
-
     })
     .catch((err) => {
         res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});

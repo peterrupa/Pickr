@@ -5,3 +5,4 @@ export const FETCH_SAMPLES = 'FETCH_SAMPLES';
 export const GET_CLASS = 'GET_CLASS';
 export const GET_STUDENTS = 'GET_STUDENTS';
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
+export const SET_CLASSES = 'SET_CLASSES';

@@ -80,11 +80,53 @@ class ClassRoom extends React.Component {
                     <i className="mdi-image-color-lens right"></i>
                 </Link>
             </li>
-          )
+          );
         });
 
         students.forEach(function(student){
-          studentList.push(
+          let studentComponent = [];
+          studentComponent.push(
+            <div id="editstudent" className="modal">
+              <div className="modal-content">
+                  <h3>Edit Student</h3>
+                  <div className="row">
+                      <div className="input-field col s12">
+                          <input id="lastName" type="text" className="validate"/>
+                          <label htmlFor="lastName">Last Name</label>
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div className="input-field col s12">
+                          <input id="firstName" type="text" className="validate"/>
+                          <label htmlFor="firstName">First Name</label>
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div className="input-field col s12">
+                          <input id="studentNumber" type="text" className="validate"/>
+                          <label htmlFor="studentNumber">Middle Name</label>
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div className="input-field col s12">
+                          <input id="middleName" type="text" className="validate"/>
+                          <label htmlFor="middleName">Student Number</label>
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div className="input-field col s12">
+                          <input id="course" type="text" className="validate"/>
+                          <label htmlFor="course">Course</label>
+                      </div>
+                  </div>
+              </div>
+              <div className="modal-footer">
+                  <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                  <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
+              </div>
+          </div>
+          );
+          studentComponent.push(
             <li>
                 <Link to="/student">
                     <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
@@ -101,14 +143,13 @@ class ClassRoom extends React.Component {
                             <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
                             <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
                         </small>
-
                     </div>
                 </Link>
               <br/>
             </li>
-
           );
-        })
+          studentList.push(studentComponent);
+        });
 
         return (
             <div className="wrapper">
@@ -129,7 +170,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     Today</small>
                             </div>
-                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">150</Link>
+                            <p className="h2 font-w300 text-primary animated flipInX" >{students.length}</p>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
@@ -236,51 +277,11 @@ class ClassRoom extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                             <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                         </div>
                         </form>
                     </div>
-
-                    <div id="editstudent" className="modal">
-                    <div className="modal-content">
-                        <h3>Edit Student</h3>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="lastName" type="text" className="validate"/>
-                                <label htmlFor="lastName">Last Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="firstName" type="text" className="validate"/>
-                                <label htmlFor="firstName">First Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="studentNumber" type="text" className="validate"/>
-                                <label htmlFor="studentNumber">Middle Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="middleName" type="text" className="validate"/>
-                                <label htmlFor="middleName">Student Number</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="course" type="text" className="validate"/>
-                                <label htmlFor="course">Course</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                        <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
-                    </div>
-                </div>
 
                     <div id="addactivity" className="modal">
                         <form onSubmit={(e) => this.addActivity(e)}>
@@ -300,7 +301,7 @@ class ClassRoom extends React.Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                                 <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
                             </div>
                         </form>

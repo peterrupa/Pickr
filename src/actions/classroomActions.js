@@ -69,6 +69,9 @@ export function fetchClass(data){
        .then((res) =>  res.json())
        .then((classData) => {
            dispatch(setClassViewed(classData));
+       })
+       .catch((err) =>{
+           throw err;
        });
     };
 }

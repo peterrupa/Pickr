@@ -7,6 +7,19 @@ export function setVolunteers(volunteers) {
     };
 }
 
+export function recieveRandomizedVolunteers(volunteers) {
+    return {
+        type: types.RECIEVE_RANDOMIZED_VOLUNTEERS,
+        volunteers
+    };
+}
+
+export function fetchRandomizedVolunteers(volunteers) {
+    return (dispatch) => {
+        dispatch(recieveRandomizedVolunteers(volunteers));
+    };
+}
+
 export function fetchInitialSample() {
     return (dispatch) => {
         // ajax request to /api/sample

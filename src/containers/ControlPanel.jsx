@@ -2,13 +2,45 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import io from 'socket.io-client';
 
-import { getVolunteer, fetchAvailableVolunteers } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers } from '../actions/controlpanelActions';
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
     componentWillMount() {
         this.props.fetchAvailableVolunteers('cmsc128');
+        this.socket = io();
+    }
+
+    get() {
+        if(this.props.availableStudentsState.availableVolunteers.length === 0){
+            return;
+        }
+        let selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+        fetch('/api/volunteer/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                activityID: 'sampleactivity1',
+                studentID: selectedVolunteer.studentId,
+                classCode: selectedVolunteer.ClassClassCode,
+                note: ''
+            })
+        }).then((res) => {
+            return res.json();
+        }).then((volunteer) => {
+            fetch('/api/student/' + volunteer.studentID, {
+                method: 'GET'
+            }).then((res) => {
+                return res.json();
+            }).then((student) => {
+                this.socket.emit('send volunteers', student);
+            });
+        });
     }
   
     render() {
@@ -190,7 +222,7 @@ class ControlPanel extends React.Component {
                                     </blockquote>
                                     {/* <label className="bold' for="textarea1">Tags</label> */}
                                 </div>
-                                <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick="">Randomize</button>
+                                <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
                             </div>
                         </div>
                         <br/><hr/><br/>
@@ -235,12 +267,11 @@ class ControlPanel extends React.Component {
 
 ControlPanel.propTypes = {
     availableStudentsState: PropTypes.object.isRequired,
-    getVolunteer: PropTypes.func.isRequired,
     fetchAvailableVolunteers: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ availableStudentsState: state.availableStudentsState }),
-    { getVolunteer, fetchAvailableVolunteers }
+    { fetchAvailableVolunteers }
 )(ControlPanel);

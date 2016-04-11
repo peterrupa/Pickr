@@ -16,8 +16,15 @@ export function getAll(req, res) {
 }
 
 export function getOne(req, res) {
-    Student.find({ where: {studentId: req.body.studentId} }).on('success', function(student) {
-    	res.send(student);
+    /*Student.find({ where: {studentId: req.body.studentId} }).on('success', function(student) {
+        res.send(student);
+    });*/
+    Student.findOne({
+        where: {
+            studentId: req.params.studentId
+        }
+    }).then((student) => {
+        res.status(200).send(student);
     });
 }
 

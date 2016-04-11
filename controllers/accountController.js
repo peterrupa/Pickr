@@ -1,3 +1,4 @@
+'use strict';
 /*
     Controller for the model "account".
 */
@@ -9,10 +10,20 @@ let router  = express.Router();
 import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 
+var Sequelize = require('sequelize');
+var env       = process.env.NODE_ENV || 'development';
+var config    = require(__dirname + '/../config/config.json')[env];
+
+if (config.use_env_variable) {
+  var sequelize = new Sequelize(process.env[config.use_env_variable]);
+} else {
+  var sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
 exports.insert = (req, res) => {
 
-    if (!req.body.fname && !req.body.mi && !req.body.lname && !req.body.username
-    && !req.body.email && !req.body.password) {
+    if (!req.body.fname && !req.body.mi && !req.body.lname &&
+        !req.body.username && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
 
@@ -22,16 +33,25 @@ exports.insert = (req, res) => {
         }
     })
     .then((user) => {
-        if(user) {
+
+        if (user) {
             res.status(error.DUP_ENTRY.code).send({DUP_ENTRY: error.DUP_ENTRY.message});
-        } else {
-            Account.create({
-                fname:        req.body.fname,
-                mi:           req.body.mi,
-                lname:        req.body.lname,
-                username:     req.body.username,
-                emailAddress: req.body.email,
-                password:     req.body.password
+        }
+        else {
+            let query = 'INSERT INTO Accounts' +
+                        '(fname,mi,lname,emailAddress,username,password)' +
+                        'values(?,?,?,?,?,(SELECT MD5(SHA1(?))))';
+
+            sequelize.query(query, {
+                replacements:[
+                    req.body.fname,
+                    req.body.mi,
+                    req.body.lname,
+                    req.body.email,
+                    req.body.username,
+                    req.body.password
+                ],
+                type: sequelize.QueryTypes.INSERT
             })
             .then((account) => {
                 res.status(200).send(account);
@@ -40,7 +60,8 @@ exports.insert = (req, res) => {
                 res.status(error.NO_RECORD_CREATED.code).send({NO_RECORD_CREATED: error.NO_RECORD_CREATED.message});
             });
         }
-    }).catch((err) =>{
+    })
+    .catch((err) =>{
         res.status(error.SERVER_ERR.code).send({SERVER_ERR: error.SERVER_ERR.message});
     });
 }
@@ -54,51 +75,42 @@ exports.login = (req, res) => {
     })
     .then((user) => {
 
-        if(!user && !req.session.key) {
+        let query = 'SELECT username FROM Accounts WHERE ' +
+                    'username=? AND password=(SELECT MD5(SHA1(?)))';
+
+        if (!user && !req.session.key) {
             res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
+        }
 
-        } else {
-
-            Account.findOne({
-                where: {
-                    username: req.body.username,
-                    password: req.body.password
-                }
+        sequelize.query(query,{
+                replacements: [
+                    req.body.username,
+                    req.body.password
+                ],
+                type: sequelize.QueryTypes.SELECT
             })
             .then((user) => {
 
-                if(!user && !req.session.key) {
-                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message})
+                if (!user[0] && !req.session.key) {
+                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 }
-                else {
-
-                    if (req.session && req.session.key) {
-                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
-                    }
-                    else {
-                        req.session.key = user.dataValues.username;
-                        res.status(200).send(req.session);
-                    }
-
+                else if (!req.session.key) {
+                    req.session.key = user[0];
+                    res.status(200).send(req.session);
                 }
 
             })
             .catch((err) => {
-
                 res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-
             });
-        }
     })
     .catch((err) => {
-
         res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-
     });
 
 }
 
 exports.logout = (req, res) => {
     req.session.destroy();
-    res.redirect('/login');
+    res.status(200).redirect('/login');
 }

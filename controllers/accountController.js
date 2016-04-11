@@ -39,7 +39,7 @@ exports.insert = (req, res) => {
         }
         else {
             let query = 'INSERT INTO Accounts' +
-                        '(fname,mi,lname,emailAddress,username,password)' +
+                        '(fname,mi,lname,emailAddress,username,password) ' +
                         'values(?,?,?,?,?,(SELECT MD5(SHA1(?))))';
 
             sequelize.query(query, {
@@ -81,28 +81,29 @@ exports.login = (req, res) => {
         if (!user && !req.session.key) {
             res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
         }
+        else {
+            sequelize.query(query,{
+                    replacements: [
+                        req.body.username,
+                        req.body.password
+                    ],
+                    type: sequelize.QueryTypes.SELECT
+                })
+                .then((user) => {
 
-        sequelize.query(query,{
-                replacements: [
-                    req.body.username,
-                    req.body.password
-                ],
-                type: sequelize.QueryTypes.SELECT
-            })
-            .then((user) => {
+                    if (!user[0] && !req.session.key) {
+                        res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
+                    }
+                    else if (!req.session.key) {
+                        req.session.key = user[0];
+                        res.status(200).send(req.session);
+                    }
 
-                if (!user[0] && !req.session.key) {
-                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
-                }
-                else if (!req.session.key) {
-                    req.session.key = user[0];
-                    res.status(200).send(req.session);
-                }
-
-            })
-            .catch((err) => {
-                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-            });
+                })
+                .catch((err) => {
+                    res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+                });
+            }
     })
     .catch((err) => {
         res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});

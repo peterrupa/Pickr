@@ -9,7 +9,15 @@ import '../styles/oneUI.css';
 class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
+
     }
+    addTag(){
+        let text = $(" #tag ").val();
+        $(" .inputTags").append("#"+text+" ");
+        $(" #tag ").val("");
+    }
+
+
     render() {
         return (
             <div className="wrapper">
@@ -86,7 +94,7 @@ class ClassRoom extends React.Component {
                             </div>
                             <div className="block-content">
                                 <ul className="task-card">
-                                    <li>    
+                                    <li>
                                         <Link to="/student">
 
                                             <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
@@ -99,7 +107,7 @@ class ClassRoom extends React.Component {
                                             Amanda Powell
                                             <div className="font-w400 text-muted">
 
-                                                
+
                                                 <small>
                                                     <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
                                                     <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
@@ -175,10 +183,10 @@ class ClassRoom extends React.Component {
                                     <Link to="/presentation">Create Mobile App UI.
                                     </Link>
                                 </label>
-                                <Link to="/controlPanel">
+                                <Link to="controlPanel">
                                     <i className="mdi-action-settings right"></i>
                                 </Link>
-                                <Link to="/presentation">
+                                <Link to="presentation">
                                     <i className="mdi-image-color-lens right"></i>
                                 </Link>
                             </li>
@@ -237,17 +245,21 @@ class ClassRoom extends React.Component {
                                     <label htmlFor="studentNumber">Middle Name</label>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="middleName" type="text" className="validate"/>
-                                    <label htmlFor="middleName">Student Number</label>
-                                </div>
-                            </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="course" type="text" className="validate"/>
-                                    <label htmlFor="course">Course</label>
-                                </div>
+                            <div className="tags">
+                              <div className="row">
+                                  <div className="input-field col s11">
+                                      <input id="tag" type="text" className=""/>
+                                      <label htmlFor="tags">Tags</label>
+                                  </div>
+                                  <div className="valign-wrapper">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                  <a className="btn-floating" onClick={this.addTag}><i className="material-icons">add</i></a>
+                                  </div>
+
+                                    <div className="inputTags"></div>
+                              </div>
                             </div>
                         </div>
                         <div className="modal-footer">
@@ -335,7 +347,7 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
 
-                    
+
                 </div>
 
             <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">

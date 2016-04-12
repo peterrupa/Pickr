@@ -26,44 +26,45 @@ exports.insert = (req, res) => {
         !req.body.username && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
+    else {
+        Account.findOne({
+            where: {
+                username: req.body.username
+            }
+        })
+        .then((user) => {
 
-    Account.findOne({
-        where: {
-            username: req.body.username
-        }
-    })
-    .then((user) => {
+            if (user) {
+                res.status(error.DUP_ENTRY.code).send({DUP_ENTRY: error.DUP_ENTRY.message});
+            }
+            else {
+                let query = 'INSERT INTO Accounts' +
+                            '(fname,mi,lname,emailAddress,username,password) ' +
+                            'values(?,?,?,?,?,(SELECT MD5(SHA1(?))))';
 
-        if (user) {
-            res.status(error.DUP_ENTRY.code).send({DUP_ENTRY: error.DUP_ENTRY.message});
-        }
-        else {
-            let query = 'INSERT INTO Accounts' +
-                        '(fname,mi,lname,emailAddress,username,password) ' +
-                        'values(?,?,?,?,?,(SELECT MD5(SHA1(?))))';
-
-            sequelize.query(query, {
-                replacements:[
-                    req.body.fname,
-                    req.body.mi,
-                    req.body.lname,
-                    req.body.email,
-                    req.body.username,
-                    req.body.password
-                ],
-                type: sequelize.QueryTypes.INSERT
-            })
-            .then((account) => {
-                res.status(200).send(account);
-            })
-            .catch((err) => {
-                res.status(error.NO_RECORD_CREATED.code).send({NO_RECORD_CREATED: error.NO_RECORD_CREATED.message});
-            });
-        }
-    })
-    .catch((err) =>{
-        res.status(error.SERVER_ERR.code).send({SERVER_ERR: error.SERVER_ERR.message});
-    });
+                sequelize.query(query, {
+                    replacements:[
+                        req.body.fname,
+                        req.body.mi,
+                        req.body.lname,
+                        req.body.email,
+                        req.body.username,
+                        req.body.password
+                    ],
+                    type: sequelize.QueryTypes.INSERT
+                })
+                .then((account) => {
+                    res.status(200).sendStatus(200);
+                })
+                .catch((err) => {
+                    res.status(error.NO_RECORD_CREATED.code).send({NO_RECORD_CREATED: error.NO_RECORD_CREATED.message});
+                });
+            }
+        })
+        .catch((err) =>{
+            res.status(error.SERVER_ERR.code).send({SERVER_ERR: error.SERVER_ERR.message});
+        });
+    }
 }
 
 exports.login = (req, res) => {

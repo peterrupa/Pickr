@@ -14,13 +14,14 @@ class SignUp extends React.Component {
     create(e) {
         e.preventDefault();
 
-        let account = 
+        let account =
             'fname=' + $('#fname').val() +
             '&mi=' + $('#mi').val() +
             '&lname=' + $('#lname').val() +
             '&username=' + $('#username').val() +
-            '&email=' + $('#email').val() + 
+            '&email=' + $('#email').val() +
             '&password=' + $('#password').val();
+        let message = '';
 
         fetch('/api/account/createAccount', {
             method: 'POST',
@@ -31,15 +32,17 @@ class SignUp extends React.Component {
             body: account
         })
         .then((res) => {
-            if (res.status === 200) {
-                Materialize.toast('Successfully added account.', 4000, 'toast-success');
-            } 
-            else {
-                Materialize.toast('Error adding account.', 4000, 'toast-error');
+            switch (res.status) {
+                case 200: message = 'Successfully added account!'; break;
+                case 400: message = 'Invalid data!'; break;
+                case 401: message = 'Username already taken!'; break;
+                case 403: message = 'Register failed! Please try again.'; break;
+                default: message = 'Error adding account!'; break;
             }
+            Materialize.toast(message, 4000);
         })
         .catch((err) => {
-            Materialize.toast('Error adding account.', 4000, 'toast-error');
+            Materialize.toast('Error adding account!', 4000, 'toast-error');
         });
     }
     render() {

@@ -65,7 +65,7 @@ app.use('*', (req, res, next) => {
     if (req.session && req.session.key) {
         return next();
     }
-    if (req.originalUrl in {'/register':'', '/#':'', '/':'', '/login':''}) {
+    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
         res.redirect('/login');
@@ -74,7 +74,7 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
 
-    if (!(req.path in {'/register':'', '/#':'', '/':'', '/login':''})) {
+    if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
         return next();
     }
     if (req.originalUrl === '/class') {

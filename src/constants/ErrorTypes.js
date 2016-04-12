@@ -14,12 +14,12 @@ export const INV_ROLE = {
 };
 
 export const INC_DATA = {
-	code: 401,
+	code: 400,
 	message: 'Incomplete request data'
 };
 
 export const NO_RECORD_CREATED = {
-	code: 401,
+	code: 403,
 	message: 'No record was created'
 };
 
@@ -70,5 +70,5 @@ export const INV_FLD =  {
 
 export const DUP_ENTRY = {
 	code: 401,
-	message: 'Duplicate insert entry'
+	message: 'Account already exists'
 };

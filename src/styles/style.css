@@ -12,6 +12,10 @@ nav {
 body {
     background-color: #E9E8E7;
 }
+.hideme
+{
+    opacity:0;
+}
 
 #classes:hover {
     color: white;

@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Import actions associated to this page
+import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
 
 import '../styles/oneUI.css';
@@ -67,48 +67,46 @@ class ClassRoom extends React.Component {
         let activities = this.props.classroomAppState.activities;
 
         activities.forEach(function(activity){
-          activityList.push(
-              <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                    <Link to="/presentation">{activity.activityName}
-                    </Link>
-                </label>
-                <Link to="/controlPanel">
-                    <i className="mdi-action-settings right"></i>
-                </Link>
-                <Link to="/presentation">
-                    <i className="mdi-image-color-lens right"></i>
-                </Link>
-            </li>
-          )
+            activityList.push(
+                <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
+                      <Link to="/presentation">{activity.activityName}</Link>
+                  </label>
+                  <Link to="/controlPanel">
+                      <i className="mdi-action-settings right"></i>
+                  </Link>
+                  <Link to="/presentation">
+                      <i className="mdi-image-color-lens right"></i>
+                  </Link>
+               </li>
+           );
         });
 
         students.forEach(function(student){
-          studentList.push(
-            <li>
-                <Link to="/student">
-                    <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
-                        <i className="material-icons right">mode_edit</i>
+            console.log(student);   
+            studentList.push(
+                <li>
+                    <Link to="/student">
+                        <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
+                            <i className="material-icons right">mode_edit</i>
+                        </Link>
+                        <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
+                            <i className="material-icons right">delete</i>
+                        </Link>
+                        <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        {student.fname + " " + student.mname + " " + student.lname}
+                        <div className="font-w400 text-muted">
+                            <small>
+                                {student.tags.map((tag) =>
+                                    <Tag name={tag}/>
+                                )}
+                            </small>
+                        </div>
                     </Link>
-                    <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
-                        <i className="material-icons right">delete</i>
-                    </Link>
-                    <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
-                    {student.fname + " " + student.mname + " " + student.lname}
-                    <div className="font-w400 text-muted">
-                        <small>
-                            <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                            <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
-                            <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
-                        </small>
-
-                    </div>
-                </Link>
-              <br/>
-            </li>
-
+                    <br/>
+                </li>
           );
-        })
+        });
 
         return (
             <div className="wrapper">

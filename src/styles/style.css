@@ -218,3 +218,10 @@ body {
 #classes {
     height: 150px;
 }
+
+img#logo {
+    float: left;
+    margin: 0 0px;
+    padding-top: 10px;
+    display: inline-block;
+}

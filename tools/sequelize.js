@@ -1,7 +1,8 @@
 import Sequelize from 'sequelize';
-let env       = process.env.NODE_ENV || 'development';
-let config    = require(__dirname + '/../config/config.json')[env];
+import configObj from '../config/config.json';
 
+let env       = process.env.NODE_ENV || 'development';
+let config    = configObj[env];
 let sequelize;
 
 if (config.use_env_variable) {

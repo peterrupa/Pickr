@@ -24,15 +24,3 @@ export default function availableStudentsState(state = initialState, action) {
             return state;
     }
 }
-
-/*export default function selectedStudentsState(state = initialState, action) {
-    switch(action.type) {
-        case GET_VOLUNTEER:
-            return Object.assign({}, state, {
-                availableVolunteers: state.availableVolunteers,
-                volunteer: action.volunteer
-            });
-        default:
-            return state;
-    }
-}*/

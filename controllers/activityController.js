@@ -9,7 +9,7 @@ import { Activity } from '../models';
 
 //GET ACTIVITY
 export function getAll(req, res) {
-		Activity.findAll()
+        Activity.findAll()
     .then(function(activities) {
         res.send(activities);
     });
@@ -17,7 +17,7 @@ export function getAll(req, res) {
 
 export function getOne(req, res) {
     Activity.find({ where: {activityId: req.body.activityId} }).on('success', function(activity) {
-    	res.send(activity);
+        res.send(activity);
     });
 }
 
@@ -36,14 +36,14 @@ export function insert(req, res) {
 export function update(req, res) {
     Activity.find({ where: {activityId: req.body.activityId} })
     .then(function(activity) {
-    	if(activity){
-			activity.updateAttributes({
-				activityId: req.body.activityId,
-				activityName: req.body.activityName,
-				activityDesc: req.body.activityDesc
-			}).then(function(activity) {});
-			res.send(activity);
-		}
+        if(activity){
+            activity.updateAttributes({
+                activityId: req.body.activityId,
+                activityName: req.body.activityName,
+                activityDesc: req.body.activityDesc
+            }).then(function(activity) {});
+            res.send(activity);
+        }
     });
 }
 
@@ -52,10 +52,10 @@ export function deleteActivity(req, res) {
     Activity.find({ where: {activityId: req.body.activityId} })
     .then(function(activity){
         if(activity){
-					activity.destroy()
-					.then(function(){
-						res.send("Hello");
-					});
-				}
+                    activity.destroy()
+                    .then(function(){
+                        res.send("Hello");
+                    });
+                }
     });
 }

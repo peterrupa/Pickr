@@ -12,7 +12,7 @@ class LogIn extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url('+'./img/full-classroom.jpg'+')'}}>
+            <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <a id="logo-container" href="#" className="brand-logo">
@@ -55,7 +55,7 @@ class LogIn extends React.Component {
                           <form className="login-form">
         <div className="row">
           <div className="input-field col s12 center">
-            <img src="./img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
+            <img src="/img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
             <p className="center login-form-text">Pickr Log-In Form</p>
           </div>
         </div>

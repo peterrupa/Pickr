@@ -45,12 +45,16 @@ class ClassRoom extends React.Component {
     addStudent(e) {
         e.preventDefault();
 
-      // @TODO: validation
+        // parse tags
+        let tags = $('#tags').val().split(', ');
+
+        // @TODO: validation
         let student = {
             path: window.location.pathname.substring(11),
             fname: $('#firstName').val(),
             lname: $('#lastName').val(),
-            mname: $('#middleName').val()
+            mname: $('#middleName').val(),
+            tags
         };
 
         this.props.addStudent(student).then((res) => {
@@ -60,12 +64,6 @@ class ClassRoom extends React.Component {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
     }
-    addTag(){
-        let text = $(" #tag ").val();
-        $(" .inputTags").append("#"+text+" ");
-        $(" #tag ").val("");
-    }
-
 
     render() {
         let activityList = [];
@@ -90,8 +88,7 @@ class ClassRoom extends React.Component {
            );
         });
 
-        students.forEach(function(student){
-            console.log(student);   
+        students.forEach(function(student){   
             studentList.push(
                 <li>
                     <Link to="/student">
@@ -106,7 +103,9 @@ class ClassRoom extends React.Component {
                         <div className="font-w400 text-muted">
                             <small>
                                 {student.tags.map((tag) =>
-                                    <Tag name={tag}/>
+                                    <Tag
+                                        key={tag} 
+                                        name={tag}/>
                                 )}
                             </small>
                         </div>
@@ -242,18 +241,10 @@ class ClassRoom extends React.Component {
                             </div>
                             <div className="tags">
                               <div className="row">
-                                  <div className="input-field col s11">
-                                      <input id="tag" type="text" className=""/>
-                                      <label htmlFor="tags">Tags</label>
+                                  <div className="input-field col s12">
+                                      <input id="tags" type="text" className=""/>
+                                      <label htmlFor="tags">Tags (separated by comma and space)</label>
                                   </div>
-                                  <div className="valign-wrapper">
-                                    <br/>
-                                    <br/>
-                                    <br/>
-                                  <a className="btn-floating" onClick={this.addTag}><i className="material-icons">add</i></a>
-                                  </div>
-
-                                    <div className="inputTags"></div>
                               </div>
                             </div>
                         </div>

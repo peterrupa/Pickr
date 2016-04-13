@@ -14,6 +14,7 @@ const Materialize = window.Materialize;
 class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
+        
         // fetch initial data
         let path = window.location.pathname;
         let data = {
@@ -59,6 +60,13 @@ class ClassRoom extends React.Component {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
     }
+    addTag(){
+        let text = $(" #tag ").val();
+        $(" .inputTags").append("#"+text+" ");
+        $(" #tag ").val("");
+    }
+
+
     render() {
         let activityList = [];
         let studentList = [];
@@ -231,6 +239,22 @@ class ClassRoom extends React.Component {
                                     <input id="middleName" type="text" className="validate"/>
                                     <label htmlFor="middleName">Middle Name</label>
                                 </div>
+                            </div>
+                            <div className="tags">
+                              <div className="row">
+                                  <div className="input-field col s11">
+                                      <input id="tag" type="text" className=""/>
+                                      <label htmlFor="tags">Tags</label>
+                                  </div>
+                                  <div className="valign-wrapper">
+                                    <br/>
+                                    <br/>
+                                    <br/>
+                                  <a className="btn-floating" onClick={this.addTag}><i className="material-icons">add</i></a>
+                                  </div>
+
+                                    <div className="inputTags"></div>
+                              </div>
                             </div>
                         </div>
                         <div className="modal-footer">

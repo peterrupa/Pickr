@@ -5,30 +5,14 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import redis from 'redis';
-import connectRedis from 'connect-redis';
+import Store from 'express-sequelize-session';
 
+import sequelize from './tools/sequelize';
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
 let app = express();
-let client = redis.createClient();
-let redisStore = connectRedis(session);
-let store = new redisStore({host:'localhost', port:6379, client: client});
-
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname+"/public"));
-
-client.on('connect', (err) => {
-    console.log('Redis now connected');
-    client.expire('*', 1000 * 60 * 60 * 5);
-});
-
-client.on('error', (err) => {
-    console.log('Error: ' + err);
-});
-
-app.set('view engine', 'ejs');
+let store = Store(session.Store);
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));

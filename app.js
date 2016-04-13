@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
+import volunteer from './routes/volunteer';
 
 let app = express();
 
@@ -32,6 +33,8 @@ app.use(cookieParser());
 app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
+app.use('/api/student', student);
+app.use('/api/volunteer', volunteer);
 
 // send routing to client
 app.get('*', (req, res) => {

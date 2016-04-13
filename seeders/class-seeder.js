@@ -3,25 +3,24 @@ const uuid = require('node-uuid');
 module.exports = {
   up: function (queryInterface, Sequelize) {
     
-    // @TODO: This
-    // return queryInterface.bulkInsert('Classes', [
-    //     {
-    //         classCode: uuid.v4(),
-    //         className: "CMSC 100",
-    //         classDesc: "Web Programming",
-    //         AccountId: 1,
-    //         createdAt: new Date(),
-    //         updatedAt: new Date()
-    //     },
-    //     {
-    //         classCode: uuid.v4(),
-    //         className: "CMSC 132",
-    //         classDesc: "Computer Architecture",
-    //         AccountId: 1,
-    //         createdAt: new Date(),
-    //         updatedAt: new Date()
-    //     }
-    //   ], {});
+    return queryInterface.bulkInsert('Classes', [
+        {
+            id: 1,
+            AccountId: 1,
+            className: "CMSC 100",
+            // classDesc: "Web Programming",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        {
+            id: 2,
+            AccountId: 1,
+            className: "CMSC 132",
+            // classDesc: "Computer Architecture",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }
+      ], {});
     return;
   },
 

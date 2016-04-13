@@ -35,6 +35,13 @@ export default function (sequelize, DataTypes) {
                     });
                 });
             }
+        },
+        instanceMethods: {
+            addTag(tag) {
+                return this.createTag({
+                    name: tag
+                });
+            }
         }
     });
 

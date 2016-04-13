@@ -1,11 +1,10 @@
-const uuid = require('node-uuid');
-
 module.exports = {
   up: function (queryInterface, Sequelize) {
     
     return queryInterface.bulkInsert('Students', [
         {
-            studentId: uuid.v4(),
+            id: 1,
+            ClassId: 1,
             fname: "Peter Bernard",
             lname: "Rupa",
             mname: "Mariano",
@@ -14,7 +13,8 @@ module.exports = {
             updatedAt: new Date()
         },
         {
-            studentId: uuid.v4(),
+            id: 2,
+            ClassId: 1,
             fname: "Narom",
             lname: "Santos",
             mname: "Pineda",

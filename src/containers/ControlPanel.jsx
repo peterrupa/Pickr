@@ -63,16 +63,15 @@ class ControlPanel extends React.Component {
             <div className="col s12 m5 l4" data-collapsible="accordion">
                 {/* <div className="card-panel'> */}
                 <ul className="collapsible  with-header">
-                    <li className="collection-header">
+                    <li className="collection-header center">
                         <div className="container">
                             <h5>CMSC 128</h5>
                         </div>
                     </li>
                     <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Dick Grayson</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Dick Grayson</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -94,9 +93,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">"Barbara Gordon"</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Barbara Gordon</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -119,9 +117,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Jason Todd</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Jason Todd</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -144,9 +141,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Tim Drake</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Tim Drake</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -168,9 +164,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Damian Wayne</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Damian Wayne</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">

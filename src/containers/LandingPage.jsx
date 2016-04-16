@@ -28,7 +28,7 @@ class LandingPage extends React.Component {
     }
 
     render() {
-        let imgUrl = '../../img/ph.png';
+        let imgUrl = '/img/ph.png';
         let divStyle = {
             backgroundColor: '#3E3E4B',
             backgroundRepeat: 'no-repeat',
@@ -54,7 +54,7 @@ class LandingPage extends React.Component {
                         <Link to="#" id="logo-container" className="brand-logo">pickr</Link >
                         <ul className="right hide-on-med-and-down">
                             <li>
-                                <Link to="#intro">About</Link>
+                                <a href="#intro">About</a>
                             </li>
                             <li>
                                 <Link to="login">Log in</Link>
@@ -63,7 +63,7 @@ class LandingPage extends React.Component {
                                 <Link to="signup">Sign up</Link>
                             </li>
                             <li>
-                                <Link to="#contact">Contact</Link>
+                                <a href="#contact">Contact</a>
                             </li>
                         </ul>
                         <ul id="nav-mobile" className="side-nav">
@@ -91,7 +91,7 @@ class LandingPage extends React.Component {
         {/*<!--Hero-->*/}
         <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
-                <img className="center" src="./img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}> </img>
+                <img className="center" src="/img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}/>
                 <h1 className="text_h center header cd-headline letters type" style={{fontFamily: 'Indie Flower'}}>
                     <span>We pick the </span >
                          <b className="underline is-visible">{best[0]}</b>
@@ -140,15 +140,15 @@ class LandingPage extends React.Component {
             < /div>
 
                 {/*<!--Work-->*/}
-                <div className="parallax-container" >
-                    <div className="parallax"><img src="./img/room.jpg "/></div>
+                <div className="parallax-container hide-on-med-and-down" >
+                    <div className="parallax"><img src="/img/room.jpg "/></div>
                 </div>
 
                 <div className="container" id="login">
                     <div className="row">
                         <div className="col s12 l3">
                             <div>
-                                <img src="./img/samp1.png " className=" product "/>
+                                <img src="/img/samp1.png " className=" product "/>
                             </div>
                         </div >
                         <div className="col s12 l6 offset-l3">
@@ -168,7 +168,7 @@ class LandingPage extends React.Component {
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
-                                <img src="../../img/samp1.png" className="product"/>
+                                <img src="/img/samp1.png" className="product"/>
                             </div>
                         </div>
                     </div>

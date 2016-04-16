@@ -212,5 +212,9 @@ body {
 }
 
 #classCards ul a{
-    color: white;
+    color: #DDD;
+}
+
+#classes {
+    height: 150px;
 }

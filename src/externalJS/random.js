@@ -1,21 +1,20 @@
 $(document).ready(function() {
     $('.countDown').hide();
 
-
-    (function($) {
+    (function($){
 
         $.extend({
 
-            APP: {
+            APP : {
 
-                formatTimer: function(a) {
+                formatTimer : function(a) {
                     if (a < 10) {
                         a = '0' + a;
                     }
                     return a;
                 },
 
-                startTimer: function(dir) {
+                startTimer : function(dir) {
 
                     let a;
 
@@ -25,9 +24,9 @@ $(document).ready(function() {
                     // get current date
                     $.APP.d1 = new Date();
 
-                    switch ($.APP.state) {
+                    switch($.APP.state) {
 
-                        case 'pause':
+                        case 'pause' :
 
                             // resume timer
                             // get current timestamp (for calculations) and
@@ -36,14 +35,14 @@ $(document).ready(function() {
 
                             break;
 
-                        default:
+                        default :
 
                             // get current timestamp (for calculations)
                             $.APP.t1 = $.APP.d1.getTime();
 
                             // if countdown add ms based on seconds in textfield
                             if ($.APP.dir === 'cd') {
-                                $.APP.t1 += parseInt($('#cd_seconds').val()) * 1000;
+                                $.APP.t1 += parseInt($('#cd_seconds').val())*1000;
                             }
 
                             break;
@@ -59,7 +58,7 @@ $(document).ready(function() {
 
                 },
 
-                pauseTimer: function() {
+                pauseTimer : function() {
 
                     // save timestamp of pause
                     $.APP.dp = new Date();
@@ -77,7 +76,7 @@ $(document).ready(function() {
 
                 },
 
-                stopTimer: function() {
+                stopTimer : function() {
 
                     // change button value
                     $('#' + $.APP.dir + '_start').val('Restart');
@@ -88,7 +87,7 @@ $(document).ready(function() {
 
                 },
 
-                resetTimer: function() {
+                resetTimer : function() {
 
                     // reset display
                     $('#' + $.APP.dir + '_ms,#' + $.APP.dir + '_s,#' + $.APP.dir + '_m,#' + $.APP.dir + '_h').html('00');
@@ -102,7 +101,7 @@ $(document).ready(function() {
 
                 },
 
-                endTimer: function(callback) {
+                endTimer : function(callback) {
 
                     // change button value
                     $('#' + $.APP.dir + '_start').val('Restart');
@@ -117,15 +116,15 @@ $(document).ready(function() {
 
                 },
 
-                loopTimer: function() {
+                loopTimer : function() {
 
                     let td;
-                    let d2, t2;
+                    let d2,t2;
 
                     let ms = 0;
-                    let s = 0;
-                    let m = 0;
-                    let h = 0;
+                    let s  = 0;
+                    let m  = 0;
+                    let h  = 0;
 
                     if ($.APP.state === 'alive') {
 
@@ -138,12 +137,12 @@ $(document).ready(function() {
                         // initial and current timestamp
                         if ($.APP.dir === 'sw') {
                             td = t2 - $.APP.t1;
-                            // reversed if countdown
+                        // reversed if countdown
                         } else {
                             td = $.APP.t1 - t2;
                             if (td <= 0) {
                                 // if time difference is 0 end countdown
-                                $.APP.endTimer(function() {
+                                $.APP.endTimer(function(){
                                     $.APP.resetTimer();
                                     $('#' + $.APP.dir + '_status').html('Ended & Reset');
                                 });
@@ -151,22 +150,22 @@ $(document).ready(function() {
                         }
 
                         // calculate milliseconds
-                        ms = td % 1000;
+                        ms = td%1000;
                         if (ms < 1) {
                             ms = 0;
                         } else {
                             // calculate seconds
-                            s = (td - ms) / 1000;
+                            s = (td-ms)/1000;
                             if (s < 1) {
                                 s = 0;
                             } else {
                                 // calculate minutes
-                                m = (s - (s % 60)) / 60;
+                                let m = (s-(s%60))/60;
                                 if (m < 1) {
                                     m = 0;
                                 } else {
                                     // calculate hours
-                                    h = (m - (m % 60)) / 60;
+                                    let h = (m-(m%60))/60;
                                     if (h < 1) {
                                         h = 0;
                                     }
@@ -175,9 +174,9 @@ $(document).ready(function() {
                         }
 
                         // substract elapsed minutes & hours
-                        ms = Math.round(ms / 100);
-                        s = s - (m * 60);
-                        m = m - (h * 60);
+                        ms = Math.round(ms/100);
+                        s  = s-(m*60);
+                        m  = m-(h*60);
 
                         // update display
                         $('#' + $.APP.dir + '_ms').html($.APP.formatTimer(ms));
@@ -186,7 +185,7 @@ $(document).ready(function() {
                         $('#' + $.APP.dir + '_h').html($.APP.formatTimer(h));
 
                         // loop
-                        $.APP.t = setTimeout($.APP.loopTimer, 1);
+                        $.APP.t = setTimeout($.APP.loopTimer,1);
 
                     } else {
 
@@ -201,30 +200,33 @@ $(document).ready(function() {
             }
 
         });
-
         $('#start').click(function() {
-            $.APP.startTimer('sw');
+            //$.APP.startTimer('sw');
             $('.carousel').carousel('next', [Math.floor(Math.random() * 100000000)]);
             $('.countDown').show();
         });
+        $('#sw_start').click(function() {
+            $.APP.startTimer('sw');
+            //$( "#sw_start" ).replaceWith( "<a id="sw_reset" className="waves-effect waves-light btn-flat">RESET</a>" );
+        });
 
-        $('#cd_start').live('click', function() {
+        $('#cd_start').click(function() {
             $.APP.startTimer('cd');
         });
-        $('#sw_start').live('click', function() {
-            $.APP.startTimer('sw');
-        });
-        $('#sw_stop,#cd_stop').live('click', function() {
+
+        $('#sw_stop,#cd_stop').click(function() {
             $.APP.stopTimer();
         });
 
-        $('#sw_reset,#cd_reset').live('click', function() {
+        $('#sw_reset,#cd_reset').click(function() {
             $.APP.resetTimer();
+            //$( "#sw_reset" ).replaceWith( "<a id="sw_start" className="waves-effect waves-light btn-flat">START</a>" );
         });
 
-        $('#sw_pause,#cd_pause').live('click', function() {
+        $('#sw_pause,#cd_pause').click(function() {
             $.APP.pauseTimer();
         });
 
     })(jQuery);
+
 });

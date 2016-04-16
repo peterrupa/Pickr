@@ -9,9 +9,9 @@ import { Student } from '../models';
 
 //GET STUDENT
 export function getAll(req, res) {
-		Student.findAll()
+    Student.findAll()
     .then(function(students) {
-        res.send(students);
+    res.send(students);
     });
 }
 
@@ -44,14 +44,14 @@ export function insert(req, res) {
 export function update(req, res) {
     Student.find({ where: {studentId: req.body.studentId} })
     .then(function(student) {
-    	if(student){
-			student.updateAttributes({
-				studentId: req.body.studentId,
-				studentFName: req.body.studentFName,
-				studentLName: req.body.studentLName
-			}).then(function(student) {});
-			res.send(student);
-		}
+        if(student){
+            student.updateAttributes({
+                studentId: req.body.studentId,
+                studentFName: req.body.studentFName,
+                studentLName: req.body.studentLName
+            }).then(function(student) {});
+            res.send(student);
+        }
     });
 }
 
@@ -60,10 +60,10 @@ export function deleteStudent(req, res) {
     Student.find({ where: {studentId: req.body.studentId} })
     .then(function(student){
         if(student){
-					student.destroy()
-					.then(function(){
-						res.send("Hello");
-					});
-				}
+                    student.destroy()
+                    .then(function(){
+                        res.send("Hello");
+                    });
+                }
     });
 }

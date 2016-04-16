@@ -37,7 +37,6 @@ app.use('/api/sample', sample);
 app.use('/api/account', account);
 app.use('/api/activity', activity);
 app.use('/api/class', classRoute);
-app.use('/api/student', student);
 app.use('/api/volunteer', volunteer);
 
 // send routing to client

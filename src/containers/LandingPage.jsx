@@ -14,17 +14,24 @@ const $ = window.$;
 class LandingPage extends React.Component {
     componentDidMount() {
         $('.parallax').parallax();
-        $('.scrollspy').scrollSpy();
+        $(window).scroll( function(){
 
-        let tiles = $(".showy").fadeTo(0, 0);
+           /* Check the location of each desired element */
+           $('.hideme').each( function(i){
 
-        $(window).scroll(function(d,h) {
-            tiles.each(function(i) {
-                let a = $(this).offset().top + $(this).height();
-                let b = $(window).scrollTop() + $(window).height();
-                if (a < b) $(this).fadeTo(500,1);
-            });
-        });
+               let bottom_of_object = $(this).offset().top + $(this).outerHeight();
+               let bottom_of_window = $(window).scrollTop() + $(window).height();
+
+               /* If the object is completely visible in the window, fade it it */
+               if( bottom_of_window > bottom_of_object ){
+
+                   $(this).animate({'opacity':'1'},500);
+
+               }
+
+           });
+
+       });
     }
 
     render() {
@@ -91,8 +98,8 @@ class LandingPage extends React.Component {
         {/*<!--Hero-->*/}
         <div className="section no-pad-bot" id="index-banner" style={divStyle}>
             <div className="container">
-                <img className="center" src="/img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}/>
-                <h1 className="text_h center header cd-headline letters type" style={{fontFamily: 'Indie Flower'}}>
+                <img className="center animated zoomIn" src="/img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}/>
+                <h1 className="text_h center header cd-headline letters type animated zoomIn" style={{fontFamily: 'Indie Flower'}}>
                     <span>We pick the </span >
                          <b className="underline is-visible">{best[0]}</b>
                 </h1>
@@ -113,14 +120,14 @@ class LandingPage extends React.Component {
 			</h2>
                     </div>
 
-                    <div className="col s12 m4 l4 ">
+                    <div className="col s12 m4 l4 hideme">
                         <div className="center promo promo-example">
                             <i className="mdi-image-flash-on"></i>
                             <h5 className="promo-caption">Great in classroom environment</h5>
                             <p className="light center">With all the tools in your hands, we assure you that you can master this application in a matter of minutes. We provided a guide to help you out in learning.</p>
                         </div>
                     </div>
-                    <div className="col s12 m4 l4">
+                    <div className="col s12 m4 l4 hideme">
                         <div className="center promo promo-example">
                             <i className="mdi-social-group"></i>
                             <h5 className="promo-caption">Student Oriented</h5>
@@ -128,7 +135,7 @@ class LandingPage extends React.Component {
 
                         </div>
                     </div>
-                    <div className="col s12 m4 l4">
+                    <div className="col s12 m4 l4 hideme">
                         <div className="center promo promo-example">
                             <i className="mdi-hardware-desktop-windows"></i>
                             <h5 className="promo-caption">Split screen UI</h5>
@@ -151,7 +158,7 @@ class LandingPage extends React.Component {
                                 <img src="/img/samp1.png " className=" product "/>
                             </div>
                         </div >
-                        <div className="col s12 l6 offset-l3">
+                        <div className="col s12 l6 offset-l3 hideme">
                             <p className="light">With its goal to provide a simple and user-friendly aid for busy teachers, Pickr is changing your perspective of a high-end randomizer. Provided with guided tools, the application is so easy to learn and master in just a few minutes. It it also equipped with advanced features such as computations of class and student statistics that will further guide the teacher in selecting volunteers.</p>
                         </div>
                     </div>
@@ -162,7 +169,7 @@ class LandingPage extends React.Component {
                             <br/>
                     </div >
                     <div className="row">
-                        <div className="col s12 l6">
+                        <div className="col s12 l6 hideme">
                             <br/>
                             <p className="light">Lets work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
                         </div>

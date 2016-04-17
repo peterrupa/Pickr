@@ -18,6 +18,7 @@ class StudentPage extends React.Component {
         // code
         //Materialize.toast('Hey, JS works now!', 4000, 'green white-text');
     }
+
     render() {
         return (
             <div>

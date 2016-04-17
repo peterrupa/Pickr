@@ -44,7 +44,7 @@ class ClassRoom extends React.Component {
 
     addStudent(e) {
         e.preventDefault();
-
+        alert("done");
         // parse tags
         let tags = $('#tags').val().split(', ');
 
@@ -63,6 +63,44 @@ class ClassRoom extends React.Component {
         .catch((err) => {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
+
+    }
+
+    handleClick(e){
+        e.preventDefault();
+        let fileInput = document.getElementById('fileInput');
+        let file = fileInput.files[0];
+        let textType = /csv.*/;
+        if (file.type.match(textType)) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let allTextLines = reader.result.split(/\r\n|\n/);
+                while(allTextLines.length>0) {
+                    let entries = allTextLines.shift().split(',');
+                    // @TODO: validation
+                    let student = {
+                        path: window.location.pathname.substring(11),
+                        fname: entries.shift(),
+                        lname: entries.shift(),
+                        mname: entries.shift(),
+                        entries
+                    };
+                    alert(student.fname);
+                    this.props.addStudent(student).then((res) => {
+                        Materialize.toast('Successfully added student.', 4000, 'toast-success');
+                    })
+                    .catch((err) => {
+                        alert("but why");
+                        Materialize.toast('Error adding student.', 4000, 'toast-error');
+                    });
+                }
+                alert("Students added!!!");
+            };
+
+            reader.readAsText(file);
+        } else {
+            alert("File not supported!");
+        }
     }
 
     render() {
@@ -187,6 +225,17 @@ class ClassRoom extends React.Component {
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
+                                <div className="row center">
+                                  <form onSubmit={(e) => this.handleClick(e)}>
+                                    <div>
+                                        <input type="file" id="fileInput"/>
+                                    </div>
+                                    <div>
+                                        <button to="#" className="waves-effect waves-green btn-flat" type="submit">Add Student</button>
+                                        <Link to="#" className="waves-effect waves-red btn-flat">Cancel</Link>
+                                    </div>
+                                  </form>
+                                </div>
                             </div>
                             <div className="block-content">
                                 <ul className="task-card">

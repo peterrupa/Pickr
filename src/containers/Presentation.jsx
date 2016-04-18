@@ -7,30 +7,31 @@ import io from 'socket.io-client';
 import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../actions/presentationActions';
 
 import './../styles/presentation.css';
-import '../externalJS/random.js';
 
 // Be sure to rename your class name
 class Presentation extends React.Component {
 
     componentWillMount() {
-        const { fetchRandomizedVolunteers, fetchListOfStudents, presentationState } = this.props;
+        const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
+
+        // TODO: fetch the list of students based on the current session
         fetchListOfStudents('cmsc128');
+
         this.students = [];
-        this.socket = io();
         this.carouselConfig = {
             currentIndex: 0
         };
+
+        this.socket = io();
         this.socket.on('recieve volunteers', function(volunteers) {
             fetchRandomizedVolunteers(volunteers);
         });
-    }
 
-    componentDidMount() {
-        $('.carousel').carousel();
     }
 
     componentDidUpdate() {
         const { presentationState, success } = this.props;
+
         if(presentationState.recievedVolunteer) {
             let targetIndex = this.getTargetIndex(presentationState.volunteers);
             if(targetIndex) {
@@ -59,12 +60,11 @@ class Presentation extends React.Component {
     }
 
     render() {
-        const { presentationState } = this.props;
         let listOfStudents = this.props.presentationState.students;
 
-        this.students = [];
+        let students = [];
         for(let i = 0; i < listOfStudents.length; i++) {
-            this.students.push(
+            students.push(
                 <a key={listOfStudents[i].studentId} className="carousel-item">
                 <div className="studentPhoto">
                 <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
@@ -80,12 +80,12 @@ class Presentation extends React.Component {
             );
         }
         $('.carousel').carousel();
-        //let imgUrl = '../../img/presentation1.png';
-        if(this.students.length > 0) {
+
+        if(listOfStudents.length > 0) {
             return (                
                 <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
                     <div id="deck" className="carousel">
-                        {this.students}
+                        {students}
                     </div>
                 </div>
             );

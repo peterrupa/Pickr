@@ -1,27 +1,29 @@
-const uuid = require('node-uuid');
-
 module.exports = {
   up: function (queryInterface, Sequelize) {
     
-    return queryInterface.bulkInsert('Classes', [
+    return queryInterface.bulkInsert('Tags', [
         {
             id: 1,
-            AccountId: 1,
-            className: "CMSC 100",
-            // classDesc: "Web Programming",
+            name: 'AB-3L',
+            StudentId: 1,
             createdAt: new Date(),
             updatedAt: new Date()
         },
         {
             id: 2,
-            AccountId: 1,
-            className: "CMSC 132",
-            // classDesc: "Computer Architecture",
+            name: 'Pogi',
+            StudentId: 1,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        {
+            id: 3,
+            name: 'Handsome',
+            StudentId: 2,
             createdAt: new Date(),
             updatedAt: new Date()
         }
       ], {});
-    return;
   },
 
   down: function (queryInterface, Sequelize) {
@@ -33,6 +35,6 @@ module.exports = {
       return queryInterface.bulkDelete('Person', null, {});
     */
     
-    return queryInterface.bulkDelete('Classes', null, {});
+    return queryInterface.bulkDelete('Tags', null, {});
   }
 };

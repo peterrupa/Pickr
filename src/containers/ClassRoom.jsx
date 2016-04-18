@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Import actions associated to this page
+import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
@@ -15,7 +15,6 @@ const Materialize = window.Materialize;
 // Be sure to rename your class name
 class ClassRoom extends React.Component {
     componentWillMount(){
-      //fetch initial data
         let path = window.location.pathname;
         let data = {
             id: path.substring(11)
@@ -49,13 +48,17 @@ class ClassRoom extends React.Component {
 
     addStudent(e) {
         e.preventDefault();
+        alert("done");
+        // parse tags
+        let tags = $('#tags').val().split(', ');
 
-      // @TODO: validation
+        // @TODO: validation
         let student = {
             path: window.location.pathname.substring(11),
             fname: $('#firstName').val(),
             lname: $('#lastName').val(),
-            mname: $('#middleName').val()
+            mname: $('#middleName').val(),
+            tags
         };
 
         this.props.addStudent(student).then((res) => {
@@ -64,13 +67,51 @@ class ClassRoom extends React.Component {
         .catch((err) => {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
+
+    }
+
+    handleClick(e){
+        e.preventDefault();
+        let fileInput = document.getElementById('fileInput');
+        let file = fileInput.files[0];
+        let textType = /csv.*/;
+        if (file.type.match(textType)) {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let allTextLines = reader.result.split(/\r\n|\n/);
+                while(allTextLines.length>0) {
+                    let entries = allTextLines.shift().split(',');
+                    // @TODO: validation
+                    let student = {
+                        path: window.location.pathname.substring(11),
+                        fname: entries.shift(),
+                        lname: entries.shift(),
+                        mname: entries.shift(),
+                        entries
+                    };
+                    alert(student.fname);
+                    this.props.addStudent(student).then((res) => {
+                        Materialize.toast('Successfully added student.', 4000, 'toast-success');
+                    })
+                    .catch((err) => {
+                        alert("but why");
+                        Materialize.toast('Error adding student.', 4000, 'toast-error');
+                    });
+                }
+                alert("Students added!!!");
+            };
+
+            reader.readAsText(file);
+        } else {
+            alert("File not supported!");
+        }
     }
 
     render() {
         let activityList = [];
         let studentList = [];
 
-        this.props.classroomAppState.activities.forEach(function(activity){
+				this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
                 <li key= {activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                   <label htmlFor="task1" style={{textDecoration: 'none'}}>
@@ -89,24 +130,26 @@ class ClassRoom extends React.Component {
             );
         });
 
-        this.props.classroomAppState.students.forEach(function(student){
+        this.props.classroomApState.students.forEach(function(student){   
             studentList.push(
-              <li key={student.id}>
-                  <StudentEditModal student={student}/>
-                  <StudentDeleteModal student={student}/>
-                  <Link to={"/students/"+student.id}>
-                      <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
-                      {student.fname + " " + student.mname + " " + student.lname}
-                      <div className="font-w400 text-muted">
-                         <small>
-                             <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                             <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
-                             <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
-                         </small>
-                      </div>
-                  </Link>
-                  <br/>
-              </li>
+                <li>
+                		<StudentEditModal student={student}/>
+                  	<StudentDeleteModal student={student}/>
+                    <Link to="/student">
+                        <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        {student.fname + " " + student.mname + " " + student.lname}
+                        <div className="font-w400 text-muted">
+                            <small>
+                                {student.tags.map((tag) =>
+                                    <Tag
+                                        key={tag} 
+                                        name={tag}/>
+                                )}
+                            </small>
+                        </div>
+                    </Link>
+                    <br/>
+                </li>
           );
         });
 
@@ -182,6 +225,17 @@ class ClassRoom extends React.Component {
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
+                                <div className="row center">
+                                  <form onSubmit={(e) => this.handleClick(e)}>
+                                    <div>
+                                        <input type="file" id="fileInput"/>
+                                    </div>
+                                    <div>
+                                        <button to="#" className="waves-effect waves-green btn-flat" type="submit">Add Student</button>
+                                        <Link to="#" className="waves-effect waves-red btn-flat">Cancel</Link>
+                                    </div>
+                                  </form>
+                                </div>
                             </div>
                             <div className="block-content">
                                 <ul className="task-card">
@@ -233,6 +287,14 @@ class ClassRoom extends React.Component {
                                     <input id="middleName" type="text" className="validate"/>
                                     <label htmlFor="middleName">Middle Name</label>
                                 </div>
+                            </div>
+                            <div className="tags">
+                              <div className="row">
+                                  <div className="input-field col s12">
+                                      <input id="tags" type="text" className=""/>
+                                      <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                  </div>
+                              </div>
                             </div>
                         </div>
                         <div className="modal-footer">

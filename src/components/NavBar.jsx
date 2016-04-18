@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { fetchClasses } from '../actions/classListActions';
-
+import './../styles/style.css';
 
 class NavBar extends React.Component {
     componentWillMount(){
@@ -31,12 +31,11 @@ class NavBar extends React.Component {
 
         return (
             <div>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <Link id="logo-container" to="/class" className="brand-logo">
-                            <img src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
+                <nav id="navbar" className="navbar navbar-default navbar-fixed-top" role="navigation">
+                    <div id="navbar_div" className="nav-wrapper container">
+                        <Link to="/class" className="brand-logo">
+                            <img id="logo" src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                height: '50px'
                             }}/>
                             Pickr
                         </Link>

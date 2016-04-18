@@ -15,14 +15,16 @@ module.exports = {
     
     return queryInterface.bulkInsert('Activities', [
         {
-            activityId: uuid.v4(),
+            id: 1,
+            ClassId: 1,
             activityName: "March 30 2016 Session",
             activityDesc: "",
             createdAt: new Date(),
             updatedAt: new Date()
         },
         {
-            activityId: uuid.v4(),
+            id: 2,
+            ClassId: 1,
             activityName: "April Fools",
             activityDesc: "",
             createdAt: new Date(),

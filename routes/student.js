@@ -9,3 +9,4 @@ router.get('/student/:studentId', studentController.getOne);
 router.put('/student/:studentId', studentController.update);
 router.delete('/student/:studentId', studentController.remove);
 export default router;
+

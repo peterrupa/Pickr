@@ -1,11 +1,13 @@
 // a reducer takes an input state and an action, does some process, and returns the transformed state
 
 // import your action type constants
-import {SET_VOLUNTEERS, RECIEVE_RANDOMIZED_VOLUNTEERS} from '../constants/ActionTypes';
+import {SET_VOLUNTEERS, RECIEVE_RANDOMIZED_VOLUNTEERS, SET_LIST_OF_STUDENTS, SUCCESS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
-    volunteers: []
+    recievedVolunteer: false,
+    volunteers: [],
+    students: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -22,7 +24,18 @@ export default function presentationState(state = initialState, action) {
 
         case RECIEVE_RANDOMIZED_VOLUNTEERS:
             return Object.assign({}, state, {
+                recievedVolunteer: true,
                 volunteers: action.volunteers
+            });
+
+        case SET_LIST_OF_STUDENTS:
+            return Object.assign({}, state, {
+                students: action.students
+            });
+
+        case SUCCESS:
+            return Object.assign({}, state, {
+                recievedVolunteer: false
             });
 
         default:

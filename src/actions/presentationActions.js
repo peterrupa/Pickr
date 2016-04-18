@@ -1,12 +1,5 @@
 import * as types from '../constants/ActionTypes';
 
-export function setVolunteers(volunteers) {
-    return {
-        type: types.SET_VOLUNTEERS,
-        volunteers
-    };
-}
-
 export function recieveRandomizedVolunteers(volunteers) {
     return {
         type: types.RECIEVE_RANDOMIZED_VOLUNTEERS,
@@ -20,17 +13,27 @@ export function fetchRandomizedVolunteers(volunteers) {
     };
 }
 
-export function fetchInitialSample() {
-    return (dispatch) => {
-        // ajax request to /api/sample
-        fetch('/api/volunteer/1', {
+export function setListOfStudents(students) {
+    return {
+        type: types.SET_LIST_OF_STUDENTS,
+        students
+    };
+}
+
+export function success() {
+    return {
+        type: types.SUCCESS
+    };
+}
+
+export function fetchListOfStudents(classcode) {
+    return ((dispatch) => {
+        fetch('/api/volunteer/available/' + classcode, {
             method: 'GET'
         }).then((res) => {
-            // convert response to json
             return res.json();
-        }).then((volunteers) => {
-            // dispatch action with data from server
-            dispatch(setVolunteers(volunteers));
+        }).then((students) => {
+            dispatch(setListOfStudents(students));
         });
-    };
+    });
 }

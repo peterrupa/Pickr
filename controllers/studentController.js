@@ -2,7 +2,10 @@
     Controller for the model "student".
 */
 
-import {Class, Student } from '../models';
+import { Class, Student } from '../models';
+
+import Jimp from 'jimp';
+import fs from 'fs-promise';
 
 export function getAll(req, res) {
     Student.findAll({where:{ClassId: req.params.id }})
@@ -41,29 +44,63 @@ export function getOne(req, res) {
 
 //CREATE Student
 export function insert(req, res) {
-    // @TOOD: Upload image here
-    Class.findById(req.params.id)
+    let file = req.file;
+    
+    // query class
+    processImg(file).then((img) => {
+        return Class.findById(req.params.id);
+    })
+    // insert student
     .then((classData) => {
         if(classData) {
+            let image;
+            
+            if(file) {
+                image = file.filename + '.jpg';
+            }
+            else {
+                image = null;
+            }
+            
             return classData.createNewStudent({
               ClassId: classData.id,
               fname: req.body.fname,
               lname: req.body.lname,
               mname: req.body.mname,
-              image: req.body.image,
-              tags: req.body.tags
+              image: image,
+              tags: req.body.tags.split(',')
             });
         }
         else {
             res.sendStatus(400);
         }
     })
+    // respond
     .then((activity) => {
         res.send(activity);
     })
     .catch((err) => {
+        console.log(err);
         res.sendStatus(500);
     });
+}
+
+function processImg(file) {
+    if(!file) {
+        return Promise.resolve(null);
+    }
+    else {
+        // resize
+        return Jimp.read(file.path)
+        .then((img) => {
+            return img.cover(300, 300)
+            .write('public/uploads/' + file.filename + '.jpg');
+        })
+        // remove original file
+        .then(() => {
+            return fs.unlink(file.path);
+        })
+    }
 }
 
 //UPDATE ATTRIBUTES

@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
+import _ from 'lodash';
 
 import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
@@ -26,6 +27,38 @@ class ClassRoom extends React.Component {
 
     componentDidMount(){
         $('.modal-trigger').leanModal();
+        
+        // let fileInput = document.getElementById('fileInput');
+        // fileInput.addEventListener('change', readFile);
+
+        // function readFile() {
+        //     let file = fileInput.files[0];
+        //     let textType = /csv.*/;
+        //     if (file.type.match(textType)) {
+        //         let reader = new FileReader();
+
+        //         reader.onload = function(e) {
+        //             let allTextLines = reader.result.split(/\r\n|\n/);
+        //             while(allTextLines.length>0) {
+        //                 let entries = allTextLines.shift().split(',');
+        //                 $('#firstName').val(entries.shift());
+        //                 $('#lastName').val(entries.shift());
+        //                 $('#middleName').val(entries.shift());
+                        
+        //                 while(entries.length>0){
+        //                     $('#tags').val(function(i,val){
+        //                         return val + (val ? ', ' : '') + entries.shift(); 
+        //                     });
+        //                 } 
+        //                 $("#stud_form").trigger('click');
+        //             }
+        //         };
+
+        //         reader.readAsText(file);
+        //     } else {
+        //         alert("File not supported!");
+        //     }
+        // }
     }
 
     addActivity(e) {
@@ -48,7 +81,6 @@ class ClassRoom extends React.Component {
 
     addStudent(e) {
         e.preventDefault();
-        alert("done");
         // parse tags
         let tags = $('#tags').val().split(', ');
 
@@ -58,14 +90,19 @@ class ClassRoom extends React.Component {
             fname: $('#firstName').val(),
             lname: $('#lastName').val(),
             mname: $('#middleName').val(),
+            image: $('#image')[0].files[0],
             tags
         };
 
         this.props.addStudent(student).then((res) => {
             Materialize.toast('Successfully added student.', 4000, 'toast-success');
+            $('#add-student-form')[0].reset();
+            $('#addStudent').scrollTop(0);
         })
         .catch((err) => {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
+            $('#add-student-form')[0].reset();
+            $('#addStudent').scrollTop(0);
         });
 
     }
@@ -107,14 +144,14 @@ class ClassRoom extends React.Component {
             alert("File not supported!");
         }
     }
-
+    
     render() {
         let activityList = [];
         let studentList = [];
 
         this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
-                <li key= {activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                   <label htmlFor="task1" style={{textDecoration: 'none'}}>
                     <Link to="/presentation">
                       {activity.activityName}
@@ -131,13 +168,31 @@ class ClassRoom extends React.Component {
             );
         });
 
+<<<<<<< HEAD
         this.props.classroomAppState.students.forEach(function(student){
+=======
+        // sort students
+        let sortedStudents = _.sortBy(this.props.classroomAppState.students, (o) => {
+            return o.lname;
+        });
+
+        sortedStudents.forEach(function(student){
+            let image;
+            
+            if(!student.image) {
+                image = '/img/defaultPP.png';
+            }
+            else {
+                image = '/uploads/' + student.image;
+            }
+            
+>>>>>>> 9c47e994220ea024af6f4343089632d7bc80a962
             studentList.push(
-                <li>
+                <li key={student.id}>
                     <StudentEditModal student={student}/>
                     <StudentDeleteModal student={student}/>
                     <Link to="/student">
-                        <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
                             <small>
@@ -153,7 +208,7 @@ class ClassRoom extends React.Component {
                 </li>
           );
         });
-
+        
         return (
             <div className="wrapper">
                 <div className="tint">
@@ -206,7 +261,6 @@ class ClassRoom extends React.Component {
                 </div>
 
                 <div className="row">
-
                     <div className="col s12 m12 l4">
                         <div className="block block-bordered">
                             <div className="block-header">
@@ -220,6 +274,7 @@ class ClassRoom extends React.Component {
                                         <Link className="modal-trigger" to="#openFile">
                                             <i className="material-icons right">folder</i>
                                         </Link>
+
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
@@ -254,40 +309,54 @@ class ClassRoom extends React.Component {
 
                     </div>
                     <div id="addstudent" className="modal">
-                        <form onSubmit={(e) => this.addStudent(e)}>
-                        <div className="modal-content">
-                            <h3>Add Student</h3>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="lastName" type="text" className="validate"/>
-                                    <label htmlFor="lastName">Last Name</label>
+                        <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
+                            <div className="modal-content">
+                                <h3>Add Student</h3>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="firstName" type="text" className="validate"/>
+                                        <label htmlFor="firstName">First Name</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="middleName" type="text" className="validate"/>
+                                        <label htmlFor="middleName">Middle Name</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="lastName" type="text" className="validate"/>
+                                        <label htmlFor="lastName">Last Name</label>
+                                    </div>
+                                </div>
+                                <div className="tags">
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="tags" type="text" className=""/>
+                                            <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col s12">
+                                        <span>Image (Optional)</span>
+                                    </div>
+                                    <div className="file-field input-field col s12">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input id="image" type="file"/>
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="firstName" type="text" className="validate"/>
-                                    <label htmlFor="firstName">First Name</label>
-                                </div>
+                            <div className="modal-footer">
+                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="middleName" type="text" className="validate"/>
-                                    <label htmlFor="middleName">Middle Name</label>
-                                </div>
-                            </div>
-                            <div className="tags">
-                              <div className="row">
-                                  <div className="input-field col s12">
-                                      <input id="tags" type="text" className=""/>
-                                      <label htmlFor="tags">Tags (separated by comma and space)</label>
-                                  </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
-                        </div>
                         </form>
                     </div>
 

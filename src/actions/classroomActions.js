@@ -43,14 +43,16 @@ export function addActivity(activity) {
 export function addStudent(student) {
     console.log("chever");
     return (dispatch) => {
+        let formData  = new FormData();
+
+        for(name in student) {
+            formData.append(name, student[name]);
+        }
+        
         // ajax request to /api/sample
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(student)
+            body: formData
         })
         .then((res) =>  res.json())
         .then((student) => dispatch(fetchStudents({id: student.ClassId})))

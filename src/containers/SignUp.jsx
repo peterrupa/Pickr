@@ -101,33 +101,60 @@ class SignUp extends React.Component {
                                     </div >
                                 </div>
 
-                                 <div className="row margin">
+                                 <div className="row">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="fname" type="text" className="validate"/>
-                                        <label htmlFor="fname" className="center-align">First Name</label>
+                                        <input id="lname" type="text" className="validate" required="true"/>
+                                        <label htmlFor="lname" className="center-align">Last Name</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row margin">
-                                    <div className="input-field col s12">
+                                    <div className="input-field col s8">
                                         <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="mi" type="text" className="validate"/>
-                                        <label htmlFor="mi" className="center-align">Middle Initial</label>
+                                        <input id="fname" type="text" className="validate" required="true"/>
+                                        <label htmlFor="fname" className="center-align">Middle Initial</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row margin">
-                                    <div className="input-field col s12">
+                                    <div className="input-field col s4">
                                         <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="lname" type="text" className="validate"/>
-                                        <label htmlFor="lname">Last Name</label>
+                                        <input id="mi" type="text" className="validate" required="true"/>
+                                        <label htmlFor="mi">Last Name</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
-
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
                                         <input id="username" type="text" className="validate" required="true"/>
                                         <label htmlFor="username" className="center-align">Username</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row margin">
@@ -135,6 +162,13 @@ class SignUp extends React.Component {
                                         <i className="mdi-communication-email prefix"></i>
                                         <input id="email" type="email" className="validate" required="true"/>
                                         <label htmlFor="email" className="center-align">Email</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row margin">
@@ -142,6 +176,20 @@ class SignUp extends React.Component {
                                         <i className="mdi-action-lock-outline prefix"></i>
                                         <input id="password" type="password" className="validate" required="true"/>
                                         <label htmlFor="password">Password</label>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            Password and Re-type Password not equal.
+                                        </p>
+                                        <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            This field is required.
+                                        </p>
                                     </div>
                                 </div>
 
@@ -151,6 +199,20 @@ class SignUp extends React.Component {
                                         <input id="password-again" type="password" required="true"/>
                                         <label htmlFor="password-again">Re-type password</label>
                                     </div>
+                                    <p className="red-text errorRequired hidden"
+                                            style={{
+                                                margin-top: '0px',
+                                                margin-left: '50px'
+                                            }}>
+                                            Password and Re-type Password not equal.
+                                    </p>
+                                    <p className="red-text errorRequired hidden"
+                                        style={{
+                                            margin-top: '0px',
+                                            margin-left: '50px'
+                                        }}>
+                                        This field is required.
+                                    </p>
                                 </div>
 
                                 <div className="row">

@@ -14,41 +14,71 @@ class ControlPanel extends React.Component {
     }
 
     get() {
+        alert($('#nStudents').val());
+        //alert($('#nStudentsPerTag').val());
         if(this.props.availableStudentsState.availableVolunteers.length === 0){
             return;
         }
-        let selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
-        alert(selectedVolunteer.studentLName + ", " + selectedVolunteer.studentFName);
-        console.log(selectedVolunteer);
+        let nStud = $('#nStudents').val();
+        let selectedVolunteer;
+        let selectedVolunteers = [];
 
-        fetch('/api/volunteer/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                activityID: 'sampleactivity1',
-                studentID: selectedVolunteer.studentId,
-                classCode: selectedVolunteer.ClassClassCode,
-                note: ''
-            })
-        }).then((res) => {
-            console.log(res);
-        });
-        return (
-        <div> {selectedVolunteer.studentLName},  {selectedVolunteer.studentFName} </div>
-        );
-            return res.json();
-        }).then((volunteer) => {
-            fetch('/api/student/' + volunteer.studentID, {
-                method: 'GET'
+        if(nStud === 0) {
+          selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+          alert(JSON.stringify(selectedVolunteer));
+          fetch('/api/volunteer/', {
+              method: 'POST',
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  activityID: 'sampleactivity1',
+                  studentID: selectedVolunteer.studentId,
+                  classCode: selectedVolunteer.ClassClassCode,
+                  note: ''
+              })
+          }).then((res) => {
+              return res.json();
+          }).then((volunteer) => {
+              fetch('/api/student/' + volunteer.studentID, {
+                  method: 'GET'
+              }).then((res) => {
+                  return res.json();
+              }).then((student) => {
+                  this.socket.emit('send volunteers', student);
+              });
+          });
+        }
+        else {
+          for(let i = 0; i < nStud;i++){
+            selectedVolunteers[i] = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+            alert(JSON.stringify(selectedVolunteers[i]));
+            fetch('/api/volunteer/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    activityID: 'sampleactivity1',
+                    studentID: selectedVolunteers[i].studentId,
+                    classCode: selectedVolunteers[i].ClassClassCode,
+                    note: ''
+                })
             }).then((res) => {
                 return res.json();
-            }).then((student) => {
-                this.socket.emit('send volunteers', student);
+            }).then((volunteer) => {
+                fetch('/api/student/' + volunteer.studentID, {
+                    method: 'GET'
+                }).then((res) => {
+                    return res.json();
+                }).then((student) => {
+                    this.socket.emit('send volunteers', student);
+                });
             });
-        });
+          }
+        }
     }
 
     render() {

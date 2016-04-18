@@ -44,7 +44,6 @@ class ClassRoom extends React.Component {
 
     addStudent(e) {
         e.preventDefault();
-        alert("done");
         // parse tags
         let tags = $('#tags').val().split(', ');
 
@@ -64,43 +63,6 @@ class ClassRoom extends React.Component {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
 
-    }
-
-    handleClick(e){
-        e.preventDefault();
-        let fileInput = document.getElementById('fileInput');
-        let file = fileInput.files[0];
-        let textType = /csv.*/;
-        if (file.type.match(textType)) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                let allTextLines = reader.result.split(/\r\n|\n/);
-                while(allTextLines.length>0) {
-                    let entries = allTextLines.shift().split(',');
-                    // @TODO: validation
-                    let student = {
-                        path: window.location.pathname.substring(11),
-                        fname: entries.shift(),
-                        lname: entries.shift(),
-                        mname: entries.shift(),
-                        entries
-                    };
-                    alert(student.fname);
-                    this.props.addStudent(student).then((res) => {
-                        Materialize.toast('Successfully added student.', 4000, 'toast-success');
-                    })
-                    .catch((err) => {
-                        alert("but why");
-                        Materialize.toast('Error adding student.', 4000, 'toast-error');
-                    });
-                }
-                alert("Students added!!!");
-            };
-
-            reader.readAsText(file);
-        } else {
-            alert("File not supported!");
-        }
     }
 
     render() {
@@ -152,6 +114,41 @@ class ClassRoom extends React.Component {
                 </li>
           );
         });
+
+        window.onload = function() {
+            let fileInput = document.getElementById('fileInput');
+            fileInput.addEventListener('change', readFile);
+
+            function readFile() {
+                let file = fileInput.files[0];
+                let textType = /csv.*/;
+                if (file.type.match(textType)) {
+                    let reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        let allTextLines = reader.result.split(/\r\n|\n/);
+                        while(allTextLines.length>0) {
+                            let entries = allTextLines.shift().split(',');
+                            $('#firstName').val(entries.shift());
+                            $('#lastName').val(entries.shift());
+                            $('#middleName').val(entries.shift());
+                            
+                            while(entries.length>0){
+                                $('#tags').val(function(i,val){
+                                    return val + (val ? ', ' : '') + entries.shift(); 
+                                });
+                            } 
+                            $("#stud_form").trigger('click');
+                        }
+                        alert("Students added!!!");
+                    };
+
+                    reader.readAsText(file);
+                } else {
+                    alert("File not supported!");
+                }
+            }
+        };
 
         return (
             <div className="wrapper">
@@ -225,16 +222,8 @@ class ClassRoom extends React.Component {
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
-                                <div className="row center">
-                                  <form onSubmit={(e) => this.handleClick(e)}>
-                                    <div>
-                                        <input type="file" id="fileInput"/>
-                                    </div>
-                                    <div>
-                                        <button to="#" className="waves-effect waves-green btn-flat" type="submit">Add Student</button>
-                                        <Link to="#" className="waves-effect waves-red btn-flat">Cancel</Link>
-                                    </div>
-                                  </form>
+                                <div>
+                                    <input type="file" id="fileInput"/>
                                 </div>
                             </div>
                             <div className="block-content">
@@ -299,7 +288,7 @@ class ClassRoom extends React.Component {
                         </div>
                         <div className="modal-footer">
                             <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
+                            <button to="#" id="stud_form" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                         </div>
                         </form>
                     </div>

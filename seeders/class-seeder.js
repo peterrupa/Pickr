@@ -7,16 +7,16 @@ module.exports = {
         {
             id: 1,
             AccountId: 1,
-            className: "CMSC 100",
-            // classDesc: "Web Programming",
+            classCode: "CMSC 100",
+            className: "Web Programming",
             createdAt: new Date(),
             updatedAt: new Date()
         },
         {
             id: 2,
             AccountId: 1,
-            className: "CMSC 132",
-            // classDesc: "Computer Architecture",
+            classCode: "CMSC 132",
+            className: "Computer Architecture",
             createdAt: new Date(),
             updatedAt: new Date()
         }

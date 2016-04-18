@@ -88,7 +88,14 @@ class ClassRoom extends React.Component {
            );
         });
 
-        students.forEach(function(student){   
+        students.forEach(function(student){
+            if(!student.image) {
+                student.image = '/img/defaultPP.png';
+            }
+            else {
+                student.image = '/uploads/' + student.image;
+            }
+            
             studentList.push(
                 <li>
                     <Link to="/student">
@@ -98,7 +105,7 @@ class ClassRoom extends React.Component {
                         <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
                             <i className="material-icons right">delete</i>
                         </Link>
-                        <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        <img className="img-avatar" src={student.image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
                             <small>

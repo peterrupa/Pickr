@@ -72,6 +72,7 @@ class ClassRoom extends React.Component {
 
     handleClick(e){
         e.preventDefault();
+        alert("hereee");
         let fileInput = document.getElementById('fileInput');
         let file = fileInput.files[0];
         let textType = /csv.*/;
@@ -84,13 +85,14 @@ class ClassRoom extends React.Component {
                     // @TODO: validation
                     let student = {
                         path: window.location.pathname.substring(11),
-                        fname: entries.shift(),
                         lname: entries.shift(),
+                        fname: entries.shift(),
                         mname: entries.shift(),
                         entries
                     };
                     alert(student.fname);
                     this.props.addStudent(student).then((res) => {
+                        alert("yey!");
                         Materialize.toast('Successfully added student.', 4000, 'toast-success');
                     })
                     .catch((err) => {
@@ -100,7 +102,6 @@ class ClassRoom extends React.Component {
                 }
                 alert("Students added!!!");
             };
-
             reader.readAsText(file);
         } else {
             alert("File not supported!");
@@ -130,7 +131,7 @@ class ClassRoom extends React.Component {
             );
         });
 
-        this.props.classroomAppState.students.forEach(function(student){   
+        this.props.classroomAppState.students.forEach(function(student){
             studentList.push(
                 <li>
                     <StudentEditModal student={student}/>
@@ -142,7 +143,7 @@ class ClassRoom extends React.Component {
                             <small>
                                 {student.tags.map((tag) =>
                                     <Tag
-                                        key={tag} 
+                                        key={tag}
                                         name={tag}/>
                                 )}
                             </small>
@@ -216,18 +217,12 @@ class ClassRoom extends React.Component {
                                         </Link>
                                     </li>
                                     <li>
-                                        <div className="file_input">
-                                          <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                                            <form onSubmit={(e) => this.handleClick(e)}>
-                                              <input type="file" id="fileInput"/> <i className="material-icons right">folder</i>
-                                            </form>
-                                          </label>
-                                        </div>
+                                        <Link className="modal-trigger" to="#openFile">
+                                            <i className="material-icons right">folder</i>
+                                        </Link>
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
-                                <div className="row center">
-                                </div>
                             </div>
                             <div className="block-content">
                                 <ul className="task-card">
@@ -294,6 +289,23 @@ class ClassRoom extends React.Component {
                             <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                         </div>
                         </form>
+                    </div>
+
+                    <div id="openFile" className="modal">
+                      <form onSubmit={(e) => this.handleClick(e)}>
+                        <div className="modal-content">
+                            <h3>Import Students from file</h3>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="fileInput" type="file" className="validate"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit"> Import File</button>
+                        </div>
+                      </form>
                     </div>
 
                     <div id="addactivity" className="modal">

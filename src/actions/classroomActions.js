@@ -41,6 +41,7 @@ export function addActivity(activity) {
 }
 
 export function addStudent(student) {
+    console.log("chever");
     return (dispatch) => {
         // ajax request to /api/sample
         return fetch('/api/class/'+student.path+'/student', {

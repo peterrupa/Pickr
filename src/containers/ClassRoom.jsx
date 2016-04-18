@@ -140,7 +140,6 @@ class ClassRoom extends React.Component {
                             } 
                             $("#stud_form").trigger('click');
                         }
-                        alert("Students added!!!");
                     };
 
                     reader.readAsText(file);
@@ -215,8 +214,8 @@ class ClassRoom extends React.Component {
                                     <li>
                                         <div className="file_input">
                                           <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                                            <form onSubmit={(e) => this.handleClick(e)}>
-                                              <input type="file" id="fileInput"/> <i className="material-icons right">folder</i>
+                                            <form>
+                                              <input hidden type="file" id="fileInput"/> <i className="material-icons right">folder</i>
                                             </form>
                                           </label>
                                         </div>

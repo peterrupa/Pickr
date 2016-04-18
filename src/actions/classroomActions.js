@@ -44,8 +44,6 @@ export function addStudent(student) {
     return (dispatch) => {
         let formData  = new FormData();
 
-        console.log(student);
-
         for(name in student) {
             formData.append(name, student[name]);
         }

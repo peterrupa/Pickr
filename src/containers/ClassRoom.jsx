@@ -223,9 +223,6 @@ class ClassRoom extends React.Component {
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
-                                <div>
-                                    <input type="file" id="fileInput"/>
-                                </div>
                             </div>
                             <div className="block-content">
                                 <ul className="task-card">

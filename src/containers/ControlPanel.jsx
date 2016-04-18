@@ -2,9 +2,47 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import io from 'socket.io-client';
+
+import { fetchAvailableVolunteers } from '../actions/controlpanelActions';
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+    componentWillMount() {
+        this.props.fetchAvailableVolunteers('cmsc128');
+        this.socket = io();
+    }
+
+    get() {
+        if(this.props.availableStudentsState.availableVolunteers.length === 0){
+            return;
+        }
+        let selectedVolunteer = this.props.availableStudentsState.availableVolunteers[Math.floor(Math.random() * this.props.availableStudentsState.availableVolunteers.length)];
+        fetch('/api/volunteer/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                activityID: 'sampleactivity1',
+                studentID: selectedVolunteer.studentId,
+                classCode: selectedVolunteer.ClassClassCode,
+                note: ''
+            })
+        }).then((res) => {
+            return res.json();
+        }).then((volunteer) => {
+            fetch('/api/student/' + volunteer.studentID, {
+                method: 'GET'
+            }).then((res) => {
+                return res.json();
+            }).then((student) => {
+                this.socket.emit('send volunteers', student);
+            });
+        });
+    }
+  
     render() {
         return (
 <div>
@@ -17,16 +55,15 @@ class ControlPanel extends React.Component {
             <div className="col s12 m5 l4" data-collapsible="accordion">
                 {/* <div className="card-panel'> */}
                 <ul className="collapsible  with-header">
-                    <li className="collection-header">
+                    <li className="collection-header center">
                         <div className="container">
                             <h5>CMSC 128</h5>
                         </div>
                     </li>
                     <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Dick Grayson</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Dick Grayson</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -48,9 +85,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">"Barbara Gordon"</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Barbara Gordon</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -73,9 +109,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Jason Todd</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Jason Todd</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -98,9 +133,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Tim Drake</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Tim Drake</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -122,9 +156,8 @@ class ControlPanel extends React.Component {
 
                         <li className="collection-item avatar">
                             <div className="collapsible-header">
-                                <i className="material-icons right">close</i>
                                 <i className="material-icons circle">perm_contact_calendar</i>
-                                <h6 className="bold">Damian Wayne</h6>
+                                <h6 className="bold" style={{paddingTop:'10px'}}>Damian Wayne</h6>
                             </div>
                             <div className="collapsible-body">
                                 <div className="container">
@@ -184,7 +217,7 @@ class ControlPanel extends React.Component {
                                     </blockquote>
                                     {/* <label className="bold' for="textarea1">Tags</label> */}
                                 </div>
-                                <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick="">Randomize</button>
+                                <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
                             </div>
                         </div>
                         <br/><hr/><br/>
@@ -227,5 +260,13 @@ class ControlPanel extends React.Component {
     }
 }
 
+ControlPanel.propTypes = {
+    availableStudentsState: PropTypes.object.isRequired,
+    fetchAvailableVolunteers: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default ControlPanel;
+export default connect(
+    state => ({ availableStudentsState: state.availableStudentsState }),
+    { fetchAvailableVolunteers }
+)(ControlPanel);

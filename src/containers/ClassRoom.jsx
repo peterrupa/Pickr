@@ -111,30 +111,30 @@ class ClassRoom extends React.Component {
         let activityList = [];
         let studentList = [];
 
-				this.props.classroomAppState.activities.forEach(function(activity){
+        this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
                 <li key= {activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                   <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                      <Link to="/presentation">
-                        {activity.activityName}
-                      </Link>
+                    <Link to="/presentation">
+                      {activity.activityName}
+                    </Link>
                   </label>
-                  <ActivityDeleteModal activity={activity}/>
+                   <ActivityDeleteModal activity={activity}/>
                   <Link to="/controlPanel">
-                      <i className="mdi-action-settings right"></i>
+                    <i className="mdi-action-settings right"></i>
                   </Link>
                   <Link to="/presentation">
-                      <i className="mdi-image-color-lens right"></i>
+                    <i className="mdi-image-color-lens right"></i>
                   </Link>
                 </li>
             );
         });
 
-        this.props.classroomApState.students.forEach(function(student){   
+        this.props.classroomAppState.students.forEach(function(student){   
             studentList.push(
                 <li>
-                		<StudentEditModal student={student}/>
-                  	<StudentDeleteModal student={student}/>
+                    <StudentEditModal student={student}/>
+                    <StudentDeleteModal student={student}/>
                     <Link to="/student">
                         <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
@@ -218,23 +218,15 @@ class ClassRoom extends React.Component {
                                     <li>
                                         <div className="file_input">
                                           <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                                            <i className="material-icons right">folder</i>
-                                            <input id="file_input_file" className="none" type="file" />
+                                            <form onSubmit={(e) => this.handleClick(e)}>
+                                              <input type="file" id="fileInput"/> <i className="material-icons right">folder</i>
+                                            </form>
                                           </label>
                                         </div>
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
                                 <div className="row center">
-                                  <form onSubmit={(e) => this.handleClick(e)}>
-                                    <div>
-                                        <input type="file" id="fileInput"/>
-                                    </div>
-                                    <div>
-                                        <button to="#" className="waves-effect waves-green btn-flat" type="submit">Add Student</button>
-                                        <Link to="#" className="waves-effect waves-red btn-flat">Cancel</Link>
-                                    </div>
-                                  </form>
                                 </div>
                             </div>
                             <div className="block-content">

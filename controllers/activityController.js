@@ -83,19 +83,27 @@ export function update(req, res) {
 
 //DELETE ACTIVITY
 export function remove(req, res) {
-    Activity.findById(req.params.id)
-    .then((activity) => {
+    // initially get activity data
+    Activity.findById(req.params.activityId).then((activity) => {
         if(activity) {
-            return classInstance.destroy();
+            // remove if found
+            Activity.destroy({
+                where: {
+                    id: req.params.activityId
+                },
+                limit: 1,
+                cascade: true
+            }).then((affectedCount) => {
+                if(affectedCount > 0) {
+                    res.send(activity);
+                }
+                else {
+                    res.send({});
+                }
+            });
         }
         else {
             res.sendStatus(404);
         }
-    })
-    .then((activity) => {
-        res.send(activity);
-    })
-    .catch((err) => {
-        res.send(500);
     });
 }

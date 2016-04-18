@@ -68,7 +68,7 @@ export function update(req, res) {
         if(classInstance) {
             return classInstance.updateAttributes({
                 className: req.body.className,
-                classDesc: req.body.classDesc
+                classCode: req.body.classCode
             });
         }
         else {
@@ -90,7 +90,7 @@ export function update(req, res) {
 
 //DELETE CLASS
 export function remove(req, res) {
-  CLass.findById(req.params.id).then((student) => {
+  Class.findById(req.params.id).then((student) => {
       if(student) {
           // remove if found
           Class.destroy({

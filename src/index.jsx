@@ -26,18 +26,19 @@ render(
             {/* @TODO: Render server side non-app pages */}
             <Route path="/" component={Containers.LandingPage}/>
             <Route path="/presentation" component={Containers.Presentation}/>
+            <Route path="/login" component={Containers.LogIn}/>
+            <Route path="/signup" component={Containers.SignUp}/>
+            <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
+            <Route path="/index" component={Containers.LandingPage}/>
             <Route path="/" component={Containers.App}>
-            <Route path="student" component={Containers.StudentPage}/>
-                <Route path="class" component={Containers.ClassList}/>
-                <Route path="controlPanel" component={Containers.ControlPanel}/>
-                <Route path="classroom/:classId" component={Containers.ClassRoom}/>
-                <Route path="/login" component={Containers.LogIn}/>
-                <Route path="/signup" component={Containers.SignUp}/>
-                <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
-                <Route path="/index" component={Containers.LandingPage}/>
-                <Route path="/student" component={Containers.StudentPage}/>
-                <Route path="/controlPanel" component={Containers.ControlPanel}/>
-                <Route path="*" component={Containers.NotFoundPage}/>
+            <Route path="/student/:studentId" component={Containers.StudentPage}/>
+            <Route path="/class/:id" component={Containers.ClassList}/>
+            <Route path="/controlPanel" component={Containers.ControlPanel}/>
+            <Route path="/classroom/:classId" component={Containers.ClassRoom}/>
+            <Route path="/login" component={Containers.LogIn}/>
+            <Route path="/signup" component={Containers.SignUp}/>
+            <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
+            <Route path="/index" component={Containers.LandingPage}/>
             </Route>
             <Route path="*" component={Containers.NotFoundPage}/>
         </Router>

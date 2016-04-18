@@ -1,10 +1,17 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import { Link } from 'react-router';
-
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
+import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
 class NavBar extends React.Component {
+    componentWillMount(){
+        this.props.fetchClasses({
+            accountId: window.location.pathname.substring(7)
+        });
+    }
+
     componentDidMount() {
         $(".classDropDown").hide();
         $("#classDD").click(function() {
@@ -12,6 +19,16 @@ class NavBar extends React.Component {
         });
     }
     render() {
+        let classList = [];
+
+        this.props.classListAppState.classes.forEach((classItem) =>{
+            classList.push(
+            <li key={classItem.id} className="collection-item">
+                <Link to={"/classroom/" + classItem.id}>{classItem.classCode}</Link>
+            </li>
+            );
+        });
+
         return (
             <div>
                 <nav id="navbar" className="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -42,18 +59,7 @@ class NavBar extends React.Component {
                     <br/>
 
                     <ul className="collection">
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 170</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 132</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 125</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 141</Link>
-                        </li>
+                        {classList}
                     </ul>
                 </div>
             </div>
@@ -61,4 +67,14 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+NavBar.propTypes = {
+    classListAppState: PropTypes.object.isRequired,
+    fetchClasses: PropTypes.func.isRequired
+};
+
+// connect to redux store
+export default connect(state => ({
+    classListAppState: state.classListAppState
+}), {
+    fetchClasses
+})(NavBar);

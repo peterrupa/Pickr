@@ -1,11 +1,8 @@
-// This is an example page. Use this as your guideline when you make your own page.
-
-// Import dependencies
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-
 import NavBar from '../components/NavBar.jsx';
+//import {fetchStudent} from '../actions/studentActions'
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
@@ -126,20 +123,8 @@ class StudentPage extends React.Component {
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="studentNumber" type="text" className="validate"/>
-                                <label htmlFor="studentNumber">Middle Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
                                 <input id="middleName" type="text" className="validate"/>
-                                <label htmlFor="middleName">Student Number</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="course" type="text" className="validate"/>
-                                <label htmlFor="course">Course</label>
+                                <label htmlFor="middleName">Middle Name</label>
                             </div>
                         </div>
                     </div>
@@ -153,5 +138,13 @@ class StudentPage extends React.Component {
     }
 }
 
+StudentPage.propTypes = {
+    studentAppState: PropTypes.object.isRequired
+  //  fetchStudent: PropTypes.func.isRequired
+};
+
 // connect to redux store
 export default StudentPage;
+//state => ({studentAppState : state,studentAppState }),
+//    { fetchStudent}
+//)(StudentPage);

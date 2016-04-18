@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import io from 'socket.io-client';
 
-import { fetchRandomizedVolunteers, fetchListOfStudents } from '../actions/presentationActions';
+import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../actions/presentationActions';
 
 import './../styles/presentation.css';
 import '../externalJS/random.js';
@@ -17,10 +17,11 @@ class Presentation extends React.Component {
         fetchListOfStudents('cmsc128');
         this.students = [];
         this.socket = io();
+        this.carouselConfig = {
+            currentIndex: 0
+        };
         this.socket.on('recieve volunteers', function(volunteers) {
             fetchRandomizedVolunteers(volunteers);
-            $('.carousel').carousel('next', [Math.floor(Math.random() * 100000000)]);
-            $('.countDown').show();
         });
     }
 
@@ -29,6 +30,35 @@ class Presentation extends React.Component {
     }
 
     componentDidUpdate() {
+        const { presentationState, success } = this.props;
+        if(presentationState.recievedVolunteer) {
+            let targetIndex = this.getTargetIndex(presentationState.volunteers);
+            if(targetIndex) {
+                this.carouselConfig.targetIndex = targetIndex;
+                this.animateCarousel();
+                success();
+            }
+        }
+    }
+
+    getTargetIndex(target) {
+        const listOfStudents = this.props.presentationState.students;
+        for(let i = 0; i < listOfStudents.length; i++) {
+            if(target.studentId == listOfStudents[i].studentId) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
+    animateCarousel() {
+        const listOfStudents = this.props.presentationState.students;
+        $('.carousel').carousel('next', listOfStudents.length * 1000 - this.carouselConfig.currentIndex + this.carouselConfig.targetIndex);
+        this.carouselConfig.currentIndex = this.carouselConfig.targetIndex;
+    }
+
+    render() {
         const { presentationState } = this.props;
         let listOfStudents = this.props.presentationState.students;
 
@@ -50,9 +80,6 @@ class Presentation extends React.Component {
             );
         }
         $('.carousel').carousel();
-    }
-
-    render() {
         //let imgUrl = '../../img/presentation1.png';
         if(this.students.length > 0) {
             return (                
@@ -75,11 +102,12 @@ class Presentation extends React.Component {
 Presentation.propTypes = {
     presentationState: PropTypes.object.isRequired,
     fetchRandomizedVolunteers: PropTypes.func.isRequired,
-    fetchListOfStudents: PropTypes.func.isRequired
+    fetchListOfStudents: PropTypes.func.isRequired,
+    success: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ presentationState: state.presentationState }),
-    { fetchRandomizedVolunteers, fetchListOfStudents }
+    { fetchRandomizedVolunteers, fetchListOfStudents, success }
 )(Presentation);

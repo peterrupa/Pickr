@@ -20,6 +20,12 @@ export function setListOfStudents(students) {
     };
 }
 
+export function success() {
+    return {
+        type: types.SUCCESS
+    };
+}
+
 export function fetchListOfStudents(classcode) {
     return ((dispatch) => {
         fetch('/api/volunteer/available/' + classcode, {

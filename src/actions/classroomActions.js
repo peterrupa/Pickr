@@ -21,7 +21,6 @@ export function setStudents(students) {
     };
 }
 
-
 export function addActivity(activity) {
     return (dispatch) => {
         // ajax request to /api/sample
@@ -54,6 +53,62 @@ export function addStudent(student) {
         })
         .then((res) =>  res.json())
         .then((student) => dispatch(fetchStudents({id: student.ClassId})))
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function editStudent(student) {
+    return (dispatch) => {
+        return fetch('/api/class/student/'+student.id, {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(student)
+        })
+        .then((res) =>  res.json())
+        .then((student) => dispatch(fetchStudents({id: student.ClassId})))
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function deleteStudent(student) {
+    return (dispatch) => {
+        // ajax request to /api/sample
+        return fetch('/api/class/student/'+student.id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(student)
+        })
+        .then((res) =>  res.json())
+        .then((student) => dispatch(fetchStudents({id: student.ClassId})))
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function deleteActivity(activity) {
+    return (dispatch) => {
+        // ajax request to /api/sample
+        return fetch('/api/class/activity/'+activity.id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(activity)
+        })
+        .then((res) =>  res.json())
+        .then((activity) => dispatch(fetchActivities({id: activity.ClassId})))
         .catch((err) => {
             throw err;
         });

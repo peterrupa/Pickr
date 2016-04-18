@@ -5,7 +5,7 @@ import * as studentController from '../controllers/studentController';
 
 router.get('/:id/student', studentController.getAll);
 router.post('/:id/student', studentController.insert);
-router.get('/:id/student/:studentId', studentController.getOne);
-router.post('/:id/student/studentId', studentController.update);
-router.delete('/:id/student/studentId', studentController.remove);
+router.get('/student/:studentId', studentController.getOne);
+router.put('/student/:studentId', studentController.update);
+router.delete('/student/:studentId', studentController.remove);
 export default router;

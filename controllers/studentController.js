@@ -11,7 +11,7 @@ export function getAll(req, res) {
         let promises = students.map((student) => {
             return student.getTags().then((data) => {
                 student.dataValues.tags = data.map((tag) => tag.dataValues.name);
-                
+
                 return student.dataValues;
             });
         });
@@ -76,7 +76,6 @@ export function update(req, res) {
               fname: req.body.fname,
               lname: req.body.lname,
              	mname: req.body.mname,
-              image: req.body.image
             });
         }
         else {
@@ -104,7 +103,7 @@ export function remove(req, res) {
             // remove if found
             Student.destroy({
                 where: {
-                    id: req.params.id
+                    id: req.params.studentId
                 },
                 limit: 1,
                 cascade: true

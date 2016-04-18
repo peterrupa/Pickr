@@ -5,16 +5,17 @@ import { Link } from 'react-router';
 
 // Import actions associated to this page
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
-
 import '../styles/oneUI.css';
+import StudentEditModal from '../components/StudentEditModal.jsx';
+import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
+import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
 
 const Materialize = window.Materialize;
 
 // Be sure to rename your class name
 class ClassRoom extends React.Component {
-    componentDidMount(){
-        $('.modal-trigger').leanModal();
-        // fetch initial data
+    componentWillMount(){
+      //fetch initial data
         let path = window.location.pathname;
         let data = {
             id: path.substring(11)
@@ -23,6 +24,11 @@ class ClassRoom extends React.Component {
         this.props.fetchStudents(data);
         this.props.fetchActivities(data);
     }
+
+    componentDidMount(){
+        $('.modal-trigger').leanModal();
+    }
+
     addActivity(e) {
         e.preventDefault();
 
@@ -59,64 +65,58 @@ class ClassRoom extends React.Component {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
         });
     }
+
     render() {
         let activityList = [];
         let studentList = [];
-        let classViewed = this.props.classroomAppState.classViewed;
-        let students = this.props.classroomAppState.students;
-        let activities = this.props.classroomAppState.activities;
 
-        activities.forEach(function(activity){
-          activityList.push(
-              <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                    <Link to="/presentation">{activity.activityName}
-                    </Link>
-                </label>
-                <Link to="/controlPanel">
-                    <i className="mdi-action-settings right"></i>
-                </Link>
-                <Link to="/presentation">
-                    <i className="mdi-image-color-lens right"></i>
-                </Link>
-            </li>
-          )
+        this.props.classroomAppState.activities.forEach(function(activity){
+            activityList.push(
+                <li key= {activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
+                      <Link to="/presentation">
+                        {activity.activityName}
+                      </Link>
+                  </label>
+                  <ActivityDeleteModal activity={activity}/>
+                  <Link to="/controlPanel">
+                      <i className="mdi-action-settings right"></i>
+                  </Link>
+                  <Link to="/presentation">
+                      <i className="mdi-image-color-lens right"></i>
+                  </Link>
+                </li>
+            );
         });
 
-        students.forEach(function(student){
-          studentList.push(
-            <li>
-                <Link to="/student">
-                    <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
-                        <i className="material-icons right">mode_edit</i>
-                    </Link>
-                    <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
-                        <i className="material-icons right">delete</i>
-                    </Link>
-                    <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
-                    {student.fname + " " + student.mname + " " + student.lname}
-                    <div className="font-w400 text-muted">
-                        <small>
-                            <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
-                            <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
-                            <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
-                        </small>
-
-                    </div>
-                </Link>
-              <br/>
-            </li>
-
+        this.props.classroomAppState.students.forEach(function(student){
+            studentList.push(
+              <li key={student.id}>
+                  <StudentEditModal student={student}/>
+                  <StudentDeleteModal student={student}/>
+                  <Link to={"/students/"+student.id}>
+                      <img className="img-avatar" src="/img/pic.jpg" alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                      {student.fname + " " + student.mname + " " + student.lname}
+                      <div className="font-w400 text-muted">
+                         <small>
+                             <span className="task-cat purple" style={{color:'white'}}>&nbsp;tag1&nbsp;</span>
+                             <span className="task-cat orange" style={{color:'white'}}>&nbsp;tag2&nbsp;</span>
+                             <span className="task-cat green" style={{color:'white'}}>&nbsp;tag3&nbsp;</span>
+                         </small>
+                      </div>
+                  </Link>
+                  <br/>
+              </li>
           );
-        })
+        });
 
         return (
             <div className="wrapper">
                 <div className="tint">
                     <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
                         <div className="push-50-t push-20">
-                            <h1 className="h2 text-white animated zoomIn">Welcome to {classViewed.classCode}</h1>
-                            <h2 className="h5 text-white-op animated zoomIn">{classViewed.className}</h2>
+                            <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
+                            <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
                         </div>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     Today</small>
                             </div>
-                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">150</Link>
+                            <p className="h2 font-w300 text-primary animated flipInX">{this.props.classroomAppState.students.length}</p>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
@@ -242,46 +242,6 @@ class ClassRoom extends React.Component {
                         </form>
                     </div>
 
-                    <div id="editstudent" className="modal">
-                    <div className="modal-content">
-                        <h3>Edit Student</h3>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="lastName" type="text" className="validate"/>
-                                <label htmlFor="lastName">Last Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="firstName" type="text" className="validate"/>
-                                <label htmlFor="firstName">First Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="studentNumber" type="text" className="validate"/>
-                                <label htmlFor="studentNumber">Middle Name</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="middleName" type="text" className="validate"/>
-                                <label htmlFor="middleName">Student Number</label>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <input id="course" type="text" className="validate"/>
-                                <label htmlFor="course">Course</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                        <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
-                    </div>
-                </div>
-
                     <div id="addactivity" className="modal">
                         <form onSubmit={(e) => this.addActivity(e)}>
                             <div className="modal-content">
@@ -300,24 +260,11 @@ class ClassRoom extends React.Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
                             </div>
                         </form>
                     </div>
-
-                    <div id="deletestudent" className="modal">
-                        <div className="modal-content">
-                            <h3>Are you sure you want to delete this student?</h3>
-                                <p>This action cannot be undone.</p>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Yes</Link>
-                            <Link to="#" className="waves-effect waves-red btn red modal-action modal-close">Cancel</Link>
-                        </div>
-                    </div>
-
-
                 </div>
 
             <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
@@ -350,6 +297,6 @@ ClassRoom.propTypes = {
 
 // connect to redux store
 export default connect(
-state => ({ classroomAppState: state.classroomAppState }),
+state => ({ classroomAppState: state.classroomAppState}),
     { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities }
 )(ClassRoom);

@@ -10,7 +10,7 @@ import './../styles/styles.scss';
 import ClassListCarousel from '../components/ClassListCarousel.jsx';
 import ClassListDefault from '../components/ClassListDefault.jsx';
 
-import { fetchInitialClasses } from '../actions/classListActions';
+import { fetchClasses, addClass } from '../actions/classListActions';
 
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
@@ -20,11 +20,30 @@ const $ = window.$;
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentWillMount() {
-        this.props.fetchInitialClasses();
+        let data = {
+            accountId: window.location.pathname.substring(7)
+        };
+        this.props.fetchClasses(data);
     }
 
     componentDidMount() {
         $('.modal-trigger').leanModal();
+    }
+
+    add(e) {
+        e.preventDefault();
+        let newClass = {
+            accountId: window.location.pathname.substring(6),
+            classCode: $('#classCode').val(),
+            className: $('#className').val()
+        };
+
+        this.props.addClass(newClass).then((res) => {
+            Materialize.toast('Successfully added class.', 4000, 'toast-success');
+        })
+        .catch((err) => {
+            Materialize.toast('Error adding class.', 4000, 'toast-error');
+        });
     }
 
     render() {
@@ -47,25 +66,27 @@ class ClassList extends React.Component {
 
                         {/*start of modal form*/}
                         <div id="addclass" className="modal">
-                            <div className="modal-content">
-                                <h3>Add Class</h3>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="className" type="text" className="validate"/>
-                                        <label htmlFor="className">Class Name</label>
+                          <form onSubmit={(e) => this.add(e)}>
+                              <div className="modal-content">
+                                  <h3>Add Class</h3>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="classCode" type="text" className="validate"/>
+                                            <label htmlFor="classCode">Class Code</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="classSection" type="text" className="validate"/>
-                                        <label htmlFor="classSection">Class Section</label>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="className" type="text" className="validate"/>
+                                            <label htmlFor="className">Class Name</label>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className="modal-footer">
-                                <Link to="/class" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                <Link to="/class" className="waves-effect waves-green btn-flat modal-action modal-close">Add Class</Link>
-                            </div>
+                              </div>
+                              <div className="modal-footer">
+                                  <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                  <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Add Class</button>
+                              </div>
+                          </form>
                         </div>
                     </div>
                 </div>
@@ -76,12 +97,14 @@ class ClassList extends React.Component {
 
 ClassList.propTypes = {
     classListAppState: PropTypes.object.isRequired,
-    fetchInitialClasses: PropTypes.func.isRequired
+    fetchClasses: PropTypes.func.isRequired,
+    addClass: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(state => ({
     classListAppState: state.classListAppState
 }), {
-    fetchInitialClasses
+    fetchClasses,
+    addClass
 })(ClassList);

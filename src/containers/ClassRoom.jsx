@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
+import _ from 'lodash';
 
 import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
@@ -54,14 +55,19 @@ class ClassRoom extends React.Component {
             fname: $('#firstName').val(),
             lname: $('#lastName').val(),
             mname: $('#middleName').val(),
+            image: $('#image')[0].files[0],
             tags
         };
 
         this.props.addStudent(student).then((res) => {
             Materialize.toast('Successfully added student.', 4000, 'toast-success');
+            $('#add-student-form')[0].reset();
+            $('#addStudent').scrollTop(0);
         })
         .catch((err) => {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
+            $('#add-student-form')[0].reset();
+            $('#addStudent').scrollTop(0);
         });
     }
 
@@ -74,7 +80,7 @@ class ClassRoom extends React.Component {
 
         activities.forEach(function(activity){
             activityList.push(
-                <li className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
                   <label htmlFor="task1" style={{textDecoration: 'none'}}>
                       <Link to="/presentation">{activity.activityName}</Link>
                   </label>
@@ -88,16 +94,23 @@ class ClassRoom extends React.Component {
            );
         });
 
-        students.forEach(function(student){
+        // sort students
+        let sortedStudents = _.sortBy(students, (o) => {
+            return o.lname;
+        });
+
+        sortedStudents.forEach(function(student){
+            let image;
+            
             if(!student.image) {
-                student.image = '/img/defaultPP.png';
+                image = '/img/defaultPP.png';
             }
             else {
-                student.image = '/uploads/' + student.image;
+                image = '/uploads/' + student.image;
             }
             
             studentList.push(
-                <li>
+                <li key={student.id}>
                     <Link to="/student">
                         <Link className="modal-trigger" to="#editstudent" style={{color:'gray'}}>
                             <i className="material-icons right">mode_edit</i>
@@ -105,7 +118,7 @@ class ClassRoom extends React.Component {
                         <Link className="modal-trigger" to="#deletestudent" style={{color:'gray'}}>
                             <i className="material-icons right">delete</i>
                         </Link>
-                        <img className="img-avatar" src={student.image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
                             <small>
@@ -174,7 +187,6 @@ class ClassRoom extends React.Component {
                 </div>
 
                 <div className="row">
-
                     <div className="col s12 m12 l4">
                         <div className="block block-bordered">
                             <div className="block-header">
@@ -186,10 +198,10 @@ class ClassRoom extends React.Component {
                                     </li>
                                     <li>
                                         <div className="file_input">
-                                          <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
-                                            <i className="material-icons right">folder</i>
-                                            <input id="file_input_file" className="none" type="file" />
-                                          </label>
+                                            <label className="image_input_button mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored">
+                                                <i className="material-icons right">folder</i>
+                                                <input id="file_input_file" className="none" type="file" />
+                                            </label>
                                         </div>
                                     </li>
                                 </ul>
@@ -225,40 +237,54 @@ class ClassRoom extends React.Component {
 
                     </div>
                     <div id="addstudent" className="modal">
-                        <form onSubmit={(e) => this.addStudent(e)}>
-                        <div className="modal-content">
-                            <h3>Add Student</h3>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="lastName" type="text" className="validate"/>
-                                    <label htmlFor="lastName">Last Name</label>
+                        <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
+                            <div className="modal-content">
+                                <h3>Add Student</h3>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="firstName" type="text" className="validate"/>
+                                        <label htmlFor="firstName">First Name</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="middleName" type="text" className="validate"/>
+                                        <label htmlFor="middleName">Middle Name</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="lastName" type="text" className="validate"/>
+                                        <label htmlFor="lastName">Last Name</label>
+                                    </div>
+                                </div>
+                                <div className="tags">
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="tags" type="text" className=""/>
+                                            <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col s12">
+                                        <span>Image (Optional)</span>
+                                    </div>
+                                    <div className="file-field input-field col s12">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input id="image" type="file"/>
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="firstName" type="text" className="validate"/>
-                                    <label htmlFor="firstName">First Name</label>
-                                </div>
+                            <div className="modal-footer">
+                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                             </div>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="middleName" type="text" className="validate"/>
-                                    <label htmlFor="middleName">Middle Name</label>
-                                </div>
-                            </div>
-                            <div className="tags">
-                              <div className="row">
-                                  <div className="input-field col s12">
-                                      <input id="tags" type="text" className=""/>
-                                      <label htmlFor="tags">Tags (separated by comma and space)</label>
-                                  </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
-                        </div>
                         </form>
                     </div>
 

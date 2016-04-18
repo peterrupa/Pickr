@@ -48,8 +48,6 @@ export function insert(req, res) {
     
     // query class
     processImg(file).then((img) => {
-        console.log(img);
-        
         return Class.findById(req.params.id);
     })
     // insert student
@@ -70,7 +68,7 @@ export function insert(req, res) {
               lname: req.body.lname,
               mname: req.body.mname,
               image: image,
-              tags: req.body.tags
+              tags: req.body.tags.split(',')
             });
         }
         else {

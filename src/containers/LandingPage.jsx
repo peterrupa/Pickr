@@ -14,10 +14,18 @@ const $ = window.$;
 class LandingPage extends React.Component {
     componentDidMount() {
         $('.parallax').parallax();
-        $(window).scroll(function() {
 
-    /* Check the location of each desired element */
-            $('.hideme').each(function(i) {
+        $('.button-collapse').click(function(){
+            $('.side-nav').css({position: 'static', marginLeft:'-50px'});
+            $('.button-collapse').css({visibility:'hidden'});
+        });
+        $(window).scroll( function(){
+
+            $('.side-nav').css({position: 'fixed'});
+            $('.button-collapse').css({visibility:'visible'});
+
+           /* Check the location of each desired element */
+           $('.hideme').each( function(i){
 
                 let bottom_of_object = $(this).offset().top + $(this).outerHeight();
                 let bottom_of_window = $(window).scrollTop() + $(window).height();
@@ -57,10 +65,10 @@ class LandingPage extends React.Component {
 
         {/*<!--Navigation-->*/}
         <div className="navbar-fixed" >
-            <nav id="nav_f" className="default_color" role="navigation">
+            <nav id="nav_f" className="default_color">
                 <div className="container" style={{zDepth: '0'}}>
                     <div className="nav-wrapper">
-                        <Link to="#" id="logo-container" className="brand-logo">pickr</Link >
+                        <a href="#" id="logo-container" className="brand-logo">pickr</a >
                         <ul className="right hide-on-med-and-down">
                             <li>
                                 <a href="#intro">About</a>
@@ -77,21 +85,21 @@ class LandingPage extends React.Component {
                         </ul>
                         <ul id="nav-mobile" className="side-nav">
                             <li>
-                                <Link to="#intro">About</Link>
+                                <a href="#intro">About</a>
                             </li>
                             <li>
-                                <Link to="#login">Log in</Link>
+                                <Link to="login">Log in</Link>
                             </li>
                             <li>
-                                <Link to="#team">Sign up</Link >
+                                <Link to="signup">Sign up</Link>
                             </li>
                             <li>
-                                <Link to="#contact">Contact</Link>
+                                <a href="#contact">Contact</a>
                             </li>
-                        </ul >
-                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
+                        </ul>
+                        <a data-activates="nav-mobile" className="button-collapse">
                             <i className="mdi-navigation-menu"></i>
-                        </Link>
+                        </a>
                     </div>
                 </div >
             </nav>

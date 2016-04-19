@@ -8,6 +8,7 @@ import {Modal} from 'react-materialize';
 class StudentDeleteModal extends React.Component {
     delete(e) {
         e.preventDefault();
+        if(!window.confirm("Are you sure?")) return;	
         this.props.deleteStudent(this.props.student).then((res) => {
             Materialize.toast('Successfully deleted student.', 4000, 'toast-success');
         })

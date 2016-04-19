@@ -29,13 +29,19 @@ class ClassEditModal extends React.Component {
                     <div className="modal-content">
                       <div className="row">
                           <div className="input-field col s12">
-                              <label>Class Code</label>
+                              <span>
+                                <label>First Name</label>
+                              </span>
+                              <br/>
                               <input id={"eclassCode"+this.props.classData.id} type="text" className="validate" defaultValue={this.props.classData.classCode}/>
                           </div>
                       </div>
                       <div className="row">
                           <div className="input-field col s12">
-                              <label>Clas Name</label>
+                              <span>
+                                <label>Class Name</label>
+                              </span>
+                              <br/>
                               <input id={"eclassName"+this.props.classData.id} type="text" className="validate" defaultValue={this.props.classData.className}/>
                           </div>
                       </div>

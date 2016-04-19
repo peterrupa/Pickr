@@ -41,7 +41,6 @@ export function addActivity(activity) {
 }
 
 export function addStudent(student) {
-    console.log("chever");
     return (dispatch) => {
         let formData  = new FormData();
 

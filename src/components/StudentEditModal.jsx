@@ -13,8 +13,10 @@ class StudentEditModal extends React.Component {
             fname: $('#efirstName'+this.props.student.id).val(),
             lname: $('#elastName'+this.props.student.id).val(),
             mname: $('#emiddleName'+this.props.student.id).val(),
-            ClassId: this.props.student.ClassId
+            ClassId: this.props.student.ClassId,
+            image: $('#eimage'+this.props.student.id)[0].files[0],
         };
+        
         this.props.editStudent(newStudent).then((res) => {
             Materialize.toast('Successfully edited student.', 4000, 'toast-success');
         })
@@ -30,25 +32,47 @@ class StudentEditModal extends React.Component {
                     <div className="modal-content">
                       <div className="row">
                           <div className="input-field col s12">
+                              <span>
+                                <label>Last Name</label>
+                              </span>
+                              <br/>
                               <input id={"elastName"+this.props.student.id} type="text" className="validate" defaultValue={this.props.student.lname}/>
-                              <label htmlFor="lastName">Last Name</label>
                           </div>
                       </div>
                       <div className="row">
                           <div className="input-field col s12">
+                              <span>
+                                <label>First Name</label>
+                              </span>
+                              <br/>
                               <input id={"efirstName"+this.props.student.id} type="text" className="validate" defaultValue={this.props.student.fname}/>
-                              <label htmlFor="firstName">First Name</label>
                           </div>
                       </div>
                       <div className="row">
                           <div className="input-field col s12">
+                              <span>
+                                <label>Middle Name</label>
+                              </span>
+                              <br/>
                               <input id={"emiddleName"+this.props.student.id} type="text" className="validate" defaultValue={this.props.student.mname}/>
-                              <label htmlFor="middleName">Middle Name</label>
                           </div>
                       </div>
                     </div>
+                    <div className="row">
+                        <div className="col s12">
+                            <span>Image (Optional)</span>
+                        </div>
+                        <div className="file-field input-field col s12">
+                            <div className="btn">
+                                <span>File</span>
+                                <input id={"eimage"+this.props.student.id} type="file"/>
+                            </div>
+                            <div className="file-path-wrapper">
+                                <input className="file-path validate" type="text"/>
+                            </div>
+                        </div>
+                    </div>
                     <div className="modal-footer">
-                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                         <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</button>
                     </div>
                 </form>

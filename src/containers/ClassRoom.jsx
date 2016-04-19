@@ -27,38 +27,6 @@ class ClassRoom extends React.Component {
 
     componentDidMount(){
         $('.modal-trigger').leanModal();
-        
-        // let fileInput = document.getElementById('fileInput');
-        // fileInput.addEventListener('change', readFile);
-
-        // function readFile() {
-        //     let file = fileInput.files[0];
-        //     let textType = /csv.*/;
-        //     if (file.type.match(textType)) {
-        //         let reader = new FileReader();
-
-        //         reader.onload = function(e) {
-        //             let allTextLines = reader.result.split(/\r\n|\n/);
-        //             while(allTextLines.length>0) {
-        //                 let entries = allTextLines.shift().split(',');
-        //                 $('#firstName').val(entries.shift());
-        //                 $('#lastName').val(entries.shift());
-        //                 $('#middleName').val(entries.shift());
-                        
-        //                 while(entries.length>0){
-        //                     $('#tags').val(function(i,val){
-        //                         return val + (val ? ', ' : '') + entries.shift(); 
-        //                     });
-        //                 } 
-        //                 $("#stud_form").trigger('click');
-        //             }
-        //         };
-
-        //         reader.readAsText(file);
-        //     } else {
-        //         alert("File not supported!");
-        //     }
-        // }
     }
 
     addActivity(e) {
@@ -109,14 +77,15 @@ class ClassRoom extends React.Component {
 
     handleClick(e){
         e.preventDefault();
-        alert("hereee");
+       
         let fileInput = document.getElementById('fileInput');
         let file = fileInput.files[0];
-        let textType = /csv.*/;
+        let textType = /csv/;
+			
         if (file.type.match(textType)) {
             let reader = new FileReader();
-            reader.onload = function(e) {
-                let allTextLines = reader.result.split(/\r\n|\n/);
+            reader.onload = (e) => {
+                let allTextLines = reader.result.trim().split(/\r\n|\n/);
                 while(allTextLines.length>0) {
                     let entries = allTextLines.shift().split(',');
                     // @TODO: validation
@@ -125,19 +94,15 @@ class ClassRoom extends React.Component {
                         lname: entries.shift(),
                         fname: entries.shift(),
                         mname: entries.shift(),
-                        entries
+                        tags: entries
                     };
-                    alert(student.fname);
                     this.props.addStudent(student).then((res) => {
-                        alert("yey!");
                         Materialize.toast('Successfully added student.', 4000, 'toast-success');
                     })
                     .catch((err) => {
-                        alert("but why");
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });
                 }
-                alert("Students added!!!");
             };
             reader.readAsText(file);
         } else {
@@ -168,10 +133,7 @@ class ClassRoom extends React.Component {
             );
         });
 
-<<<<<<< HEAD
-        this.props.classroomAppState.students.forEach(function(student){
-=======
-        // sort students
+
         let sortedStudents = _.sortBy(this.props.classroomAppState.students, (o) => {
             return o.lname;
         });
@@ -186,7 +148,6 @@ class ClassRoom extends React.Component {
                 image = '/uploads/' + student.image;
             }
             
->>>>>>> 9c47e994220ea024af6f4343089632d7bc80a962
             studentList.push(
                 <li key={student.id}>
                     <StudentEditModal student={student}/>
@@ -208,7 +169,7 @@ class ClassRoom extends React.Component {
                 </li>
           );
         });
-        
+                
         return (
             <div className="wrapper">
                 <div className="tint">
@@ -372,7 +333,7 @@ class ClassRoom extends React.Component {
                         </div>
                         <div className="modal-footer">
                             <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit"> Import File</button>
+                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit"> Import File </button>
                         </div>
                       </form>
                     </div>

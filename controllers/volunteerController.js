@@ -18,16 +18,6 @@ export function insert(req, res) {
     });
 }
 
-export function getAvailableVolunteers(req, res) {
-    Student.findAll({
-        where: {
-            ClassClassCode: req.params.classCode
-        }
-    }).then(function(students) {
-        res.send(students);
-    });
-}
-
 export function getOne(req, res) {
 
     Volunteer.findOne({

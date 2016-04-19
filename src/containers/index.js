@@ -11,5 +11,6 @@ import LogIn from './LogIn.jsx';
 import SignUp from './SignUp.jsx';
 import Presentation from './Presentation.jsx';
 import ForgotPassword from './ForgotPassword.jsx';
+import ChangePassword from './ChangePassword.jsx';
 
-module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation, ForgotPassword};
+module.exports = { App, SamplePage, NotFoundPage, TestPage ,StudentPage, ClassList, LandingPage, ControlPanel,ClassRoom, LogIn, SignUp, Presentation, ForgotPassword, ChangePassword};

@@ -33,6 +33,7 @@ render(
                 <Route path="/class" component={Containers.ClassList}/>
                 <Route path="/controlPanel" component={Containers.ControlPanel}/>
                 <Route path="/classroom" component={Containers.ClassRoom}/>
+				<Route path="/changepassword" component={Containers.ChangePassword}/>
                 <Route path="*" component={Containers.NotFoundPage}/>
             </Route>
             <Route path="*" component={Containers.NotFoundPage}/>

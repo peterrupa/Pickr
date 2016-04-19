@@ -122,13 +122,15 @@ class ClassRoom extends React.Component {
                       {activity.activityName}
                     </Link>
                   </label>
-                   <ActivityDeleteModal activity={activity}/>
-                  <Link to="/controlPanel">
-                    <i className="mdi-action-settings right"></i>
-                  </Link>
-                  <Link to="/presentation">
-                    <i className="mdi-image-color-lens right"></i>
-                  </Link>
+                  <div className="right">
+                    <ActivityDeleteModal activity={activity}/>
+                    <Link to="/controlPanel">
+                        <i className="mdi-action-settings"></i>
+                    </Link>
+                    <Link to="/presentation">
+                        <i className="mdi-image-color-lens"></i>
+                    </Link>
+                  </div>
                 </li>
             );
         });

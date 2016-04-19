@@ -3,8 +3,14 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+
+
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+    componentDidMount(){
+
+
+    }
     render() {
         return (
 <div>
@@ -217,7 +223,11 @@ class ControlPanel extends React.Component {
         </div>
     </div>
 </div>
+
+
 </div>
+
+
         );
     }
 }

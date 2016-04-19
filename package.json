@@ -26,6 +26,7 @@
     "express": "~4.13.1",
     "express-session": "1.13.0",
     "gulp": "3.9.1",
+    "highcharts": "4.2.4",
     "history": "2.0.0",
     "jade": "~1.11.0",
     "jquery": "2.2.2",

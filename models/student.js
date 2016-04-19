@@ -6,13 +6,14 @@ export default function (sequelize, DataTypes) {
         primaryKey: true
       },
       studentFName: DataTypes.STRING,
-      studentLName: DataTypes.STRING
+      studentLName: DataTypes.STRING,
+      timesCalled: DataTypes.INTEGER
     });
-    
+
     let Tags = sequelize.define("Tags", {
         tagName: DataTypes.STRING
     });
-    
+
     Student.belongsTo(Class);
     Student.hasMany(Tags);
     return Student;

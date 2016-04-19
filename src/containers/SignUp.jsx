@@ -168,7 +168,7 @@ class SignUp extends React.Component {
                                     </div>
                                     <div className="input-field col s3">
                                         <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="mi" type="text" pattern="[A-Za-z \.]{2,50}"/>
+                                        <input id="mi" type="text" pattern="[A-Za-z \.]{1,50}"/>
                                         <label htmlFor="mi">Middle Initial</label>
                                         <p className="red-text errorRequired errorMIReq hidden"
                                             style={{

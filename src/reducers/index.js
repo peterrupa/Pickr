@@ -3,6 +3,7 @@ import sampleAppState from './sample';
 import classroomAppState from './classroom';
 import classListAppState from './classList';
 import presentationState from './presentation';
+import controlPanelState from './controlpanel';
 import { routeReducer } from 'react-router-redux';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
     classroomAppState,
     classListAppState,
     presentationState,
+    controlPanelState,
     routing: routeReducer
 });
 

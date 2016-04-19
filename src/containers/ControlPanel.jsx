@@ -2,9 +2,70 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import io from 'socket.io-client';
+
+import { fetchAvailableVolunteers } from '../actions/controlpanelActions';
+
+const Materialize = window.Materialize;
 
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+
+    componentWillMount() {
+        const { fetchAvailableVolunteers, controlPanelState } = this.props;
+        fetchAvailableVolunteers('1');
+        this.socket = io();
+
+        this.formValues = {
+            nVolunteers: 1
+        };
+
+        this.formActions = {
+            nVolunteersOnChange: () => {
+                let value = $('#nStudents').val();
+                if($.isNumeric(value)) {
+                    this.formValues.nVolunteers = value < 1 ? 1 : value;
+                } else {
+                    $('#nStudents').val(value.replace(/[^0-9]/g, ''));
+                    this.formValues.nVolunteers = value ? value : 1;
+                }
+            }
+        };
+    }
+
+    get() {
+        if(this.props.controlPanelState.availableVolunteers.length === 0) {
+            Materialize.toast('Your class has no students yet.', 4000);
+            return;
+        }
+
+        let selectedVolunteers = [];
+
+        if(this.formValues.nVolunteers > this.props.controlPanelState.availableVolunteers.length) {
+            Materialize.toast('Number of volunteers to select is too large!', 4000);
+            return;
+        }
+
+        for(let i = 0; i < this.formValues.nVolunteers; i++) {
+            selectedVolunteers.push(this.props.controlPanelState.availableVolunteers[Math.floor(Math.random() * this.props.controlPanelState.availableVolunteers.length)]);
+
+            fetch('/api/volunteer/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    activityID: '1',
+                    studentID: selectedVolunteers[i].id,
+                    classCode: selectedVolunteers[i].ClassId,
+                    note: ''
+                })
+            });
+        }
+        this.socket.emit('send volunteers', selectedVolunteers);
+    }
+
     render() {
         return (
 <div>
@@ -151,7 +212,7 @@ class ControlPanel extends React.Component {
                                 <h4 className="bold">Filters</h4>
                                 <form className="col s4 m6 l5">
                                     <h6>N Students to Call</h6>
-                                    <input id="nStudents" type="text" className="validate"/>
+                                    <input id="nStudents" type="text" className="validate" onChange={this.formActions.nVolunteersOnChange}/>
                                     {/* <label for="nStudents">N Students to Call</label> */}
 
                                 </form>
@@ -179,7 +240,7 @@ class ControlPanel extends React.Component {
                                     </blockquote>
                                     {/* <label className="bold' for="textarea1">Tags</label> */}
                                 </div>
-                                <button className="btn waves-effect waves-light grey darken-3" type="submit" name="action" onClick="">Randomize</button>
+                                <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
                             </div>
                         </div>
                         <br/><hr/><br/>
@@ -222,5 +283,13 @@ class ControlPanel extends React.Component {
     }
 }
 
+ControlPanel.propTypes = {
+    controlPanelState: PropTypes.object.isRequired,
+    fetchAvailableVolunteers: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default ControlPanel;
+export default connect(
+    state => ({ controlPanelState: state.controlPanelState }),
+    { fetchAvailableVolunteers }
+)(ControlPanel);

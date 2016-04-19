@@ -7,6 +7,13 @@ export function setVolunteers(students) {
     };
 }
 
+export function modifyTags(tags) {
+    return {
+        type: types.MODIFY_TAGS,
+        tags
+    };
+}
+
 export function fetchAvailableVolunteers(classcode) {
     return (dispatch) => {
         fetch('/api/class/' + classcode + '/student', {

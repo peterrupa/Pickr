@@ -24,7 +24,6 @@ class Presentation extends React.Component {
 
         this.socket = io();
         this.socket.on('recieve volunteers', function(volunteers) {
-            console.log(volunteers);
             fetchRandomizedVolunteers(volunteers);
         });
 
@@ -40,7 +39,7 @@ class Presentation extends React.Component {
         if(presentationState.recievedVolunteer) {
             for(let i = 0; i < listOfVolunteers.length; i++) {
                 setTimeout(function() {
-                    let targetIndex;
+                    let targetIndex = -1;
                     for(let j = 0; j < listOfStudents.length; j++) {
                         if(listOfVolunteers[i].id == listOfStudents[j].id) {
                             targetIndex = j;
@@ -48,9 +47,8 @@ class Presentation extends React.Component {
                         }
                     }
 
-                    if(targetIndex) {
+                    if(targetIndex != -1) {
                         carouselConfig.targetIndex = targetIndex;
-                        console.log(listOfStudents.length * 1000 - carouselConfig.currentIndex + carouselConfig.targetIndex);
                         $('.carousel').carousel('next', listOfStudents.length * 1000 - carouselConfig.currentIndex + carouselConfig.targetIndex);
                         carouselConfig.currentIndex = carouselConfig.targetIndex;
                         success();

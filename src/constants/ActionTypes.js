@@ -13,3 +13,4 @@ export const SET_LIST_OF_STUDENTS = 'SET_LIST_OF_STUDENTS';
 export const SUCCESS = 'SUCCESS';
 
 export const SET_VOLUNTEERS = 'SET_VOLUNTEERS';
+export const MODIFY_TAGS = 'MODIFY_TAGS';

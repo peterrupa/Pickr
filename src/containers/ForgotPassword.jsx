@@ -16,9 +16,8 @@ class ForgotPassword extends React.Component {
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <Link id="logo-container" to="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
+                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                height: '50px'
                             }}/>Pickr</Link>
                         <ul className="right hide-on-med-and-down">
 

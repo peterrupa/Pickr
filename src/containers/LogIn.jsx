@@ -7,6 +7,8 @@ import { Link } from 'react-router';
 
 class LogIn extends React.Component {
     componentDidMount(){
+        let body = document.getElementByTagName('body');
+        body.background = "/img/full-classroom.jpg";
     }
 
     render() {
@@ -16,9 +18,8 @@ class LogIn extends React.Component {
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <a id="logo-container" href="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
+                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                height: '50px'
                             }}/>Pickr</a>
                         <ul className="right hide-on-med-and-down">
 

@@ -5,14 +5,14 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import Store from 'express-sequelize-session';
-
+import store from './tools/store';
 import sequelize from './tools/sequelize';
+
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
 let app = express();
-let store = Store(session.Store);
+
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
@@ -45,7 +45,7 @@ app.use('/api/account', account);
 // send routing to client
 app.use('*', (req, res, next) => {
 
-    if (req.session && req.session.key) {
+    if (req.session.user) {
         return next();
     }
     if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {

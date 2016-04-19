@@ -10,6 +10,11 @@ let router  = express.Router();
 import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 import sequelize from '../tools/sequelize';
+import store from '../tools/store';
+
+Account.belongsTo(store.Session,{
+    foreignKeyConstraint: true
+});
 
 exports.insert = (req, res) => {
 
@@ -69,11 +74,13 @@ exports.login = (req, res) => {
 
         let query = 'SELECT username FROM Accounts WHERE ' +
                     'username=? AND password=(SELECT MD5(SHA1(?)))';
-
-        if (!user && !req.session.key) {
+        console.log("then");
+        if (!user) {
+            console.log("if");
             res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
         }
         else {
+            console.log("else");
             sequelize.query(query,{
                     replacements: [
                         req.body.username,
@@ -83,12 +90,21 @@ exports.login = (req, res) => {
                 })
                 .then((user) => {
 
-                    if (!user[0] && !req.session.key) {
+                    if (!user[0]) {
                         res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                     }
-                    else if (!req.session.key) {
-                        req.session.key = user[0];
-                        res.status(200).send(req.session);
+                    else {
+                        store.Session.findOne({
+                            where: {
+                                sid: req.sessionID
+                            }
+                        }).then((session) => {
+                            if (!session) {
+                                res.status(200).send(session);
+                            } else {
+                                res.status(200).send(user[0].setSession(session));
+                            }
+                        });
                     }
 
                 })
@@ -104,6 +120,20 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    req.session.destroy();
-    res.status(200).redirect('/login');
+    Account.findOne({
+        where: {
+            username: req.body.username
+        }
+    })
+    .then((user) => {
+        if (!user[0]) {
+            res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+        } else {
+            user[0].setSession(null)
+            res.status(200).redirect('/login');
+        }
+    })
+    .catch((err) => {
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    });
 }

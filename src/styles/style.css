@@ -214,3 +214,11 @@ body {
 #classCards ul a{
     color: white;
 }
+
+input:invalid {
+  border-bottom: 2px solid red;
+}
+
+input {
+    border-bottom: 2px solid gray;
+}

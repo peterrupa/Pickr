@@ -89,14 +89,14 @@ class LogIn extends React.Component {
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" required="true"/>
+            <input id="username" type="text"/>
             <label htmlFor="username" className="center-align">Username</label>
           </div>
         </div>
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" required="true"/>
+            <input id="password" type="password"/>
             <label htmlFor="password">Password</label>
           </div>
         </div>

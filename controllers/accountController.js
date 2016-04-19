@@ -168,7 +168,6 @@ exports.logout = (req, res) => {
         })
         .then((session) => {
             if(!session[0]){
-                console.log("error1");
                 res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
             } else{
                 let sessionData = JSON.parse(session[0].data);
@@ -184,14 +183,12 @@ exports.logout = (req, res) => {
                         res.status(200).redirect('/login');
                     })
                     .catch((err) => {
-                        console.log("error2" + err);
                         res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
                     });
                 }
             }
         })
         .catch((err) => {
-            console.log("error1");
             res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
         });
 

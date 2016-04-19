@@ -5,14 +5,14 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import store from './tools/store';
 import sequelize from './tools/sequelize';
+import store from './tools/store';
 
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
+export var sessionId;
 let app = express();
-
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
@@ -27,8 +27,7 @@ app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
     store: store,
     resave: false,
-    rolling: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     name: 'C0oK13_M0NZt3R',
     cookie: {
         path: '/',
@@ -45,14 +44,16 @@ app.use('/api/account', account);
 
 // send routing to client
 app.use('*', (req, res, next) => {
-
-    if (req.session.user) {
+    sessionId = req.session.id;
+    console.log(sessionId);
+    console.log(req.session);
+    if (req.session && req.session.key) {
         return next();
     }
     if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
-        res.redirect('/login');
+        res.redirect('/');
     }
 
 },
@@ -71,5 +72,7 @@ app.use('*', (req, res, next) => {
 (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');
 });
+
+store.sync({force: true});
 
 export default app;

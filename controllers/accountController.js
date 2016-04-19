@@ -11,10 +11,7 @@ import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 import sequelize from '../tools/sequelize';
 import store from '../tools/store';
-
-Account.belongsTo(store.Session,{
-    foreignKeyConstraint: true
-});
+import { sessionId } from '../app';
 
 exports.insert = (req, res) => {
 
@@ -64,76 +61,140 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
-
-    Account.findOne({
-        where: {
-            username: req.body.username
-        }
-    })
-    .then((user) => {
-
-        let query = 'SELECT username FROM Accounts WHERE ' +
-                    'username=? AND password=(SELECT MD5(SHA1(?)))';
-        console.log("then");
-        if (!user) {
-            console.log("if");
-            res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
-        }
-        else {
-            console.log("else");
-            sequelize.query(query,{
-                    replacements: [
-                        req.body.username,
-                        req.body.password
-                    ],
-                    type: sequelize.QueryTypes.SELECT
-                })
-                .then((user) => {
-
-                    if (!user[0]) {
-                        res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
-                    }
-                    else {
-                        store.Session.findOne({
-                            where: {
-                                sid: req.sessionID
-                            }
-                        }).then((session) => {
-                            if (!session) {
-                                res.status(200).send(session);
-                            } else {
-                                res.status(200).send(user[0].setSession(session));
-                            }
-                        });
-                    }
-
-                })
-                .catch((err) => {
-                    res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-                });
+    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    else {
+        Account.findOne({
+            where: {
+                username: req.body.username
             }
-    })
-    .catch((err) => {
-        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
-    });
+        })
+        .then((user) => {
 
+            let query = 'SELECT username FROM Accounts WHERE ' +
+                        'username=? AND password=(SELECT MD5(SHA1(?)))';
+
+            if (!user) {
+                res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
+            }
+            else {
+                sequelize.query(query,{
+                        replacements: [
+                            req.body.username,
+                            req.body.password
+                        ],
+                        type: sequelize.QueryTypes.SELECT
+                    })
+                    .then((user) => {
+                        if(!user[0]){
+                            res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
+                        } else {
+                            let checkSession = 'SELECT data FROM Sessions ' +
+                             'AS Session WHERE Session.sid = ?';
+
+                            sequelize.query(checkSession, {
+                                replacements: [
+                                    sessionId
+                                ],
+                                type: sequelize.QueryTypes.SELECT
+                            })
+                            .then((session) => {
+                                let setSession = 'INSERT INTO Sessions (sid,expires,data,createdAt,updatedAt) ' +
+                                'VALUES (:sid, NOW() + INTERVAL 5 HOUR, :data, NOW(), NOW())';
+                                if(!session[0]){
+                                    req.session.key = user[0].username;
+                                    let sessionData = JSON.stringify(req.session).replace(/\\/g, '');
+                                    sequelize.query(setSession,{
+                                        replacements: {
+                                            sid : sessionId,
+                                            data: sessionData
+                                        },
+                                        type: sequelize.QueryTypes.INSERT
+                                    })
+                                    .then((success) => {
+                                        res.status(200).send(success);
+                                    })
+                                    .catch((err) => {
+                                        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+                                    });
+                                } else {
+                                    let updateSession = 'UPDATE Sessions SET ' +
+                                    'data = :data, expires = NOW() + INTERVAL 5 HOUR, updatedAt = NOW() ' +
+                                    ' WHERE sid = :sid';
+                                    let sesh = Object.assign({}, session[0]);
+                                    let sessionData = [sesh.data.slice(0, 138), ",\"key\":\"", user[0].username, "\"}"].join('');
+                                    sessionData = sessionData.replace(/^"/, "");
+                                    sessionData = sessionData.replace(/"$/, "");
+
+                                    sequelize.query(updateSession,{
+                                        replacements: {
+                                            data: sessionData,
+                                            sid : sessionId
+                                        },
+                                        type: sequelize.QueryTypes.UPDATE
+                                    })
+                                    .then((success) => {
+                                        res.status(200).send(success);
+                                    })
+                                    .catch((err) => {
+                                        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+                                    });
+                                }
+
+                            })
+                            .catch((err) => {
+                                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+                            });
+                        }
+                    })
+                    .catch((err) => {
+                        res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+                    });
+                }
+        });
+    }
 }
 
 exports.logout = (req, res) => {
-    Account.findOne({
-        where: {
-            username: req.body.username
-        }
-    })
-    .then((user) => {
-        if (!user[0]) {
+    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    else{
+        let checkSession = 'SELECT data FROM Sessions ' +
+         'AS Session WHERE Session.sid = ?';
+
+        sequelize.query(checkSession, {
+            replacements: [
+                sessionId
+            ],
+            type: sequelize.QueryTypes.SELECT
+        })
+        .then((session) => {
+            if(!session[0]){
+                console.log("error1");
+                res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+            } else{
+                let sessionData = JSON.parse(session[0].data);
+                if(sessionData.key){
+                    let deleteSession = 'DELETE FROM Sessions WHERE sid = :sid';
+                    sequelize.query(deleteSession,{
+                        replacements: {
+                            sid : sessionId
+                        },
+                        type: sequelize.QueryTypes.DELETE
+                    })
+                    .then((success) => {
+                        res.status(200).redirect('/login');
+                    })
+                    .catch((err) => {
+                        console.log("error2" + err);
+                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+                    });
+                }
+            }
+        })
+        .catch((err) => {
+            console.log("error1");
             res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
-        } else {
-            user[0].setSession(null)
-            res.status(200).redirect('/login');
-        }
-    })
-    .catch((err) => {
-        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
-    });
+        });
+
+
+    }
 }

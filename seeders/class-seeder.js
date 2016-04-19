@@ -1,5 +1,3 @@
-const uuid = require('node-uuid');
-
 module.exports = {
   up: function (queryInterface, Sequelize) {
     

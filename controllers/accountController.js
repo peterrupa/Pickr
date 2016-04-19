@@ -111,7 +111,9 @@ exports.login = (req, res) => {
                                         type: sequelize.QueryTypes.INSERT
                                     })
                                     .then((success) => {
-                                        res.status(200).send(success);
+                                        req.session.key =  user[0].username;
+                                        console.log(req.session);
+                                        res.status(200).send(req.session);
                                     })
                                     .catch((err) => {
                                         res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
@@ -133,6 +135,7 @@ exports.login = (req, res) => {
                                         type: sequelize.QueryTypes.UPDATE
                                     })
                                     .then((success) => {
+                                        req.session.key =  user[0].username;
                                         res.status(200).send(success);
                                     })
                                     .catch((err) => {

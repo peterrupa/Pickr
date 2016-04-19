@@ -72,6 +72,6 @@ app.use('*', (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');
 });
 
-store.sync({force: true});
+store.sync({force: false});
 
 export default app;

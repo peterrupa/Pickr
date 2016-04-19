@@ -14,7 +14,7 @@ class StudentEditModal extends React.Component {
             lname: $('#elastName'+this.props.student.id).val(),
             mname: $('#emiddleName'+this.props.student.id).val(),
             ClassId: this.props.student.ClassId,
-            image: $('#eimage'+this.props.student.id)[0].files[0],
+            image: $('#eimage'+this.props.student.id)[0].files[0]
         };
         
         this.props.editStudent(newStudent).then((res) => {

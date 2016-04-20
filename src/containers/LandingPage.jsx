@@ -180,6 +180,12 @@ class LandingPage extends React.Component {
                     </div>
                 </div>
 
+                <div style={divStyle} className="center">
+                    <video width="80%" height="15%" controls>
+                      <source src="/vid/pickr-vid.mp4" type="video/mp4"/>
+                      Your browser do not have support for this video
+                    </video>
+                </div>
                 {/*<!--About us-->*/}
                 <div className="section scrollspy" id="team">
                     <div className="container">

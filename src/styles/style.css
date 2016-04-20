@@ -12,9 +12,19 @@ nav {
 body {
     background-color: #E9E8E7;
 }
-nav:hover, ul:hover, a:hover {
-    color: #6FBEB6;
+
+#classes:hover {
+    color: white;
 }
+
+#classes {
+    border-radius: 25px;
+}
+
+nav:hover, li:hover, a:hover {
+    color: #00838f;
+}
+
 nav ul a, nav .brand-logo {
     color: white;
 }
@@ -108,6 +118,11 @@ nav.navbar {
     border-width: 0;
     padding: 5px;
 }
+#classCards ul a{
+  color: white;
+
+}
+
 .carousel {
     height: 500px;
     width: 90%;
@@ -194,4 +209,16 @@ body {
 }
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+#classCards ul a{
+    color: white;
+}
+
+input:invalid {
+  border-bottom: 2px solid red;
+}
+
+input {
+    border-bottom: 2px solid gray;
 }

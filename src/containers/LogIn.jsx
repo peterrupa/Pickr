@@ -1,14 +1,39 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-
-// Be sure to rename your class name
+import { Link } from 'react-router';
 
 
 class LogIn extends React.Component {
     componentDidMount(){
+    }
 
-        let body = document.getElementByTagName('body');
-        body.background = "./img/full-classroom.jpg";
+    post(e){
+        e.preventDefault();
+
+        let username = $('#username').val();
+        let password = $('#password').val();
+        let data = "username=" + username + "&password=" + password;
+
+        if (username !== '' && password !== '') {
+
+            fetch('/api/account/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept':'application/json'
+                },
+                body: data
+            })
+            .then((res) => {
+                if (res.status === 200 || res.status === 403) {
+                    window.location.href = '/class';
+                }
+                else {
+                    window.location.href = '/login';
+                }
+            });
+
+        }
     }
 
     render() {
@@ -54,7 +79,7 @@ class LogIn extends React.Component {
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                          <form className="login-form">
+                          <form onSubmit={(e) => this.post(e)} className="login-form">
         <div className="row">
           <div className="input-field col s12 center">
             <img src="./img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
@@ -83,15 +108,19 @@ class LogIn extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <a href="/class" className="btn waves-effect waves-light col s12">Login</a>
+            <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
           </div>
         </div>
         <div className="row">
           <div className="input-field col s6 m6 l6">
-            <p className="margin medium-small"><a href="/signup">Register Now!</a></p>
+            <p className="margin medium-small">
+                <Link to="signup">Register Now!</Link>
+            </p>
           </div>
           <div className="input-field col s6 m6 l6">
-              <p className="margin right-align medium-small"><a href="forgot-password.html">Forgot password?</a></p>
+              <p className="margin right-align medium-small">
+                <Link to="forgotpassword"> Forgot password?</Link>
+              </p>
           </div>
         </div>
     </form>

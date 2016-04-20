@@ -2,22 +2,41 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Accounts', [
         {
-            FName: 'Paul Joshua',
-            MI: 'H',
-            LName: 'Robles',
-            Username: 'PJHRobles',
-            EmailAddress: 'joshuahrobles@gmail.com',
-            Password: 'ultimatesecret',
+            fname: 'Paul Joshua',
+            mi: 'H',
+            lname: 'Robles',
+            username: 'PJHRobles',
+            emailAddress: 'joshuahrobles@gmail.com',
+            password: 'ultimatesecret',
             createdAt: new Date(),
             updatedAt: new Date()
         },
         {
-            FName: 'Irvin Kean Paulus',
-            MI: 'T',
-            LName: 'Paderes',
-            Username: 'keanpaderes',
-            EmailAddress: 'kean.paderes@gmail.com',
-            Password: 'ultimatesecret1',
+            fname: 'Irvin Kean Paulus',
+            mi: 'T',
+            lname: 'Paderes',
+            username: 'keanpaderes',
+            emailAddress: 'kean.paderes@gmail.com',
+            password: 'secretsecret',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },
+        {
+            fname: 'John Richard',
+            mi: 'L',
+            lname: 'Pitargue',
+            username: 'matigas',
+            emailAddress: 'jrlpitargue@gmail.com',
+            password: 'matigasnasecret',
+            createdAt: new Date(),
+            updatedAt: new Date()
+        },{
+            fname: 'TestFirst1',
+            mi: 'T',
+            lname: 'TestLast1',
+            username: 'testy',
+            emailAddress: 'testy@test.com',
+            password: 'testynasecret',
             createdAt: new Date(),
             updatedAt: new Date()
         }

@@ -7,7 +7,7 @@ module.exports = {
             lname: 'Robles',
             username: 'PJHRobles',
             emailAddress: 'joshuahrobles@gmail.com',
-            password: 'ultimatesecret',
+            password: 'efab736a1c16de873818e5819f4dfff0', //ultimatesecret
             createdAt: new Date(),
             updatedAt: new Date()
         },
@@ -17,7 +17,7 @@ module.exports = {
             lname: 'Paderes',
             username: 'keanpaderes',
             emailAddress: 'kean.paderes@gmail.com',
-            password: 'secretsecret',
+            password: '65b945d71da462a037ea7f8f608961f3', //secretsecret
             createdAt: new Date(),
             updatedAt: new Date()
         },
@@ -27,7 +27,7 @@ module.exports = {
             lname: 'Pitargue',
             username: 'matigas',
             emailAddress: 'jrlpitargue@gmail.com',
-            password: 'matigasnasecret',
+            password: '8330220b5653ac02673fafa7068ea227', //matigasnasecret
             createdAt: new Date(),
             updatedAt: new Date()
         },{
@@ -36,7 +36,7 @@ module.exports = {
             lname: 'TestLast1',
             username: 'testy',
             emailAddress: 'testy@test.com',
-            password: 'testynasecret',
+            password: 'da002d74e4fc52689b014a8db9857053', //testynasecret
             createdAt: new Date(),
             updatedAt: new Date()
         }

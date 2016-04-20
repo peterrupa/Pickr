@@ -252,11 +252,7 @@ class SignUp extends React.Component {
 
                                 <div className="row">
                                     <div className="input-field col s12">
-<<<<<<< HEAD
                                         <input type="submit" value="register" className="btn waves-effect waves-light col s12"/>
-=======
-                                        <input type="submit" value="Register Now" className="btn waves-effect waves-light col s12" formAction="login"/>
->>>>>>> origin/dev
                                     </div>
                                     <div className="input-field col s12">
                                         <p className="margin center medium-small sign-up">Already have an account?

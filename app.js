@@ -16,7 +16,6 @@ import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
 export var sessionId;
-
 let app = express();
 
 app.set('view engine', 'ejs');
@@ -43,6 +42,11 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+    req.key = req.session.id;
+    next();
+});
+
 app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
@@ -51,6 +55,11 @@ app.use('/api/account/', classRoute);
 app.use('/api/class', student);
 app.use('/api/volunteer', volunteer);
 
+// gets the session for the client side to use
+app.get('/api/whoami', (req, res) => {
+    res.send(req.key);
+});
+
 // 404 for api
 app.get('/api/*', (req, res) => {
     res.sendStatus(404);
@@ -58,9 +67,8 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
+    //req.session.id = req.key;
     sessionId = req.session.id;
-    console.log(sessionId);
-    console.log(req.session);
     if (req.session && req.session.key) {
         return next();
     }
@@ -76,10 +84,10 @@ app.use('*', (req, res, next) => {
     if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
         return next();
     }
-    if (req.originalUrl === '/class') {
+    if (req.originalUrl === '/class/'+req.session.key) {
         return next();
     } else {
-        res.redirect('/class');
+        res.redirect('/class/'+req.session.key);
     }
 
 },

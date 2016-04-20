@@ -11,7 +11,6 @@ import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 import sequelize from '../tools/sequelize';
 import store from '../tools/store';
-import { sessionId } from '../app';
 
 exports.insert = (req, res) => {
 
@@ -61,7 +60,7 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    if(!req.key) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     else {
         Account.findOne({
             where: {
@@ -93,7 +92,7 @@ exports.login = (req, res) => {
 
                             sequelize.query(checkSession, {
                                 replacements: [
-                                    sessionId
+                                    req.key
                                 ],
                                 type: sequelize.QueryTypes.SELECT
                             })
@@ -101,18 +100,16 @@ exports.login = (req, res) => {
                                 let setSession = 'INSERT INTO Sessions (sid,expires,data,createdAt,updatedAt) ' +
                                 'VALUES (:sid, NOW() + INTERVAL 5 HOUR, :data, NOW(), NOW())';
                                 if(!session[0]){
-                                    req.session.key = user[0].username;
                                     let sessionData = JSON.stringify(req.session).replace(/\\/g, '');
                                     sequelize.query(setSession,{
                                         replacements: {
-                                            sid : sessionId,
+                                            sid : req.key,
                                             data: sessionData
                                         },
                                         type: sequelize.QueryTypes.INSERT
                                     })
                                     .then((success) => {
-                                        req.session.key =  user[0].username;
-                                        console.log(req.session);
+                                        req.session.key =  user[0].id;
                                         res.status(200).send(req.session);
                                     })
                                     .catch((err) => {
@@ -123,19 +120,19 @@ exports.login = (req, res) => {
                                     'data = :data, expires = NOW() + INTERVAL 5 HOUR, updatedAt = NOW() ' +
                                     ' WHERE sid = :sid';
                                     let sesh = Object.assign({}, session[0]);
-                                    let sessionData = [sesh.data.slice(0, 138), ",\"key\":\"", user[0].username, "\"}"].join('');
+                                    let sessionData = [sesh.data.slice(0, 138), ",\"key\":\"", user[0].id, "\"}"].join('');
                                     sessionData = sessionData.replace(/^"/, "");
                                     sessionData = sessionData.replace(/"$/, "");
 
                                     sequelize.query(updateSession,{
                                         replacements: {
                                             data: sessionData,
-                                            sid : sessionId
+                                            sid : req.key
                                         },
                                         type: sequelize.QueryTypes.UPDATE
                                     })
                                     .then((success) => {
-                                        req.session.key =  user[0].username;
+                                        req.session.key =  user[0].id;
                                         res.status(200).send(success);
                                     })
                                     .catch((err) => {
@@ -158,15 +155,14 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    console.log(sessionId);
-    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    if(!req.key) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     else{
         let checkSession = 'SELECT data FROM Sessions ' +
          'AS Session WHERE Session.sid = ?';
 
         sequelize.query(checkSession, {
             replacements: [
-                sessionId
+                req.key
             ],
             type: sequelize.QueryTypes.SELECT
         })
@@ -179,7 +175,7 @@ exports.logout = (req, res) => {
                     let deleteSession = 'DELETE FROM Sessions WHERE sid = ?';
                     sequelize.query(deleteSession,{
                         replacements: [
-                            sessionId
+                            req.key
                         ],
                         type: sequelize.QueryTypes.DELETE
                     })

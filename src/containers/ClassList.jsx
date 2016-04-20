@@ -10,7 +10,7 @@ import './../styles/styles.scss';
 import ClassListCarousel from '../components/ClassListCarousel.jsx';
 import ClassListDefault from '../components/ClassListDefault.jsx';
 
-import { sessionId } from '../../app';
+//import { sessionId } from '../../app';
 import { fetchClasses, addClass } from '../actions/classListActions';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
@@ -20,10 +20,16 @@ const $ = window.$;
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentWillMount() {
-        let data = {
-            accountId: sessionId
-        };
-        this.props.fetchClasses(data);
+        fetch('/api/whoami', {
+            method: 'GET'
+        }).then((res) => {
+            return res.json();
+        }).then((sessionId) => {
+            let data = {
+                accountId: sessionId
+            };
+            this.props.fetchClasses(data);
+        });
     }
 
     componentDidMount() {

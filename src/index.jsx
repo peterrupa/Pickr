@@ -24,10 +24,10 @@ render(
             {/* @TODO: Render server side non-app pages */}
             <Route path="/" component={Containers.LandingPage}/>
             <Route path="/presentation" component={Containers.Presentation}/>
+            <Route path="/login" component={Containers.LogIn}/>
+            <Route path="/signup" component={Containers.SignUp}/>
+            <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
             <Route path="/" component={Containers.App}>
-                <Route path="/login" component={Containers.LogIn}/>
-                <Route path="/signup" component={Containers.SignUp}/>
-                <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
                 <Route path="/index" component={Containers.LandingPage}/>
                 <Route path="/student" component={Containers.StudentPage}/>
                 <Route path="/class" component={Containers.ClassList}/>

@@ -7,38 +7,52 @@ import { Link } from 'react-router';
 
 class LogIn extends React.Component {
     componentDidMount(){
+
+       $('.button-collapse').click(function(){
+            $('.side-nav').css({position: 'static', marginLeft:'-50px'});
+            $('.button-collapse').css({visibility:'hidden'});
+        });
+        $(window).scroll( function(){
+
+            $('.side-nav').css({position: 'fixed'});
+            $('.button-collapse').css({visibility:'visible'});
+
+       });
     }
 
     render() {
 
         return (
             <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
-                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>Pickr</a>
-                        <ul className="right hide-on-med-and-down">
+                <div className="navbar-fixed" >
+                    <nav id="nav_f" className="default_color">
+                        <div className="container" style={{zDepth: '0'}}>
+                            <div className="nav-wrapper">
+                                <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                                <ul className="right hide-on-med-and-down">
+                                    <li>
+                                        <Link to="/">Home</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/#intro">About</Link>
+                                    </li>
+                                </ul>
+                                <ul id="nav-mobile" className="side-nav">
+                                    <li>
+                                        <Link to="/">Home</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/#intro">About</Link>
+                                    </li>
+                                </ul>
+                                <a data-activates="nav-mobile" className="button-collapse">
+                                    <i className="mdi-navigation-menu"></i>
+                                </a>
+                            </div>
+                        </div >
+                    </nav>
+                </div>
 
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/#intro">About</a>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <a href="index.html#about">About</a>
-                            </li>
-                        </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </a>
-                    </div>
-                </nav>
                 <br/>
                 <br/>
                 <br/>

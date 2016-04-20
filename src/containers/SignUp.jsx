@@ -6,38 +6,52 @@ import { Link } from 'react-router';
 // Be sure to rename your class name
 class SignUp extends React.Component {
     componentDidMount(){
+
+       $('.button-collapse').click(function(){
+            $('.side-nav').css({position: 'static', marginLeft:'-50px'});
+            $('.button-collapse').css({visibility:'hidden'});
+        });
+        $(window).scroll( function(){
+
+            $('.side-nav').css({position: 'fixed'});
+            $('.button-collapse').css({visibility:'visible'});
+
+       });
+
     }
 
     render() {
 
         return (
             <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <Link id="logo-container" to="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>Pickr</Link>
-                        <ul className="right hide-on-med-and-down">
-
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/#intro">About</Link>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <Link to="index.html#about">About</Link>
-                            </li>
-                        </ul>
-                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </Link>
-                    </div>
-                </nav>
+                        <div className="navbar-fixed" >
+                            <nav id="nav_f" className="default_color">
+                                <div className="container" style={{zDepth: '0'}}>
+                                    <div className="nav-wrapper">
+                                        <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                                        <ul className="right hide-on-med-and-down">
+                                            <li>
+                                                <Link to="/">Home</Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/#intro">About</Link>
+                                            </li>
+                                        </ul>
+                                        <ul id="nav-mobile" className="side-nav">
+                                            <li>
+                                                <Link to="/">Home</Link>
+                                            </li>
+                                            <li>
+                                                <Link to="/#intro">About</Link>
+                                            </li>
+                                        </ul>
+                                        <a data-activates="nav-mobile" className="button-collapse">
+                                            <i className="mdi-navigation-menu"></i>
+                                        </a>
+                                    </div>
+                                </div >
+                            </nav>
+                        </div>
                 <br/>
                 <br/>
                 <br/>

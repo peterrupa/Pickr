@@ -6,57 +6,44 @@ import './../styles/style.css';
 
 class NavBar extends React.Component {
     componentDidMount() {
-        $(".classDropDown").hide();
-        $("#classDD").click(function() {
-            $(".classDropDown").slideToggle();
+
+       $('.button-collapse').click(function(){
+            $('.side-nav').css({position: 'static', marginLeft:'-50px'});
+            $('.button-collapse').css({visibility:'hidden'});
         });
+       
+        $(window).scroll( function(){
+
+            $('.side-nav').css({position: 'fixed'});
+            $('.button-collapse').css({visibility:'visible'});
+
+       });
+
     }
     render() {
         return (
-            <div>
-                <nav id="navbar" className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div id="navbar_div" className="nav-wrapper container">
-                        <Link to="/class" className="brand-logo">
-                            <img id="logo" src="./img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>
-                            Pickr
-                        </Link>
-                        <ul className="right hide-on-med-and-down">
-                            <li>
-                              <Link to="/">Logout</Link>
-                            </li>
-                            <li>
-                                <a id="classDD" href="#">Classes</a>
-                            </li>
-
-                        </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </a>
-                    </div>
-                </nav>
-                <div className="classDropDown z-depth-1" style={{float:'right'}}>
-                    <br/>
-                    <br/>
-                    <br/>
-
-                    <ul className="collection">
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 170</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 132</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 125</Link>
-                        </li>
-                        <li className="collection-item">
-                            <Link to="/classroom">CMSC 141</Link>
-                        </li>
-                    </ul>
+                <div className="navbar-fixed" >
+                    <nav id="nav_f" className="default_color">
+                        <div className="container" style={{zDepth: '0'}}>
+                            <div className="nav-wrapper">
+                                <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                                <ul className="right hide-on-med-and-down">
+                                    <li>
+                                        <a h="/">Logout</a>
+                                    </li>
+                                </ul>
+                                <ul id="nav-mobile" className="side-nav">
+                                    <li>
+                                        <a href="/">Logout</a> 
+                                    </li>
+                                </ul>
+                                <a data-activates="nav-mobile" className="button-collapse">
+                                    <i className="mdi-navigation-menu"></i>
+                                </a>
+                            </div>
+                        </div >
+                    </nav>
                 </div>
-            </div>
         );
     }
 }

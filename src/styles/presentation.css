@@ -1,5 +1,5 @@
     html {
-      background: url(/../img/presentation1.png) no-repeat center center fixed;
+      background: url(/img/presentation1.png) no-repeat center center fixed;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
@@ -122,6 +122,6 @@
    background: transparent;
     font-size:0;
 }
-.deck a {
+#sw_start, #sw_stop {
     color: #c7a217;
 }

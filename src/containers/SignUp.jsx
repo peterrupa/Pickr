@@ -86,13 +86,12 @@ class SignUp extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url(./img/full-classroom.jpg)',margin:'0'}}>
+            <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <Link id="logo-container" to="#" className="brand-logo">
                             <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
+                                height: '50px'
                             }}/>Pickr</Link>
                         <ul className="right hide-on-med-and-down">
 
@@ -253,7 +252,11 @@ class SignUp extends React.Component {
 
                                 <div className="row">
                                     <div className="input-field col s12">
+<<<<<<< HEAD
                                         <input type="submit" value="register" className="btn waves-effect waves-light col s12"/>
+=======
+                                        <input type="submit" value="Register Now" className="btn waves-effect waves-light col s12" formAction="login"/>
+>>>>>>> origin/dev
                                     </div>
                                     <div className="input-field col s12">
                                         <p className="margin center medium-small sign-up">Already have an account?

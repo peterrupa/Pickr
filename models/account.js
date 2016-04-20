@@ -21,6 +21,21 @@ export default function (sequelize, DataTypes) {
                 notNull: true
             }
         }
+    }, {
+        classMethods: {
+            associate(models) {
+                Account.hasMany(models.Class);
+            }
+        },
+        instanceMethods: {
+            createNewClass(data) {
+                return this.createClass({
+                    className: data.className,
+                    classCode: data.classCode
+                });
+            }
+        }
     });
+    
     return Account;
 };

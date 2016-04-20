@@ -1,20 +1,17 @@
 import express from 'express';
+
 let router = express.Router();
 
-router.get('/', (req, res, next) => {
-    res.send([{
-        _id: '12345',
-        name: 'Peter Bernard',
-        tags: ['AB-3L', 'male', 'pogi']
-    }]);   
-});
+import * as studentController from '../controllers/studentController';
 
-router.get('/:id', (req, res, next) => {
-    res.send({
-        _id: '12345',
-        name: 'Peter Bernard',
-        tags: ['AB-3L', 'male', 'pogi']
-    });   
-});
+import multer from 'multer';
+const upload = multer({ dest: 'public/uploads/' });
+
+router.get('/:id/student', studentController.getAll);
+router.post('/:id/student', upload.single('image'), studentController.insert);
+router.get('/student/:studentId', studentController.getOne);
+router.put('/student/:studentId', studentController.update);
+router.delete('/student/:studentId', studentController.remove);
 
 export default router;
+

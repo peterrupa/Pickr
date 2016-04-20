@@ -22,7 +22,7 @@
     position: relative;
     display: flex;
     background-color: black;
-  /*  background-image: "url('./../../public/img/ph.png')";*/
+  /*  background-image: "url('/img/ph.png')";*/
     align-items: center;
     padding: 0 !important;
 }
@@ -33,8 +33,7 @@
 }
 
 .underline {
-    color: white;
-    border-bottom: 5px solid white;
+   font-style: italic;
 }
 
 .text_h {
@@ -229,7 +228,7 @@ nav ul a {
     position:absolute;
     left:50%; /* centers the loading animation horizontally one the screen */
     top:50%; /* centers the loading animation vertically one the screen */
-    /*background-image:url(../img/status.gif); *//* path to your loading animation */
+    /*background-image:url(/img/status.gif); *//* path to your loading animation */
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */
@@ -297,8 +296,8 @@ footer.page-footer {
  }
  /* label underline focus color */
  .input-field input[type=text]:focus {
-   border-bottom: 1px solid #000;
-   box-shadow: 0 1px 0 0 #000;
+
+
  }
  /* valid color */
  .input-field input[type=text].valid {

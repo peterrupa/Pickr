@@ -2,8 +2,6 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Be sure to rename your className name
-
 
 class ForgotPassword extends React.Component {
     componentDidMount(){

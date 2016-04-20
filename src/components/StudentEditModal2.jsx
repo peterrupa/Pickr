@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 const Materialize = window.Materialize;
-import { editStudent } from '../actions/classroomActions.js';
+import { editStudent } from '../actions/studentActions.js';
 import {Modal} from 'react-materialize';
 
 class StudentEditModal extends React.Component {
@@ -86,6 +86,6 @@ StudentEditModal.propTypes = {
     editStudent: PropTypes.func.isRequired
 };
 export default connect(
-state => ({ classroomAppState: state.classroomAppState }),
+state => ({ studentAppState: state.studentAppState }),
     { editStudent }
 )(StudentEditModal);

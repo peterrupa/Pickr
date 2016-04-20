@@ -2,21 +2,57 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
-//import {fetchStudent} from '../actions/studentActions'
+import {fetchStudent, editStudent } from '../actions/studentActions.js';
+import StudentEditModal from '../components/StudentEditModal.jsx';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
 
 // Be sure to rename your className name
 class StudentPage extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
+        let studentId = window.location.pathname.substring(9);
+        this.props.fetchStudent(studentId);
+    }
 
+    componentDidMount(){
+        let student = this.props.studentAppState.student;
         $('.modal-trigger').leanModal();
-        // code
-        //Materialize.toast('Hey, JS works now!', 4000, 'green white-text');
+    }
+
+    edit(e){
+        e.preventDefault();
+        let student = {
+            path: window.location.pathname.substring(9),
+            fname: $('#efirstName'+student.id).val(),
+            lname: $('#elastName'+student.id).val(),
+            mname: $('#emiddleName'+student.id).val()
+            //image: $('#image')[0].files[0]
+        };
+
+        this.props.editStudent(student).then((res) => {
+            Materialize.toast('Successfully edited student.', 4000, 'toast-success');
+            $('#edit-student-form')[0].reset();
+            $('#editStudent').scrollTop(0);
+        })
+        .catch((err) => {
+            Materialize.toast('Error editing student.', 4000, 'toast-error');
+            $('#edit-student-form')[0].reset();
+            $('#editStudent').scrollTop(0);
+        });
     }
 
     render() {
+        let student = this.props.studentAppState.student;
+        let image;
+
+        if(!student.image) {
+            image = '/img/defaultPP.png';
+        }
+        else {
+            image = '/uploads/' + student.image;
+        }
+
         return (
             <div>
                 <div id="main">
@@ -35,8 +71,9 @@ class StudentPage extends React.Component {
                                     {/*<!-- profile-page-header -->*/}
                                     <div id="profile-page-header" className="card" style={{paddingTop:'6%'}}>
 
+                                        <Link to={"/classroom/"+student.ClassId}> <i className="material-icons left">assignment</i> Back to Class</Link>
                                         <figure className="card-profile-image">
-                                            <img src="/img/defaultPP.png" alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
+                                            <img src={image} alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
                                                 width: '20%',
                                                 height: '20%'
                                             }}/>
@@ -44,7 +81,7 @@ class StudentPage extends React.Component {
                                         <div className="card-content">
                                             <div className="row">
                                                 <div className="col s3 offset-s2">
-                                                    <h4 className="card-title grey-text text-darken-4">Roger Waters</h4>
+                                                    <h4 className="card-title grey-text text-darken-4">{student.fname + " " + student.mname + " " + student.lname}</h4>
                                                     <p className="medium-small grey-text">Student</p>
                                                 </div>
                                                 <div className="col s2 center-align">
@@ -107,31 +144,55 @@ class StudentPage extends React.Component {
                 </div>
 
                 <div id="editstudent" className="modal">
-                    <div className="modal-content">
-                        <h3>Edit Student</h3>
+                  <form onSubmit={(e) => this.edit(e)} id="edit-student-form">
+                      <div className="modal-content">
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="lastName" type="text" className="validate"/>
-                                <label htmlFor="lastName">Last Name</label>
+                                <span>
+                                  <label>Last Name</label>
+                                </span>
+                                <br/>
+                                <input id={"elastName"+student.id} type="text" className="validate"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="firstName" type="text" className="validate"/>
-                                <label htmlFor="firstName">First Name</label>
+                                <span>
+                                  <label>First Name</label>
+                                </span>
+                                <br/>
+                                <input id={"efirstName"+student.id} type="text" className="validate"/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="input-field col s12">
-                                <input id="middleName" type="text" className="validate"/>
-                                <label htmlFor="middleName">Middle Name</label>
+                                <span>
+                                  <label>Middle Name</label>
+                                </span>
+                                <br/>
+                                <input id={"emiddleName"+student.id} type="text" className="validate"/>
                             </div>
                         </div>
-                    </div>
-                    <div className="modal-footer">
-                        <Link to="/classroom" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                        <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</Link>
-                    </div>
+                      </div>
+                      <div className="row">
+                          <div className="col s12">
+                              <span>Image (Optional)</span>
+                          </div>
+                          <div className="file-field input-field col s12">
+                              <div className="btn">
+                                  <span>File</span>
+                                  <input id={"eimage"} type="file"/>
+                              </div>
+                              <div className="file-path-wrapper">
+                                  <input className="file-path validate" type="text"/>
+                              </div>
+                          </div>
+                      </div>
+                      <div className="modal-footer">
+                          <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                          <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</button>
+                      </div>
+                  </form>
                 </div>
             </div>
         );
@@ -139,12 +200,15 @@ class StudentPage extends React.Component {
 }
 
 StudentPage.propTypes = {
-    studentAppState: PropTypes.object.isRequired
-  //  fetchStudent: PropTypes.func.isRequired
+    studentAppState: PropTypes.object.isRequired,
+    fetchStudent: PropTypes.func.isRequired,
+    editStudent: PropTypes.func.isRequired
 };
 
 // connect to redux store
-export default StudentPage;
-//state => ({studentAppState : state,studentAppState }),
-//    { fetchStudent}
-//)(StudentPage);
+export default connect(state => ({
+    studentAppState: state.studentAppState
+}), {
+    fetchStudent,
+    editStudent
+})(StudentPage);

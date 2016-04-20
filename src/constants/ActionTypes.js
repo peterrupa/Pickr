@@ -6,3 +6,4 @@ export const GET_STUDENTS = 'GET_STUDENTS';
 export const GET_ACTIVITIES = 'GET_ACTIVITIES';
 export const SET_CLASSES = 'SET_CLASSES';
 export const FETCH_CLASSES = 'FETCH_CLASSES';
+export const SET_STUDENT = 'SET_STUDENT';

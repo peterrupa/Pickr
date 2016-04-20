@@ -44,6 +44,7 @@ app.use(session({
 
 app.use((req, res, next) => {
     req.key = req.session.id;
+    console.log("This is the session id: " + req.session.id);
     next();
 });
 
@@ -67,8 +68,10 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-    //req.session.id = req.key;
     sessionId = req.session.id;
+    console.log("This is the session id: " + req.session.id);
+    console.log("This is the session key: " + req.key);
+    console.log(req.session.key);
     if (req.session && req.session.key) {
         return next();
     }

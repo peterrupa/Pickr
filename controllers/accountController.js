@@ -11,6 +11,7 @@ import * as error from '../src/constants/ErrorTypes';
 import { Account } from '../models';
 import sequelize from '../tools/sequelize';
 import store from '../tools/store';
+import { sessionId } from '../app';
 
 exports.insert = (req, res) => {
 
@@ -60,7 +61,7 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    if(!req.key) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     else {
         Account.findOne({
             where: {
@@ -69,7 +70,7 @@ exports.login = (req, res) => {
         })
         .then((user) => {
 
-            let query = 'SELECT username FROM Accounts WHERE ' +
+            let query = 'SELECT username, id FROM Accounts WHERE ' +
                         'username=? AND password=(SELECT MD5(SHA1(?)))';
 
             if (!user) {
@@ -92,7 +93,7 @@ exports.login = (req, res) => {
 
                             sequelize.query(checkSession, {
                                 replacements: [
-                                    req.key
+                                    sessionId
                                 ],
                                 type: sequelize.QueryTypes.SELECT
                             })
@@ -100,16 +101,17 @@ exports.login = (req, res) => {
                                 let setSession = 'INSERT INTO Sessions (sid,expires,data,createdAt,updatedAt) ' +
                                 'VALUES (:sid, NOW() + INTERVAL 5 HOUR, :data, NOW(), NOW())';
                                 if(!session[0]){
+                                    req.session.key =  user[0].id;
                                     let sessionData = JSON.stringify(req.session).replace(/\\/g, '');
                                     sequelize.query(setSession,{
                                         replacements: {
-                                            sid : req.key,
+                                            sid : sessionId,
                                             data: sessionData
                                         },
                                         type: sequelize.QueryTypes.INSERT
                                     })
                                     .then((success) => {
-                                        req.session.key =  user[0].id;
+                                        console.log(user[0].id);
                                         res.status(200).send(req.session);
                                     })
                                     .catch((err) => {
@@ -127,7 +129,7 @@ exports.login = (req, res) => {
                                     sequelize.query(updateSession,{
                                         replacements: {
                                             data: sessionData,
-                                            sid : req.key
+                                            sid : sessionId
                                         },
                                         type: sequelize.QueryTypes.UPDATE
                                     })
@@ -155,14 +157,14 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    if(!req.key) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+    if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     else{
         let checkSession = 'SELECT data FROM Sessions ' +
          'AS Session WHERE Session.sid = ?';
 
         sequelize.query(checkSession, {
             replacements: [
-                req.key
+                sessionId
             ],
             type: sequelize.QueryTypes.SELECT
         })
@@ -175,7 +177,7 @@ exports.logout = (req, res) => {
                     let deleteSession = 'DELETE FROM Sessions WHERE sid = ?';
                     sequelize.query(deleteSession,{
                         replacements: [
-                            req.key
+                            sessionId
                         ],
                         type: sequelize.QueryTypes.DELETE
                     })

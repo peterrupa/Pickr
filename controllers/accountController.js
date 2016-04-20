@@ -158,6 +158,7 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
+    console.log(sessionId);
     if(!sessionId) res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
     else{
         let checkSession = 'SELECT data FROM Sessions ' +
@@ -175,11 +176,11 @@ exports.logout = (req, res) => {
             } else{
                 let sessionData = JSON.parse(session[0].data);
                 if(sessionData.key){
-                    let deleteSession = 'DELETE FROM Sessions WHERE sid = :sid';
+                    let deleteSession = 'DELETE FROM Sessions WHERE sid = ?';
                     sequelize.query(deleteSession,{
-                        replacements: {
-                            sid : sessionId
-                        },
+                        replacements: [
+                            sessionId
+                        ],
                         type: sequelize.QueryTypes.DELETE
                     })
                     .then((success) => {
@@ -192,6 +193,7 @@ exports.logout = (req, res) => {
             }
         })
         .catch((err) => {
+            console.log(err);
             res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
         });
 

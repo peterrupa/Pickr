@@ -25,6 +25,7 @@ app.use(cookieParser());
 
 app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
+    store: store,
     resave: false,
     saveUninitialized: true,
     name: 'C0oK13_M0NZt3R',

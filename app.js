@@ -5,10 +5,12 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import nodemailer from 'nodemailer';
 
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
+//import forgotpassword from './routes/forgotpassword';
 
 let app = express();
 
@@ -32,6 +34,7 @@ app.use(cookieParser());
 app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
+//app.use('/api/forgotpassword', forgotpassword);
 
 // send routing to client
 app.get('*', (req, res) => {

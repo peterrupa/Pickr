@@ -84,3 +84,30 @@ exports.logout = (req, res) => {
     }
     
 }
+
+export function changepassword(req, res) {
+   
+    Account.find({ where: {EmailAddress: req.body.email} })
+    .then((user) => {
+        if(user) {
+            return user.updateAttributes({
+              Password: req.body.password,
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
+    .then((user) => {
+        if(user) {
+            res.send(user);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });
+}
+

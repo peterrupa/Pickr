@@ -7,9 +7,10 @@ import './../styles/style.css';
 
 class NavBar extends React.Component {
     componentWillMount(){
-        this.props.fetchClasses({
-            accountId: window.location.pathname.substring(7)
-        });
+        // @TODO: FIX
+        // this.props.fetchClasses({
+        //     accountId: window.location.pathname.substring(7)
+        // });
     }
 
     componentDidMount() {

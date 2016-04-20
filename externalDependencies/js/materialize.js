@@ -3731,7 +3731,7 @@ $(document).ready(function(){
 
     // Dismissible Collections
     $('.dismissable').each(function() {
-      $(this).hammer({
+      Hammer($(this), {
         prevent_default: false
       }).bind('pan', function(e) {
         if (e.gesture.pointerType === "touch") {

@@ -13,53 +13,53 @@ class ClassRoom extends React.Component {
         $('.modal-trigger').leanModal();
 
         $('#container').highcharts({
-         chart: {
-             type: 'column'
-         },
-         title: {
-             text: '5 Most Called Tags'
-         },
-         subtitle: {
-             text: 'This table indicates most called tags'
-         },
-         theme: {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Tags'
+            },
+            subtitle: {
+                text: 'This table indicates most called tags'
+            },
+            theme: {
 
-         },
-         xAxis: {
-             categories: [
-                 'male',
-                 'ab-3l',
-                 'pogi',
-                 'ganda',
-                 'bibo'
-             ],
-             crosshair: true
-         },
-         yAxis: {
-             min: 0,
-             title: {
-                 text: 'Number of times used/called'
-             }
-         },
-         tooltip: {
-             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                 '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-             footerFormat: '</table>',
-             shared: true,
-             useHTML: true
-         },
-         plotOptions: {
-             column: {
-                 pointPadding: 0.2,
-                 borderWidth: 0
-             }
-         },
-         series: [{
-             name: 'Tags',
-             data: [15,23,12,5,8]
-         }]
-     });
+            },
+            xAxis: {
+                categories: [
+                    'male',
+                    'ab-3l',
+                    'pogi',
+                    'ganda',
+                    'bibo'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tags',
+                data: [15,23,12,5,8]
+            }]
+        });
 
     }
     addTag(){
@@ -320,7 +320,7 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
 
-                    <div id="editstudent" className="modal">
+                <div id="editstudent" className="modal">
                     <div className="modal-content">
                         <h3>Edit Student</h3>
                         <div className="row">
@@ -383,8 +383,8 @@ class ClassRoom extends React.Component {
                             </div>
                         </div>
                         <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</Link>
+                            <Link to="/classroom" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Add Activity</Link>
                         </div>
                     </div>
 
@@ -394,8 +394,8 @@ class ClassRoom extends React.Component {
                                 <p>This action cannot be undone.</p>
                         </div>
                         <div className="modal-footer">
-                            <Link to="#" className="waves-effect waves-green btn-flat modal-action modal-close">Yes</Link>
-                            <Link to="#" className="waves-effect waves-red btn red modal-action modal-close">Cancel</Link>
+                            <Link to="/classroom" className="waves-effect waves-green btn-flat modal-action modal-close">Yes</Link>
+                            <Link to="/classroom" className="waves-effect waves-red btn red modal-action modal-close">Cancel</Link>
                         </div>
                     </div>
 
@@ -407,10 +407,10 @@ class ClassRoom extends React.Component {
                     Crafted with
                     &nbsp;<i className="tiny material-icons">favorite</i>&nbsp;
                     by&nbsp;
-                    <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+                    <Link className="font-w600" to="/classroom" target="_blank">CMSC128 AB-3L</Link>
                 </div>
                 <div className="pull-left">
-                    <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
+                    <Link className="font-w600" to="/classroom" target="_blank">Pickr 1.0</Link>
                     &copy;
                     <span className="js-year-copy"></span>
                 </div>

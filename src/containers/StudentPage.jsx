@@ -20,50 +20,50 @@ class StudentPage extends React.Component {
 
         $('.modal-trigger').leanModal();
         $('#container').highcharts({
-         chart: {
-             type: 'column'
-         },
-         title: {
-             text: '5 Most Participated Activities'
-         },
-         subtitle: {
-             text: ''
-         },
-         xAxis: {
-             categories: [
-                 'activity1',
-                 'activity2',
-                 'activity3',
-                 'activity4',
-                 'activity5'
-             ],
-             crosshair: true
-         },
-         yAxis: {
-             min: 0,
-             title: {
-                 text: 'Number of times used/called'
-             }
-         },
-         tooltip: {
-             headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-             pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                 '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-             footerFormat: '</table>',
-             shared: true,
-             useHTML: true
-         },
-         plotOptions: {
-             column: {
-                 pointPadding: 0.2,
-                 borderWidth: 0
-             }
-         },
-         series: [{
-             name: 'Activity',
-             data: [15,23,12,5,8]
-         }]
-     });
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Participated Activities'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'activity1',
+                    'activity2',
+                    'activity3',
+                    'activity4',
+                    'activity5'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Activity',
+                data: [15,23,12,5,8]
+            }]
+        });
     }
     render() {
         return (

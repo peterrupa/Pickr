@@ -40,7 +40,7 @@ class NavBar extends React.Component {
                                 <a href="#" id="logo-container" className="brand-logo">pickr</a >
                                 <ul className="right hide-on-med-and-down">
                                     <li>
-                                        <a h="/">Logout</a>
+                                        <a href="/">Logout</a>
                                     </li>
                                 </ul>
                                 <ul id="nav-mobile" className="side-nav">
@@ -54,6 +54,7 @@ class NavBar extends React.Component {
                             </div>
                         </div >
                     </nav>
+                </div>
         );
     }
 }
@@ -62,6 +63,7 @@ NavBar.propTypes = {
     classListAppState: PropTypes.object.isRequired,
     fetchClasses: PropTypes.func.isRequired
 };
+
 
 // connect to redux store
 export default connect(state => ({

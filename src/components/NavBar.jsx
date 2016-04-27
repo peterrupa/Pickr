@@ -42,7 +42,13 @@ class NavBar extends React.Component {
                     <nav id="nav_f" className="default_color">
                         <div className="container" style={{zDepth: '0'}}>
                             <div className="nav-wrapper">
-                                <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                                <Link id="logo-container" to="/class" className="brand-logo">
+                                    <img src="../img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                        height: '40px', 
+                                        width: '40px'
+                                    }}/>
+                                    Pickr
+                                </Link>
                                 <ul className="right hide-on-med-and-down">
                                     <li>
                                         <a href="/">Logout</a>

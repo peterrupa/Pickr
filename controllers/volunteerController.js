@@ -35,3 +35,22 @@ export function getOne(req, res) {
         });
     });
 }
+
+export function getAll(req, res) {
+    Volunteer.findAll({where:{ClassId: req.params.id }})
+    .then((volunteers) => {
+        // fetch tags for each student
+        let promises = volunteers.map((volunteer) => {
+            return volunteer.getTags().then((data) => {
+                volunteer.dataValues.tags = data.map((tag) => tag.dataValues.name);
+
+                return volunteer.dataValues;
+            });
+        });
+
+        return Promise.all(promises);
+      })
+      .then((students) => {
+          res.send(students);
+      });
+}

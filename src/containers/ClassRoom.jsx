@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
+
+import HighCharts from 'highcharts';
 import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
 import '../styles/oneUI.css';
@@ -27,6 +29,55 @@ class ClassRoom extends React.Component {
 
     componentDidMount(){
         $('.modal-trigger').leanModal();
+
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Tags'
+            },
+            subtitle: {
+                text: 'This table indicates most called tags'
+            },
+            theme: {
+
+            },
+            xAxis: {
+                categories: [
+                    'male',
+                    'ab-3l',
+                    'pogi',
+                    'ganda',
+                    'bibo'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tags',
+                data: [15,23,12,5,8]
+            }]
+        });
     }
 
     addActivity(e) {
@@ -223,6 +274,8 @@ class ClassRoom extends React.Component {
                     </div>
                 </div>
 
+                                <div id="container" className="col s6" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
+
                 <div className="row">
                     <div className="col s12 m12 l4">
                         <div className="block block-bordered">
@@ -250,6 +303,8 @@ class ClassRoom extends React.Component {
                             {/*block cntent*/}
                         </div>
                     </div>
+
+
                     {/* product-card */}
                     <div className=" s6 m12 l4">
                         <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>

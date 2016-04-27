@@ -8,6 +8,8 @@ import { fetchAvailableVolunteers, modifyTags } from '../actions/controlpanelAct
 
 const Materialize = window.Materialize;
 
+
+
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
 
@@ -332,7 +334,11 @@ class ControlPanel extends React.Component {
         </div>
     </div>
 </div>
+
+
 </div>
+
+
         );
     }
 }

@@ -234,6 +234,9 @@ class ClassRoom extends React.Component {
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
                             <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
+                            <div>
+                            <Link className="waves-effect waves-light btn-large grey darken-3" to="/class" style={{float: 'right', bottom: '50px'}}>Return to Classes</Link>
+                            </div>
                         </div>
                     </div>
                 </div>

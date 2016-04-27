@@ -1,13 +1,14 @@
 // a reducer takes an input state and an action, does some process, and returns the transformed state
 
 // import your action type constants
-import {FETCH_AVAILABLE_VOLUNTEERS, GET_VOLUNTEER, MODIFY_TAGS } from '../constants/ActionTypes';
+import {FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
     availableVolunteers: [],
     volunteer: [],
-    tags: []
+    tags: [],
+    timer: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.

@@ -77,11 +77,11 @@ class ClassRoom extends React.Component {
 
     handleClick(e){
         e.preventDefault();
-       
+
         let fileInput = document.getElementById('fileInput');
         let file = fileInput.files[0];
         let textType = /csv/;
-			
+
         if (file.type.match(textType)) {
             let reader = new FileReader();
             reader.onload = (e) => {
@@ -109,7 +109,7 @@ class ClassRoom extends React.Component {
             alert("File not supported!");
         }
     }
-    
+
     render() {
         let activityList = [];
         let studentList = [];
@@ -142,19 +142,19 @@ class ClassRoom extends React.Component {
 
         sortedStudents.forEach(function(student){
             let image;
-            
+
             if(!student.image) {
                 image = '/img/defaultPP.png';
             }
             else {
                 image = '/uploads/' + student.image;
             }
-            
+
             studentList.push(
                 <li key={student.id}>
                     <StudentEditModal student={student}/>
                     <StudentDeleteModal student={student}/>
-                    <Link to="/student">
+                    <Link to={"/student/"+student.id}>
                         <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
@@ -171,7 +171,7 @@ class ClassRoom extends React.Component {
                 </li>
           );
         });
-                
+
         return (
             <div className="wrapper">
                 <div className="tint">
@@ -317,7 +317,7 @@ class ClassRoom extends React.Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                                 <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                             </div>
                         </form>

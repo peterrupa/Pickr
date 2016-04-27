@@ -9,6 +9,8 @@ import bodyParser from 'body-parser';
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
+import activity from './routes/activity';
+import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
 let app = express();
@@ -30,11 +32,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
-app.use('/api/student', student);
+app.use('/api/class', activity);
+app.use('/api/account/', classRoute);
+app.use('/api/class', student);
 app.use('/api/volunteer', volunteer);
+
+// 404 for api
+app.get('/api/*', (req, res) => {
+    res.sendStatus(404);
+});
 
 // send routing to client
 app.get('*', (req, res) => {

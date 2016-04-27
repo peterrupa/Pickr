@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 
 import '../styles/index_style.css';
 
-//import '../../externalDependencies/js/plugin-min.js';
 const Materialize = window.Materialize;
 const $ = window.$;
 
@@ -24,21 +23,21 @@ class LandingPage extends React.Component {
             $('.button-collapse').css({visibility:'visible'});
 
            /* Check the location of each desired element */
-           $('.hideme').each( function(i){
+            $('.hideme').each( function(i){
 
-               let bottom_of_object = $(this).offset().top + $(this).outerHeight();
-               let bottom_of_window = $(window).scrollTop() + $(window).height();
+                let bottom_of_object = $(this).offset().top + $(this).outerHeight();
+                let bottom_of_window = $(window).scrollTop() + $(window).height();
 
                /* If the object is completely visible in the window, fade it it */
-               if( bottom_of_window > bottom_of_object ){
+                if( bottom_of_window > bottom_of_object ){
 
-                   $(this).animate({'opacity':'1'},500);
+                    $(this).animate({'opacity':'1'},500);
 
-               }
+                }
 
-           });
+            });
 
-       });
+        });
     }
 
     render() {
@@ -151,12 +150,12 @@ class LandingPage extends React.Component {
                     </div>
                 </div>
             </div>
-            < /div>
+            </div>
 
                 {/*<!--Work-->*/}
                 <div className="parallax-container hide-on-med-and-down" >
-                    <div className="parallax"><img src="/img/room.jpg "/></div>
-                </div>
+                  <div className="parallax"><img src="/img/room.jpg "/></div>
+                  </div>
 
                 <div className="container" id="login">
                     <div className="row">
@@ -188,6 +187,12 @@ class LandingPage extends React.Component {
                     </div>
                 </div>
 
+                <div style={divStyle} className="center">
+                    <video width="80%" height="15%" controls>
+                      <source src="/vid/pickr-vid.mp4" type="video/mp4"/>
+                      Your browser do not have support for this video
+                    </video>
+                </div>
                 {/*<!--About us-->*/}
                 <div className="section scrollspy" id="team">
                     <div className="container">

@@ -1,11 +1,17 @@
 import express from 'express';
+
 let router = express.Router();
+
 import * as studentController from '../controllers/studentController';
 
-router.get('/', studentController.getAll);
-router.get('/:studentId', studentController.getOne);
-router.post('/', studentController.insert);
-router.put('/', studentController.update);
-router.delete('/', studentController.deleteStudent);
+import multer from 'multer';
+const upload = multer({ dest: 'public/uploads/' });
+
+router.get('/:id/student', studentController.getAll);
+router.post('/:id/student', upload.single('image'), studentController.insert);
+router.get('/student/:studentId', studentController.getOne);
+router.put('/student/:studentId', studentController.update);
+router.delete('/student/:studentId', studentController.remove);
 
 export default router;
+

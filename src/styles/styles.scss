@@ -4,14 +4,16 @@
 
 /* Styles */
 
-.black {
-    color: black;
-}
-
-.green {
-    color: green;
-}
-
 body {
     background: white;
+}
+
+.toast-success {
+    background-color: #4CAF50 !important;
+    color: white; 
+}
+
+.toast-error {
+    background-color: #F44336 !important;
+    color: white;
 }

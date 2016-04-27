@@ -6,7 +6,7 @@ import { Link } from 'react-router';
 // Be sure to rename your class name
 class SignUp extends React.Component {
     componentDidMount(){
-
+        
        $('.button-collapse').click(function(){
             $('.side-nav').css({position: 'static', marginLeft:'-50px'});
             $('.button-collapse').css({visibility:'hidden'});
@@ -18,6 +18,8 @@ class SignUp extends React.Component {
 
        });
 
+        let body = document.getElementByTagName('body');
+        body.background = "/img/full-classroom.jpg";
     }
 
     render() {

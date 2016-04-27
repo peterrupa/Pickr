@@ -5,57 +5,105 @@
 import express from 'express';
 let router  = express.Router();
 
-import { Activity } from '../models';
+import { Class, Activity } from '../models';
 
 //GET ACTIVITY
 export function getAll(req, res) {
-        Activity.findAll()
+    Activity.findAll({where:{ClassId: req.params.id}})
     .then(function(activities) {
-        res.send(activities);
+        if(activities)
+        	res.send(activities);
+        else
+        	res.sendStatus(400);
     });
 }
 
 export function getOne(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} }).on('success', function(activity) {
-        res.send(activity);
+    Activity.find({
+    	where: {
+    		activityId: req.params.activityId
+    	}
+    }).then(function(activity){
+    	if(activity)
+    		res.send(activity);
+    	else
+    		res.sendStatus(404);
     });
 }
 
 //CREATE ACTIVITY
 export function insert(req, res) {
-    Activity.create({
-        activityId: req.body.activityId,
-        activityName: req.body.activityName,
-        activityDesc: req.body.activityDesc,
-    }).then(function(activity) {
-        res.send(activity);
-    });
+  Class.findById(req.params.id)
+  .then((classData) => {
+      if(classData) {
+          return classData.createNewActivity({
+              ClassId: classData.id,
+              activityName: req.body.activityName,
+              activityDesc: req.body.activityDesc
+          });
+      }
+      else {
+          res.sendStatus(400);
+      }
+  })
+  .then((activity) => {
+      res.send(activity);
+  })
+  .catch((err) => {
+      res.sendStatus(500);
+  });
 }
-
 //UPDATE ATTRIBUTES
 export function update(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} })
-    .then(function(activity) {
-        if(activity){
-            activity.updateAttributes({
-                activityId: req.body.activityId,
-                activityName: req.body.activityName,
-                activityDesc: req.body.activityDesc
-            }).then(function(activity) {});
+    Activity.findById(req.params.activityId)
+    .then((activity) => {
+        if(activity) {
+            return activity.updateAttributes({
+              activityName: req.body.activityName,
+              activityDesc: req.body.activityDesc
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
+    })
+    .then((activity) => {
+        if(activity) {
             res.send(activity);
         }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+        res.sendStatus(500);
     });
 }
 
+
 //DELETE ACTIVITY
-export function deleteActivity(req, res) {
-    Activity.find({ where: {activityId: req.body.activityId} })
-    .then(function(activity){
-        if(activity){
-                    activity.destroy()
-                    .then(function(){
-                        res.send("Hello");
-                    });
+export function remove(req, res) {
+    // initially get activity data
+    Activity.findById(req.params.activityId).then((activity) => {
+        if(activity) {
+            // remove if found
+            Activity.destroy({
+                where: {
+                    id: req.params.activityId
+                },
+                limit: 1,
+                cascade: true
+            }).then((affectedCount) => {
+                if(affectedCount > 0) {
+                    res.send(activity);
                 }
+                else {
+                    res.send({});
+                }
+            });
+        }
+        else {
+            res.sendStatus(404);
+        }
     });
 }

@@ -1,7 +1,8 @@
-import React from 'react';
+import {connect} from 'react-redux';
 import { Link } from 'react-router';
-
+import React, { PropTypes } from 'react';
 import $ from 'jquery';
+import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
 class NavBar extends React.Component {
@@ -21,6 +22,16 @@ class NavBar extends React.Component {
 
     }
     render() {
+        let classList = [];
+
+        this.props.classListAppState.classes.forEach((classItem) =>{
+            classList.push(
+            <li key={classItem.id} className="collection-item">
+                <Link to={"/classroom/" + classItem.id}>{classItem.classCode}</Link>
+            </li>
+            );
+        });
+
         return (
                 <div className="navbar-fixed" >
                     <nav id="nav_f" className="default_color">
@@ -43,9 +54,18 @@ class NavBar extends React.Component {
                             </div>
                         </div >
                     </nav>
-                </div>
         );
     }
 }
 
-export default NavBar;
+NavBar.propTypes = {
+    classListAppState: PropTypes.object.isRequired,
+    fetchClasses: PropTypes.func.isRequired
+};
+
+// connect to redux store
+export default connect(state => ({
+    classListAppState: state.classListAppState
+}), {
+    fetchClasses
+})(NavBar);

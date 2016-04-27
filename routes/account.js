@@ -5,6 +5,6 @@ import * as accountController from '../controllers/accountController';
 router.post('/createAccount', accountController.insert);
 router.post('/login', accountController.login);
 router.get('/logout', accountController.logout);
-router.put('/changepassword', accountController.changepassword);
+router.put('/changePassword', accountController.changePassword);
 
 export default router;

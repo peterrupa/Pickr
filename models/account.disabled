@@ -8,7 +8,7 @@ const api    = request.agent("localhost:8000");
 
 function createAccount (expectedStatusCode, fname, mi, lname, username, email, password) {
     return api.post('/api/account/createAccount')
-            .send('fname=' + fname + '&mi=' + mi + '&lname=' + lname + '&username=' + username + '&email=' 
+            .send('fname=' + fname + '&mi=' + mi + '&lname=' + lname + '&username=' + username + '&email='
             + email + '&password=' + password)
             .expect(expectedStatusCode);
 }
@@ -25,7 +25,7 @@ function logout (expectedStatusCode) {
 
 describe('Create Account', () =>{
     let randomUser = 'user' + Math.floor(Math.random()*10000);
-  
+
     it('should successfully create an account if all values are present', (done) => {
         createAccount(200, 'Name', 'M', 'Last', randomUser, 'test@test.com', 'useruser')
             .end((err,res) => {
@@ -33,14 +33,14 @@ describe('Create Account', () =>{
                 done();
             });
     });
-    
+
     it('should return an error if the parameters are incomplete', (done) => {
         createAccount(401, 'testuser', 'test@test.com', 'useruser')
             .end((err,res) => {
                 done();
             });
     });
-    
+
     it('should return an error if there exist another username in the database', (done) => {
         createAccount(401, 'Paul Joshua', 'H', 'Robles', 'PJHRobles', 'joshuahrobles@gmail.com', 'ultimatesecret')
             .end((err,res) => {
@@ -101,7 +101,7 @@ describe('Login', () => {
         login(404, 'notausername', 'notapassword')
             .end((err,res) => {
                 done();
-            }); 
+            });
     });
 });
 

@@ -29,8 +29,6 @@ class ClassRoom extends React.Component {
 
     componentDidMount(){
 
-        $('.tooltipped').tooltip({delay: 50});
-
         $('.modal-trigger').leanModal();
 
                 $('#container').highcharts({
@@ -81,6 +79,8 @@ class ClassRoom extends React.Component {
                         data: [15,23,12,5,8]
                     }]
                 });
+
+        $('.tooltipped').tooltip({});
 
     }
 
@@ -180,7 +180,7 @@ class ClassRoom extends React.Component {
                   <div className="right">
                     <ActivityDeleteModal activity={activity}/>
                     <Link to="/controlPanel">
-                        <i className="small mdi-action-settings tooltipped"  data-position="bottom" data-delay="50" data-tooltip="I am tooltip"></i>
+                        <i className="small mdi-action-settings tooltipped"  data-position="left" data-delay="50" data-tooltip="I am tooltip"></i>
                     </Link>
                     <Link to="/presentation">
                         <i className="small mdi-image-color-lens"></i>

@@ -3,8 +3,11 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import io from 'socket.io-client';
+import _ from 'lodash';
 
 import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer } from '../actions/controlpanelActions';
+
+import Timer from '../components/Timer.jsx';
 
 const Materialize = window.Materialize;
 
@@ -99,6 +102,13 @@ class ControlPanel extends React.Component {
             else {
                 selectedVolunteers.push(this.props.controlPanelState.availableVolunteers[Math.floor(Math.random() * this.props.controlPanelState.availableVolunteers.length)]);
             }
+            
+            // add timer if applicable
+            if($('#timer-checkbox')[0].checked) {
+                selectedVolunteers.forEach((volunteer) => {
+                    this.addTimer(volunteer.id);
+                });
+            }
 
             fetch('/api/volunteer/', {
                 method: 'POST',
@@ -121,12 +131,12 @@ class ControlPanel extends React.Component {
         this.props.addTimer(studentId);
     }
     
-    removeTimer(studentId) {
-        this.props.removeTimer(studentId);
-    }
-    
     incrementTimers() {
         this.props.incrementTimers();
+    }
+    
+    removeTimer(studentId) {
+        return this.props.removeTimer;
     }
 
     render() {
@@ -149,7 +159,6 @@ class ControlPanel extends React.Component {
                 {/* START WRAPPER */} <br /><br /><br /> <div className="wrapper">
                     <div className="container">
                         <div className="row">
-
                             <div className="col s12 m5 l4" data-collapsible="accordion">
                                 {/* <div className="card-panel'> */}
                                 <ul className="collapsible  with-header">
@@ -355,13 +364,34 @@ class ControlPanel extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
 
-                                <div className="col s12 m7 offset-m5 l8 offset-l4">
-                                    <div className="card-panel col s12 m12 l12"></div>
-                                </div>
+                                <ul style={{position: "fixed", right: "2em", top: "8em"}}>
+                                    {this.props.controlPanelState.timer.map((timer) => {
+                                        let student = _.find(this.props.controlPanelState.availableVolunteers, (o) => o.id === timer.studentId);
+                                        let img;
+                                        
+                                        if(!student.image) {
+                                            img = '/img/defaultPP.png';
+                                        }
+                                        else {
+                                            img = '/uploads/' + student.image;
+                                        }
+                                        
+                                        return (
+                                            <li key={student.id} style={{marginBottom: "2em"}}>
+                                                <Timer
+                                                    img={img}
+                                                    studentId={student.id}
+                                                    name={student.fname}
+                                                    timer={timer.timer}
+                                                    removeTimer={this.removeTimer(student.id)}
+                                                />
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
                             </div>
                         </div>
                     </div>

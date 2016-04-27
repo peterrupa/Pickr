@@ -13,6 +13,7 @@ const $ = window.$;
 class LandingPage extends React.Component {
     componentDidMount() {
         $('.parallax').parallax();
+
         $('.button-collapse').click(function(){
             $('.side-nav').css({position: 'static', marginLeft:'-50px'});
             $('.button-collapse').css({visibility:'hidden'});

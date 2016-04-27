@@ -99,7 +99,7 @@ class Presentation extends React.Component {
         $('.carousel').carousel();
 
         if(listOfStudents.length > 0) {
-            return (                
+            return (
                 <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
                     <div id="deck" className="carousel">
                         {students}

@@ -8,6 +8,8 @@ import { fetchAvailableVolunteers, modifyTags } from '../actions/controlpanelAct
 
 const Materialize = window.Materialize;
 
+
+
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
 
@@ -99,9 +101,9 @@ class ControlPanel extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    activityID: '1',
-                    studentID: selectedVolunteers[i].id,
-                    classCode: selectedVolunteers[i].ClassId,
+                    ActivityId: '1',
+                    StudentId: selectedVolunteers[i].id,
+                    ClassId: selectedVolunteers[i].ClassId,
                     note: ''
                 })
             });
@@ -335,7 +337,11 @@ class ControlPanel extends React.Component {
         </div>
     </div>
 </div>
+
+
 </div>
+
+
         );
     }
 }

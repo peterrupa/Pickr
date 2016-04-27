@@ -5,6 +5,11 @@ import $ from 'jquery';
 import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
+import '../../externalDependencies/js/materialize.js';
+// import '../../externalDependencies/js/custom-min.js';
+// import '../../externalDependencies/js/plugin-min.js';
+//import '../../externalDependencies/js/init.js';
+
 class NavBar extends React.Component {
     componentDidMount() {
 
@@ -12,7 +17,7 @@ class NavBar extends React.Component {
             $('.side-nav').css({position: 'static', marginLeft:'-50px'});
             $('.button-collapse').css({visibility:'hidden'});
         });
-       
+
         $(window).scroll( function(){
 
             $('.side-nav').css({position: 'fixed'});

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import io from 'socket.io-client';
 
-import { fetchAvailableVolunteers, modifyTags } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, modifyTags, modifyStudents } from '../actions/controlpanelActions';
 
 const Materialize = window.Materialize;
 
@@ -20,7 +20,8 @@ class ControlPanel extends React.Component {
 
         this.formValues = {
             nVolunteers: 1,
-            tags: []
+            tags: [],
+            students: []
         };
 
         this.formActions = {
@@ -50,6 +51,52 @@ class ControlPanel extends React.Component {
         this.props.modifyTags(this.formValues.tags);
     }
 
+    findStudent(fname, lname) {
+        for(let i = 0; i < this.props.controlPanelState.availableVolunteers.length; i++) {
+            if(this.props.controlPanelState.availableVolunteers[i].fname.toLowerCase() == fname.toLowerCase() && this.props.controlPanelState.availableVolunteers[i].lname.toLowerCase() == lname.toLowerCase()) {
+                return this.props.controlPanelState.availableVolunteers[i];
+            }
+        }
+
+        return false;
+    }
+
+    addStudent() {
+        const { controlPanelState, modifyStudents } = this.props;
+
+        if(controlPanelState.availableVolunteers.length === 0){
+            return;
+        }
+        
+        let student_fname = $('#inputFName').val();
+        let student_lname = $('#inputLName').val();
+
+        if(!student_fname && !student_lname) {
+            return;
+        }
+
+        let student = this.findStudent(student_fname, student_lname);
+
+        if(student) {
+            this.formValues.students.push(student);
+            modifyStudents(this.formValues.students);
+        } else {
+            Materialize.toast('Student not found!', 4000);
+        }
+        
+        $('#inputFName').val('');
+        $('#inputLName').val('');
+    }
+
+    removeStudent(index) {
+        if(this.props.controlPanelState.availableVolunteers.length === 0){
+            return;
+        }
+        
+        this.formValues.students.splice(index, 1);
+        this.props.modifyStudents(this.formValues.students);
+    }
+
     get() {
         if(this.props.controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
@@ -65,6 +112,32 @@ class ControlPanel extends React.Component {
         }
 
         for(let i = 0; i < this.formValues.nVolunteers; i++) {
+            if(i == this.formValues.students.length) {
+                break;
+            }
+
+            selectedVolunteers.push(this.formValues.students[i]);
+            fetch('/api/volunteer/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    activityID: '1',
+                    studentID: this.formValues.students[i].id,
+                    classCode: this.formValues.students[i].ClassId,
+                    note: ''
+                })
+            });
+        }
+
+        if(selectedVolunteers.length == this.formValues.nVolunteers) {
+            this.socket.emit('send volunteers', selectedVolunteers);
+            return;
+        }
+
+        for(let i = this.formValues.students.length; i < this.formValues.nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
                 this.formValues.tags.forEach((tag) => {
                     this.props.controlPanelState.availableVolunteers.forEach((v) => {
@@ -113,12 +186,29 @@ class ControlPanel extends React.Component {
         const { controlPanelState } = this.props;
 
         let listOfTags = [];
+        let listOfStudents = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
             listOfTags.push(
                 <div key={i} className="tagLabel">
                     {controlPanelState.tags[i]} <a className="btn-flat" onClick={() => this.removeTag(i)}><i className="material-icons right">close</i></a>
                 </div>
+            );
+        }
+
+        for(let i = 0; i < controlPanelState.students.length; i++) {
+            listOfStudents.push(
+                <div key={i}>
+                    <li className="collection-item">
+                        <div>
+                            <i className="material-icons circle">perm_contact_calendar</i> {controlPanelState.students[i].fname} {controlPanelState.students[i].lname}
+                            <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.removeStudent(i)}>REMOVE</button>
+                            <i className="material-icons">check</i>
+                        </div>
+                    </li>
+                </div>
+                
+                
             );
         }
 
@@ -302,24 +392,18 @@ class ControlPanel extends React.Component {
                         <br/><hr/><br/>
                         <div className="row">
                             <div className="container">
+                                
+                            
+                            <input id="inputFName" type="text" placeholder="First Name" />
+                            <input id="inputLName" type="text" placeholder="First Name" />
+                            <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.addStudent()}>ADD STUDENT</button>
+                            
+                            
                                 <ul className="collection with-header">
                                     <li className="collection-header">
                                         <h5>Students to Call</h5>
                                     </li>
-                                    <li className="collection-item">
-                                        <div>
-                                            <i className="material-icons circle">perm_contact_calendar</i>Jason Todd<Link to="#!" className="secondary-content">
-                                                <i className="material-icons">check</i>
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li className="collection-item">
-                                        <div>
-                                            <i className="material-icons circle">perm_contact_calendar</i>Barbara Gordon<Link to="#!" className="secondary-content">
-                                                <i className="material-icons">check</i>
-                                            </Link>
-                                        </div>
-                                    </li>
+                                    {listOfStudents}
                                 </ul>
                             </div>
                         </div>
@@ -346,11 +430,12 @@ class ControlPanel extends React.Component {
 ControlPanel.propTypes = {
     controlPanelState: PropTypes.object.isRequired,
     fetchAvailableVolunteers: PropTypes.func.isRequired,
-    modifyTags: PropTypes.func.isRequired
+    modifyTags: PropTypes.func.isRequired,
+    modifyStudents: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags }
+    { fetchAvailableVolunteers, modifyTags, modifyStudents }
 )(ControlPanel);

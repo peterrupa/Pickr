@@ -1,13 +1,14 @@
 // a reducer takes an input state and an action, does some process, and returns the transformed state
 
 // import your action type constants
-import {FETCH_AVAILABLE_VOLUNTEERS, GET_VOLUNTEER, MODIFY_TAGS } from '../constants/ActionTypes';
+import {FETCH_AVAILABLE_VOLUNTEERS, GET_VOLUNTEER, MODIFY_TAGS, MODIFY_STUDENTS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
     availableVolunteers: [],
     volunteer: [],
-    tags: []
+    tags: [],
+    students: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -25,6 +26,11 @@ export default function controlPanelState(state = initialState, action) {
         case MODIFY_TAGS:
             return Object.assign({}, state, {
                 tags: action.tags
+            });
+
+        case MODIFY_STUDENTS:
+            return Object.assign({}, state, {
+                students: action.students
             });
 
         default:

@@ -43,10 +43,9 @@ class NavBar extends React.Component {
                         <div className="container" style={{zDepth: '0'}}>
                             <div className="nav-wrapper">
                                 <Link id="logo-container" to="/class" className="brand-logo">
-                                    <img src="../img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                        height: '40px', 
-                                        width: '40px'
-                                    }}/>
+                                    <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                        height: '50px'
+                            }}/>
                                     Pickr
                                 </Link>
                                 <ul className="right hide-on-med-and-down">

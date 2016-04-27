@@ -84,7 +84,7 @@ class Presentation extends React.Component {
             students.push(
                 <a key={listOfStudents[i].id} className="carousel-item">
                     <div className="studentPhoto">
-                        <img className="" src="img/defaultPP.png" style={{width:'80%'}}/>
+                        <img className="" src="/img/defaultPP.png" style={{width:'80%'}}/>
                     </div>
                     <div className="ribbon">
                         <div className="ribbon-stitches-top"></div>

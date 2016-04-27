@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
+import { truncate } from '../businessLogic/stringHelper';
+
 class Timer extends React.Component {
     secondsTimeSpanToHMS(m) {
         let h = Math.floor(m/60); 
@@ -30,7 +32,7 @@ class Timer extends React.Component {
         return (
             <div>
                 <div className="chip" style={style}>
-                    <span style={nameStyle}>{this.props.name}</span>
+                    <span style={nameStyle}>{truncate(this.props.name, 15)}</span>
                     <img src={this.props.img}/> {this.secondsTimeSpanToHMS(this.props.timer)}
                     <a href="#" onClick={(e) => this.close(e)}>
                         <i className="mdi-content-clear"></i>

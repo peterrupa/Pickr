@@ -30,54 +30,54 @@ class ClassRoom extends React.Component {
     componentDidMount(){
         $('.modal-trigger').leanModal();
 
-                $('#container').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: '5 Most Called Tags'
-                    },
-                    subtitle: {
-                        text: 'This table indicates most called tags'
-                    },
-                    theme: {
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Tags'
+            },
+            subtitle: {
+                text: 'This table indicates most called tags'
+            },
+            theme: {
 
-                    },
-                    xAxis: {
-                        categories: [
-                            'male',
-                            'ab-3l',
-                            'pogi',
-                            'ganda',
-                            'bibo'
-                        ],
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Number of times used/called'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [{
-                        name: 'Tags',
-                        data: [15,23,12,5,8]
-                    }]
-                });
+            },
+            xAxis: {
+                categories: [
+                    'male',
+                    'ab-3l',
+                    'pogi',
+                    'ganda',
+                    'bibo'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tags',
+                data: [15,23,12,5,8]
+            }]
+        });
     }
 
     addActivity(e) {
@@ -205,7 +205,7 @@ class ClassRoom extends React.Component {
                 <li key={student.id}>
                     <StudentEditModal student={student}/>
                     <StudentDeleteModal student={student}/>
-                    <Link to="/student">
+                    <Link to={"/student/"+student.id}>
                         <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
                         {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
@@ -372,7 +372,7 @@ class ClassRoom extends React.Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                                 <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                             </div>
                         </form>

@@ -45,7 +45,7 @@ export function getOne(req, res) {
 //CREATE Student
 export function insert(req, res) {
     let file = req.file;
-    
+
     // query class
     processImg(file).then((img) => {
         return Class.findById(req.params.id);
@@ -54,14 +54,14 @@ export function insert(req, res) {
     .then((classData) => {
         if(classData) {
             let image;
-            
+
             if(file) {
                 image = file.filename + '.jpg';
             }
             else {
                 image = null;
             }
-            
+
             return classData.createNewStudent({
               ClassId: classData.id,
               fname: req.body.fname,

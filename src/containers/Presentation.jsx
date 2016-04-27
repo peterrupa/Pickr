@@ -249,6 +249,7 @@ class ClassRoom extends React.Component {
                             </div>
                             {/*block cntent*/}
                         </div>
+
                     </div>
                     {/* product-card */}
                     <div className=" s6 m12 l4">

@@ -14,3 +14,5 @@ export const SUCCESS = 'SUCCESS';
 
 export const SET_VOLUNTEERS = 'SET_VOLUNTEERS';
 export const MODIFY_TAGS = 'MODIFY_TAGS';
+
+export const SET_STUDENT = 'SET_STUDENT';

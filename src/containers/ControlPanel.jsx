@@ -112,6 +112,32 @@ class ControlPanel extends React.Component {
         }
 
         for(let i = 0; i < this.formValues.nVolunteers; i++) {
+            if(i == this.formValues.students.length) {
+                break;
+            }
+
+            selectedVolunteers.push(this.formValues.students[i]);
+            fetch('/api/volunteer/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    activityID: '1',
+                    studentID: this.formValues.students[i].id,
+                    classCode: this.formValues.students[i].ClassId,
+                    note: ''
+                })
+            });
+        }
+
+        if(selectedVolunteers.length == this.formValues.nVolunteers) {
+            this.socket.emit('send volunteers', selectedVolunteers);
+            return;
+        }
+
+        for(let i = this.formValues.students.length; i < this.formValues.nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
                 this.formValues.tags.forEach((tag) => {
                     this.props.controlPanelState.availableVolunteers.forEach((v) => {

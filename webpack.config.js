@@ -52,6 +52,9 @@ const getEntry = function(env) {
 
 const getLoaders = function(env) {
     const loaders = [{
+        test: /\.json$/,
+        loader: 'json'
+    }, {
         test: /\.js$/,
         include: path.join(__dirname, 'src'),
         loaders: ['babel', 'eslint']

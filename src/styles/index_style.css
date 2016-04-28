@@ -22,7 +22,7 @@
     position: relative;
     display: flex;
     background-color: black;
-  /*  background-image: "url('./../../public/img/ph.png')";*/
+  /*  background-image: "url('/img/ph.png')";*/
     align-items: center;
     padding: 0 !important;
 }
@@ -228,7 +228,7 @@ nav ul a {
     position:absolute;
     left:50%; /* centers the loading animation horizontally one the screen */
     top:50%; /* centers the loading animation vertically one the screen */
-    /*background-image:url(../img/status.gif); *//* path to your loading animation */
+    /*background-image:url(/img/status.gif); *//* path to your loading animation */
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */

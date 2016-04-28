@@ -12,6 +12,10 @@ nav {
 body {
     background-color: #E9E8E7;
 }
+.hideme
+{
+    opacity:0;
+}
 
 #classes:hover {
     color: white;
@@ -215,6 +219,21 @@ body {
     color: #DDD;
 }
 
+input:invalid {
+  border-bottom: 2px solid red;
+}
+
+input {
+    border-bottom: 2px solid gray;
+}
+
 #classes {
     height: 150px;
+}
+
+img#logo {
+    float: left;
+    margin: 0 0px;
+    padding-top: 10px;
+    display: inline-block;
 }

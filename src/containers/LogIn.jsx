@@ -2,11 +2,38 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-// Be sure to rename your class name
-
 
 class LogIn extends React.Component {
     componentDidMount(){
+    }
+
+    post(e){
+        e.preventDefault();
+
+        let username = $('#username').val();
+        let password = $('#password').val();
+        let data = "username=" + username + "&password=" + password;
+
+        if (username !== '' && password !== '') {
+
+            fetch('/api/account/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept':'application/json'
+                },
+                body: data
+            })
+            .then((res) => {
+                if (res.status === 200 || res.status === 403) {
+                    window.location.href = '/class';
+                }
+                else {
+                    window.location.href = '/login';
+                }
+            });
+
+        }
     }
 
     render() {
@@ -16,9 +43,8 @@ class LogIn extends React.Component {
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
                         <a id="logo-container" href="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
+                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                height: '50px'
                             }}/>Pickr</a>
                         <ul className="right hide-on-med-and-down">
 
@@ -52,7 +78,7 @@ class LogIn extends React.Component {
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                          <form className="login-form">
+                          <form onSubmit={(e) => this.post(e)} className="login-form">
         <div className="row">
           <div className="input-field col s12 center">
             <img src="/img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
@@ -62,14 +88,14 @@ class LogIn extends React.Component {
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text" required="true"/>
+            <input id="username" type="text"/>
             <label htmlFor="username" className="center-align">Username</label>
           </div>
         </div>
         <div className="row margin">
           <div className="input-field col s12">
             <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password" required="true"/>
+            <input id="password" type="password"/>
             <label htmlFor="password">Password</label>
           </div>
         </div>
@@ -81,7 +107,7 @@ class LogIn extends React.Component {
         </div>
         <div className="row">
           <div className="input-field col s12">
-            <input type="submit" value="Login" className="btn waves-effect waves-light col s12" formAction="class"/>
+            <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
           </div>
         </div>
         <div className="row">

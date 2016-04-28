@@ -2,6 +2,7 @@
     Controller for the model "account".
 */
 
+import crypto from 'crypto';
 import express from 'express';
 import nodemailer from 'nodemailer';
 let router  = express.Router();
@@ -86,8 +87,8 @@ exports.logout = (req, res) => {
 
 }
 
-exports.changePassword = (req, res) => {
-    console.log(req.body.email);
+exports.forgotPassword = (req, res) => {
+
     Account.findOne({ where: {EmailAddress: req.body.email} })
     .then((user) => {
         if(user) {
@@ -98,28 +99,54 @@ exports.changePassword = (req, res) => {
         }
     })
     .then((user) => {
-        if(user) {
-            let transporter = nodemailer.createTransport('smtps://cmsc128ab3l@gmail.com:icsuseruser@smtp.gmail.com');
-
-            let mailOptions = {
-                from: '"Pickr👥" <cmsc128ab3l@gmail.com>', // sender address
-                to: user.dataValues.EmailAddress, // list of receivers
-                subject: 'Password Reset ✔', // Subject line
-                text: 'Hello world 🐴', // plaintext body
-                html: '<b>Hello world 🐴</b>' // html body
-            };
-
-            // send mail with defined transport object
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log(error);
-                    res.send(error);
-                }
-                else {
-                    console.log('Message sent: ' + info.response);
-                    res.send(info.response);
-                }
+        if (user) {
+            let promise = new Promise((resolve, reject) => {
+                crypto.randomBytes(20, (err, buf) => {
+                    if (!err) {
+                        resolve(buf.toString('hex'));
+                    }
+                    else {
+                        reject(err);
+                    }
+                });
             });
+
+            promise.then((token) => {
+                let message = 'Please click on the link provided below to reset'
+                    + ' your password: \n' + 'http://localhost:8000/reset/'
+                    + token + ' \n  <b>If you did not forget your password,'
+                    + ' please disregard this message.</b>';
+
+                let transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'cmsc128ab3l@gmail.com',
+                        pass: 'icsuseruser'
+                    }
+                });
+
+                let mailOptions = {
+                    from: '"Pickr👥" <cmsc128ab3l@gmail.com>',
+                    to: user.dataValues.EmailAddress,
+                    subject: 'Password Reset ✔',
+                    text: message,
+                    html: message
+                };
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(500);
+                    }
+                    else {
+                        console.log(info);
+                        res.sendStatus(200);
+                    }
+                });
+            },(err) => {
+                res.sendStatus(500);
+            });
+
         }
         else {
             res.sendStatus(400);
@@ -128,4 +155,25 @@ exports.changePassword = (req, res) => {
     .catch((err) => {
         res.sendStatus(500);
     });
+}
+
+exports.resetPassword = (req, res) => {
+
+    Account.findOne({ where: { token: req.body.token } })
+    .then((user) => {
+        if (!user) {
+            res.sendStatus(404);
+        }
+        else {
+            res.sendStatus(200);
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+}
+
+exports.changePassword = (req, res) => {
+
 }

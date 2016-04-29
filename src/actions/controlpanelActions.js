@@ -14,6 +14,26 @@ export function modifyTags(tags) {
     };
 }
 
+export function addTimer(studentId) {
+    return {
+        type: types.ADD_TIMER,
+        studentId
+    };
+}
+
+export function incrementTimers() {
+    return {
+        type: types.INCREMENT_TIMERS
+    };
+}
+
+export function removeTimer(studentId) {
+    return {
+        type: types.REMOVE_TIMER,
+        studentId
+    };
+}
+
 export function fetchAvailableVolunteers(classcode) {
     return (dispatch) => {
         fetch('/api/class/' + classcode + '/student', {

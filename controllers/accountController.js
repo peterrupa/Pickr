@@ -227,7 +227,7 @@ exports.forgotPassword = (req, res) => {
 
             promise.then((token) => {
 
-                let message = 'Please click on the link provided below to reset'
+                let message = 'Please click the link provided below to reset'
                     + ' your password: \n' + 'http://localhost:8000/reset/'
                     + token + ' \n  <b>If you did not forget your password,'
                     + ' please disregard this message.</b>';
@@ -248,14 +248,26 @@ exports.forgotPassword = (req, res) => {
                     html: message
                 };
 
+                let query = 'UPDATE Accounts SET token = ?, tokenExpiry = ' +
+                '(SELECT NOW()+INTERVAL 5 HOUR) where emailAddress = ?';
+
                 transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
                         console.log(error);
                         res.sendStatus(500);
                     }
                     else {
-                        console.log(info);
-                        res.sendStatus(200);
+                        sequelize.query(query,{
+                            replacements:[token, user.dataValues.emailAddress],
+                            type: sequelize.QueryTypes.UPDATE
+                        })
+                        .then((status) => {
+                            res.sendStatus(200);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            res.sendStatus(500);
+                        });
                     }
                 });
             },(err) => {
@@ -274,7 +286,18 @@ exports.forgotPassword = (req, res) => {
 
 exports.resetPassword = (req, res) => {
 
-    Account.findOne({ where: { token: req.body.token } })
+    Account.findOne({
+        where: {
+            tokenExpiry: {
+                $gt: new Date(),
+                $ne: null
+            },
+            token: {
+                $ne: null
+            },
+            token: req.body.token
+        }
+    })
     .then((user) => {
         if (!user) {
             res.sendStatus(404);
@@ -284,11 +307,49 @@ exports.resetPassword = (req, res) => {
         }
     })
     .catch((err) => {
-        console.log(err);
         res.sendStatus(500);
     });
 }
 
 exports.changePassword = (req, res) => {
 
+    let query = 'UPDATE Accounts SET password = (SELECT MD5(SHA1(?))), ' +
+                'token = NULL, tokenExpiry = NULL where emailAddress = ?' +
+                ' AND username = ?';
+
+    if (req.body.password !== req.body.confirm_password) {
+        res.sendStatus(401);
+    }
+    else {
+        Account.findOne({
+            where: {
+                username: req.body.username,
+                emailAddress: req.body.email
+            }
+        })
+        .then((user) => {
+            if (!user) {
+                res.sendStatus(404);
+            }
+            else {
+                sequelize.query(query, {
+                    replacements: [
+                        req.body.password, req.body.email, req.body.username
+                    ],
+                    type: sequelize.QueryTypes.UPDATE
+                })
+                .then((response) => {
+                    console.log(response);
+                    res.sendStatus(200);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.sendStatus(500);
+                });
+            }
+        })
+        .catch((err) => {
+            res.sendStatus(500);
+        });
+    }
 }

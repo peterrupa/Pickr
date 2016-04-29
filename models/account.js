@@ -5,24 +5,24 @@ export default function (sequelize, DataTypes) {
         lname: DataTypes.STRING,
         username: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
+            allowNull: false,
+            unique: true
         },
         emailAddress: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
+            allowNull: false,
+            unique: true
         },
         password: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
-        }
-    }, {
-        classMethods: {
+            allowNull: false
+        },
+        token: {
+            type: DataTypes.STRING,
+            unique: true
+        },
+        tokenExpiry: DataTypes.DATE
+        /*classMethods: {
             associate(models) {
                 Account.hasMany(models.Class);
             }
@@ -34,8 +34,8 @@ export default function (sequelize, DataTypes) {
                     classCode: data.classCode
                 });
             }
-        }
+        }*/
     });
-    
+
     return Account;
 };

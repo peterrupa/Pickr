@@ -26,7 +26,60 @@ class ClassRoom extends React.Component {
     }
 
     componentDidMount(){
+
+        $('.tooltipped').tooltip({delay: 50});
+
         $('.modal-trigger').leanModal();
+
+                $('#container').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: '5 Most Called Tags'
+                    },
+                    subtitle: {
+                        text: 'This table indicates most called tags'
+                    },
+                    theme: {
+
+                    },
+                    xAxis: {
+                        categories: [
+                            'male',
+                            'ab-3l',
+                            'pogi',
+                            'ganda',
+                            'bibo'
+                        ],
+                        crosshair: true
+                    },
+                    yAxis: {
+                        min: 0,
+                        title: {
+                            text: 'Number of times used/called'
+                        }
+                    },
+                    tooltip: {
+                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                        footerFormat: '</table>',
+                        shared: true,
+                        useHTML: true
+                    },
+                    plotOptions: {
+                        column: {
+                            pointPadding: 0.2,
+                            borderWidth: 0
+                        }
+                    },
+                    series: [{
+                        name: 'Tags',
+                        data: [15,23,12,5,8]
+                    }]
+                });
+
     }
 
     addActivity(e) {
@@ -125,10 +178,10 @@ class ClassRoom extends React.Component {
                   <div className="right">
                     <ActivityDeleteModal activity={activity}/>
                     <Link to="/controlPanel">
-                        <i className="mdi-action-settings"></i>
+                        <i className="small mdi-action-settings tooltipped"  data-position="bottom" data-delay="50" data-tooltip="I am tooltip"></i>
                     </Link>
                     <Link to="/presentation">
-                        <i className="mdi-image-color-lens"></i>
+                        <i className="small mdi-image-color-lens"></i>
                     </Link>
                   </div>
                 </li>
@@ -179,6 +232,9 @@ class ClassRoom extends React.Component {
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
                             <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
+                            <div>
+                            <Link className="waves-effect waves-light btn-large grey darken-3" to="/class" style={{float: 'right', bottom: '50px'}}>Return to Classes</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,7 +280,7 @@ class ClassRoom extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="col s12 m12 l4">
+                    <div className="col s12 m12 l4" >
                         <div className="block block-bordered">
                             <div className="block-header">
                                 <ul className="block-options">
@@ -251,7 +307,7 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
                     {/* product-card */}
-                    <div className=" s6 m12 l4">
+                    <div className=" s12 m12 l4" style={{marginTop:'2%'}}>
                         <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
                             <span id="act">
                                 <li className="collection-header cyan">
@@ -271,6 +327,7 @@ class ClassRoom extends React.Component {
                         {/* map-card */}
 
                     </div>
+                    <div id="container" className="col s12 m12 l8" style={{marginTop:'2%'}}></div>
                     <div id="addstudent" className="modal">
                         <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
                             <div className="modal-content">

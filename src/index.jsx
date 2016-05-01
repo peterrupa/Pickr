@@ -35,9 +35,6 @@ render(
             <Route path="/class/:AccountId" component={Containers.ClassList}/>
             <Route path="/controlPanel" component={Containers.ControlPanel}/>
             <Route path="/classroom/:ClassId" component={Containers.ClassRoom}/>
-            <Route path="/login" component={Containers.LogIn}/>
-            <Route path="/signup" component={Containers.SignUp}/>
-            <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
             <Route path="/index" component={Containers.LandingPage}/>
             </Route>
             <Route path="*" component={Containers.NotFoundPage}/>

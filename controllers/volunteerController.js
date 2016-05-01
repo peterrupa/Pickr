@@ -37,7 +37,7 @@ export function getOne(req, res) {
 }
 
 export function getAll(req, res) {
-    Volunteer.findAll({where:{ClassId: req.params.id }})
+    Volunteer.findAll({where:{volunteerID: req.params.id }})
     .then((volunteers) => {
         // fetch tags for each student
         let promises = volunteers.map((volunteer) => {

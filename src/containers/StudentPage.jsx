@@ -16,17 +16,16 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount(){
-        let student = this.props.studentAppState.student;
         $('.modal-trigger').leanModal();
     }
 
     edit(e){
         e.preventDefault();
         let student = {
-            path: window.location.pathname.substring(9),
-            fname: $('#efirstName'+student.id).val(),
-            lname: $('#elastName'+student.id).val(),
-            mname: $('#emiddleName'+student.id).val()
+            id: this.props.studentAppState.student.id,
+            fname: $('#firstname').val(),
+            lname: $('#lastname').val(),
+            mname: $('#middlename').val()
             //image: $('#image')[0].files[0]
         };
 
@@ -34,12 +33,22 @@ class StudentPage extends React.Component {
             Materialize.toast('Successfully edited student.', 4000, 'toast-success');
             $('#edit-student-form')[0].reset();
             $('#editStudent').scrollTop(0);
+            $('#firstname').val(student.fname);
+            $('#lastname').val(student.lname);
+            $('#middlename').val(student.mname);
         })
         .catch((err) => {
             Materialize.toast('Error editing student.', 4000, 'toast-error');
             $('#edit-student-form')[0].reset();
             $('#editStudent').scrollTop(0);
         });
+    }
+
+    delete(e) {
+        let student = this.props.studentAppState.student;
+        alert(JSON.stringify(student));
+
+
     }
 
     render() {
@@ -52,6 +61,10 @@ class StudentPage extends React.Component {
         else {
             image = '/uploads/' + student.image;
         }
+
+        $('#firstname').val(student.fname);
+        $('#lastname').val(student.lname);
+        $('#middlename').val(student.mname);
 
         return (
             <div>
@@ -139,8 +152,26 @@ class StudentPage extends React.Component {
                     </div>
                 </div>
                 <div className="row center">
-                  <a href="#editstudent"className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
-                  <a className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
+                  <a href="#editstudent" className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
+                  <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
+                </div>
+
+                <div id="deletestudent" className="modal">
+                  <div className="modal-content">
+                    <div className="row">
+                        <div className="input-field col s12">
+                            <span>
+                              <h2> Are you sure you want to delete this student?</h2>
+                              <br/>
+                              <h4> WARNING: Action cannot be undone </h4>
+                            </span>
+                        </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                      <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                      <button to={"/classroom/student.ClassId"} onClick={(e) => this.delete(e)} className="waves-effect waves-green btn-flat modal-action modal-close"> Delete </button>
+                  </div>
                 </div>
 
                 <div id="editstudent" className="modal">
@@ -152,7 +183,7 @@ class StudentPage extends React.Component {
                                   <label>Last Name</label>
                                 </span>
                                 <br/>
-                                <input id={"elastName"+student.id} type="text" className="validate"/>
+                                <input id="lastname" type="text" className="validate" defaultValue={this.props.studentAppState.student.lname}/>
                             </div>
                         </div>
                         <div className="row">
@@ -161,7 +192,7 @@ class StudentPage extends React.Component {
                                   <label>First Name</label>
                                 </span>
                                 <br/>
-                                <input id={"efirstName"+student.id} type="text" className="validate"/>
+                                <input id="firstname" type="text" className="validate" defaultValue={this.props.studentAppState.student.fname}/>
                             </div>
                         </div>
                         <div className="row">
@@ -170,7 +201,7 @@ class StudentPage extends React.Component {
                                   <label>Middle Name</label>
                                 </span>
                                 <br/>
-                                <input id={"emiddleName"+student.id} type="text" className="validate"/>
+                                <input id="middlename" type="text" className="validate" defaultValue={this.props.studentAppState.student.mname}/>
                             </div>
                         </div>
                       </div>

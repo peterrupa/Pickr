@@ -9,8 +9,7 @@ export default function classroomAppState(state = initialState, action) {
         case FETCH_CLASSES:
             return Object.assign({}, state, {
                 classes: action.classes
-            });
-
+            });    	
         default:
             return state;
     }

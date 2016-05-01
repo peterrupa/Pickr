@@ -24,7 +24,7 @@ export function fetchStudent(studentId) {
 
 export function editStudent(student) {
     return (dispatch) => {
-        return fetch('/api/class/student/'+student.path, {
+        return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -33,7 +33,25 @@ export function editStudent(student) {
             body: JSON.stringify(student)
         })
         .then((res) =>  res.json())
-        .then((student) => dispatch(setStudent(student)))
+        .then((student) => dispatch(fetchStudent(student.id)))
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function deleteStudent(student) {
+    return (dispatch) => {
+        return fetch('/api/class/student/'+student.id, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(student)
+        })
+        .then((res) =>  res.json())
+        .then((student) => dispatch(fetchStudent(student.id)))
         .catch((err) => {
             throw err;
         });

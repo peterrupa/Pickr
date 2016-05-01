@@ -10,7 +10,7 @@ import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
 import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
-
+import ActivityNoteModal from '../components/ActivityNoteModal.jsx';
 const Materialize = window.Materialize;
 
 // Be sure to rename your class name
@@ -122,7 +122,7 @@ class ClassRoom extends React.Component {
                       {activity.activityName}
                     </Link>
                   </label>
-                   <ActivityDeleteModal activity={activity}/>
+                  <ActivityDeleteModal activity={activity}/>
                   <Link to="/controlPanel">
                     <i className="mdi-action-settings right"></i>
                   </Link>

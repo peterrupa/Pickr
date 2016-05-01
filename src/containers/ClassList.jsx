@@ -62,8 +62,6 @@ class ClassList extends React.Component {
                         <ClassListDefault
                             classes={this.props.classListAppState.classes}
                         />
-
-
                         {/*start of modal form*/}
                         <div id="addclass" className="modal">
                           <form onSubmit={(e) => this.add(e)}>

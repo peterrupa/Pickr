@@ -12,7 +12,7 @@ import account from './routes/account';
 import activity from './routes/activity';
 import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
-
+import note from './routes/note';
 let app = express();
 
 app.set('view engine', 'ejs');
@@ -35,9 +35,10 @@ app.use(cookieParser());
 app.use('/api/sample', sample);
 app.use('/api/account', account);
 app.use('/api/class', activity);
-app.use('/api/account/', classRoute);
+app.use('/api/account', classRoute);
 app.use('/api/class', student);
 app.use('/api/volunteer', volunteer);
+app.use('/api/activity', note);
 
 // 404 for api
 app.get('/api/*', (req, res) => {

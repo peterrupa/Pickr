@@ -4,6 +4,10 @@ import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
 import {fetchStudent, editStudent } from '../actions/studentActions.js';
 import StudentEditModal from '../components/StudentEditModal.jsx';
+import HighCharts from 'highcharts';
+
+import './../styles/styles.scss';
+import './../styles/style.css';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
@@ -17,6 +21,52 @@ class StudentPage extends React.Component {
 
     componentDidMount(){
         $('.modal-trigger').leanModal();
+        
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Participated Activities'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories: [
+                    'activity1',
+                    'activity2',
+                    'activity3',
+                    'activity4',
+                    'activity5'
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Activity',
+                data: [15,23,12,5,8]
+            }]
+        });
     }
 
     edit(e){
@@ -151,6 +201,8 @@ class StudentPage extends React.Component {
                         </section>
                     </div>
                 </div>
+
+                <div id="container" className="col s6" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
                 <div className="row center">
                   <a href="#editstudent" className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
                   <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>

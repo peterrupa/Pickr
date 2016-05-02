@@ -1,5 +1,3 @@
-import uuid from 'node-uuid';
-
 export default function (sequelize, DataTypes) {
     let Account = sequelize.define("Account", {
         Fname: DataTypes.STRING,
@@ -16,10 +14,7 @@ export default function (sequelize, DataTypes) {
         },
         instanceMethods: {
             createNewClass(data) {
-                let id = uuid.v4();
-
                 return this.createClass({
-                    id: id,
                     className: data.className,
                     classCode: data.classCode
                 });

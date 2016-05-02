@@ -1,5 +1,3 @@
-import uuid from 'node-uuid';
-
 export default function (sequelize, DataTypes) {
     let Student = sequelize.define("Student", {
         fname: DataTypes.STRING,	//first name

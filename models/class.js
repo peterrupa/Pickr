@@ -1,5 +1,3 @@
-import uuid from 'node-uuid';
-
 export default function (sequelize, DataTypes) {
     let Class = sequelize.define("Class", {
         classCode: DataTypes.STRING,
@@ -11,11 +9,7 @@ export default function (sequelize, DataTypes) {
                     Class.hasMany(models.Student);
                 },
                 addClass(data) {
-                    // generate uuid
-                    let id = uuid.v4();
-
                     return Class.create({
-                        id: id,
                         className: data.className,
                         classCode: data.classCode
                     })
@@ -26,10 +20,7 @@ export default function (sequelize, DataTypes) {
             },
             instanceMethods: {
                 createNewActivity(data) {
-                    let id = uuid.v4();
-
                     return this.createActivity({
-                        id: id,
                         ClassId: data.ClassId,
                         activityName: data.activityName,
                         activityDesc: data.activityDesc

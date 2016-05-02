@@ -8,7 +8,7 @@ module.exports = {
             fname: "Peter Bernard",
             lname: "Rupa",
             mname: "Mariano",
-            image: "/img/test.jpg",
+            image: null,
             createdAt: new Date(),
             updatedAt: new Date()
         },
@@ -18,7 +18,7 @@ module.exports = {
             fname: "Narom",
             lname: "Santos",
             mname: "Pineda",
-            image: "/img/test.jpg",
+            image: null,
             createdAt: new Date(),
             updatedAt: new Date()
         }

@@ -8,23 +8,13 @@ import { Volunteer, Student } from '../models';
 export function insert(req, res) {
 
     Volunteer.create({
-        activityID: req.body.activityID,
-        studentID: req.body.studentID,
-        classCode: req.body.classCode,
+        ActivityID: req.body.activityID,
+        StudentID: req.body.studentID,
+        ClassId: req.body.classCode,
         dateVolunteered: new Date(),
         note: req.body.note
     }).then(function(volunteer) {
         res.status(200).send(volunteer);
-    });
-}
-
-export function getAvailableVolunteers(req, res) {
-    Student.findAll({
-        where: {
-            ClassCode: req.params.classCode
-        }
-    }).then(function(students) {
-        res.send(students);
     });
 }
 

@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
 import store from './tools/store';
+import referer from './tools/referer';
 
 import student from './routes/student';
 import sample from './routes/sample';
@@ -31,7 +32,7 @@ app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
     store: store,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: true,    
     name: 'C0oK13_M0NZt3R',
     cookie: {
         path: '/',
@@ -47,6 +48,8 @@ app.use((req, res, next) => {
     console.log("This is the session id: " + req.session.id);
     next();
 });
+
+app.use('/api/*', referer);
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);

@@ -117,18 +117,20 @@ class ClassRoom extends React.Component {
         this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
                 <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
+                  <div style={{background: 'white'}}>
+                    <label htmlFor="task1" style={{textDecoration: 'none'}}>
                     <Link to="/presentation">
                       {activity.activityName}
                     </Link>
-                  </label>
-                  <ActivityDeleteModal activity={activity}/>
-                  <Link to="/controlPanel">
-                    <i className="mdi-action-settings right"></i>
-                  </Link>
-                  <Link to="/presentation">
-                    <i className="mdi-image-color-lens right"></i>
-                  </Link>
+                    </label>
+                    <ActivityDeleteModal activity={activity}/>
+                    <Link to="/controlPanel">
+                      <i className="mdi-action-settings right"></i>
+                    </Link>
+                    <Link to="/presentation">
+                      <i className="mdi-image-color-lens right"></i>
+                    </Link>
+                  </div>
                 </li>
             );
         });
@@ -255,7 +257,8 @@ class ClassRoom extends React.Component {
                                 <li className="collection-header cyan">
                                     <span>
                                         <h3 className="task-card-title">Activities</h3>
-                                        <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
+                                        <p className="task-card-date">March 26, 2015
+                                            <Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
                                                 <i className="large material-icons">add</i>
                                             </Link>
                                         </p>

@@ -2,9 +2,17 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-
+import { addNote } from '../actions/controlPanelActions';
 // Be sure to rename your class name
 class ControlPanel extends React.Component {
+    componentDidMount(){
+        $('.modal-trigger').leanModal();
+    }
+    
+    addNote(e) {
+        e.preventDefault();
+      
+    }
     render() {
         return (
 <div>
@@ -206,8 +214,34 @@ class ControlPanel extends React.Component {
                                 </ul>
                             </div>
                         </div>
-
+                        <br/><hr/><br/>
+                        <div className="row">
+                            <div className="container">
+                                <h3 className="task-card-title">Notes</h3>
+                                <Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addNotes">
+                                    <i className="large material-icons">add</i>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                
+                <div id="addNotes" className="modal">
+                    <form onSubmit={(e) => this.addNote()}>
+                        <div className="modal-content">
+                            <h3>Add Activity</h3>
+                            <div className="row">
+                                <div className="input-field col s12">
+                                    <input id="activityName" type="text" className="validate"/>
+                                    <label htmlFor="activityName">Note</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Note</button>
+                        </div>
+                    </form>
                 </div>
 
                 <div className="col s12 m7 offset-m5 l8 offset-l4">

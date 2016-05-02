@@ -16,7 +16,7 @@ class StudentEditModal extends React.Component {
             ClassId: this.props.student.ClassId,
             image: $('#eimage'+this.props.student.id)[0].files[0]
         };
-        
+
         this.props.editStudent(newStudent).then((res) => {
             Materialize.toast('Successfully edited student.', 4000, 'toast-success');
         })

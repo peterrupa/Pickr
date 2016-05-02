@@ -47,7 +47,6 @@ class ClassEditModal extends React.Component {
                       </div>
                     </div>
                     <div className="modal-footer">
-                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                         <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Class</button>
                     </div>
                 </form>

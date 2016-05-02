@@ -63,13 +63,15 @@ export function addStudent(student) {
 
 export function editStudent(student) {
     return (dispatch) => {
+        let formData  = new FormData();
+
+        for(name in student) {
+            formData.append(name, student[name]);
+        }
+        
         return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(student)
+            body: formData
         })
         .then((res) =>  res.json())
         .then((student) => dispatch(fetchStudents({id: student.ClassId})))

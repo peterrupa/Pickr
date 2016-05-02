@@ -27,10 +27,12 @@ class Presentation extends React.Component {
             fetchRandomizedVolunteers(volunteers);
         });
 
-    }
+    } 
 
     componentDidUpdate() {
         const { presentationState, success } = this.props;
+        
+        $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
             listOfVolunteers = presentationState.volunteers,

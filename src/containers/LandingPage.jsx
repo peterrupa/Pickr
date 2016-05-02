@@ -53,8 +53,8 @@ class LandingPage extends React.Component {
         let hero = {
             backgroundImage: 'url(' + imgUrl2 + ')',
             backgroundColor: '#3E3E4B',
-            backgroundRepeat: 'no-repeat',
-            height:'90%'
+            height:'90%',
+            align: 'center'
         };
 
         let best = ["best", "hottest", "coolest"];

@@ -416,7 +416,7 @@ class ControlPanel extends React.Component {
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
                                                 </p>
                                                 <p>
-                                                    <input type="checkbox" id="remember-checkbox"/>
+                                                    <input type="checkbox" id="remember-checkbox" checked/>
                                                     <label htmlFor="remember-checkbox">Enable Remembering</label>
                                                 </p>
                                             </div>

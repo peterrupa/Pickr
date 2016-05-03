@@ -80,6 +80,7 @@ class ControlPanel extends React.Component {
 
     get() {
         const { controlPanelState } = this.props;
+
         if(controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
             return;
@@ -107,8 +108,8 @@ class ControlPanel extends React.Component {
                 },
                 body: JSON.stringify({
                     activityID: '1',
-                    studentID: this.formValues.students[i].id,
-                    classCode: this.formValues.students[i].ClassId,
+                    studentID: controlPanelState.students[i].id,
+                    classCode: controlPanelState.students[i].ClassId,
                     note: ''
                 })
             });
@@ -205,12 +206,10 @@ class ControlPanel extends React.Component {
             listOfStudents.push(
                 <li className="collection-item" key={i}>
                     <div className="row">
-                        <div className="col s10">
-                            <i className="material-icons circle">perm_contact_calendar</i> {controlPanelState.students[i].fname} {controlPanelState.students[i].lname}
-                        </div>
-                        <div className="col s2">
+                        <div className="right">
                             <a className="btn-flat" onClick={() => this.removeStudent(i)}><i className="material-icons">close</i></a>
                         </div>
+                        <i className="material-icons circle">perm_contact_calendar</i> {controlPanelState.students[i].fname} {controlPanelState.students[i].lname}
                     </div>
                 </li>
             );
@@ -411,7 +410,9 @@ class ControlPanel extends React.Component {
                                                     <li className="collection-header">
                                                         <h5>Students to Call</h5>
                                                     </li>
+                                                    <div style={{maxHeight: '300px', overflowY: 'auto', overflowX: 'hidden'}}>
                                                     {listOfStudents}
+                                                    </div>
                                                 </ul>
                                                 <StudentFilterForm
                                                     students={controlPanelState.availableVolunteers}

@@ -40,23 +40,19 @@ class StudentFilterForm extends React.Component {
                             return (
                                 <li key={studentItem.id} className="collection-item">
                                     <div className="row">
-                                        <div className="col s10">
-                                            <img className="img-avatar" src={img} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
-                                            {studentItem.fname + " " + studentItem.mname + " " + studentItem.lname}
-                                            <div className="font-w400 text-muted">
-                                                <small>
-                                                    {studentItem.tags.map((tag) =>
-                                                        <Tag
-                                                            key={tag}
-                                                            name={tag}/>
-                                                    )}
-                                                </small>
-                                            </div>
+                                        <div className="right">
+                                            <a className="btn-flat" onClick={() => this.addStudent(studentItem)}><i className="material-icons">add</i></a>
                                         </div>
-                                        <div className="col s2">
-                                            <a className="btn-flat" onClick={() => this.addStudent(studentItem)}>
-                                                <i className="material-icons">add</i>
-                                            </a>
+                                        <img className="img-avatar" src={img} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                                        {studentItem.fname + " " + studentItem.mname + " " + studentItem.lname}
+                                        <div className="font-w400 text-muted">
+                                            <small>
+                                                {studentItem.tags.map((tag) =>
+                                                    <Tag
+                                                        key={tag}
+                                                        name={tag}/>
+                                                )}
+                                            </small>
                                         </div>
                                     </div>
                                 </li>

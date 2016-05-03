@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 
 import './../styles/presentation.css';
 
@@ -16,7 +15,7 @@ class PresentationCarouselItem extends React.Component {
         }
 
         return (
-            <Link className="carousel-item" to="#">
+            <a className="carousel-item">
                 <div className="studentPhoto">
                     <img src={img} style={{width:'80%'}}/>
                 </div>
@@ -27,7 +26,7 @@ class PresentationCarouselItem extends React.Component {
                     </strong>
                     <div className="ribbon-stitches-bottom"></div>
                 </div>
-            </Link>
+            </a>
         );
     }
 }

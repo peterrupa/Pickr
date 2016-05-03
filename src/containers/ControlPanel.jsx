@@ -78,9 +78,13 @@ class ControlPanel extends React.Component {
         for(let i = 0; i < this.formValues.nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
                 this.formValues.tags.forEach((tag) => {
-                    this.props.controlPanelState.availableVolunteers.forEach((v) => {
-                        if(v.tags.indexOf(tag) != -1) {
-                            volunteerTags.push(v);
+                    this.props.controlPanelState.availableVolunteers.forEach((volunteer) => {
+                        let tags = [];
+                        volunteer.tags.forEach((volunteerTag) => {
+                            tags.push(volunteerTag.toLowerCase());
+                        });
+                        if(tags.indexOf(tag) != -1) {
+                            volunteerTags.push(volunteer);
                         }
                     });
                 });

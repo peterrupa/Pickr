@@ -7,6 +7,7 @@ import _ from 'lodash';
 
 import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents } from '../actions/controlpanelActions';
 
+import Tag from '../components/Tag.jsx';
 import Timer from '../components/Timer.jsx';
 import StudentFilterForm from '../components/StudentFilterForm.jsx';
 
@@ -212,6 +213,7 @@ class ControlPanel extends React.Component {
 
         let listOfTags = [];
         let listOfStudents = [];
+        let classStudents = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
             listOfTags.push(
@@ -234,6 +236,29 @@ class ControlPanel extends React.Component {
             );
         }
 
+        controlPanelState.availableVolunteers.forEach((student) => {
+            let image;
+            if(!student.image) {
+                image = '/img/defaultPP.png';
+            }
+            else {
+                image = '/uploads/' + student.image;
+            }
+            classStudents.push(<li className="collection-item">
+                <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                {student.fname + " " + student.mname + " " + student.lname}
+                <div className="font-w400 text-muted">
+                    <small>
+                        {student.tags.map((tag) =>
+                            <Tag
+                                key={tag}
+                                name={tag}/>
+                        )}
+                    </small>
+                </div>
+            </li>);
+        });
+
         return (
             <div>
                 {/* START MAIN */}
@@ -243,129 +268,13 @@ class ControlPanel extends React.Component {
                         <div className="row">
                             <div className="col s12 m5 l4" data-collapsible="accordion">
                                 {/* <div className="card-panel'> */}
-                                <ul className="collapsible  with-header">
+                                <ul className="collection  with-header">
                                     <li className="collection-header center">
                                         <div className="container">
                                             <h5>CMSC 128</h5>
                                         </div>
                                     </li>
-                                    <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Dick Grayson</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB3L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Will perform on Thursday, March 10
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Barbara Gordon</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB4L</div>
-                                                        <div className="tagLabel">girl</div>
-                                                        <div className="tagLabel">topnotcher</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Graduating
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Jason Todd</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                        <div className="tagLabel">delinquent</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Incomplete (no first LE)
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Tim Drake</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        transferee
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Damian Wayne</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                        <div className="tagLabel">delinquent</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        no exer 2
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
+                                    {classStudents}
                                     </ul>
                                     {/* </div> */}
                                 </div>

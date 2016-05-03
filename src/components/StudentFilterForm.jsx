@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import StudentFilterListItem from './StudentFilterListItem.jsx';
 import Tag from './Tag.jsx';
 
 import { modifyStudents } from '../actions/controlpanelActions';

@@ -5,9 +5,10 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents } from '../actions/controlpanelActions';
 
 import Timer from '../components/Timer.jsx';
+import StudentFilterForm from '../components/StudentFilterForm.jsx';
 
 const Materialize = window.Materialize;
 
@@ -21,7 +22,8 @@ class ControlPanel extends React.Component {
 
         this.formValues = {
             nVolunteers: 1,
-            tags: []
+            tags: [],
+            students: []
         };
 
         this.formActions = {
@@ -42,18 +44,27 @@ class ControlPanel extends React.Component {
             this.props.incrementTimers();
         }, 1000);
     }
+
+    componentDidUpdate() {
+        $('.collapsible').collapsible();
+    }
     
     componentWillUnmount() {
         clearInterval(timerInterval);
     }
 
     addTag() {
-        if(this.formValues.tags.indexOf($('#addTagInput').val()) != -1) {
+        let tag = $('#addTagInput').val().toLowerCase();
+        if(tag == '') {
+            return;
+        }
+        if(this.formValues.tags.indexOf(tag) != -1) {
             Materialize.toast('This tag already exists!', 4000);
             return;
         }
-        this.formValues.tags.push($('#addTagInput').val());
+        this.formValues.tags.push(tag);
         this.props.modifyTags(this.formValues.tags);
+        $('#addTagInput').val('');
     }
 
     removeTag(index) {
@@ -61,8 +72,15 @@ class ControlPanel extends React.Component {
         this.props.modifyTags(this.formValues.tags);
     }
 
+    removeStudent(index) {
+        this.formValues.students = this.props.controlPanelState.students;
+        this.formValues.students.splice(index, 1);
+        this.props.modifyStudents(this.formValues.students);
+    }
+
     get() {
-        if(this.props.controlPanelState.availableVolunteers.length === 0) {
+        const { controlPanelState } = this.props;
+        if(controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
             return;
         }
@@ -70,7 +88,7 @@ class ControlPanel extends React.Component {
         let selectedVolunteers = [];
         let volunteerTags = [];
 
-        if(this.formValues.nVolunteers > this.props.controlPanelState.availableVolunteers.length) {
+        if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
             Materialize.toast('Number of volunteers to select is too large!', 4000);
             return;
         }
@@ -78,7 +96,7 @@ class ControlPanel extends React.Component {
         for(let i = 0; i < this.formValues.nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
                 this.formValues.tags.forEach((tag) => {
-                    this.props.controlPanelState.availableVolunteers.forEach((volunteer) => {
+                    controlPanelState.availableVolunteers.forEach((volunteer) => {
                         let tags = [];
                         volunteer.tags.forEach((volunteerTag) => {
                             tags.push(volunteerTag.toLowerCase());
@@ -89,7 +107,7 @@ class ControlPanel extends React.Component {
                     });
                 });
 
-                if(this.formValues.nVolunteers > this.props.controlPanelState.availableVolunteers.length) {
+                if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
                     Materialize.toast('Number of volunteers to select is too large!', 4000);
                     return;
                 }
@@ -104,7 +122,7 @@ class ControlPanel extends React.Component {
                 selectedVolunteers.push(student);
             }
             else {
-                selectedVolunteers.push(this.props.controlPanelState.availableVolunteers[Math.floor(Math.random() * this.props.controlPanelState.availableVolunteers.length)]);
+                selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
             
             // add timer if applicable
@@ -147,12 +165,28 @@ class ControlPanel extends React.Component {
         const { controlPanelState } = this.props;
 
         let listOfTags = [];
+        let listOfStudents = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
             listOfTags.push(
                 <div key={i} className="tagLabel">
                     {controlPanelState.tags[i]} <a className="btn-flat" onClick={() => this.removeTag(i)}><i className="material-icons right">close</i></a>
                 </div>
+            );
+        }
+
+        for(let i = 0; i < controlPanelState.students.length; i++) {
+            listOfStudents.push(
+                <li className="collection-item" key={i}>
+                    <div className="row">
+                        <div className="col s10">
+                            <i className="material-icons circle">perm_contact_calendar</i> {controlPanelState.students[i].fname} {controlPanelState.students[i].lname}
+                        </div>
+                        <div className="col s2">
+                            <a className="btn-flat" onClick={() => this.removeStudent(i)}><i className="material-icons">close</i></a>
+                        </div>
+                    </div>
+                </li>
             );
         }
 
@@ -351,21 +385,11 @@ class ControlPanel extends React.Component {
                                                     <li className="collection-header">
                                                         <h5>Students to Call</h5>
                                                     </li>
-                                                    <li className="collection-item">
-                                                        <div>
-                                                            <i className="material-icons circle">perm_contact_calendar</i>Jason Todd<Link to="#!" className="secondary-content">
-                                                                <i className="material-icons">check</i>
-                                                            </Link>
-                                                        </div>
-                                                    </li>
-                                                    <li className="collection-item">
-                                                        <div>
-                                                            <i className="material-icons circle">perm_contact_calendar</i>Barbara Gordon<Link to="#!" className="secondary-content">
-                                                                <i className="material-icons">check</i>
-                                                            </Link>
-                                                        </div>
-                                                    </li>
+                                                    {listOfStudents}
                                                 </ul>
+                                                <StudentFilterForm
+                                                    students={controlPanelState.availableVolunteers}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -411,11 +435,12 @@ ControlPanel.propTypes = {
     modifyTags: PropTypes.func.isRequired,
     addTimer: PropTypes.func.isRequired,
     incrementTimers: PropTypes.func.isRequired,
-    removeTimer: PropTypes.func.isRequired
+    removeTimer: PropTypes.func.isRequired,
+    modifyStudents: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer }
+    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents }
 )(ControlPanel);

@@ -1,14 +1,15 @@
 import _ from 'lodash'; 
 
 // import your action type constants
-import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
     availableVolunteers: [],
     volunteer: [],
     tags: [],
-    timer: []
+    timer: [],
+    students: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -62,6 +63,11 @@ export default function controlPanelState(state = initialState, action) {
                 })
             });
         }
+
+        case MODIFY_STUDENTS:
+            return Object.assign({}, state, {
+                students: action.students
+            });
 
         default:
             return state;

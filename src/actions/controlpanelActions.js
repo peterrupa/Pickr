@@ -34,6 +34,13 @@ export function removeTimer(studentId) {
     };
 }
 
+export function modifyStudents(students) {
+    return {
+        type: types.MODIFY_STUDENTS,
+        students
+    };
+}
+
 export function fetchAvailableVolunteers(classcode) {
     return (dispatch) => {
         fetch('/api/class/' + classcode + '/student', {

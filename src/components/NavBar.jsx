@@ -18,6 +18,28 @@ class NavBar extends React.Component {
             $(".classDropDown").slideToggle();
         });
     }
+
+    logout(e){
+        e.preventDefault();
+        fetch('/api/account/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            }
+        })
+        .then((res) => {
+            if (res.status === 200 || res.status === 403) {
+                window.location.href = '/';
+            }
+            else {
+                window.location.href = '/class';
+            }
+        });
+
+
+    }
+
     render() {
         let classList = [];
 
@@ -41,7 +63,7 @@ class NavBar extends React.Component {
                         </Link>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                              <Link to="/">Logout</Link>
+                              <a onClick={(e) => this.logout(e)} href="#">Logout</a>
                             </li>
                             <li>
                                 <a id="classDD" href="#">Classes</a>

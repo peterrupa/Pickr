@@ -15,7 +15,6 @@ class LogIn extends React.Component {
         let data = "username=" + username + "&password=" + password;
 
         if (username !== '' && password !== '') {
-
             fetch('/api/account/login', {
                 method: 'POST',
                 headers: {

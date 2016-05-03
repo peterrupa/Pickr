@@ -13,6 +13,28 @@ import sequelize from '../tools/sequelize';
 import store from '../tools/store';
 import { sessionId } from '../app';
 
+exports.whoami = (req, res) =>{
+    if(!sessionId) res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    else {
+        let checkSession = 'SELECT data FROM Sessions ' +
+         'AS Session WHERE Session.sid = ?';
+
+        sequelize.query(checkSession, {
+            replacements: [
+                sessionId
+            ],
+            type: sequelize.QueryTypes.SELECT
+        })
+        .then((session) => {
+            let sessionData = JSON.parse(session[0].data);
+            res.status(200).send({accountId: sessionData.key});
+        })
+        .catch((err) => {
+            res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+        });
+    }
+}
+
 exports.insert = (req, res) => {
 
     if (!req.body.fname && !req.body.mi && !req.body.lname &&
@@ -174,20 +196,28 @@ exports.logout = (req, res) => {
             } else{
                 let sessionData = JSON.parse(session[0].data);
                 if(sessionData.key){
-                    let deleteSession = 'DELETE FROM Sessions WHERE sid = ?';
-                    sequelize.query(deleteSession,{
-                        replacements: [
-                            sessionId
-                        ],
-                        type: sequelize.QueryTypes.DELETE
+                    let updateSession = 'UPDATE Sessions SET ' +
+                    'data = :data, expires = NOW() + INTERVAL 5 HOUR, updatedAt = NOW() ' +
+                    ' WHERE sid = :sid';
+                    let updatedData = [JSON.stringify(sessionData).slice(0, 138), "}"].join('');
+                    updatedData = updatedData.replace(/^"/, "");
+                    updatedData = updatedData.replace(/"$/, "");
+
+                    sequelize.query(updateSession,{
+                        replacements: {
+                            data: updatedData,
+                            sid : sessionId
+                        },
+                        type: sequelize.QueryTypes.UPDATE
                     })
                     .then((success) => {
-                        res.status(200).redirect('/login');
+                        res.status(200).send("Logged out");
+                        //res.status(200).redirect('/login');
                     })
                     .catch((err) => {
-                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+                        res.status(error.NO_RECORD_UPDATED.code).send({NO_RECORD_UPDATED: error.NO_RECORD_UPDATED.message});
                     });
-                }
+                } else res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
             }
         })
         .catch((err) => {

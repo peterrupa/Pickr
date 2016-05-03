@@ -11,6 +11,7 @@ import { Class, Account } from '../models';
 
 //GET CLASS
 export function getAll(req, res) {
+    console.log("Session Key " + req.session.key);
     Class.findAll({
         where: {
             AccountId: req.params.AccountId

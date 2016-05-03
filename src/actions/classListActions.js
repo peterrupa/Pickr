@@ -9,7 +9,7 @@ export function setClasses(classes) {
 
 export function fetchClasses(data) {
     return (dispatch) => {
-        fetch('/api/account/'+data.accountId+'/class', {
+        fetch('/api/account/class/fetchAll', {
             method: 'GET'
         }).then((res) => {
             // convert response to json

@@ -86,6 +86,11 @@ class ControlPanel extends React.Component {
             return;
         }
 
+        let studentsToChooseFrom = [];
+        controlPanelState.availableVolunteers.forEach((volunteer) => {
+            studentsToChooseFrom.push(volunteer);
+        });
+
         let selectedVolunteers = [];
         let volunteerTags = [];
 
@@ -120,19 +125,24 @@ class ControlPanel extends React.Component {
             return;
         }
 
+        this.formValues.tags.forEach((tag) => {
+            controlPanelState.availableVolunteers.forEach((volunteer) => {
+                let tags = [];
+                volunteer.tags.forEach((volunteerTag) => {
+                    tags.push(volunteerTag.toLowerCase());
+                });
+                if(tags.indexOf(tag) != -1) {
+                    volunteerTags.push(volunteer);
+                }
+            });
+        });
+
         for(let i = selectedVolunteers.length; i < this.formValues.nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
-                this.formValues.tags.forEach((tag) => {
-                    controlPanelState.availableVolunteers.forEach((volunteer) => {
-                        let tags = [];
-                        volunteer.tags.forEach((volunteerTag) => {
-                            tags.push(volunteerTag.toLowerCase());
-                        });
-                        if(tags.indexOf(tag) != -1) {
-                            volunteerTags.push(volunteer);
-                        }
-                    });
-                });
+                if(volunteerTags.length == 0) {
+                    Materialize.toast('Number of volunteers to select is too large! Untick "Enable Remembering" and try again.', 4000);
+                    return;
+                }
 
                 if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
                     Materialize.toast('Number of volunteers to select is too large!', 4000);
@@ -146,10 +156,19 @@ class ControlPanel extends React.Component {
                     return;
                 }
 
+                if($('#remember-checkbox')[0].checked) {
+                    volunteerTags.splice(volunteerTags.indexOf(student), 1);
+                }
                 selectedVolunteers.push(student);
             }
             else {
-                selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
+                let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
+
+                selectedVolunteers.push(student);
+                if($('#remember-checkbox')[0].checked) {
+                    studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);
+                }
+                //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
             
             // add timer if applicable
@@ -395,6 +414,10 @@ class ControlPanel extends React.Component {
                                                 <p>
                                                     <input type="checkbox" id="timer-checkbox"/>
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
+                                                </p>
+                                                <p>
+                                                    <input type="checkbox" id="remember-checkbox"/>
+                                                    <label htmlFor="remember-checkbox">Enable Remembering</label>
                                                 </p>
                                             </div>
                                         </div>

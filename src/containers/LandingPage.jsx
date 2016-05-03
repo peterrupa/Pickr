@@ -115,7 +115,10 @@ class LandingPage extends React.Component {
             <div className="container">
                 <img className="center animated zoomIn" src="/img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}/>
                 <h1 className="text_h center header cd-headline letters type animated zoomIn" style={{fontFamily: 'Indie Flower'}}>
-                    <span>We pick the </span>
+                    <span>Made to </span>
+
+                           <b className="underline is-visible">pick</b>
+                             <span> the </span>
                          <b className="underline is-visible">{best[0]}</b>
                 </h1>
             </div>

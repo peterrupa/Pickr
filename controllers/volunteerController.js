@@ -27,30 +27,26 @@ export function getOne(req, res) {
     }).then(function(volunteer) {
         Student.findOne({
             where: {
-                studentId: volunteer.studentID,
-                ClassClassCode: volunteer.classCode
+                id: volunteer.dataValues.StudentId,
+                ClassId: volunteer.dataValues.ClassId
             }
         }).then(function(student) {
-            res.send(student);
+            if (!student) {
+              res.status(404).send();
+            }
+            else {
+              res.send(student);
+            }
         });
     });
 }
 
 export function getAll(req, res) {
-    Volunteer.findAll({where:{volunteerID: req.params.id }})
+    Volunteer.findAll({where:{ClassId: req.params.id }})
     .then((volunteers) => {
+      console.log(volunteers);
         // fetch tags for each student
-        let promises = volunteers.map((volunteer) => {
-            return volunteer.getTags().then((data) => {
-                volunteer.dataValues.tags = data.map((tag) => tag.dataValues.name);
 
-                return volunteer.dataValues;
-            });
+          res.send(volunteers);
         });
-
-        return Promise.all(promises);
-      })
-      .then((students) => {
-          res.send(students);
-      });
 }

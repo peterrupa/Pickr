@@ -92,7 +92,6 @@ class ControlPanel extends React.Component {
                 selectedVolunteers.push(this.props.controlPanelState.availableVolunteers[Math.floor(Math.random() * this.props.controlPanelState.availableVolunteers.length)]);
             }
 
-            console.log(selectedVolunteers[i]);
 
             fetch('/api/volunteer/', {
                 method: 'POST',
@@ -117,7 +116,6 @@ class ControlPanel extends React.Component {
         let listOfTags = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
-            console.log(controlPanelState.tags[i]);
             listOfTags.push(
                 <div key={i} className="tagLabel">
                     {controlPanelState.tags[i]} <a className="btn-flat" onClick={() => this.removeTag(i)}><i className="material-icons right">close</i></a>

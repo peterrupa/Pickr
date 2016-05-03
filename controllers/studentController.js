@@ -14,11 +14,9 @@ export function getAll(req, res) {
         let promises = students.map((student) => {
             return student.getTags().then((data) => {
                 student.dataValues.tags = data.map((tag) => tag.dataValues.name);
-
                 return student.dataValues;
             });
         });
-
         return Promise.all(promises);
       })
       .then((students) => {
@@ -45,7 +43,7 @@ export function getOne(req, res) {
 //CREATE Student
 export function insert(req, res) {
     let file = req.file;
-    
+
     // query class
     processImg(file).then((img) => {
         return Class.findById(req.params.id);
@@ -54,14 +52,14 @@ export function insert(req, res) {
     .then((classData) => {
         if(classData) {
             let image;
-            
+
             if(file) {
                 image = file.filename + '.jpg';
             }
             else {
                 image = null;
             }
-            
+
             return classData.createNewStudent({
               ClassId: classData.id,
               fname: req.body.fname,
@@ -106,7 +104,7 @@ function processImg(file) {
 //UPDATE ATTRIBUTES
 export function update(req, res) {
     let file = req.file;
-    
+
     // query class
     processImg(file).then((img) => {
         return Student.findById(req.params.studentId);
@@ -115,7 +113,7 @@ export function update(req, res) {
         // @TODO: Refactor
         if(file) {
             let image = file.filename + '.jpg';
-            
+
             return student.updateAttributes({
                 fname: req.body.fname,
                 lname: req.body.lname,

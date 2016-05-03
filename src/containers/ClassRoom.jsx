@@ -1,11 +1,11 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import _ from 'lodash';
 
 import Tag from '../components/Tag.jsx';
-import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
+import {addActivity, addStudent, fetchClass, fetchStudents, fetchActivities} from '../actions/classroomActions';
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
@@ -15,7 +15,7 @@ const Materialize = window.Materialize;
 
 // Be sure to rename your class name
 class ClassRoom extends React.Component {
-    componentWillMount(){
+    componentWillMount() {
         let path = window.location.pathname;
         let data = {
             id: path.substring(11)
@@ -25,61 +25,70 @@ class ClassRoom extends React.Component {
         this.props.fetchActivities(data);
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
         $('.tooltipped').tooltip({delay: 50});
 
         $('.modal-trigger').leanModal();
 
-                $('#container').highcharts({
-                    chart: {
-                        type: 'column'
-                    },
-                    title: {
-                        text: '5 Most Called Tags'
-                    },
-                    subtitle: {
-                        text: 'This table indicates most called tags'
-                    },
-                    theme: {
-
-                    },
-                    xAxis: {
-                        categories: [
-                            'male',
-                            'ab-3l',
-                            'pogi',
-                            'ganda',
-                            'bibo'
-                        ],
-                        crosshair: true
-                    },
-                    yAxis: {
-                        min: 0,
-                        title: {
-                            text: 'Number of times used/called'
-                        }
-                    },
-                    tooltip: {
-                        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                            '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-                        footerFormat: '</table>',
-                        shared: true,
-                        useHTML: true
-                    },
-                    plotOptions: {
-                        column: {
-                            pointPadding: 0.2,
-                            borderWidth: 0
-                        }
-                    },
-                    series: [{
-                        name: 'Tags',
-                        data: [15,23,12,5,8]
-                    }]
-                });
-
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Tags'
+            },
+            subtitle: {
+                text: 'This table indicates most called tags'
+            },
+            theme: {},
+            xAxis: {
+                categories: (function() {
+                    let labels = [];
+                    labels.push(['male']);
+                    labels.push(['ab-3l']);
+                    labels.push(['pogi']);
+                    labels.push(['ganda']);
+                    labels.push(['wow']);
+                    return labels;
+                }()),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Tags',
+                    data: (function() {
+                        // generate an array of random data
+                        let values = [];
+                        values.push([20]);
+                        values.push([15]);
+                        values.push([8]);
+                        values.push([7]);
+                        values.push([5]);
+                        return values;
+                    }())
+                }
+            ]
+        });
     }
 
     addActivity(e) {
@@ -94,8 +103,7 @@ class ClassRoom extends React.Component {
 
         this.props.addActivity(activity).then((res) => {
             Materialize.toast('Successfully added activity.', 4000, 'toast-success');
-        })
-        .catch((err) => {
+        }).catch((err) => {
             Materialize.toast('Error adding activity.', 4000, 'toast-error');
         });
     }
@@ -119,8 +127,7 @@ class ClassRoom extends React.Component {
             Materialize.toast('Successfully added student.', 4000, 'toast-success');
             $('#add-student-form')[0].reset();
             $('#addStudent').scrollTop(0);
-        })
-        .catch((err) => {
+        }).catch((err) => {
             Materialize.toast('Error adding student.', 4000, 'toast-error');
             $('#add-student-form')[0].reset();
             $('#addStudent').scrollTop(0);
@@ -128,7 +135,7 @@ class ClassRoom extends React.Component {
 
     }
 
-    handleClick(e){
+    handleClick(e) {
         e.preventDefault();
 
         let fileInput = document.getElementById('fileInput');
@@ -139,7 +146,7 @@ class ClassRoom extends React.Component {
             let reader = new FileReader();
             reader.onload = (e) => {
                 let allTextLines = reader.result.trim().split(/\r\n|\n/);
-                while(allTextLines.length>0) {
+                while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
                     // @TODO: validation
                     let student = {
@@ -151,8 +158,7 @@ class ClassRoom extends React.Component {
                     };
                     this.props.addStudent(student).then((res) => {
                         Materialize.toast('Successfully added student.', 4000, 'toast-success');
-                    })
-                    .catch((err) => {
+                    }).catch((err) => {
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });
                 }
@@ -167,39 +173,41 @@ class ClassRoom extends React.Component {
         let activityList = [];
         let studentList = [];
 
-        this.props.classroomAppState.activities.forEach(function(activity){
+        this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
-                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                    <Link to="/presentation">
-                      {activity.activityName}
-                    </Link>
-                  </label>
-                  <div className="right">
-                    <ActivityDeleteModal activity={activity}/>
-                    <Link to="/controlPanel">
-                        <i className="small mdi-action-settings tooltipped"  data-position="bottom" data-delay="50" data-tooltip="I am tooltip"></i>
-                    </Link>
-                    <Link to="/presentation">
-                        <i className="small mdi-image-color-lens"></i>
-                    </Link>
-                  </div>
+                <li key={activity.id} className="collection-item dismissable" style={{
+                    touchAction: 'pan-y'
+                }}>
+                    <label htmlFor="task1" style={{
+                        textDecoration: 'none'
+                    }}>
+                        <Link to="/presentation">
+                            {activity.activityName}
+                        </Link>
+                    </label>
+                    <div className="right">
+                        <ActivityDeleteModal activity={activity}/>
+                        <Link to="/controlPanel" target="_blank">
+                            <i className="small mdi-action-settings tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"></i>
+                        </Link>
+                        <Link to="/presentation" target="_blank">
+                            <i className="small mdi-image-color-lens"></i>
+                        </Link>
+                    </div>
                 </li>
             );
         });
-
 
         let sortedStudents = _.sortBy(this.props.classroomAppState.students, (o) => {
             return o.lname;
         });
 
-        sortedStudents.forEach(function(student){
+        sortedStudents.forEach(function(student) {
             let image;
 
-            if(!student.image) {
+            if (!student.image) {
                 image = '/img/defaultPP.png';
-            }
-            else {
+            } else {
                 image = '/uploads/' + student.image;
             }
 
@@ -208,32 +216,37 @@ class ClassRoom extends React.Component {
                     <StudentEditModal student={student}/>
                     <StudentDeleteModal student={student}/>
                     <Link to="/student">
-                        <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
-                        {student.fname + " " + student.mname + " " + student.lname}
+                        <img className="img-avatar" src={image} alt="" style={{
+                            float: 'left',
+                            height: '45px',
+                            width: '45px',
+                            marginRight: '10px'
+                        }}/> {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
                             <small>
-                                {student.tags.map((tag) =>
-                                    <Tag
-                                        key={tag}
-                                        name={tag}/>
-                                )}
+                                {student.tags.map((tag) => <Tag key={tag} name={tag}/>)}
                             </small>
                         </div>
                     </Link>
                     <br/>
                 </li>
-          );
+            );
         });
 
         return (
             <div className="wrapper">
                 <div className="tint">
-                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
+                    <div className="content bg-image overflow-hidden" style={{
+                        backgroundImage: 'url(' + '/img/bg.jpg' + ')'
+                    }}>
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
                             <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
                             <div>
-                            <Link className="waves-effect waves-light btn-large grey darken-3" to="/class" style={{float: 'right', bottom: '50px'}}>Return to Classes</Link>
+                                <Link className="waves-effect waves-light btn-large grey darken-3" to="/class" style={{
+                                    float: 'right',
+                                    bottom: '50px'
+                                }}>Return to Classes</Link>
                             </div>
                         </div>
                     </div>
@@ -280,7 +293,7 @@ class ClassRoom extends React.Component {
                 </div>
 
                 <div className="row">
-                    <div className="col s12 m12 l4" >
+                    <div className="col s12 m12 l4">
                         <div className="block block-bordered">
                             <div className="block-header">
                                 <ul className="block-options">
@@ -307,8 +320,13 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
                     {/* product-card */}
-                    <div className=" s12 m12 l4" style={{marginTop:'2%'}}>
-                        <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
+                    <div className=" s12 m12 l4" style={{
+                        marginTop: '2%'
+                    }}>
+                        <ul id="task-card" className="collection with-header" style={{
+                            marginLeft: '15px',
+                            marginRight: '15px'
+                        }}>
                             <span id="act">
                                 <li className="collection-header cyan">
                                     <span>
@@ -327,7 +345,8 @@ class ClassRoom extends React.Component {
                         {/* map-card */}
 
                     </div>
-                    <div id="container" className="col s12 m12 l8" style={{marginTop:'2%'}}></div>
+                    <div id="container" className="col s12 m12 l8" style={{
+                    }}></div>
                     <div id="addstudent" className="modal">
                         <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
                             <div className="modal-content">
@@ -381,20 +400,22 @@ class ClassRoom extends React.Component {
                     </div>
 
                     <div id="openFile" className="modal">
-                      <form onSubmit={(e) => this.handleClick(e)}>
-                        <div className="modal-content">
-                            <h3>Import Students from file</h3>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="fileInput" type="file" className="validate"/>
+                        <form onSubmit={(e) => this.handleClick(e)}>
+                            <div className="modal-content">
+                                <h3>Import Students from file</h3>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input id="fileInput" type="file" className="validate"/>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit"> Import File </button>
-                        </div>
-                      </form>
+                            <div className="modal-footer">
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">
+                                    Import File
+                                </button>
+                            </div>
+                        </form>
                     </div>
 
                     <div id="addactivity" className="modal">
@@ -422,19 +443,17 @@ class ClassRoom extends React.Component {
                     </div>
                 </div>
 
-            <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
-                <div className="pull-right">
-                    Crafted with
-                    &nbsp;<i className="tiny material-icons">favorite</i>&nbsp;
-                    by&nbsp;
-                    <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
-                </div>
-                <div className="pull-left">
-                    <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
-                    &copy;
-                    <span className="js-year-copy"></span>
-                </div>
-            </footer>
+                <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+                    <div className="pull-right">
+                        Crafted with &nbsp;<i className="tiny material-icons">favorite</i>&nbsp; by&nbsp;
+                        <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+                    </div>
+                    <div className="pull-left">
+                        <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
+                        &copy;
+                        <span className="js-year-copy"></span>
+                    </div>
+                </footer>
             </div>
 
         );

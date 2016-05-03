@@ -9,7 +9,6 @@ import bodyParser from 'body-parser';
 import redis from 'redis';
 const client = redis.createClient();
 
-// var redisStore = require('connect-redis')(session);
 import connect from 'connect-redis';
 const redisStore = connect(session);
 

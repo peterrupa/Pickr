@@ -6,6 +6,13 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
+import redis from 'redis';
+const client = redis.createClient();
+
+// var redisStore = require('connect-redis')(session);
+import connect from 'connect-redis';
+const redisStore = connect(session);
+
 import student from './routes/student';
 import sample from './routes/sample';
 import account from './routes/account';
@@ -20,7 +27,8 @@ app.set('view engine', 'ejs');
 app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: false,
+    store: new redisStore({ host: 'localhost', port: 6379, client: client,ttl :  260}),
 }));
 
 app.set('view engine', 'ejs');

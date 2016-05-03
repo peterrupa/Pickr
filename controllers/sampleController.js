@@ -5,7 +5,7 @@
 // be sure to import your model here
 import { Sample } from '../models';
 
-export function getAll(req, res) {
+export function getAll(req, res) {    
     Sample.findAll()
     .then(function(samples) {
         res.send(samples);

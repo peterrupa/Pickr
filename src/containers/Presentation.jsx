@@ -6,6 +6,8 @@ import io from 'socket.io-client';
 
 import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../actions/presentationActions';
 
+import PresentationCarouselItem from '../components/PresentationCarouselItem.jsx';
+
 import './../styles/presentation.css';
 
 // Be sure to rename your class name
@@ -27,10 +29,12 @@ class Presentation extends React.Component {
             fetchRandomizedVolunteers(volunteers);
         });
 
-    }
+    } 
 
     componentDidUpdate() {
         const { presentationState, success } = this.props;
+        
+        $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
             listOfVolunteers = presentationState.volunteers,
@@ -79,7 +83,7 @@ class Presentation extends React.Component {
     render() {
         let listOfStudents = this.props.presentationState.students;
 
-        let students = [];
+        /*let students = [];
         for(let i = 0; i < listOfStudents.length; i++) {
             students.push(
                 <a key={listOfStudents[i].id} className="carousel-item">
@@ -96,13 +100,18 @@ class Presentation extends React.Component {
                 </a>
             );
         }
-        $('.carousel').carousel();
+        $('.carousel').carousel();*/
 
         if(listOfStudents.length > 0) {
             return (                
                 <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
                     <div id="deck" className="carousel">
-                        {students}
+                        {listOfStudents.map(student => (
+                            <PresentationCarouselItem
+                                key={student.id}
+                                studentItem={student}
+                            />
+                        ))}
                     </div>
                 </div>
             );

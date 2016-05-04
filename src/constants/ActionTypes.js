@@ -15,3 +15,11 @@ export const SUCCESS = 'SUCCESS';
 
 export const SET_VOLUNTEERS = 'SET_VOLUNTEERS';
 export const MODIFY_TAGS = 'MODIFY_TAGS';
+
+export const SET_STUDENT = 'SET_STUDENT';
+
+export const ADD_TIMER = 'ADD_TIMER';
+export const INCREMENT_TIMERS = 'INCREMENT_TIMERS';
+export const REMOVE_TIMER = 'REMOVE_TIMER';
+
+export const MODIFY_STUDENTS = 'MODIFY_STUDENTS';

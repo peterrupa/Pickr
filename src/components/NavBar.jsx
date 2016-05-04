@@ -5,15 +5,24 @@ import $ from 'jquery';
 import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
+import '../../externalDependencies/js/materialize.js';
+
 class NavBar extends React.Component {
     componentWillMount(){
         this.props.fetchClasses();
     }
 
     componentDidMount() {
+        $('.button-collapse').click(function(){
+            //console.log("foo");
+            $("#sideNav").toggle("slide");
+
+        });
         $(".classDropDown").hide();
+        $("#sideNav").hide();
         $("#classDD").click(function() {
             $(".classDropDown").slideToggle();
+
         });
     }
 
@@ -62,12 +71,9 @@ class NavBar extends React.Component {
                             <li>
                               <a onClick={(e) => this.logout(e)} href="#">Logout</a>
                             </li>
-                            <li>
-                                <a id="classDD" href="#">Classes</a>
-                            </li>
-
                         </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
+
+                        <a href="#" data-activates="sideNav" className="button-collapse">
                             <i className="material-icons">menu</i>
                         </a>
                     </div>
@@ -81,6 +87,29 @@ class NavBar extends React.Component {
                         {classList}
                     </ul>
                 </div>
+
+                <div id="sideNav" className="hide-on-large" style={{float:'left'}}>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <ul className="collection">
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 170</Link>
+                        </li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 132</Link>
+                        </li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 125</Link>
+                        </li>
+                        <li className="collection-item">
+                            <Link to="/classroom">CMSC 141</Link>
+                        </li>
+                    </ul>
+                </div>
+
+
             </div>
         );
     }

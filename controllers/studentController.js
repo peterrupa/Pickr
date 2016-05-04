@@ -45,7 +45,7 @@ export function getOne(req, res) {
 //CREATE Student
 export function insert(req, res) {
     let file = req.file;
-    
+
     // query class
     processImg(file).then((img) => {
         return Class.findById(req.params.id);
@@ -54,14 +54,14 @@ export function insert(req, res) {
     .then((classData) => {
         if(classData) {
             let image;
-            
+
             if(file) {
                 image = file.filename + '.jpg';
             }
             else {
                 image = null;
             }
-            
+
             return classData.createNewStudent({
               ClassId: classData.id,
               fname: req.body.fname,
@@ -104,30 +104,38 @@ function processImg(file) {
 
 //UPDATE ATTRIBUTES
 export function update(req, res) {
-    // @TODO: Make another function for updating images
-    Student.findById(req.params.studentId)
+    let file = req.file;
+    
+    // query class
+    processImg(file).then((img) => {
+        return Student.findById(req.params.studentId);
+    })
     .then((student) => {
-        if(student) {
+        // @TODO: Refactor
+        if(file) {
+            let image = file.filename + '.jpg';
+            
             return student.updateAttributes({
-              fname: req.body.fname,
-              lname: req.body.lname,
-             	mname: req.body.mname,
+                fname: req.body.fname,
+                lname: req.body.lname,
+                mname: req.body.mname,
+                image
             });
         }
         else {
-            res.sendStatus(404);
+            return student.updateAttributes({
+                fname: req.body.fname,
+                lname: req.body.lname,
+                mname: req.body.mname
+            });
         }
     })
     .then((student) => {
-        if(student) {
-            res.send(student);
-        }
-        else {
-            res.sendStatus(400);
-        }
+        if(student) res.send(student);
+        else res.send(400);
     })
     .catch((err) => {
-        res.sendStatus(500);
+        res.send(500);
     });
 }
 

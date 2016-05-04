@@ -23,7 +23,7 @@ class ClassEditModal extends React.Component {
 
     render() {
         return (
-          <Modal trigger={<i className="material-icons right green">mode_edit</i>} header="Edit Student">
+          <Modal trigger={<i className="material-icons right green-text">mode_edit</i>} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">
@@ -46,7 +46,6 @@ class ClassEditModal extends React.Component {
                       </div>
                     </div>
                     <div className="modal-footer">
-                        <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                         <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Class</button>
                     </div>
                 </form>

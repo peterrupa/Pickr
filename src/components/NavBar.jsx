@@ -55,7 +55,7 @@ class NavBar extends React.Component {
                                 </ul>
                                 <ul id="nav-mobile" className="side-nav">
                                     <li>
-                                        <a href="/">Logout</a> 
+                                        <a href="/">Logout</a>
                                     </li>
                                 </ul>
                                 <a data-activates="nav-mobile" className="button-collapse">

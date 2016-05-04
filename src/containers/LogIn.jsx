@@ -28,10 +28,10 @@ class LogIn extends React.Component {
                     <nav id="nav_f" className="default_color">
                         <div className="container" style={{zDepth: '0'}}>
                             <div className="nav-wrapper">
-                                 <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                 <img id="logo" className="hide-on-med-and-down" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
                                    height: '50px'
                                 }}/>
-                                <a href="#" id="logo-container" className="brand-logo">Pickr</a >
+                                <a href="#" id="logo-container" className="brand-logo">pickr</a >
                                 <ul className="right hide-on-med-and-down">
                                     <li>
                                         <Link to="/">Home</Link>

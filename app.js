@@ -5,6 +5,8 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import compression from 'compression';
 import sequelize from './tools/sequelize';
 import store from './tools/store';
 import referer from './tools/referer';
@@ -19,6 +21,7 @@ import volunteer from './routes/volunteer';
 export var sessionId;
 let app = express();
 
+app.use(helmet());
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
 // uncomment after placing your favicon in /public
@@ -27,6 +30,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
 
 app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',

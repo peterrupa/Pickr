@@ -105,6 +105,9 @@ class ControlPanel extends React.Component {
                 break;
             }
 
+            if($('#timer-checkbox')[0].checked) {
+                this.addTimer(controlPanelState.students[i].id);
+            }
             selectedVolunteers.push(controlPanelState.students[i]);
             fetch('/api/volunteer/', {
                 method: 'POST',
@@ -160,11 +163,18 @@ class ControlPanel extends React.Component {
                 if($('#remember-checkbox')[0].checked) {
                     volunteerTags.splice(volunteerTags.indexOf(student), 1);
                 }
+                
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(controlPanelState.students[i].id);
+                }
                 selectedVolunteers.push(student);
             }
             else {
                 let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
 
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(controlPanelState.students[i].id);
+                }
                 selectedVolunteers.push(student);
                 if($('#remember-checkbox')[0].checked) {
                     studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);

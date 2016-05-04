@@ -22,7 +22,6 @@ class NavBar extends React.Component {
         $("#sideNav").hide();
         $("#classDD").click(function() {
             $(".classDropDown").slideToggle();
-
         });
     }
 
@@ -43,6 +42,7 @@ class NavBar extends React.Component {
             else {
                 window.location.href = '/class';
             }
+
         });
     }
 

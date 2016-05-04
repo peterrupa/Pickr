@@ -4,8 +4,6 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-
-import HighCharts from 'highcharts';
 import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
 import '../styles/oneUI.css';
@@ -276,10 +274,8 @@ class ClassRoom extends React.Component {
                     </div>
                 </div>
 
-                                <div id="container" className="col s6" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
-
                 <div className="row">
-                    <div className="col s12 m12 l4">
+                    <div className="col s12 m12 l4" >
                         <div className="block block-bordered">
                             <div className="block-header">
                                 <ul className="block-options">
@@ -305,10 +301,8 @@ class ClassRoom extends React.Component {
                             {/*block cntent*/}
                         </div>
                     </div>
-
-
                     {/* product-card */}
-                    <div className=" s6 m12 l4">
+                    <div className=" s12 m12 l4" style={{marginTop:'2%'}}>
                         <ul id="task-card" className="collection with-header" style={{marginLeft: '15px',marginRight: '15px'}}>
                             <span id="act">
                                 <li className="collection-header cyan">
@@ -328,6 +322,7 @@ class ClassRoom extends React.Component {
                         {/* map-card */}
 
                     </div>
+                    <div id="container" className="col s12 m12 l8" style={{marginTop:'2%'}}></div>
                     <div id="addstudent" className="modal">
                         <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
                             <div className="modal-content">

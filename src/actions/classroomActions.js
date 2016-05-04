@@ -47,7 +47,7 @@ export function addStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
+
         // ajax request to /api/sample
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
@@ -68,7 +68,7 @@ export function editStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
+
         return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
             body: formData

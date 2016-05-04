@@ -6,16 +6,9 @@ import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
 import '../../externalDependencies/js/materialize.js';
-// import '../../externalDependencies/js/custom-min.js';
-// import '../../externalDependencies/js/plugin-min.js';
-//import '../../externalDependencies/js/init.js';
 
 class NavBar extends React.Component {
     componentWillMount(){
-        // @TODO: FIX
-        // this.props.fetchClasses({
-        //     accountId: window.location.pathname.substring(7)
-        // });
     }
 
     componentDidMount() {
@@ -56,10 +49,6 @@ class NavBar extends React.Component {
                             <li>
                               <Link to="/">Logout</Link>
                             </li>
-                            <li>
-                                <a id="classDD" href="#">Classes</a>
-                            </li>
-
                         </ul>
 
                         <a href="#" data-activates="sideNav" className="button-collapse">

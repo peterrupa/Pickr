@@ -17,7 +17,7 @@ import volunteer from './routes/volunteer';
 
 export var sessionId;
 let app = express();
-const paths = ['/signup', '/register', '/#', '/', '/login', '/forgotpassword', '/reset'];
+const paths = ['/signup$', '/#$', '/$', '/login$', '/forgotpassword$', '/reset'];
 const unauth_paths = new RegExp( '(' + paths.join('|') + ')');
 
 app.set('view engine', 'ejs');

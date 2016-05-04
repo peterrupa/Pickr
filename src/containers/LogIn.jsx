@@ -2,6 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+import $ from 'jquery';
+
+const Materialize = window.Materialize;
 
 class LogIn extends React.Component {
     componentDidMount(){
@@ -15,23 +18,25 @@ class LogIn extends React.Component {
         let data = "username=" + username + "&password=" + password;
 
         if (username !== '' && password !== '') {
-            fetch('/api/account/login', {
+            $.ajax({
+                url: 'api/account/login',
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Accept':'application/json'
+                data: {
+                    username,
+                    password
                 },
-                body: data
-            })
-            .then((res) => {
-                if (res.status === 200 || res.status === 403) {
-                    window.location.href = '/class';
-                }
-                else {
-                    window.location.href = '/login';
+                success(res) {
+                    if (res.status === 200 || res.status === 403) {
+                        window.location.href = '/class';
+                    }
+                    else {
+                        window.location.href = '/login';
+                    }
+                },
+                error(e) {
+                    Materialize.toast('Error logging in.');
                 }
             });
-
         }
     }
 

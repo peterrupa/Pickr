@@ -59,6 +59,8 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
+    req.session.something = true;
+    
     Account.findOne({
         where: {
             username: req.body.username
@@ -84,8 +86,6 @@ exports.login = (req, res) => {
                     res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 } else {
                     if (!req.session.key) {
-                        console.log(JSON.stringify(req.session));
-                        console.log(req.session.id);
                         req.session.key = user[0].id;
                         res.status(200).send({username:user[0].username, status:'logged in'});
                     } else {

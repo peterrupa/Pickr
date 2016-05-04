@@ -43,7 +43,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-
 app.use('/api/student', student);
 app.use('/api/sample', sample);
 app.use('/api/account', account);
@@ -59,7 +58,6 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-    console.log(req.session.id);
     if (req.session.key) {
         return next();
     }

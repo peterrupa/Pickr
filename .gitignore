@@ -38,3 +38,5 @@ dist
 config/config.json
 
 public/uploads
+
+*.csv

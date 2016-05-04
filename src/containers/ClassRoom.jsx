@@ -12,6 +12,7 @@ import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
 import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
+import Tooltips from '../components/Tooltips.jsx';
 
 const Materialize = window.Materialize;
 
@@ -79,8 +80,6 @@ class ClassRoom extends React.Component {
                         data: [15,23,12,5,8]
                     }]
                 });
-
-        $('.tooltipped').tooltip({});
 
     }
 
@@ -178,13 +177,9 @@ class ClassRoom extends React.Component {
                     </Link>
                   </label>
                   <div className="right">
+                    <Tooltips content={{text:"Control Panel", url:"/controlPanel", classes:"small mdi-action-settings"}}/>
+                    <Tooltips content={{text:"Presentation Page", url:"/presentation", classes:"small mdi-image-color-lens"}}/>
                     <ActivityDeleteModal activity={activity}/>
-                    <Link to="/controlPanel">
-                        <i className="small mdi-action-settings tooltipped"  data-position="left" data-delay="50" data-tooltip="I am tooltip"></i>
-                    </Link>
-                    <Link to="/presentation">
-                        <i className="small mdi-image-color-lens"></i>
-                    </Link>
                   </div>
                 </li>
             );

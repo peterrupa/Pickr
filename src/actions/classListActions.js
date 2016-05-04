@@ -7,10 +7,11 @@ export function setClasses(classes) {
     };
 }
 
-export function fetchClasses(data) {
+export function fetchClasses() {
     return (dispatch) => {
         fetch('/api/account/class/fetchAll', {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             // convert response to json
             return res.json();
@@ -24,8 +25,9 @@ export function fetchClasses(data) {
 export function addClass(data) {
     return (dispatch) => {
         // ajax request to /api/sample
-        return fetch('/api/account/'+data.accountId+'/class', {
+        return fetch('/api/account/class/addClass', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -45,6 +47,7 @@ export function editClass(data) {
         // ajax request to /api/sample
         return fetch('/api/account/class/'+data.id, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -64,6 +67,7 @@ export function deleteClass(data) {
         // ajax request to /api/sample
         return fetch('/api/account/class/'+data.id, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

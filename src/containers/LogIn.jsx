@@ -18,24 +18,22 @@ class LogIn extends React.Component {
         let data = "username=" + username + "&password=" + password;
 
         if (username !== '' && password !== '') {
-            $.ajax({
-                url: 'api/account/login',
-                method: 'POST',
-                data: {
-                    username,
-                    password
-                },
-                success(res) {
-                    if (res.status === 200 || res.status === 403) {
-                        window.location.href = '/class';
-                    }
-                    else {
-                        window.location.href = '/login';
-                    }
-                },
-                error(e) {
-                    Materialize.toast('Error logging in.');
-                }
+            fetch('/api/account/login', {
+               method: 'POST',
+               credentials: 'include',
+               headers: {
+                   'Content-Type': 'application/x-www-form-urlencoded',
+                   'Accept':'application/json'
+               },
+               body: data
+            })
+            .then((res) => {
+               if (res.status === 200 || res.status === 403) {
+                   window.location.href = '/class';
+               }
+               else {
+                   window.location.href = '/login';
+               }
             });
         }
     }

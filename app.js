@@ -32,7 +32,12 @@ app.use(session({
         port: 6379,
         client: client,
         ttl :  260
-    })
+    }),
+    cookie: {
+        httpOnly: false,
+        secure: false, // set "true" if https
+        maxAge: 1000 * 60 * 60 * 5 // 5 hours
+    }
 }));
 
 app.use(express.static(__dirname+"/public"));

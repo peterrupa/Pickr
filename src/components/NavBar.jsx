@@ -7,9 +7,7 @@ import './../styles/style.css';
 
 class NavBar extends React.Component {
     componentWillMount(){
-        this.props.fetchClasses({
-            accountId: window.location.pathname.substring(7)
-        });
+        this.props.fetchClasses();
     }
 
     componentDidMount() {
@@ -22,7 +20,8 @@ class NavBar extends React.Component {
     logout(e){
         e.preventDefault();
         fetch('/api/account/logout', {
-            method: 'POST',
+            method: 'GET',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept':'application/json'
@@ -36,8 +35,6 @@ class NavBar extends React.Component {
                 window.location.href = '/class';
             }
         });
-
-
     }
 
     render() {

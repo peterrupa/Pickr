@@ -25,7 +25,7 @@ export default function sampleCounterAppState(state = initialState, action) {
             return Object.assign({}, state, {
                 sampleCounter: state.sampleCounter > 0 ? state.sampleCounter - action.amount : state.sampleCounter
             });
-            
+
         case FETCH_SAMPLES:
             return Object.assign({}, state, {
                 samples: action.samples

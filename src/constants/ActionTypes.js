@@ -1,5 +1,6 @@
 export const SAMPLE_INCREASE = 'SAMPLE_INCREASE';
 export const SAMPLE_DECREASE = 'SAMPLE_DECREASE';
+export const GET_SESSION = 'GET_SESSION';
 export const FETCH_SAMPLES = 'FETCH_SAMPLES';
 export const GET_CLASS = 'GET_CLASS';
 export const GET_STUDENTS = 'GET_STUDENTS';

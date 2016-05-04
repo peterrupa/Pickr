@@ -219,6 +219,14 @@ body {
     color: #DDD;
 }
 
+input:invalid {
+  border-bottom: 2px solid red;
+}
+
+input {
+    border-bottom: 2px solid gray;
+}
+
 #classes {
     height: 150px;
 }

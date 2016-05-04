@@ -11,8 +11,7 @@ class ClassEditModal extends React.Component {
         let newClass = {
             id: this.props.classData.id,
             classCode: $('#eclassCode'+this.props.classData.id).val(),
-            className: $('#eclassName'+this.props.classData.id).val(),
-            AccountId: this.props.classData.AccountId
+            className: $('#eclassName'+this.props.classData.id).val()
         };
         this.props.editClass(newClass).then((res) => {
             Materialize.toast('Successfully edited class.', 4000, 'toast-success');

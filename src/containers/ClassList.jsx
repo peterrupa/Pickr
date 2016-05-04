@@ -10,8 +10,8 @@ import './../styles/styles.scss';
 import ClassListCarousel from '../components/ClassListCarousel.jsx';
 import ClassListDefault from '../components/ClassListDefault.jsx';
 
+//import { sessionId } from '../../app';
 import { fetchClasses, addClass } from '../actions/classListActions';
-
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
@@ -20,10 +20,7 @@ const $ = window.$;
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentWillMount() {
-        let data = {
-            accountId: window.location.pathname.substring(7)
-        };
-        this.props.fetchClasses(data);
+        this.props.fetchClasses();
     }
 
     componentDidMount() {
@@ -33,7 +30,6 @@ class ClassList extends React.Component {
     add(e) {
         e.preventDefault();
         let newClass = {
-            accountId: window.location.pathname.substring(6),
             classCode: $('#classCode').val(),
             className: $('#className').val()
         };
@@ -42,6 +38,7 @@ class ClassList extends React.Component {
             Materialize.toast('Successfully added class.', 4000, 'toast-success');
         })
         .catch((err) => {
+            console.log(err);
             Materialize.toast('Error adding class.', 4000, 'toast-error');
         });
     }

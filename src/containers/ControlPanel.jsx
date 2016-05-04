@@ -39,7 +39,7 @@ class ControlPanel extends React.Component {
             }
         };
     }
-    
+
     componentDidMount() {
         timerInterval = setInterval(() => {
             this.props.incrementTimers();
@@ -49,7 +49,21 @@ class ControlPanel extends React.Component {
     componentDidUpdate() {
         $('.collapsible').collapsible();
     }
-    
+
+    componentWillUnmount() {
+        clearInterval(timerInterval);
+    }
+
+    componentDidMount() {
+        timerInterval = setInterval(() => {
+            this.props.incrementTimers();
+        }, 1000);
+    }
+
+    componentDidUpdate() {
+        $('.collapsible').collapsible();
+    }
+
     componentWillUnmount() {
         clearInterval(timerInterval);
     }
@@ -163,7 +177,11 @@ class ControlPanel extends React.Component {
                 if($('#remember-checkbox')[0].checked) {
                     volunteerTags.splice(volunteerTags.indexOf(student), 1);
                 }
-                
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> origin/dev
                 if($('#timer-checkbox')[0].checked) {
                     this.addTimer(controlPanelState.students[i].id);
                 }
@@ -171,6 +189,7 @@ class ControlPanel extends React.Component {
             }
             else {
                 let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
+<<<<<<< HEAD
 
                 if($('#timer-checkbox')[0].checked) {
                     this.addTimer(controlPanelState.students[i].id);
@@ -181,7 +200,20 @@ class ControlPanel extends React.Component {
                 }
                 //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
-            
+
+=======
+
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(controlPanelState.students[i].id);
+                }
+                selectedVolunteers.push(student);
+                if($('#remember-checkbox')[0].checked) {
+                    studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);
+                }
+                //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
+            }
+
+>>>>>>> origin/dev
             // add timer if applicable
             if($('#timer-checkbox')[0].checked) {
                 selectedVolunteers.forEach((volunteer) => {
@@ -205,15 +237,27 @@ class ControlPanel extends React.Component {
         }
         this.socket.emit('send volunteers', selectedVolunteers);
     }
-    
+
     addTimer(studentId) {
         this.props.addTimer(studentId);
     }
-    
+
     incrementTimers() {
         this.props.incrementTimers();
     }
-    
+
+    removeTimer(studentId) {
+        return this.props.removeTimer;
+    }
+
+    addTimer(studentId) {
+        this.props.addTimer(studentId);
+    }
+
+    incrementTimers() {
+        this.props.incrementTimers();
+    }
+
     removeTimer(studentId) {
         return this.props.removeTimer;
     }
@@ -368,14 +412,14 @@ class ControlPanel extends React.Component {
                                     {this.props.controlPanelState.timer.map((timer) => {
                                         let student = _.find(this.props.controlPanelState.availableVolunteers, (o) => o.id === timer.studentId);
                                         let img;
-                                        
+
                                         if(!student.image) {
                                             img = '/img/defaultPP.png';
                                         }
                                         else {
                                             img = '/uploads/' + student.image;
                                         }
-                                        
+
                                         return (
                                             <li key={student.id} style={{marginBottom: "2em"}}>
                                                 <Timer

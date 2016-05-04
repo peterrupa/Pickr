@@ -5,9 +5,11 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents } from '../actions/controlpanelActions';
 
+import Tag from '../components/Tag.jsx';
 import Timer from '../components/Timer.jsx';
+import StudentFilterForm from '../components/StudentFilterForm.jsx';
 
 const Materialize = window.Materialize;
 
@@ -21,7 +23,8 @@ class ControlPanel extends React.Component {
 
         this.formValues = {
             nVolunteers: 1,
-            tags: []
+            tags: [],
+            students: []
         };
 
         this.formActions = {
@@ -42,18 +45,27 @@ class ControlPanel extends React.Component {
             this.props.incrementTimers();
         }, 1000);
     }
+
+    componentDidUpdate() {
+        $('.collapsible').collapsible();
+    }
     
     componentWillUnmount() {
         clearInterval(timerInterval);
     }
 
     addTag() {
-        if(this.formValues.tags.indexOf($('#addTagInput').val()) != -1) {
+        let tag = $('#addTagInput').val().toLowerCase();
+        if(tag == '') {
+            return;
+        }
+        if(this.formValues.tags.indexOf(tag) != -1) {
             Materialize.toast('This tag already exists!', 4000);
             return;
         }
-        this.formValues.tags.push($('#addTagInput').val());
+        this.formValues.tags.push(tag);
         this.props.modifyTags(this.formValues.tags);
+        $('#addTagInput').val('');
     }
 
     removeTag(index) {
@@ -61,31 +73,82 @@ class ControlPanel extends React.Component {
         this.props.modifyTags(this.formValues.tags);
     }
 
+    removeStudent(index) {
+        this.formValues.students = this.props.controlPanelState.students;
+        this.formValues.students.splice(index, 1);
+        this.props.modifyStudents(this.formValues.students);
+    }
+
     get() {
-        if(this.props.controlPanelState.availableVolunteers.length === 0) {
+        const { controlPanelState } = this.props;
+
+        if(controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
             return;
         }
 
+        let studentsToChooseFrom = [];
+        controlPanelState.availableVolunteers.forEach((volunteer) => {
+            studentsToChooseFrom.push(volunteer);
+        });
+
         let selectedVolunteers = [];
         let volunteerTags = [];
 
-        if(this.formValues.nVolunteers > this.props.controlPanelState.availableVolunteers.length) {
+        if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
             Materialize.toast('Number of volunteers to select is too large!', 4000);
             return;
         }
 
         for(let i = 0; i < this.formValues.nVolunteers; i++) {
-            if (this.formValues.tags.length > 0) {
-                this.formValues.tags.forEach((tag) => {
-                    this.props.controlPanelState.availableVolunteers.forEach((v) => {
-                        if(v.tags.indexOf(tag) != -1) {
-                            volunteerTags.push(v);
-                        }
-                    });
-                });
+            if(i == controlPanelState.students.length) {
+                break;
+            }
 
-                if(this.formValues.nVolunteers > this.props.controlPanelState.availableVolunteers.length) {
+            if($('#timer-checkbox')[0].checked) {
+                this.addTimer(controlPanelState.students[i].id);
+            }
+            selectedVolunteers.push(controlPanelState.students[i]);
+            fetch('/api/volunteer/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    activityID: '1',
+                    studentID: controlPanelState.students[i].id,
+                    classCode: controlPanelState.students[i].ClassId,
+                    note: ''
+                })
+            });
+        }
+
+        if(selectedVolunteers.length == this.formValues.nVolunteers) {
+            this.socket.emit('send volunteers', selectedVolunteers);
+            return;
+        }
+
+        this.formValues.tags.forEach((tag) => {
+            controlPanelState.availableVolunteers.forEach((volunteer) => {
+                let tags = [];
+                volunteer.tags.forEach((volunteerTag) => {
+                    tags.push(volunteerTag.toLowerCase());
+                });
+                if(tags.indexOf(tag) != -1) {
+                    volunteerTags.push(volunteer);
+                }
+            });
+        });
+
+        for(let i = selectedVolunteers.length; i < this.formValues.nVolunteers; i++) {
+            if (this.formValues.tags.length > 0) {
+                if(volunteerTags.length == 0) {
+                    Materialize.toast('Number of volunteers to select is too large! Untick "Enable Remembering" and try again.', 4000);
+                    return;
+                }
+
+                if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
                     Materialize.toast('Number of volunteers to select is too large!', 4000);
                     return;
                 }
@@ -97,10 +160,26 @@ class ControlPanel extends React.Component {
                     return;
                 }
 
+                if($('#remember-checkbox')[0].checked) {
+                    volunteerTags.splice(volunteerTags.indexOf(student), 1);
+                }
+                
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(controlPanelState.students[i].id);
+                }
                 selectedVolunteers.push(student);
             }
             else {
-                selectedVolunteers.push(this.props.controlPanelState.availableVolunteers[Math.floor(Math.random() * this.props.controlPanelState.availableVolunteers.length)]);
+                let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
+
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(controlPanelState.students[i].id);
+                }
+                selectedVolunteers.push(student);
+                if($('#remember-checkbox')[0].checked) {
+                    studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);
+                }
+                //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
             
             // add timer if applicable
@@ -143,6 +222,8 @@ class ControlPanel extends React.Component {
         const { controlPanelState } = this.props;
 
         let listOfTags = [];
+        let listOfStudents = [];
+        let classStudents = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
             listOfTags.push(
@@ -151,6 +232,42 @@ class ControlPanel extends React.Component {
                 </div>
             );
         }
+
+        for(let i = 0; i < controlPanelState.students.length; i++) {
+            listOfStudents.push(
+                <li className="collection-item" key={i}>
+                    <div className="row">
+                        <div className="right">
+                            <a className="btn-flat" onClick={() => this.removeStudent(i)}><i className="material-icons">close</i></a>
+                        </div>
+                        <i className="material-icons circle">perm_contact_calendar</i> {controlPanelState.students[i].fname} {controlPanelState.students[i].lname}
+                    </div>
+                </li>
+            );
+        }
+
+        controlPanelState.availableVolunteers.forEach((student) => {
+            let image;
+            if(!student.image) {
+                image = '/img/defaultPP.png';
+            }
+            else {
+                image = '/uploads/' + student.image;
+            }
+            classStudents.push(<li className="collection-item">
+                <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                {student.fname + " " + student.mname + " " + student.lname}
+                <div className="font-w400 text-muted">
+                    <small>
+                        {student.tags.map((tag) =>
+                            <Tag
+                                key={tag}
+                                name={tag}/>
+                        )}
+                    </small>
+                </div>
+            </li>);
+        });
 
         return (
             <div>
@@ -161,129 +278,13 @@ class ControlPanel extends React.Component {
                         <div className="row">
                             <div className="col s12 m5 l4" data-collapsible="accordion">
                                 {/* <div className="card-panel'> */}
-                                <ul className="collapsible  with-header">
+                                <ul className="collection  with-header">
                                     <li className="collection-header center">
                                         <div className="container">
                                             <h5>CMSC 128</h5>
                                         </div>
                                     </li>
-                                    <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Dick Grayson</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB3L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Will perform on Thursday, March 10
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Barbara Gordon</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB4L</div>
-                                                        <div className="tagLabel">girl</div>
-                                                        <div className="tagLabel">topnotcher</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Graduating
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Jason Todd</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                        <div className="tagLabel">delinquent</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        Incomplete (no first LE)
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Tim Drake</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        transferee
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                        <li className="collection-item avatar">
-                                            <div className="collapsible-header">
-                                                <i className="material-icons circle">perm_contact_calendar</i>
-                                                <h6 className="bold" style={{paddingTop:'10px'}}>Damian Wayne</h6>
-                                            </div>
-                                            <div className="collapsible-body">
-                                                <div className="container">
-                                                    <br/>
-                                                    <span className="bold">tags:</span>
-                                                    <span>
-                                                        <div className="tagLabel">AB</div>
-                                                        <div className="tagLabel">AB1L</div>
-                                                        <div className="tagLabel">boy</div>
-                                                        <div className="tagLabel">delinquent</div>
-                                                    </span>
-                                                    <br/>
-                                                    <span className="bold">notes</span>
-                                                    <blockquote>
-                                                        no exer 2
-                                                    </blockquote>
-                                                </div>
-                                            </div>
-                                        </li>
+                                    {classStudents}
                                     </ul>
                                     {/* </div> */}
                                 </div>
@@ -333,6 +334,10 @@ class ControlPanel extends React.Component {
                                                     <input type="checkbox" id="timer-checkbox"/>
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
                                                 </p>
+                                                <p>
+                                                    <input type="checkbox" id="remember-checkbox" checked/>
+                                                    <label htmlFor="remember-checkbox">Enable Remembering</label>
+                                                </p>
                                             </div>
                                         </div>
                                         <div className="row" style={{padding: '5px 35px'}}>
@@ -347,21 +352,13 @@ class ControlPanel extends React.Component {
                                                     <li className="collection-header">
                                                         <h5>Students to Call</h5>
                                                     </li>
-                                                    <li className="collection-item">
-                                                        <div>
-                                                            <i className="material-icons circle">perm_contact_calendar</i>Jason Todd<Link to="#!" className="secondary-content">
-                                                                <i className="material-icons">check</i>
-                                                            </Link>
-                                                        </div>
-                                                    </li>
-                                                    <li className="collection-item">
-                                                        <div>
-                                                            <i className="material-icons circle">perm_contact_calendar</i>Barbara Gordon<Link to="#!" className="secondary-content">
-                                                                <i className="material-icons">check</i>
-                                                            </Link>
-                                                        </div>
-                                                    </li>
+                                                    <div style={{maxHeight: '300px', overflowY: 'auto', overflowX: 'hidden'}}>
+                                                    {listOfStudents}
+                                                    </div>
                                                 </ul>
+                                                <StudentFilterForm
+                                                    students={controlPanelState.availableVolunteers}
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -407,11 +404,12 @@ ControlPanel.propTypes = {
     modifyTags: PropTypes.func.isRequired,
     addTimer: PropTypes.func.isRequired,
     incrementTimers: PropTypes.func.isRequired,
-    removeTimer: PropTypes.func.isRequired
+    removeTimer: PropTypes.func.isRequired,
+    modifyStudents: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer }
+    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents }
 )(ControlPanel);

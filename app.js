@@ -17,6 +17,8 @@ import volunteer from './routes/volunteer';
 
 export var sessionId;
 let app = express();
+const paths = ['/signup', '/register', '/#', '/', '/login', '/forgotpassword', '/reset'];
+const unauth_paths = new RegExp( '(' + paths.join('|') + ')');
 
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname+"/public"));
@@ -68,14 +70,11 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-    sessionId = req.session.id;
-    console.log("This is the session id: " + req.session.id);
-    console.log("This is the session key: " + req.key);
-    console.log(req.session.key);
+
     if (req.session && req.session.key) {
         return next();
     }
-    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':'', '/forgotpassword':'', '/reset':''}) {
+    if ((unauth_paths).test(req.originalUrl)) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
         res.redirect('/');
@@ -84,7 +83,7 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
 
-    if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':'', '/forgotpassword':'', '/reset':''})) {
+    if (!(unauth_paths).test(req.path)) {
         return next();
     }
     if (req.originalUrl === '/class/'+req.session.key) {

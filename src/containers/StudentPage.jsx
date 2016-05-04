@@ -119,9 +119,13 @@ class StudentPage extends React.Component {
 
                                 <div id="profile-page" className="section">
                                     {/*<!-- profile-page-header -->*/}
-                                    <div id="profile-page-header" className="card" style={{paddingTop:'6%'}}>
+                                    <div id="profile-page-header" className="card-panel" style={{marginTop:'6em'}}>
 
-                                        <Link to={"/classroom/"+student.ClassId}> <i className="material-icons left">assignment</i> Back to Class</Link>
+                                        <div className="row">
+                                            <div className="col s12 m12 l12">
+                                                <Link to={"/classroom/"+student.ClassId}> <i className="material-icons left">assignment</i> Back to Class</Link>
+                                            </div>
+                                        </div>
                                         <figure className="card-profile-image">
                                             <img src={image} alt="profile image" className="circle z-depth-1 responsive-img activator" style={{
                                                 width: '20%',
@@ -130,52 +134,15 @@ class StudentPage extends React.Component {
                                         </figure>
                                         <div className="card-content">
                                             <div className="row">
-                                                <div className="col s3 offset-s2">
+                                                <div className="col s12 m12 l6 center">
                                                     <h4 className="card-title grey-text text-darken-4">{student.fname + " " + student.mname + " " + student.lname}</h4>
                                                     <p className="medium-small grey-text">Student</p>
                                                 </div>
-                                                <div className="col s2 center-align">
+                                                <div className="col s12 m12 l6 center">
                                                     <h4 className="card-title grey-text text-darken-4">10</h4>
                                                     <p className="medium-small grey-text">Number of times called</p>
                                                 </div>
-                                                <div className="col s2 center-align">
-                                                    <h4 className="card-title grey-text text-darken-4">6</h4>
-                                                    <p className="medium-small grey-text">Number of correct answers</p>
-                                                </div>
-                                                <div className="col s2 center-align">
-                                                    <h4 className="card-title grey-text text-darken-4">53.74564%</h4>
-                                                    <p className="medium-small grey-text">Chances to be called</p>
-                                                </div>
-                                                <div className="col s1 right-align">
-                                                    <a className="btn-floating activator waves-effect waves-light darken-2 right">
-                                                        <i className="mdi-action-perm-identity"></i>
-                                                    </a>
-                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="card-reveal">
-                                            <br/>
-                                            <p>
-                                                <span className="card-title grey-text text-darken-4">Roger Waters
-                                                    <i className="mdi-navigation-close right"></i>
-                                                </span>
-                                                <span>
-                                                    <i className="mdi-action-perm-identity cyan-text text-darken-2"></i>
-                                                    Student
-                                                </span>
-                                            </p>
-
-                                            <p>This student is so bibo, like so angas in his answers pero walang point? get my point?</p>
-
-                                            <p>
-                                                <i className="mdi-action-perm-phone-msg cyan-text text-darken-2"></i>
-                                                +1 (612) 222 8989</p>
-                                            <p>
-                                                <i className="mdi-communication-email cyan-text text-darken-2"></i>
-                                                mail@domain.com</p>
-                                            <p>
-                                                <i className="mdi-social-cake cyan-text text-darken-2"></i>
-                                                18th June 1990</p>
                                         </div>
                                     </div>
                                     {/*<!--/ profile-page-header -->*/}
@@ -189,7 +156,13 @@ class StudentPage extends React.Component {
                     </div>
                 </div>
 
-                <div id="container" className="col s6" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
+                <div className="container">
+                    <div className="row">
+                        <div className="col s12 m12 l12">
+                            <div id="container" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
+                        </div>
+                    </div>
+                </div>
                 <div className="row center">
                   <a href="#editstudent"className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
                   <a className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>

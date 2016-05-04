@@ -3,14 +3,82 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
 // Be sure to rename your className name
-
+import { reset, change } from '../actions/userActions';
 const Materialize = window.Materialize;
 
 class ChangePassword extends React.Component {
     componentDidMount(){
+        this.reset();
+    }
+    reset(e){
+        e.preventDefault();
+
+        let token= 'token=' + window.location.pathname.substring(6);
+        let message = '';
+        fetch('/api/account/resetPassword', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            },
+            body: token
+        })
+        .then((res) => {
+            switch (res.status) {
+                case 200: message = 'Successfully added account!'; break;
+                case 400: message = 'Invalid Link!'; break;
+                default: message = 'Invalid Link'; break;
+            }
+            Materialize.toast(message, 4000);
+            if (res.status != 200) {
+                $('body').hide();
+                Materialize.toast('Invalid Link', 4000, 'toast-error');
+            } 
+        })
+        .catch((err) => {
+            Materialize.toast('Error changing password!', 4000, 'toast-error');
+        });
+    }
+    change(e){
+        e.preventDefault();
+
+        let account= 'username=' + $('#username').val() +
+            '&email=' + $('#email').val() +
+            '&password=' + $('#password').val()+
+            '&confirm_password=' + $('#password-again').val();
+        let message = '';
+        let password = $('#password').val();
+        let confirmPassword = $('#password-again').val();
+
+        fetch('/api/account/changePassword', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            },
+            body: account
+        })
+        .then((res) => {
+            switch (res.status) {
+                case 200: message = 'Successfully added account!'; break;
+                case 400: message = 'Invalid Link!'; break;
+                default: message = 'Invalid Link'; break;
+            }
+            Materialize.toast(message, 4000);
+            if (res.status === 200) {
+                window.location.href = '/login';
+            }
+            else{
+                $('body').hide();
+                Materialize.toast('Invalid Link', 4000, 'toast-error');
+            }
+            
+        })
+        .catch((err) => {
+            Materialize.toast('Error changing password!', 4000, 'toast-error');
+        });
     }
     render() {
-
         return (
             <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,14 +134,35 @@ class ChangePassword extends React.Component {
                                 </div>
                                 <div className="row margin">
                                     <div className="input-field col s12">
+                                        <i className="mdi-communication-email prefix"></i>
+                                        <input id="email" type="email" className="validate"/>
+                                        <label htmlFor="email" className="center-align">Email</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="username" type="text" className="validate"/>
+                                        <label htmlFor="username" className="center-align">Username</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
                                         <input id="password" type="password" className="validate"/>
-                                        <label htmlFor="email" className="center-align">Password</label>
+                                        <label htmlFor="password" className="center-align">Password</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="password-again" type="password" className="validate"/>
+                                        <label htmlFor="password-again" className="center-align">Confirm Password</label>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <Link to="/login" className="btn waves-effect waves-light col s12" >Change Password</Link>
+                                        <Link to="/login" className="btn waves-effect waves-light col s12" onClick={(e) => this.change(e)} >Change Password</Link>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -93,4 +182,14 @@ class ChangePassword extends React.Component {
     }
 }
 // connect to redux store
-export default ChangePassword;
+ChangePassword.propTypes = {
+    ChangePasswordAppState: PropTypes.object.isRequired,
+    reset: PropTypes.func.isRequired,
+    change: PropTypes.func.isRequired
+};
+
+// connect to redux store
+export default connect(
+state => ({ ChangePasswordAppState: state.ChangePasswordAppState }),
+    { reset, change }
+)(ChangePassword);

@@ -41,7 +41,7 @@ export function getOne(req, res) {
 
 //CREATE CLASS
 export function insert(req, res) {
-    console.log(req.session.key);
+
     Account.findById(req.session.key)
     .then((account) => {
         if(account) {

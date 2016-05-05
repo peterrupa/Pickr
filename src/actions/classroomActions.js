@@ -21,6 +21,13 @@ export function setStudents(students) {
     };
 }
 
+export function setVolunteers(volunteers) {
+    return {
+        type: types.GET_VOLUNTEERS,
+        volunteers: volunteers
+    };
+}
+
 export function addActivity(activity) {
     return (dispatch) => {
         // ajax request to /api/sample
@@ -157,6 +164,19 @@ export function fetchStudents(data){
        .then((res) =>  res.json())
        .then((students) => {
            dispatch(setStudents(students));
+       });
+    };
+}
+
+export function fetchVolunteers(data){
+    return (dispatch) => {
+      // ajax request to /api/sample
+        return fetch('/api/volunteer/class/1', {
+            method: 'GET'
+        })
+       .then((res) =>  res.json())
+       .then((volunteers) => {
+           dispatch(setVolunteers(volunteers));
        });
     };
 }

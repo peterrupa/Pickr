@@ -1,3 +1,5 @@
+
+
 export default function (sequelize, DataTypes) {
     let Volunteer = sequelize.define("Volunteer", {
         volunteerID:
@@ -14,6 +16,14 @@ export default function (sequelize, DataTypes) {
               Volunteer.belongsTo(models.Activity);
           }
       },
+      instanceMethods: {
+          getTags(){
+            let Tag = sequelize.import("../models/tag.js");
+            return Tag.findAll({where:{StudentId: this.StudentId}}).then((tags) => {
+              return tags.map((tag) => tag.dataValues);
+            });
+          }
+      }
     });
 
     return Volunteer;

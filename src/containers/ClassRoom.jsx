@@ -5,7 +5,7 @@ import {Link} from 'react-router';
 import _ from 'lodash';
 
 import Tag from '../components/Tag.jsx';
-import {addActivity, addStudent, fetchClass, fetchStudents, fetchActivities} from '../actions/classroomActions';
+import {addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, fetchVolunteers} from '../actions/classroomActions';
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
@@ -23,6 +23,7 @@ class ClassRoom extends React.Component {
         this.props.fetchClass(data);
         this.props.fetchStudents(data);
         this.props.fetchActivities(data);
+        this.props.fetchVolunteers(data);
     }
 
     componentDidMount() {
@@ -31,64 +32,7 @@ class ClassRoom extends React.Component {
 
         $('.modal-trigger').leanModal();
 
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: '5 Most Called Tags'
-            },
-            subtitle: {
-                text: 'This table indicates most called tags'
-            },
-            theme: {},
-            xAxis: {
-                categories: (function() {
-                    let labels = [];
-                    labels.push(['male']);
-                    labels.push(['ab-3l']);
-                    labels.push(['pogi']);
-                    labels.push(['ganda']);
-                    labels.push(['wow']);
-                    return labels;
-                }()),
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of times used/called'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [
-                {
-                    name: 'Tags',
-                    data: (function() {
-                        // generate an array of random data
-                        let values = [];
-                        values.push([20]);
-                        values.push([15]);
-                        values.push([8]);
-                        values.push([7]);
-                        values.push([5]);
-                        return values;
-                    }())
-                }
-            ]
-        });
+
     }
 
     addActivity(e) {
@@ -169,9 +113,163 @@ class ClassRoom extends React.Component {
         }
     }
 
+
     render() {
         let activityList = [];
         let studentList = [];
+        let todayVolunteers = 0;
+        let monthVolunteers = 0;
+        let tagMapCount = [];
+        let obj = {};
+        let studentCount = {};
+        let count = [];
+        let student = this.props.classroomAppState.students;
+
+        this.props.classroomAppState.volunteers.forEach(function(volunteer){
+        //  console.log(volunteer);
+          //gets counter for all volunteers called in the todays date
+          if(volunteer.createdAt.substring(0,10) == new Date().toJSON().substring(0,10)){ //compares string of year, month, date
+            todayVolunteers++;
+          }
+          if(volunteer.createdAt.substring(0,7) == new Date().toJSON().substring(0,7)){ //compares string of year, month
+            monthVolunteers++;
+          }
+          volunteer.tags.forEach(function(tag){
+            tagMapCount.push(tag);
+          });
+
+          if(studentCount[volunteer.StudentId] == undefined || studentCount[volunteer.StudentId] == null) studentCount[volunteer.StudentId] = 0;
+          else studentCount[volunteer.StudentId] += 1;
+        });
+
+
+        //console.log(count);
+        console.log(studentCount);
+
+        for (var i = 0, j = tagMapCount.length; i < j; i++) {
+           obj[tagMapCount[i]] = (obj[tagMapCount[i]] || 0) + 1;
+        }
+        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a]})
+
+
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Tags'
+            },
+            subtitle: {
+                text: 'This table indicates most called tags'
+            },
+            theme: {},
+            xAxis: {
+                categories: (function() {
+                    let labels = keysSorted.splice(0,5);
+                    return labels;
+                }()),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Tags',
+                    data: (function() {
+                        // generate an array of random data
+                        let values = [];
+                        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a]})
+                        values.push(obj[keysSorted[0]]);
+                        values.push(obj[keysSorted[1]]);
+                        values.push(obj[keysSorted[2]]);
+                        values.push(obj[keysSorted[3]]);
+                        values.push(obj[keysSorted[4]]);
+                        return values;
+                    }())
+                }
+            ]
+        });
+
+        $('#container2').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Called Students'
+            },
+            subtitle: {
+                text: 'This table indicates most called students'
+            },
+            theme: {},
+            xAxis: {
+                categories: (function() {
+                    let labels = [];
+                    let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a]})
+                    keysSorted.forEach(function(key){
+                      for(let i = 0; i < student.length; i++){
+                        if(student[i].id.toString() == key){
+                          labels.push(student[i].lname+" "+student[i].fname);
+                        }
+                      }
+                    });
+                    return labels;
+                }()),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [
+                {
+                    name: 'Students',
+                    data: (function() {
+                        // generate an array of random data
+                        let values = [];
+                        let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a]})
+                        console.log(keysSorted);
+                        values.push(studentCount[keysSorted[0]]);
+                        values.push(studentCount[keysSorted[1]]);
+                        values.push(studentCount[keysSorted[2]]);
+                        values.push(studentCount[keysSorted[3]]);
+                        values.push(studentCount[keysSorted[4]]);
+                        return values;
+                    }())
+                }
+            ]
+        });
 
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
@@ -269,7 +367,7 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     Today</small>
                             </div>
-                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">5</Link>
+                            <p className="h2 font-w300 text-primary animated flipInX">{todayVolunteers}</p>
                         </div>
                         <div className="col s12 m6 l3">
                             <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
@@ -278,16 +376,16 @@ class ClassRoom extends React.Component {
                                     <i className="tiny material-icons">today</i>
                                     This Month</small>
                             </div>
-                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">430</Link>
+                            <p className="h2 font-w300 text-primary animated flipInX">{monthVolunteers}</p>
                         </div>
                         <div className="col s12 m6 l3">
-                            <div className="font-w700 text-gray-darker animated fadeIn">ANSWERED</div>
+                            <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
                             <div className="text-muted animated fadeIn">
                                 <small>
                                     <i className="tiny material-icons">today</i>
                                     All Time</small>
                             </div>
-                            <Link className="h2 font-w300 text-primary animated flipInX" to="#">20</Link>
+                            <p className="h2 font-w300 text-primary animated flipInX">{this.props.classroomAppState.volunteers.length}</p>
                         </div>
                     </div>
                 </div>
@@ -345,8 +443,8 @@ class ClassRoom extends React.Component {
                         {/* map-card */}
 
                     </div>
-                    <div id="container" className="col s12 m12 l8" style={{
-                    }}></div>
+                    <div id="container" className="col s12 m12 l4" ></div>
+                    <div id="container2" className="col s12 m12 l4" ></div>
                     <div id="addstudent" className="modal">
                         <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
                             <div className="modal-content">
@@ -466,11 +564,12 @@ ClassRoom.propTypes = {
     addStudent: PropTypes.func.isRequired,
     fetchClass: PropTypes.func.isRequired,
     fetchStudents: PropTypes.func.isRequired,
-    fetchActivities: PropTypes.func.isRequired
+    fetchActivities: PropTypes.func.isRequired,
+    fetchVolunteers: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
 state => ({ classroomAppState: state.classroomAppState}),
-    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities }
+    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities , fetchVolunteers}
 )(ClassRoom);

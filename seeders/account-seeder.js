@@ -2,6 +2,7 @@ module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Accounts', [
         {
+            id: 1,
             fname: 'Paul Joshua',
             mi: 'H',
             lname: 'Robles',
@@ -12,6 +13,7 @@ module.exports = {
             updatedAt: new Date()
         },
         {
+            id: 2,
             fname: 'Irvin Kean Paulus',
             mi: 'T',
             lname: 'Paderes',
@@ -22,6 +24,7 @@ module.exports = {
             updatedAt: new Date()
         },
         {
+            id: 3,
             fname: 'John Richard',
             mi: 'L',
             lname: 'Pitargue',

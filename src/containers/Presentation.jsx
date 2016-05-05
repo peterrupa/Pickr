@@ -15,7 +15,7 @@ class Presentation extends React.Component {
         const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
 
         // TODO: fetch the list of students based on the current session
-        fetchListOfStudents('1');
+        this.props.fetchListOfStudents('7');
 
         this.students = [];
         this.carouselConfig = {

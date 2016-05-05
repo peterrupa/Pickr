@@ -1,3 +1,4 @@
+
 export default function (sequelize, DataTypes) {
     let Activity = sequelize.define("Activity", {
         activityName: DataTypes.STRING,
@@ -16,20 +17,8 @@ export default function (sequelize, DataTypes) {
                 });
             }
         }, instanceMethods: {
-        		bindNotes() {
-							let promises = activities.map((activity) => {
-								return activity.getNotes().then((data) => {
-									activity.dataValues.notes = data.map((note) => note.dataValues.note);
-									return activity.dataValues;
-								});
-							}); 
-							return Promise.all(promises);
-        		},
         		createNewNote(data) {
-                let id = uuid.v4();
-
                 return this.createNote({
-                    id: id,
                     ActivityId: data.ActivityId,
                     note: data.note
                 });

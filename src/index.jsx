@@ -25,7 +25,7 @@ render(
         <Router history={browserHistory}>
             {/* @TODO: Render server side non-app pages */}
             <Route path="/" component={Containers.LandingPage}/>
-            <Route path="/presentation" component={Containers.Presentation}/>
+            <Route path="/presentation/:ActivityId" component={Containers.Presentation}/>
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
             <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
@@ -33,7 +33,7 @@ render(
             <Route path="/" component={Containers.App}>
             <Route path="/student/:studentId" component={Containers.StudentPage}/>
             <Route path="/class/:AccountId" component={Containers.ClassList}/>
-            <Route path="/controlPanel" component={Containers.ControlPanel}/>
+            <Route path="/controlPanel/:ActivityId" component={Containers.ControlPanel}/>
             <Route path="/classroom/:ClassId" component={Containers.ClassRoom}/>
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>

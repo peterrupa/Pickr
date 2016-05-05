@@ -13,11 +13,11 @@ export function insert(req, res) {
           });
       }
       else {
-      		console.log("error po talaga eh");
           res.sendStatus(400);
       }
   })
   .then((note) => {
+  		console.log(note);
       res.send(note);
   })
   .catch((err) => {

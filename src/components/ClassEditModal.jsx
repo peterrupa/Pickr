@@ -24,7 +24,7 @@ class ClassEditModal extends React.Component {
 
     render() {
         return (
-          <Modal trigger={<i className="mdi-editor-mode-edit right small"></i>} header="Edit Student">
+          <Modal trigger={<i style={{color: 'black'}} className="mdi-editor-mode-edit right small"></i>} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">

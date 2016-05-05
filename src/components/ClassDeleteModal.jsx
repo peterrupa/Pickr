@@ -19,7 +19,7 @@ class ClassDeleteModal extends React.Component {
     render() {
         return (
           <div>
-            <i onClick={(e) => this.delete(e)} className="mdi-action-delete right small"></i>
+            <i onClick={(e) => this.delete(e)} style={{color: 'black'}} className="mdi-action-delete right small"></i>
           </div>
         );
     }

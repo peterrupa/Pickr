@@ -1,7 +1,7 @@
 import {GET_CLASS, GET_STUDENTS, GET_ACTIVITIES} from '../constants/ActionTypes';
 
 const initialState = {
-    classViewed: '',
+    classViewed: null,
     activities: [],
     students: []
 };

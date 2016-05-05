@@ -33,16 +33,6 @@ export function getAll(req, res) {
 						});     			
       		});
       		return Promise.all(promises);
-      		/*let promises = classes.map((classData) => {
-         		return classData.getActivities().then((activities) => {
-       				classData.dataValues.activities = activities.map((activity) => {
-       					activity.bindNotes();
-       					return activity.dataValues;
-       				});
-       				return classData.dataValues;
-       			});
-       		});
-      		return Promise.all(promises);*/
       	} else {
       		res.sendStatus(400);	
       	}

@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
+import * as Containers from '../containers';
 import _ from 'lodash';
 
 
@@ -162,6 +163,17 @@ class ClassRoom extends React.Component {
     }
 
     render() {
+        if(this.props.classroomAppState.classViewed == null) return (
+            <div className="wrapper" style={{backgroundImage: 'url(' +'/img/room.jpg'+')'}}>
+                 <div className="tint">
+                    <div className="content bg-image overflow-hidden" style={{backgroundImage: 'url(' +'/img/bg.jpg'+')'}}>
+                        <div className="push-50-t push-20">
+                            <h1 className="h2 text-white animated zoomIn">Class not found</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
         let activityList = [];
         let studentList = [];
 
@@ -173,15 +185,17 @@ class ClassRoom extends React.Component {
                     <Link to="/presentation">
                       {activity.activityName}
                     </Link>
-                  </label>
-                  <div className="right">
-                    <ActivityDeleteModal activity={activity}/>
-                    <Link to="/controlPanel">
-                        <i className="mdi-action-settings"></i>
-                    </Link>
-                    <Link to="/presentation">
-                        <i className="mdi-image-color-lens"></i>
-                    </Link>
+                    </label>
+                    <div className="right">
+                      <ActivityNoteModal activity={activity}/>
+                      <ActivityDeleteModal activity={activity}/>
+                      <Link to={"/controlPanel/"+activity.id}>
+                          <i className="mdi-action-settings"></i>
+                      </Link>
+                      <Link to={"/presentation/"+activity.id}>
+                          <i className="mdi-image-color-lens"></i>
+                      </Link>
+                    </div>
                   </div>
                 </li>
             );
@@ -284,19 +298,19 @@ class ClassRoom extends React.Component {
                                 <ul className="block-options">
                                     <li>
                                         <Link className="modal-trigger" to="#addstudent">
-                                            <i className="material-icons right">add</i>
+                                            <i className="large material-icons">add</i>
                                         </Link>
                                     </li>
                                     <li>
                                         <Link className="modal-trigger" to="#openFile">
-                                            <i className="material-icons right">folder</i>
+                                            <i className="large material-icons">folder</i>
                                         </Link>
 
                                     </li>
                                 </ul>
                                 <h3 className="block-title">Students</h3>
                             </div>
-                            <div className="block-content">
+                            <div className="block-content" style={{overflow: 'auto'}} >
                                 <ul className="task-card">
                                     {studentList}
                                 </ul>

@@ -8,17 +8,19 @@ import {Modal} from 'react-materialize';
 class ActivityNoteModal extends React.Component {
     render() {
         let noteList = [];
-
-        if(this.props.activity.notes.length == 0)
+        let color = 'red';
+        
+        if(this.props.activity.notes.length == 0){
+            color = 'black';
             noteList.push(<p> No Notes! </p>);
-        else{
+        }else{
             this.props.activity.notes.forEach((note) => {
                 noteList.push(<li key={note}> {note} </li> );
             });
         }
 
         return (
-          <Modal trigger={<i className="mdi-action-speaker-notes right"></i>} header="Notes">
+          <Modal trigger={<i style={{color: color}} className="small mdi-action-speaker-notes right"></i>} header="Notes">
             <div>
                 {noteList}
             </div>  	

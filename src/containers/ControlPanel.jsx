@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, fetchActivity, addNote } from '../actions/controlpanelActions';
 
 import Timer from '../components/Timer.jsx';
 
@@ -15,10 +15,10 @@ let timerInterval;
 
 class ControlPanel extends React.Component {
     componentWillMount() {
-        const { fetchAvailableVolunteers, controlPanelState } = this.props;
-        fetchAvailableVolunteers('1');
+        const { fetchActivity, fetchAvailableVolunteers, controlPanelState, addNote } = this.props;
+        fetchActivity(window.location.pathname.substring(14));
+        fetchAvailableVolunteers(7);
         this.socket = io();
-
         this.formValues = {
             nVolunteers: 1,
             tags: []
@@ -38,7 +38,7 @@ class ControlPanel extends React.Component {
     }
     
     componentDidMount() {
-    		$('.modal-trigger').leanModal();
+        $('.modal-trigger').leanModal();
         timerInterval = setInterval(() => {
             this.props.incrementTimers();
         }, 1000);
@@ -60,6 +60,21 @@ class ControlPanel extends React.Component {
     removeTag(index) {
         this.formValues.tags.splice(index, 1);
         this.props.modifyTags(this.formValues.tags);
+    }
+    
+    addNoteFxn(e) {
+        e.preventDefault();
+        let note = {
+            activityId: '19',
+            note: $('#note').val()
+        };
+        alert(JSON.stringify(note));
+        
+        this.props.addNote(note).then((res) => {
+            Materialize.toast('Successfully added note.', 4000, 'toast-success');
+        }).catch((err) => {
+            Materialize.toast('Error adding note.', 4000, 'toast-error');
+        });
     }
 
     get() {
@@ -94,7 +109,7 @@ class ControlPanel extends React.Component {
                 let student = volunteerTags[Math.floor(Math.random() * volunteerTags.length)];
 
                 if(!student) {
-                    Materialize.toast('No one matched the fliters you have provided!', 4000);
+                    Materialize.toast('No one matched the filters you have provided!', 4000);
                     return;
                 }
 
@@ -408,13 +423,13 @@ class ControlPanel extends React.Component {
                 </div>
                 
                 <div id="addNotes" className="modal">
-                    <form onSubmit={(e) => this.addNote()}>
+                    <form onSubmit={(e) => this.addNoteFxn(e)}>
                         <div className="modal-content">
-                            <h3>Add Activity</h3>
+                            <h3>Add Note</h3>
                             <div className="row">
                                 <div className="input-field col s12">
-                                    <input id="activityName" type="text" className="validate"/>
-                                    <label htmlFor="activityName">Note</label>
+                                    <input id="note" type="text" className="validate"/>
+                                    <label htmlFor="note">Note</label>
                                 </div>
                             </div>
                         </div>
@@ -423,12 +438,6 @@ class ControlPanel extends React.Component {
                             <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Note</button>
                         </div>
                     </form>
-                </div>
-
-                <div className="col s12 m7 offset-m5 l8 offset-l4">
-                    <div className="card-panel col s12 m12 l12"></div>
-                </div>
-                    </div>
                 </div>
             </div>
         );
@@ -441,11 +450,13 @@ ControlPanel.propTypes = {
     modifyTags: PropTypes.func.isRequired,
     addTimer: PropTypes.func.isRequired,
     incrementTimers: PropTypes.func.isRequired,
-    removeTimer: PropTypes.func.isRequired
+    removeTimer: PropTypes.func.isRequired,
+    fetchActivity: PropTypes.func.isRequired,
+    addNote: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer }
+    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, fetchActivity, addNote }
 )(ControlPanel);

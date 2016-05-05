@@ -1,10 +1,11 @@
 import _ from 'lodash'; 
 
 // import your action type constants
-import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, SET_ACTIVITY } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
+    activity: null,	
     availableVolunteers: [],
     volunteer: [],
     tags: [],
@@ -18,6 +19,11 @@ const initialState = {
 //and update values on the copy.
 export default function controlPanelState(state = initialState, action) {
     switch (action.type) {
+        case SET_ACTIVITY:
+            return Object.assign({}, state, {
+                activity: action.activity    				
+            });	
+
         case FETCH_AVAILABLE_VOLUNTEERS:
             return Object.assign({}, state, {
                 availableVolunteers: action.students

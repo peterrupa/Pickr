@@ -7,7 +7,7 @@ import _ from 'lodash';
 
 import HighCharts from 'highcharts';
 import Tag from '../components/Tag.jsx';
-import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
+import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, setCID } from '../actions/classroomActions';
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
@@ -22,6 +22,7 @@ class ClassRoom extends React.Component {
         let data = {
             id: path.substring(11)
         };
+        this.props.setCID(data);
         this.props.fetchClass(data);
         this.props.fetchStudents(data);
         this.props.fetchActivities(data);
@@ -445,11 +446,12 @@ ClassRoom.propTypes = {
     addStudent: PropTypes.func.isRequired,
     fetchClass: PropTypes.func.isRequired,
     fetchStudents: PropTypes.func.isRequired,
-    fetchActivities: PropTypes.func.isRequired
+    fetchActivities: PropTypes.func.isRequired,
+    setCID: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
 state => ({ classroomAppState: state.classroomAppState}),
-    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities }
+    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, setCID }
 )(ClassRoom);

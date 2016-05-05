@@ -102,7 +102,8 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    if (req.session.key) {
+    if (typeof req.session !== 'undefined' &&
+        typeof req.session.key !== 'undefined') {
         req.session.destroy();
         res.status(200).send({status:'logged out'});
     } else {

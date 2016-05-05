@@ -5,7 +5,10 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import compression from 'compression';
 import sequelize from './tools/sequelize';
+import referer from './tools/referer';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -23,6 +26,7 @@ import volunteer from './routes/volunteer';
 let app = express();
 app.set('view engine', 'ejs');
 
+app.use(helmet());
 app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
     resave: false,
@@ -47,6 +51,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression());
+
+//checks if api is accessed directly using browser or res client
+app.use('/api/*', referer);
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);
@@ -63,7 +71,9 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-    if (req.session.key) {
+
+    if (typeof req.session !== 'undefined' &&
+        typeof req.session.key !== 'undefined') {
         return next();
     }
     if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {

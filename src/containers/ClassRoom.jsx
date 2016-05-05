@@ -10,6 +10,7 @@ import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
 import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
+import Tooltips from '../components/Tooltips.jsx';
 
 const Materialize = window.Materialize;
 
@@ -27,8 +28,6 @@ class ClassRoom extends React.Component {
     }
 
     componentDidMount() {
-
-        $('.tooltipped').tooltip({delay: 50});
 
         $('.modal-trigger').leanModal();
 
@@ -128,28 +127,24 @@ class ClassRoom extends React.Component {
         this.props.classroomAppState.volunteers.forEach(function(volunteer){
         //  console.log(volunteer);
           //gets counter for all volunteers called in the todays date
-          if(volunteer.createdAt.substring(0,10) == new Date().toJSON().substring(0,10)){ //compares string of year, month, date
-            todayVolunteers++;
-          }
-          if(volunteer.createdAt.substring(0,7) == new Date().toJSON().substring(0,7)){ //compares string of year, month
-            monthVolunteers++;
-          }
-          volunteer.tags.forEach(function(tag){
-            tagMapCount.push(tag);
-          });
+            if(volunteer.createdAt.substring(0,10) == new Date().toJSON().substring(0,10)){ //compares string of year, month, date
+                todayVolunteers++;
+            }
+            if(volunteer.createdAt.substring(0,7) == new Date().toJSON().substring(0,7)){ //compares string of year, month
+                monthVolunteers++;
+            }
+            volunteer.tags.forEach(function(tag){
+                tagMapCount.push(tag);
+            });
 
-          if(studentCount[volunteer.StudentId] == undefined || studentCount[volunteer.StudentId] == null) studentCount[volunteer.StudentId] = 0;
-          else studentCount[volunteer.StudentId] += 1;
+            if(studentCount[volunteer.StudentId] == undefined || studentCount[volunteer.StudentId] == null) studentCount[volunteer.StudentId] = 0;
+            else studentCount[volunteer.StudentId] += 1;
         });
 
-
-        //console.log(count);
-        console.log(studentCount);
-
-        for (var i = 0, j = tagMapCount.length; i < j; i++) {
-           obj[tagMapCount[i]] = (obj[tagMapCount[i]] || 0) + 1;
+        for (let i = 0, j = tagMapCount.length; i < j; i++) {
+            obj[tagMapCount[i]] = (obj[tagMapCount[i]] || 0) + 1;
         }
-        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a]})
+        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a];});
 
 
         $('#container').highcharts({
@@ -195,7 +190,7 @@ class ClassRoom extends React.Component {
                     data: (function() {
                         // generate an array of random data
                         let values = [];
-                        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a]})
+                        let keysSorted = Object.keys(obj).sort(function(a,b){return obj[b]-obj[a];});
                         values.push(obj[keysSorted[0]]);
                         values.push(obj[keysSorted[1]]);
                         values.push(obj[keysSorted[2]]);
@@ -221,13 +216,13 @@ class ClassRoom extends React.Component {
             xAxis: {
                 categories: (function() {
                     let labels = [];
-                    let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a]})
+                    let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a];});
                     keysSorted.forEach(function(key){
-                      for(let i = 0; i < student.length; i++){
-                        if(student[i].id.toString() == key){
-                          labels.push(student[i].lname+" "+student[i].fname);
+                        for(let i = 0; i < student.length; i++){
+                            if(student[i].id.toString() == key){
+                                labels.push(student[i].lname+" "+student[i].fname);
+                            }
                         }
-                      }
                     });
                     return labels;
                 }()),
@@ -258,8 +253,7 @@ class ClassRoom extends React.Component {
                     data: (function() {
                         // generate an array of random data
                         let values = [];
-                        let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a]})
-                        console.log(keysSorted);
+                        let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a];});
                         values.push(studentCount[keysSorted[0]]);
                         values.push(studentCount[keysSorted[1]]);
                         values.push(studentCount[keysSorted[2]]);
@@ -273,25 +267,17 @@ class ClassRoom extends React.Component {
 
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
-                <li key={activity.id} className="collection-item dismissable" style={{
-                    touchAction: 'pan-y'
-                }}>
-                    <label htmlFor="task1" style={{
-                        textDecoration: 'none'
-                    }}>
-                        <Link to="/presentation">
-                            {activity.activityName}
-                        </Link>
-                    </label>
-                    <div className="right">
-                        <ActivityDeleteModal activity={activity}/>
-                        <Link to="/controlPanel" target="_blank">
-                            <i className="small mdi-action-settings tooltipped" data-position="bottom" data-delay="50" data-tooltip="I am tooltip"></i>
-                        </Link>
-                        <Link to="/presentation" target="_blank">
-                            <i className="small mdi-image-color-lens"></i>
-                        </Link>
-                    </div>
+                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
+                    <Link to="/presentation">
+                      {activity.activityName}
+                    </Link>
+                  </label>
+                  <div className="right">
+                    <Tooltips content={{text:"Control Panel", url:"/controlPanel", classes:"small mdi-action-settings"}}/>
+                    <Tooltips content={{text:"Presentation Page", url:"/presentation", classes:"small mdi-image-color-lens"}}/>
+                    <ActivityDeleteModal activity={activity}/>
+                  </div>
                 </li>
             );
         });

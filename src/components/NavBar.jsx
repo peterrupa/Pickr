@@ -37,35 +37,33 @@ class NavBar extends React.Component {
         });
 
         return (
-            <div className="navbar-fixed">
-                <nav id="nav_f" className="default_color">
-                    <div className="container" style={{
-                        zDepth: '0'
-                    }}>
-                        <div className="nav-wrapper">
-                            <Link id="logo-container" to="/class" className="brand-logo">
-                                <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                    height: '50px'
-                                }}/>
-                                Pickr
-                            </Link>
-                            <ul className="right hide-on-med-and-down">
-                                <li>
-                                    <a href="/">Logout</a>
-                                </li>
-                            </ul>
-                            <ul id="nav-mobile" className="side-nav">
-                                <li>
-                                    <a href="/">Logout</a>
-                                </li>
-                            </ul>
-                            <a data-activates="nav-mobile" className="button-collapse">
-                                <i className="mdi-navigation-menu"></i>
-                            </a>
-                        </div>
-                    </div >
-                </nav>
-            </div>
+                <div className="navbar-fixed" >
+                    <nav id="nav_f" className="default_color">
+                        <div className="container" style={{zDepth: '0'}}>
+                            <div className="nav-wrapper">
+                                <Link id="logo-container" to="/class" className="brand-logo">
+                                    <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                        height: '50px'
+                                    }}/>
+                                    Pickr
+                                </Link>
+                                <ul className="right hide-on-med-and-down">
+                                    <li>
+                                        <a href="/">Logout</a>
+                                    </li>
+                                </ul>
+                                <ul id="nav-mobile" className="side-nav">
+                                    <li>
+                                        <a href="/">Logout</a>
+                                    </li>
+                                </ul>
+                                <a data-activates="nav-mobile" className="button-collapse">
+                                    <i className="mdi-navigation-menu"></i>
+                                </a>
+                            </div>
+                        </div >
+                    </nav>
+                </div>
         );
     }
 }

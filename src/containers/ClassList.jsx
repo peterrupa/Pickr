@@ -38,7 +38,6 @@ class ClassList extends React.Component {
             Materialize.toast('Successfully added class.', 4000, 'toast-success');
         })
         .catch((err) => {
-            console.log(err);
             Materialize.toast('Error adding class.', 4000, 'toast-error');
         });
     }

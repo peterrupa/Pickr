@@ -19,21 +19,21 @@ class LogIn extends React.Component {
 
         if (username !== '' && password !== '') {
             fetch('/api/account/login', {
-               method: 'POST',
-               credentials: 'include',
-               headers: {
-                   'Content-Type': 'application/x-www-form-urlencoded',
-                   'Accept':'application/json'
-               },
-               body: data
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept':'application/json'
+                },
+                body: data
             })
             .then((res) => {
-               if (res.status === 200 || res.status === 403) {
-                   window.location.href = '/class';
-               }
-               else {
-                   window.location.href = '/login';
-               }
+                if (res.status === 200 || res.status === 403) {
+                    window.location.href = '/class';
+                }
+                else {
+                    window.location.href = '/login';
+                }
             });
         }
     }

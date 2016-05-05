@@ -23,6 +23,10 @@ import activity from './routes/activity';
 import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
+const paths = ['/signup$', '/#$', '/$','/login$',
+               '/forgotpassword$', '/reset'];
+const unauthPaths = new RegExp( '(' + paths.join('|') + ')');
+
 let app = express();
 app.set('view engine', 'ejs');
 
@@ -76,7 +80,7 @@ app.use('*', (req, res, next) => {
         typeof req.session.key !== 'undefined') {
         return next();
     }
-    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
+    if ((unauthPaths).test(req.originalUrl)) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
         res.redirect('/');
@@ -85,7 +89,7 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
 
-    if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
+    if (!(unauthPaths).test(req.path)) {
         return next();
     }
     if (req.originalUrl === '/class') {

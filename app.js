@@ -5,10 +5,7 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import compression from 'compression';
 import sequelize from './tools/sequelize';
-import referer from './tools/referer';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -23,15 +20,9 @@ import activity from './routes/activity';
 import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
-//add all paths that do not need authentication here
-const paths = ['/signup$', '/#$', '/$','/login$',
-               '/forgotpassword$', '/reset/'];
-const unauthPaths = new RegExp( '(' + paths.join('|') + ')');
-
 let app = express();
 app.set('view engine', 'ejs');
 
-app.use(helmet());
 app.use(session({
     secret: 'PUT01SL0V3_PUT01SL1F3',
     resave: false,
@@ -56,10 +47,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(compression());
-
-//checks if api is accessed directly using browser or res client
-app.use('/api/*', referer);
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);
@@ -76,12 +63,10 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-
-    if (typeof req.session !== 'undefined' &&
-        typeof req.session.key !== 'undefined') {
+    if (req.session.key) {
         return next();
     }
-    if ((unauthPaths).test(req.originalUrl)) {
+    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
         res.redirect('/');
@@ -90,7 +75,7 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
 
-    if (!(unauthPaths).test(req.path)) {
+    if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
         return next();
     }
     if (req.originalUrl === '/class') {

@@ -1,4 +1,4 @@
-typeof 'use strict';
+'use strict';
 /*
     Controller for the model "account".
 */
@@ -13,12 +13,8 @@ import { Account } from '../models';
 
 exports.insert = (req, res) => {
 
-    if (typeof req.body.fname === 'undefined' ||
-        typeof req.body.mi === 'undefined' ||
-        typeof req.body.lname === 'undefined' ||
-        typeof req.body.username === 'undefined' ||
-        typeof req.body.email === 'undefined' ||
-        typeof req.body.password === 'undefined') {
+    if (!req.body.fname && !req.body.mi && !req.body.lname &&
+        !req.body.username && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
     else {
@@ -34,9 +30,8 @@ exports.insert = (req, res) => {
             }
             else {
                 let query = 'INSERT INTO Accounts' +
-                            '(fname,mi,lname,emailAddress,username,password,' +
-                            'createdAt,updatedAt) values(?,?,?,?,?,(SELECT ' +
-                            'MD5(SHA1(?))),now(),now())';
+                            '(fname,mi,lname,emailAddress,username,password) ' +
+                            'values(?,?,?,?,?,(SELECT MD5(SHA1(?))))';
 
                 sequelize.query(query, {
                     replacements:[
@@ -53,20 +48,18 @@ exports.insert = (req, res) => {
                     res.status(200).sendStatus(200);
                 })
                 .catch((err) => {
-                    res.status(error.NO_RECORD_CREATED.code)
-                        .send({NO_RECORD_CREATED:
-                            error.NO_RECORD_CREATED.message});
+                    res.status(error.NO_RECORD_CREATED.code).send({NO_RECORD_CREATED: error.NO_RECORD_CREATED.message});
                 });
             }
         })
         .catch((err) =>{
-            res.status(error.SERVER_ERR.code)
-                .send({SERVER_ERR: error.SERVER_ERR.message});
+            res.status(error.SERVER_ERR.code).send({SERVER_ERR: error.SERVER_ERR.message});
         });
     }
 }
 
 exports.login = (req, res) => {
+    req.session.something = true;
 
     Account.findOne({
         where: {
@@ -79,8 +72,7 @@ exports.login = (req, res) => {
                     'username=? AND password=(SELECT MD5(SHA1(?)))';
 
         if (!user) {
-            res.status(error.INV_USER.code)
-                .send({INV_USER: error.INV_USER.message});
+            res.status(error.INV_USER.code).send({INV_USER: error.INV_USER.message});
         } else {
             sequelize.query(query,{
                 replacements: [
@@ -90,27 +82,19 @@ exports.login = (req, res) => {
                 type: sequelize.QueryTypes.SELECT
             })
             .then((user) => {
-                if(!user[0]  && typeof req.session.key === 'undefined'){
-                    res.status(error.INV_PASS.code)
-                        .send({INV_PASS: error.INV_PASS.message});
+                if(!user[0]  && !req.session.key){
+                    res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 } else {
-                    if (typeof req.session.key === 'undefined') {
+                    if (!req.session.key) {
                         req.session.key = user[0].id;
-                        res.status(200)
-                            .send({
-                                username:user[0].username,
-                                status:'logged in'
-                            });
+                        res.status(200).send({username:user[0].username, status:'logged in'});
                     } else {
-                        res.status(error.UNAUTH.code)
-                            .send({UNAUTH: error.UNAUTH.message});
+                        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
                     }
                 }
             })
             .catch((err) => {
-                console.log(err);
-                res.status(error.LOG_FAIL.code)
-                    .send({LOG_FAIL: error.LOG_FAIL.message});
+                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
             });
         }
     });
@@ -118,8 +102,7 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
-    if (typeof req.session !== 'undefined' &&
-        typeof req.session.key !== 'undefined') {
+    if (req.session.key) {
         req.session.destroy();
         res.status(200).send({status:'logged out'});
     } else {

@@ -375,157 +375,153 @@ class ClassRoom extends React.Component {
                     </div>
                 </div>
 
-                <div className="row">
-                    <div className="col s12 m12 l4">
-                        <div className="block block-bordered">
-                            <div className="block-header">
-                                <ul className="block-options">
-                                    <li>
-                                        <Link className="modal-trigger" to="#addstudent">
-                                            <i className="material-icons right">add</i>
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <Link className="modal-trigger" to="#openFile">
-                                            <i className="material-icons right">folder</i>
-                                        </Link>
-
-                                    </li>
-                                </ul>
-                                <h3 className="block-title">Students</h3>
-                            </div>
-                            <div className="block-content">
-                                <ul className="task-card">
-                                    {studentList}
-                                </ul>
-                            </div>
-                            {/*block cntent*/}
-                        </div>
-                    </div>
-                    {/* product-card */}
-                    <div className=" s12 m12 l4" style={{
-                        marginTop: '2%'
-                    }}>
-                        <ul id="task-card" className="collection with-header" style={{
-                            marginLeft: '15px',
-                            marginRight: '15px'
-                        }}>
-                            <span id="act">
-                                <li className="collection-header cyan">
-                                    <span>
-                                        <h3 className="task-card-title">Activities</h3>
-                                        <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
-                                                <i className="large material-icons">add</i>
+                <div style={{padding: '1em'}}>
+                    <div className="row">
+                        <div className="col s12 m12 l4">
+                            <div className="block block-bordered">
+                                <div className="block-header">
+                                    <ul className="block-options">
+                                        <li>
+                                            <Link className="modal-trigger" to="#addstudent">
+                                                <i className="material-icons right">add</i>
                                             </Link>
-                                        </p>
-                                    </span>
+                                        </li>
+                                        <li>
+                                            <Link className="modal-trigger" to="#openFile">
+                                                <i className="material-icons right">folder</i>
+                                            </Link>
 
-                                </li>
-                            </span>
-                            {activityList}
-                        </ul>
+                                        </li>
+                                    </ul>
+                                    <h3 className="block-title">Students</h3>
+                                </div>
+                                <div className="block-content">
+                                    <ul className="task-card">
+                                        {studentList}
+                                    </ul>
+                                </div>
+                                {/*block cntent*/}
+                            </div>
+                        </div>
+                        {/* product-card */}
+                        <div className="col s12 m12 l8" style={{marginBottom: '1em'}}>
+                            <ul id="task-card" className="collection with-header no-margin">
+                                <span id="act">
+                                    <li className="collection-header cyan">
+                                        <span>
+                                            <h3 className="task-card-title">Activities</h3>
+                                            <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
+                                                    <i className="large material-icons">add</i>
+                                                </Link>
+                                            </p>
+                                        </span>
 
-                        {/* map-card */}
+                                    </li>
+                                </span>
+                                {activityList}
+                            </ul>
 
-                    </div>
-                    <div id="container" className="col s12 m12 l4" ></div>
-                    <div id="container2" className="col s12 m12 l4" ></div>
-                    <div id="addstudent" className="modal">
-                        <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
-                            <div className="modal-content">
-                                <h3>Add Student</h3>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="firstName" type="text" className="validate"/>
-                                        <label htmlFor="firstName">First Name</label>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="middleName" type="text" className="validate"/>
-                                        <label htmlFor="middleName">Middle Name</label>
-                                    </div>
-                                </div>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="lastName" type="text" className="validate"/>
-                                        <label htmlFor="lastName">Last Name</label>
-                                    </div>
-                                </div>
-                                <div className="tags">
+                            {/* map-card */}
+                        </div>
+                        <div id="container" className="col s12 m12 l4" ></div>
+                        <div id="container2" className="col s12 m12 l4" ></div>
+                        <div id="addstudent" className="modal">
+                            <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
+                                <div className="modal-content">
+                                    <h3>Add Student</h3>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="tags" type="text" className=""/>
-                                            <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                            <input id="firstName" type="text" className="validate"/>
+                                            <label htmlFor="firstName">First Name</label>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="middleName" type="text" className="validate"/>
+                                            <label htmlFor="middleName">Middle Name</label>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="lastName" type="text" className="validate"/>
+                                            <label htmlFor="lastName">Last Name</label>
+                                        </div>
+                                    </div>
+                                    <div className="tags">
+                                        <div className="row">
+                                            <div className="input-field col s12">
+                                                <input id="tags" type="text" className=""/>
+                                                <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col s12">
+                                            <span>Image (Optional)</span>
+                                        </div>
+                                        <div className="file-field input-field col s12">
+                                            <div className="btn">
+                                                <span>File</span>
+                                                <input id="image" type="file"/>
+                                            </div>
+                                            <div className="file-path-wrapper">
+                                                <input className="file-path validate" type="text"/>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col s12">
-                                        <span>Image (Optional)</span>
-                                    </div>
-                                    <div className="file-field input-field col s12">
-                                        <div className="btn">
-                                            <span>File</span>
-                                            <input id="image" type="file"/>
-                                        </div>
-                                        <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text"/>
-                                        </div>
-                                    </div>
+                                <div className="modal-footer">
+                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                    <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
-                            </div>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
 
-                    <div id="openFile" className="modal">
-                        <form onSubmit={(e) => this.handleClick(e)}>
-                            <div className="modal-content">
-                                <h3>Import Students from file</h3>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="fileInput" type="file" className="validate"/>
+                        <div id="openFile" className="modal">
+                            <form onSubmit={(e) => this.handleClick(e)}>
+                                <div className="modal-content">
+                                    <h3>Import Students from file</h3>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="fileInput" type="file" className="validate"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">
-                                    Import File
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                                <div className="modal-footer">
+                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                    <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">
+                                        Import File
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
 
-                    <div id="addactivity" className="modal">
-                        <form onSubmit={(e) => this.addActivity(e)}>
-                            <div className="modal-content">
-                                <h3>Add Activity</h3>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="activityName" type="text" className="validate"/>
-                                        <label htmlFor="activityName">Activity</label>
+                        <div id="addactivity" className="modal">
+                            <form onSubmit={(e) => this.addActivity(e)}>
+                                <div className="modal-content">
+                                    <h3>Add Activity</h3>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="activityName" type="text" className="validate"/>
+                                            <label htmlFor="activityName">Activity</label>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="input-field col s12">
+                                            <input id="activityDesc" type="text" className="validate"/>
+                                            <label htmlFor="activityDesc">Description</label>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="input-field col s12">
-                                        <input id="activityDesc" type="text" className="validate"/>
-                                        <label htmlFor="activityDesc">Description</label>
-                                    </div>
+                                <div className="modal-footer">
+                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                    <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
                                 </div>
-                            </div>
-                            <div className="modal-footer">
-                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
-
+                
                 <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
                     <div className="pull-right">
                         Crafted with &nbsp;<i className="tiny material-icons">favorite</i>&nbsp; by&nbsp;

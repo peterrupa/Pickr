@@ -195,9 +195,9 @@ class ControlPanel extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    activityID: '1',
-                    studentID: selectedVolunteers[i].id,
-                    classCode: selectedVolunteers[i].ClassId,
+                    ActivityId: '1',
+                    StudentId: selectedVolunteers[i].id,
+                    ClassId: selectedVolunteers[i].ClassId,
                     note: ''
                 })
             });

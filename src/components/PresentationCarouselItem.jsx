@@ -16,7 +16,7 @@ class PresentationCarouselItem extends React.Component {
 
         return (
             <a className="carousel-item">
-                <div className="studentPhoto">
+                <div className="studentPhoto center">
                     <img src={img} style={{width:'80%'}}/>
                 </div>
                 <div className="ribbon">

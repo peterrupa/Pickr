@@ -1,16 +1,29 @@
+
+
 export default function (sequelize, DataTypes) {
     let Volunteer = sequelize.define("Volunteer", {
-        volunteerID: 
-            { 
+        volunteerID:
+            {
                 type: DataTypes.INTEGER,
                 autoIncrement: true,
                 primaryKey: true
             },
-        activityID: DataTypes.STRING,
-        studentID: DataTypes.STRING,
-        classCode: DataTypes.STRING,
-        dateVolunteered: DataTypes.DATE,
-        note: DataTypes.STRING
+    }, {
+      classMethods: {
+          associate(models) {
+              Volunteer.belongsTo(models.Student);
+              Volunteer.belongsTo(models.Class);
+              Volunteer.belongsTo(models.Activity);
+          }
+      },
+      instanceMethods: {
+          getTags(){
+            let Tag = sequelize.import("../models/tag.js");
+            return Tag.findAll({where:{StudentId: this.StudentId}}).then((tags) => {
+              return tags.map((tag) => tag.dataValues);
+            });
+          }
+      }
     });
 
     return Volunteer;

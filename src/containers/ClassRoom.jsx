@@ -272,8 +272,12 @@ class ClassRoom extends React.Component {
                     </Link>
                   </label>
                   <div className="right">
-                    <Tooltips content={{text:"Control Panel", url:"/controlPanel", classes:"small mdi-action-settings"}}/>
-                    <Tooltips content={{text:"Presentation Page", url:"/presentation", classes:"small mdi-image-color-lens"}}/>
+                    <Link to="/controlPanel">
+-                        <i className="small mdi-action-settings"></i>
+-                    </Link>
+-                    <Link to="/presentation">
+-                        <i className="small mdi-image-color-lens"></i>
+-                    </Link>
                     <ActivityDeleteModal activity={activity}/>
                   </div>
                 </li>

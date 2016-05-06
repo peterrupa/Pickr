@@ -156,13 +156,14 @@ class ControlPanel extends React.Component {
                 let student = volunteerTags[Math.floor(Math.random() * volunteerTags.length)];
 
                 if(!student) {
-                    Materialize.toast('No one matched the fliters you have provided!', 4000);
+                    Materialize.toast('No one matched the filters you have provided!', 4000);
                     return;
                 }
 
                 if($('#remember-checkbox')[0].checked) {
                     volunteerTags.splice(volunteerTags.indexOf(student), 1);
                 }
+
                 if($('#timer-checkbox')[0].checked) {
                     this.addTimer(controlPanelState.students[i].id);
                 }

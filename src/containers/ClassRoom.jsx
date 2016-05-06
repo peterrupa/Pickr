@@ -30,8 +30,6 @@ class ClassRoom extends React.Component {
     componentDidMount() {
 
         $('.modal-trigger').leanModal();
-
-
     }
 
     addActivity(e) {
@@ -299,13 +297,9 @@ class ClassRoom extends React.Component {
                 <li key={student.id}>
                     <StudentEditModal student={student}/>
                     <StudentDeleteModal student={student}/>
-                    <Link to="/student">
-                        <img className="img-avatar" src={image} alt="" style={{
-                            float: 'left',
-                            height: '45px',
-                            width: '45px',
-                            marginRight: '10px'
-                        }}/> {student.fname + " " + student.mname + " " + student.lname}
+                    <Link to={"/student/"+student.id}>
+                        <img className="img-avatar" src={image} alt=""  style={{float: 'left', height: '45px', width: '45px', marginRight:'10px'}}/>
+                        {student.fname + " " + student.mname + " " + student.lname}
                         <div className="font-w400 text-muted">
                             <small>
                                 {student.tags.map((tag) => <Tag key={tag} name={tag}/>)}
@@ -477,7 +471,7 @@ class ClassRoom extends React.Component {
                                 </div>
                             </div>
                             <div className="modal-footer">
-                                <Link to="#" className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
                                 <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
                             </div>
                         </form>

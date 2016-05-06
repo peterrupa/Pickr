@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
-
 import HighCharts from 'highcharts';
 
 import './../styles/styles.scss';

@@ -78,7 +78,6 @@ export function insert(req, res) {
         res.send(activity);
     })
     .catch((err) => {
-        console.log(err);
         res.sendStatus(500);
     });
 }

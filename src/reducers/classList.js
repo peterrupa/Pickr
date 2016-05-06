@@ -1,4 +1,4 @@
-import { FETCH_CLASSES } from '../constants/ActionTypes';
+import { FETCH_CLASSES, GET_SESSION } from '../constants/ActionTypes';
 
 const initialState = {
     classes: []

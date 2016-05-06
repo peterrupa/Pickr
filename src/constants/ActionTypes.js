@@ -1,5 +1,6 @@
 export const SAMPLE_INCREASE = 'SAMPLE_INCREASE';
 export const SAMPLE_DECREASE = 'SAMPLE_DECREASE';
+export const GET_SESSION = 'GET_SESSION';
 export const FETCH_SAMPLES = 'FETCH_SAMPLES';
 export const GET_CLASS = 'GET_CLASS';
 export const GET_STUDENTS = 'GET_STUDENTS';
@@ -15,3 +16,11 @@ export const SUCCESS = 'SUCCESS';
 
 export const SET_VOLUNTEERS = 'SET_VOLUNTEERS';
 export const MODIFY_TAGS = 'MODIFY_TAGS';
+
+export const SET_STUDENT = 'SET_STUDENT';
+
+export const ADD_TIMER = 'ADD_TIMER';
+export const INCREMENT_TIMERS = 'INCREMENT_TIMERS';
+export const REMOVE_TIMER = 'REMOVE_TIMER';
+
+export const MODIFY_STUDENTS = 'MODIFY_STUDENTS';

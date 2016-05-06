@@ -1,13 +1,15 @@
-// a reducer takes an input state and an action, does some process, and returns the transformed state
+import _ from 'lodash';
 
 // import your action type constants
-import {FETCH_AVAILABLE_VOLUNTEERS, GET_VOLUNTEER, MODIFY_TAGS } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
     availableVolunteers: [],
     volunteer: [],
-    tags: []
+    tags: [],
+    timer: [],
+    students: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -25,6 +27,46 @@ export default function controlPanelState(state = initialState, action) {
         case MODIFY_TAGS:
             return Object.assign({}, state, {
                 tags: action.tags
+            });
+
+        case ADD_TIMER: {
+            let newTimer = state.timer;
+
+            newTimer.push({
+                studentId: action.studentId,
+                timer: 0
+            });
+
+            return Object.assign({}, state, {
+                timer: newTimer
+            });
+        }
+
+        case REMOVE_TIMER: {
+            let newTimer = state.timer;
+
+            newTimer = _.filter(newTimer, (o) => {
+                return o.studentId !== action.studentId;
+            });
+
+            return Object.assign({}, state, {
+                timer: newTimer
+            });
+        }
+
+        case INCREMENT_TIMERS: {
+            return Object.assign({}, state, {
+                timer: state.timer.map((timer) => {
+                    timer.timer++;
+
+                    return timer;
+                })
+            });
+        }
+
+        case MODIFY_STUDENTS:
+            return Object.assign({}, state, {
+                students: action.students
             });
 
         default:

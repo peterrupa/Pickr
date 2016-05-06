@@ -13,7 +13,7 @@ import { Class, Account } from '../models';
 export function getAll(req, res) {
     Class.findAll({
         where: {
-            AccountId: req.params.AccountId
+            AccountId: req.session.key
         }
     })
     .then(function(classes) {
@@ -41,7 +41,8 @@ export function getOne(req, res) {
 
 //CREATE CLASS
 export function insert(req, res) {
-    Account.findById(req.params.AccountId)
+
+    Account.findById(req.session.key)
     .then((account) => {
         if(account) {
             return account.createNewClass({

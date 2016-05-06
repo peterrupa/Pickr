@@ -6,25 +6,47 @@ import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
 import '../../externalDependencies/js/materialize.js';
-// import '../../externalDependencies/js/custom-min.js';
-// import '../../externalDependencies/js/plugin-min.js';
-//import '../../externalDependencies/js/init.js';
+
 class NavBar extends React.Component {
+    componentWillMount(){
+        this.props.fetchClasses();
+    }
+
     componentDidMount() {
 
         $('.button-collapse').click(function() {
             $('.side-nav').css({position: 'static', marginLeft: '-50px'});
             $('.button-collapse').css({visibility: 'hidden'});
         });
+        $(".classDropDown").hide();
+        $("#sideNav").hide();
+        $("#classDD").click(function() {
+            $(".classDropDown").slideToggle();
+        });
+    }
 
-        $(window).scroll(function() {
-
-            $('.side-nav').css({position: 'fixed'});
-            $('.button-collapse').css({visibility: 'visible'});
+    logout(e){
+        e.preventDefault();
+        fetch('/api/account/logout', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            }
+        })
+        .then((res) => {
+            if (res.status === 200 || res.status === 403) {
+                window.location.href = '/';
+            }
+            else {
+                window.location.href = '/class';
+            }
 
         });
 
     }
+
     render() {
         let classList = [];
 

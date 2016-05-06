@@ -1,18 +1,39 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { setAID } from '../actions/classroomActions';
 
 //import ClassListDefaultItem from './ClassListDefaultItem.jsx';
 
 class ActivityControlPanelLink extends React.Component {
-    componentWillMount() {
-        this.props.setAID(this.props.activityID);
+    redirect(e){
+        e.preventDefault();
+
+        let activityID = this.props.activityID;
+        fetch('/api/account/class/setAID', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id:activityID})
+        })
+        .then((res) =>  {
+            if (res.status === 200) {
+                window.location.href = '/controlPanel';
+            }
+            else {
+                window.location.href = '/*';
+            }
+        })
+        .catch((err) => {
+            throw err;
+        });
     }
 
     render() {
         return (
-                <Link to="/controlPanel">
+                <Link to="#" onClick={(e) => this.redirect(e)}>
                     <i className="mdi-action-settings"></i>
                 </Link>
         );
@@ -20,11 +41,7 @@ class ActivityControlPanelLink extends React.Component {
 }
 
 ActivityControlPanelLink.propTypes = {
-    activityID: PropTypes.object.isRequired,
-    setAID: PropTypes.func.isRequired
+    activityID: PropTypes.number.isRequired
 };
 
-export default connect(
-    state => ({ classroomAppState: state.classroomAppState}),
-        { setAID }
-)(ActivityControlPanelLink);
+export default ActivityControlPanelLink;

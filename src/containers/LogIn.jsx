@@ -2,6 +2,9 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+import $ from 'jquery';
+
+const Materialize = window.Materialize;
 
 class LogIn extends React.Component {
     componentDidMount(){
@@ -15,9 +18,9 @@ class LogIn extends React.Component {
         let data = "username=" + username + "&password=" + password;
 
         if (username !== '' && password !== '') {
-
             fetch('/api/account/login', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept':'application/json'
@@ -32,7 +35,6 @@ class LogIn extends React.Component {
                     window.location.href = '/login';
                 }
             });
-
         }
     }
 

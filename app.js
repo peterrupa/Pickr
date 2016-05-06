@@ -6,7 +6,12 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
-import store from './tools/store';
+
+import redis from 'redis';
+const client = redis.createClient();
+
+import connect from 'connect-redis';
+const redisStore = connect(session);
 
 import student from './routes/student';
 import sample from './routes/sample';
@@ -15,12 +20,29 @@ import activity from './routes/activity';
 import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
-export var sessionId;
 let app = express();
 const paths = ['/signup$', '/#$', '/$', '/login$', '/forgotpassword$', '/reset'];
 const unauth_paths = new RegExp( '(' + paths.join('|') + ')');
 
 app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'PUT01SL0V3_PUT01SL1F3',
+    resave: false,
+    saveUninitialized: false,
+    store: new redisStore({
+        host: 'localhost',
+        port: 6379,
+        client: client,
+        ttl :  260
+    }),
+    cookie: {
+        httpOnly: false,
+        secure: false, // set "true" if https
+        maxAge: 1000 * 60 * 60 * 5 // 5 hours
+    }
+}));
+
 app.use(express.static(__dirname+"/public"));
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -28,27 +50,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.use(session({
-    secret: 'PUT01SL0V3_PUT01SL1F3',
-    store: store,
-    resave: false,
-    saveUninitialized: true,
-    name: 'C0oK13_M0NZt3R',
-    cookie: {
-        path: '/',
-        httpOnly: false,
-        secure: false, // set "true" if https
-        maxAge: 1000 * 60 * 60 * 5, // 5 hours
-        domain: 'localhost'
-    }
-}));
-
-app.use((req, res, next) => {
-    req.key = req.session.id;
-    console.log("This is the session id: " + req.session.id);
-    next();
-});
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);
@@ -58,11 +59,6 @@ app.use('/api/account/', classRoute);
 app.use('/api/class', student);
 app.use('/api/volunteer', volunteer);
 
-// gets the session for the client side to use
-app.get('/api/whoami', (req, res) => {
-    res.send(req.key);
-});
-
 // 404 for api
 app.get('/api/*', (req, res) => {
     res.sendStatus(404);
@@ -70,8 +66,7 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
-
-    if (req.session && req.session.key) {
+    if (req.session.key) {
         return next();
     }
     if ((unauth_paths).test(req.originalUrl)) {
@@ -86,17 +81,15 @@ app.use('*', (req, res, next) => {
     if (!(unauth_paths).test(req.path)) {
         return next();
     }
-    if (req.originalUrl === '/class/'+req.session.key) {
+    if (req.originalUrl === '/class') {
         return next();
     } else {
-        res.redirect('/class/'+req.session.key);
+        res.redirect('/class');
     }
 
 },
 (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');
 });
-
-store.sync({force: false});
 
 export default app;

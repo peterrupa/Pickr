@@ -16,11 +16,12 @@
     "prebuild": "npm run clean-dist && npm run build:html",
     "build": "npm run test && babel-node tools/build.js && npm run open:dist",
     "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel-core/register --recursive \"./**/*.spec.js\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "seed": "sequelize db:seed:undo:all && sequelize db:seed --seed account-seeder && sequelize db:seed --seed class-seeder && sequelize db:seed --seed activity-seeder && sequelize db:seed --seed student-seeder && sequelize db:seed --seed tags-seeder"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
-    "connect-session-sequelize": "3.0.0",
+    "connect-redis": "3.0.2",
     "cookie-parser": "~1.3.5",
     "crypto": "0.0.3",
     "debug": "~2.2.0",
@@ -46,6 +47,7 @@
     "react-redux": "4.4.0",
     "react-router": "2.0.0",
     "react-router-redux": "3.0.0",
+    "redis": "2.6.0-2",
     "redux": "3.3.1",
     "redux-thunk": "1.0.3",
     "sequelize": "3.19.3",

@@ -6,16 +6,10 @@ import { fetchClasses } from '../actions/classListActions';
 import './../styles/style.css';
 
 import '../../externalDependencies/js/materialize.js';
-// import '../../externalDependencies/js/custom-min.js';
-// import '../../externalDependencies/js/plugin-min.js';
-//import '../../externalDependencies/js/init.js';
 
 class NavBar extends React.Component {
     componentWillMount(){
-        // @TODO: FIX
-        // this.props.fetchClasses({
-        //     accountId: window.location.pathname.substring(7)
-        // });
+        this.props.fetchClasses();
     }
 
     componentDidMount() {
@@ -28,9 +22,30 @@ class NavBar extends React.Component {
         $("#sideNav").hide();
         $("#classDD").click(function() {
             $(".classDropDown").slideToggle();
+        });
+    }
+
+    logout(e){
+        e.preventDefault();
+        fetch('/api/account/logout', {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            }
+        })
+        .then((res) => {
+            if (res.status === 200 || res.status === 403) {
+                window.location.href = '/';
+            }
+            else {
+                window.location.href = '/class';
+            }
 
         });
     }
+
     render() {
         let classList = [];
 
@@ -54,12 +69,8 @@ class NavBar extends React.Component {
                         </Link>
                         <ul className="right hide-on-med-and-down">
                             <li>
-                              <Link to="/">Logout</Link>
+                              <a onClick={(e) => this.logout(e)} href="#">Logout</a>
                             </li>
-                            <li>
-                                <a id="classDD" href="#">Classes</a>
-                            </li>
-
                         </ul>
 
                         <a href="#" data-activates="sideNav" className="button-collapse">

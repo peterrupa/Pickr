@@ -30,7 +30,6 @@ let server = http.createServer(app);
  */
  let io = new SocketIO(server);
  io.on('connection', function(socket) {
-    console.log(socket.id + ' has connected');
     socket.on('send volunteers', function(data) {
         io.emit('recieve volunteers', data);
     });

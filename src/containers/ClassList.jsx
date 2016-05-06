@@ -20,16 +20,7 @@ const $ = window.$;
 // Be sure to rename your class name
 class ClassList extends React.Component {
     componentWillMount() {
-        fetch('/api/whoami', {
-            method: 'GET'
-        }).then((res) => {
-            return res.json();
-        }).then((sessionId) => {
-            let data = {
-                accountId: sessionId
-            };
-            this.props.fetchClasses(data);
-        });
+        this.props.fetchClasses();
     }
 
     componentDidMount() {
@@ -39,7 +30,6 @@ class ClassList extends React.Component {
     add(e) {
         e.preventDefault();
         let newClass = {
-            accountId: window.location.pathname.substring(6),
             classCode: $('#classCode').val(),
             className: $('#className').val()
         };

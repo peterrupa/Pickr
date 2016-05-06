@@ -228,7 +228,7 @@ exports.forgotPassword = (req, res) => {
             promise.then((token) => {
 
                 let message = 'Please click the link provided below to reset'
-                    + ' your password: \n' + 'http://localhost:8000/reset/'
+                    + ' your password: \n' + 'http://localhost:3000/reset/'
                     + token + ' \n  <b>If you did not forget your password,'
                     + ' please disregard this message.</b>';
 

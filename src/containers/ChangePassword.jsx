@@ -7,12 +7,7 @@ import { reset, change } from '../actions/userActions';
 const Materialize = window.Materialize;
 
 class ChangePassword extends React.Component {
-    componentDidMount(){
-        this.reset();
-    }
-    reset(e){
-        e.preventDefault();
-
+    componentWillMount(){
         let token= 'token=' + window.location.pathname.substring(6);
         let message = '';
         fetch('/api/account/resetPassword', {
@@ -25,19 +20,21 @@ class ChangePassword extends React.Component {
         })
         .then((res) => {
             switch (res.status) {
-                case 200: message = 'Successfully added account!'; break;
-                case 400: message = 'Invalid Link!'; break;
+                case 404: message = 'Invalid Link!'; break;
                 default: message = 'Invalid Link'; break;
             }
             Materialize.toast(message, 4000);
             if (res.status != 200) {
-                $('body').hide();
                 Materialize.toast('Invalid Link', 4000, 'toast-error');
+                window.location.href = '/forgotpassword';  
             } 
         })
         .catch((err) => {
-            Materialize.toast('Error changing password!', 4000, 'toast-error');
+            Materialize.toast('Error opening link!', 4000, 'toast-error');
         });
+    }
+    componentDidMount(){
+    
     }
     change(e){
         e.preventDefault();
@@ -60,17 +57,15 @@ class ChangePassword extends React.Component {
         })
         .then((res) => {
             switch (res.status) {
-                case 200: message = 'Successfully added account!'; break;
-                case 400: message = 'Invalid Link!'; break;
-                default: message = 'Invalid Link'; break;
+                case 200: message = 'Successfully changed password!'; break;
+                case 400: message = 'Error changing password!'; break;
             }
             Materialize.toast(message, 4000);
             if (res.status === 200) {
                 window.location.href = '/login';
             }
             else{
-                $('body').hide();
-                Materialize.toast('Invalid Link', 4000, 'toast-error');
+                Materialize.toast('Error changing password!', 4000, 'toast-error');
             }
             
         })

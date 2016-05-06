@@ -25,7 +25,7 @@ import volunteer from './routes/volunteer';
 
 //add all paths that do not need authentication here
 const paths = ['/signup$', '/#$', '/$','/login$',
-               '/forgotpassword$', '/reset'];
+               '/forgotpassword$', '/reset/'];
 const unauthPaths = new RegExp( '(' + paths.join('|') + ')');
 
 let app = express();
@@ -59,7 +59,7 @@ app.use(cookieParser());
 app.use(compression());
 
 //checks if api is accessed directly using browser or res client
-//app.use('/api/*', referer);
+app.use('/api/*', referer);
 
 app.use('/api/student', student);
 app.use('/api/sample', sample);

@@ -11,8 +11,18 @@ let router  = express.Router();
 import { Class, Account } from '../models';
 
 //SET CLASSROOM ID TO SESSION
+export function setActivityID(req, res) {
+    if(!req.session.key){
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    } else {
+        req.session.activityID = req.body.id;
+        console.log(req.session);
+        res.status(200).send({classID:req.session.classID, status:'ActivityID set!'});
+    }
+}
+
+//SET CLASSROOM ID TO SESSION
 export function setClassID(req, res) {
-    console.log(req.session);
     if(!req.session.key){
         res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
     } else {

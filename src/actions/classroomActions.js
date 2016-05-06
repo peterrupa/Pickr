@@ -162,6 +162,24 @@ export function fetchStudents(data){
     };
 }
 
+export function setAID(activityID){
+    return (dispatch) => {
+        return fetch('/api/account/class/setAID', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id:activityID})
+        })
+        .then((res) =>  res.json())
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
 export function setCID(data){
     return (dispatch) => {
         return fetch('/api/account/class/setCID', {
@@ -171,11 +189,11 @@ export function setCID(data){
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id:data.id})
+            body: JSON.stringify({id:parseInt(data.id)})
         })
         .then((res) =>  res.json())
         .catch((err) => {
             throw err;
         });
-    }
+    };
 }

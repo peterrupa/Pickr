@@ -11,7 +11,7 @@ import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, se
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
-import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
+import ActivityItem from '../components/ActivityItem.jsx';
 
 const Materialize = window.Materialize;
 
@@ -168,22 +168,9 @@ class ClassRoom extends React.Component {
 
         this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
-                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
-                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                    <Link to="/presentation">
-                      {activity.activityName}
-                    </Link>
-                  </label>
-                  <div className="right">
-                    <ActivityDeleteModal activity={activity}/>
-                    <Link to="/controlPanel">
-                        <i className="mdi-action-settings"></i>
-                    </Link>
-                    <Link to="/presentation">
-                        <i className="mdi-image-color-lens"></i>
-                    </Link>
-                  </div>
-                </li>
+                <ActivityItem
+                    activity={activity}
+                />
             );
         });
 

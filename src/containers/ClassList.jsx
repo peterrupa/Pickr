@@ -44,7 +44,7 @@ class ClassList extends React.Component {
 
     render() {
         return (
-            <div style={{paddingTop: '8%'}}>
+            <div style={{paddingTop: '2em'}}>
                 <Link className="waves-effect waves-light btn-floating btn-large modal-trigger" to="#addclass" style={{position: 'fixed', bottom:'20px',right:'20px' }}><i className="material-icons">add</i></Link>
 
                 <div className="row">

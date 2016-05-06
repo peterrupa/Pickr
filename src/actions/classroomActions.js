@@ -171,7 +171,7 @@ export function fetchStudents(data){
 export function fetchVolunteers(data){
     return (dispatch) => {
       // ajax request to /api/sample
-        return fetch('/api/volunteer/class/1', {
+        return fetch('/api/volunteer/class/'+data.id, {
             method: 'GET'
         })
        .then((res) =>  res.json())

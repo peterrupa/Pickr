@@ -31,7 +31,7 @@ class ClassList extends React.Component {
         e.preventDefault();
         let newClass = {
             classCode: $('#classCode').val(),
-            className: $('#className').val()
+            className: $('#class-name').val()
         };
 
         this.props.addClass(newClass).then((res) => {
@@ -73,8 +73,8 @@ class ClassList extends React.Component {
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="className" type="text" className="validate"/>
-                                            <label htmlFor="className">Class Name</label>
+                                            <input id="class-name" type="text" className="validate"/>
+                                            <label htmlFor="class-name">Class Name</label>
                                         </div>
                                     </div>
                               </div>

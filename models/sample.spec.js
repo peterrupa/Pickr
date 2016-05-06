@@ -5,10 +5,9 @@ import chai from 'chai';
 chai.should();
 
 describe('Test Component', () => {
-    it('should equal to 1', (done) => {
+    it('should equal to 1', () => {
         let x = 1;
-
+        
         x.should.equal(1);
-        done();
     });
 });

@@ -21,8 +21,9 @@ export default function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             unique: true
         },
-        tokenExpiry: DataTypes.DATE
-        /*classMethods: {
+        tokenExpiry: DataTypes.DATE,
+    }, {    
+        classMethods: {
             associate(models) {
                 Account.hasMany(models.Class);
             }
@@ -34,7 +35,7 @@ export default function (sequelize, DataTypes) {
                     classCode: data.classCode
                 });
             }
-        }*/
+        }//*/
     });
 
     return Account;

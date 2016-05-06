@@ -63,8 +63,6 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    req.session.something = true;
-
     Account.findOne({
         where: {
             username: req.body.username

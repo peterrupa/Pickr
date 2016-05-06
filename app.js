@@ -74,7 +74,6 @@ app.use('*', (req, res, next) => {
 
 },
 (req, res, next) => {
-
     if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
         return next();
     }

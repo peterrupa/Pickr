@@ -3,6 +3,20 @@ let router  = express.Router();
 
 import { Activity, Note } from '../models';
 
+export function getAll(req, res){
+	Note.findAll({
+		where:{
+			ActivityId: req.params.ActivityId
+		}
+	}).then((notes) => {
+			if(notes) 
+					res.send(notes);
+			else
+					res.sendState(400);
+	}).catch((err) => {
+		res.sendStatus(500);		
+	});
+}
 export function insert(req, res) {
   Activity.findById(req.params.ActivityId)
   .then((activity) => {

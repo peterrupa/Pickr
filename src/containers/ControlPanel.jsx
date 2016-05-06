@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, fetchActivity, addNote } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, fetchActivity, addNote, setActivity } from '../actions/controlpanelActions';
 
 import Timer from '../components/Timer.jsx';
 
@@ -15,9 +15,13 @@ let timerInterval;
 
 class ControlPanel extends React.Component {
     componentWillMount() {
-        const { fetchActivity, fetchAvailableVolunteers, controlPanelState, addNote } = this.props;
-        fetchActivity(window.location.pathname.substring(14));
-        fetchAvailableVolunteers(7);
+        let activityId = window.location.pathname.substring(14);
+        const { fetchAvailableVolunteers, setActivity, controlPanelState } = this.props;
+        fetchActivity(activityId)
+        .then((activity) => {
+            setActivity(activity);
+            fetchAvailableVolunteers(activity.ClassId);
+        });
         this.socket = io();
         this.formValues = {
             nVolunteers: 1,
@@ -65,16 +69,16 @@ class ControlPanel extends React.Component {
     addNoteFxn(e) {
         e.preventDefault();
         let note = {
-            activityId: '19',
+            activityId: this.props.controlPanelState.activity.id,
             note: $('#note').val()
         };
-        alert(JSON.stringify(note));
         
         this.props.addNote(note).then((res) => {
             Materialize.toast('Successfully added note.', 4000, 'toast-success');
         }).catch((err) => {
             Materialize.toast('Error adding note.', 4000, 'toast-error');
         });
+        $('#add-note-form')[0].reset();
     }
 
     get() {
@@ -167,6 +171,13 @@ class ControlPanel extends React.Component {
                 </div>
             );
         }
+        
+        let notes = [] ;
+        controlPanelState.activity.notes.forEach((note) => {
+            notes.push(
+              <li key={note}> {note} </li>
+            );
+        });
 
         return (
             <div>
@@ -380,6 +391,28 @@ class ControlPanel extends React.Component {
                                                 </ul>
                                             </div>
                                         </div>
+                                        <br/><hr/><br/>
+                                        <div className="row">
+                                            <div className="container">
+                                                <ul className="collection with-header">
+                                                    <li className="collection-header">
+                                                        <h5>Notes</h5>
+                                                    </li>
+                                                    {notes}
+                                                </ul>
+                                                <form id="add-note-form" onSubmit={(e) => this.addNoteFxn(e)}>
+                                                  <h3>Add Note</h3>
+                                                  <div className="row">
+                                                      <div className="input-field col s12">
+                                                          <input id="note" type="text" className="validate"/>
+                                                      </div>
+                                                  </div>
+                                                  <div className="row">
+                                                      <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
+                                                  </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -410,34 +443,7 @@ class ControlPanel extends React.Component {
                                 </ul>
                             </div>
                         </div>
-                        <br/><hr/><br/>
-                        <div className="row">
-                            <div className="container">
-                                <h3 className="task-card-title">Notes</h3>
-                                <Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addNotes">
-                                    <i className="large material-icons">add</i>
-                                </Link>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                
-                <div id="addNotes" className="modal">
-                    <form onSubmit={(e) => this.addNoteFxn(e)}>
-                        <div className="modal-content">
-                            <h3>Add Note</h3>
-                            <div className="row">
-                                <div className="input-field col s12">
-                                    <input id="note" type="text" className="validate"/>
-                                    <label htmlFor="note">Note</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="modal-footer">
-                            <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                            <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Note</button>
-                        </div>
-                    </form>
                 </div>
             </div>
         );
@@ -451,12 +457,12 @@ ControlPanel.propTypes = {
     addTimer: PropTypes.func.isRequired,
     incrementTimers: PropTypes.func.isRequired,
     removeTimer: PropTypes.func.isRequired,
-    fetchActivity: PropTypes.func.isRequired,
-    addNote: PropTypes.func.isRequired
+    addNote: PropTypes.func.isRequired,
+    setActivity: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, fetchActivity, addNote }
+    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, addNote, setActivity }
 )(ControlPanel);

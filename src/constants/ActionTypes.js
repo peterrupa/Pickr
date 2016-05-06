@@ -17,6 +17,7 @@ export const MODIFY_TAGS = 'MODIFY_TAGS';
 
 export const SET_STUDENT = 'SET_STUDENT';
 export const SET_ACTIVITY = 'SET_ACTIVITY';
+export const SET_NOTES = 'SET_NOTES';
 
 export const ADD_TIMER = 'ADD_TIMER';
 export const INCREMENT_TIMERS = 'INCREMENT_TIMERS';

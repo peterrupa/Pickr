@@ -1,7 +1,7 @@
 import _ from 'lodash'; 
 
 // import your action type constants
-import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, SET_ACTIVITY } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, SET_ACTIVITY} from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {

@@ -9,7 +9,7 @@ export function setVolunteers(students) {
 
 export function setActivity(activity) {
     return {
-        type:  types.SET_ACTIVITY,
+        type: types.SET_ACTIVITY,
         activity
     };
 }
@@ -54,17 +54,12 @@ export function fetchAvailableVolunteers(classcode) {
 }
 
 export function fetchActivity(activityId) {
-    return (dispatch) =>{
-        fetch('/api/class/activity/'+activityId, {
-            method: 'GET'
-        }).then((res) => {
-            return res.json();        
-        }).then((activity) => {
-            dispatch(setActivity(activity));
-        }).catch((err) => {
-            throw err;
-        });
-    };
+    let promises = fetch('/api/class/activity/'+activityId, {
+        method: 'GET'
+    }).then((res) => {
+        return res.json();
+    });
+    return Promise.resolve(promises);
 }
 
 export function addNote(note) {
@@ -78,7 +73,12 @@ export function addNote(note) {
             body: JSON.stringify(note)
         })
         .then((res) =>  res.json())
-        .then((note) => dispatch((fetchActivity(note.ActivityId))))
+        .then((note) => {
+            fetchActivity(note.ActivityId)
+            .then((activity) => {
+                dispatch((setActivity(activity)));
+            });
+        })
         .catch((err) => {
             throw err;
         });

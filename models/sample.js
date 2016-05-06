@@ -5,3 +5,5 @@ export default function (sequelize, DataTypes) {
 
     return Sample;
 };
+
+

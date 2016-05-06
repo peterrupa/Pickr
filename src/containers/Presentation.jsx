@@ -1,103 +1,139 @@
 // Import dependencies
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router';
+import io from 'socket.io-client';
+
+import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../actions/presentationActions';
+
+import PresentationCarouselItem from '../components/PresentationCarouselItem.jsx';
 
 import './../styles/presentation.css';
-import '../externalJS/random.js';
 
 // Be sure to rename your class name
 class Presentation extends React.Component {
-    componentDidMount() {
+
+    componentWillMount() {
+        const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
+
+        // TODO: fetch the list of students based on the current session
+        fetchListOfStudents('1');
+
+        this.students = [];
+        this.carouselConfig = {
+            currentIndex: 0
+        };
+
+        this.socket = io();
+        this.socket.on('recieve volunteers', function(volunteers) {
+            fetchRandomizedVolunteers(volunteers);
+        });
+
+    } 
+
+    componentDidUpdate() {
+        const { presentationState, success } = this.props;
+        
         $('.carousel').carousel();
+
+        let listOfStudents = presentationState.students,
+            listOfVolunteers = presentationState.volunteers,
+            carouselConfig = this.carouselConfig;
+
+        if(presentationState.recievedVolunteer) {
+            for(let i = 0; i < listOfVolunteers.length; i++) {
+                setTimeout(function() {
+                    let targetIndex = -1;
+                    for(let j = 0; j < listOfStudents.length; j++) {
+                        if(listOfVolunteers[i].id == listOfStudents[j].id) {
+                            targetIndex = j;
+                            break;
+                        }
+                    }
+
+                    if(targetIndex != -1) {
+                        carouselConfig.targetIndex = targetIndex;
+                        $('.carousel').carousel('next', listOfStudents.length * 1000 - carouselConfig.currentIndex + carouselConfig.targetIndex);
+                        carouselConfig.currentIndex = carouselConfig.targetIndex;
+                        success();
+                    }
+                }, 3500 * i + (Math.random() % i));
+                this.carouselConfig = carouselConfig;
+            }
+        }
+    }
+
+    getTargetIndex(target) {
+        const listOfStudents = this.props.presentationState.students;
+        for(let i = 0; i < listOfStudents.length; i++) {
+            if(target.id == listOfStudents[i].id) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
+    animateCarousel() {
+        const listOfStudents = this.props.presentationState.students;
+        $('.carousel').carousel('next', listOfStudents.length * 1000 - this.carouselConfig.currentIndex + this.carouselConfig.targetIndex);
+        this.carouselConfig.currentIndex = this.carouselConfig.targetIndex;
     }
 
     render() {
-        return (
-            <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
-                <div className="countDown" style={{position:'fixed',float:'right',bottom: '10px',xright: '5px'}}>
-                    <div id="clockdiv">
-                        <div>
-                            <span id="sw_m">00</span>
-                            {/*<div className="smalltext">Minutes</div>*/}
-                        </div>
-                        <div>
-                            <span id="sw_s">00</span>
-                            {/*<div className="smalltext">Seconds</div>*/}
-                        </div>
-                        <div>
-                            <span id="sw_ms">00</span>
-                            {/*<div className="smalltext">Milliseconds</div>*/}
-                        </div>
+        let listOfStudents = this.props.presentationState.students;
+
+        /*let students = [];
+        for(let i = 0; i < listOfStudents.length; i++) {
+            students.push(
+                <a key={listOfStudents[i].id} className="carousel-item">
+                    <div className="studentPhoto">
+                        <img className="" src="img/defaultPP.png" style={{width:'80%'}}/>
+                    </div>
+                    <div className="ribbon">
+                        <div className="ribbon-stitches-top"></div>
+                        <strong className="ribbon-content">
+                            <h1>{listOfStudents[i].fname} {listOfStudents[i].lname} </h1>
+                        </strong>
+                        <div className="ribbon-stitches-bottom"></div>
+                    </div>
+                </a>
+            );
+        }
+        $('.carousel').carousel();*/
+
+        if(listOfStudents.length > 0) {
+            return (                
+                <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
+                    <div id="deck" className="carousel">
+                        {listOfStudents.map(student => (
+                            <PresentationCarouselItem
+                                key={student.id}
+                                studentItem={student}
+                            />
+                        ))}
                     </div>
                 </div>
-                <a id="start" className="waves-effect waves-light btn" style={{marginTop: '100px',float:'right',marginRight: '5%'}}>Randomize</a>
-                <div id="deck" className="carousel" >
-                    <div className="carousel">
-                        <a className="carousel-item">
-                            <div className="studentPhoto">
-                                <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
+            );
+        }
 
-                                <div className="ribbon">
-                                    <div className="ribbon-stitches-top"></div>
-                                    <strong className="ribbon-content">
-                                        <h1>Prince Karlo Aragones</h1>
-                                    </strong>
-                                    <div className="ribbon-stitches-bottom"></div>
-                                </div>
-                            </a>
-                            <a className="carousel-item">
-                                <div className="studentPhoto">
-                                    <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
-                                    <div className="ribbon">
-                                        <div className="ribbon-stitches-top"></div>
-                                        <strong className="ribbon-content">
-                                            <h1>Angeli Tomagos</h1>
-                                        </strong>
-                                        <div className="ribbon-stitches-bottom"></div>
-                                    </div>
-                                </a>
-                                <a className="carousel-item">
-                                    <div className="studentPhoto">
-                                        <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
-                                        <div className="ribbon">
-                                            <div className="ribbon-stitches-top"></div>
-                                            <strong className="ribbon-content">
-                                                <h1>Narom Santos</h1>
-                                            </strong>
-                                            <div className="ribbon-stitches-bottom"></div>
-                                        </div>
-                                    </a>
-                                    <a className="carousel-item">
-                                        <div className="studentPhoto">
-                                            <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
-
-                                            <div className="ribbon">
-                                                <div className="ribbon-stitches-top"></div>
-                                                <strong className="ribbon-content">
-                                                    <h1>Van Santos</h1>
-                                                </strong>
-                                                <div className="ribbon-stitches-bottom"></div>
-                                            </div>
-                                        </a>
-                                        <a className="carousel-item">
-                                            <div className="studentPhoto">
-                                                <img className="" src="img/defaultPP.png" style={{width:'80%'}}/></div>
-
-                                                <div className="ribbon">
-                                                    <div className="ribbon-stitches-top"></div>
-                                                    <strong className="ribbon-content">
-                                                        <h1>Graceal Villamor</h1>
-                                                    </strong>
-                                                    <div className="ribbon-stitches-bottom"></div>
-                                                </div>
-                                            </a>
-                                        </div>
-
-                                    </div>
-                                </div>
+        return (
+            <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
+                <h1 className="center">Loading students...</h1>
+            </div>
         );
     }
 }
 
+Presentation.propTypes = {
+    presentationState: PropTypes.object.isRequired,
+    fetchRandomizedVolunteers: PropTypes.func.isRequired,
+    fetchListOfStudents: PropTypes.func.isRequired,
+    success: PropTypes.func.isRequired
+};
+
 // connect to redux store
-export default Presentation;
+export default connect(
+    state => ({ presentationState: state.presentationState }),
+    { fetchRandomizedVolunteers, fetchListOfStudents, success }
+)(Presentation);

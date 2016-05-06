@@ -22,7 +22,7 @@
     position: relative;
     display: flex;
     background-color: black;
-  /*  background-image: "url('./../../public/img/ph.png')";*/
+  /*  background-image: "url('/img/ph.png')";*/
     align-items: center;
     padding: 0 !important;
 }
@@ -30,6 +30,10 @@
 #nav_f{
     box-shadow: none !important;
     -webkit-box-shadow:none !important;
+}
+
+.underline {
+   font-style: italic;
 }
 
 .text_h {
@@ -48,6 +52,15 @@
     font-weight: 100;
     padding: 0;
     letter-spacing: 7px;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
 }
 
 .text_h2 {font-weight: 100;margin-bottom: 4%; line-height: 4.5rem;}
@@ -215,7 +228,7 @@ nav ul a {
     position:absolute;
     left:50%; /* centers the loading animation horizontally one the screen */
     top:50%; /* centers the loading animation vertically one the screen */
-    /*background-image:url(../img/status.gif); *//* path to your loading animation */
+    /*background-image:url(/img/status.gif); *//* path to your loading animation */
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */
@@ -283,8 +296,8 @@ footer.page-footer {
  }
  /* label underline focus color */
  .input-field input[type=text]:focus {
-   border-bottom: 1px solid #000;
-   box-shadow: 0 1px 0 0 #000;
+
+
  }
  /* valid color */
  .input-field input[type=text].valid {

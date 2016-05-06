@@ -9,6 +9,7 @@ import app from '../app';
 let debug = require('debug')('pickr-backend:server');
 import http from 'http';
 import models from '../models';
+import SocketIO from 'socket.io';
 
 /**
  * Get port from environment and store in Express.
@@ -24,10 +25,20 @@ app.set('port', port);
 let server = http.createServer(app);
 
 /**
+ * Create SocketIO server.
+ */
+ let io = new SocketIO(server);
+ io.on('connection', function(socket) {
+    socket.on('send volunteers', function(data) {
+        io.emit('recieve volunteers', data);
+    });
+ });
+
+/**
  * Connect ORM.
  */
 models.sequelize.sync({
-    force: false
+    //force: true
 }).then(() => {
     /**
      * Listen on provided port, on all network interfaces.

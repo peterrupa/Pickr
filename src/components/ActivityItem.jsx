@@ -1,16 +1,12 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { setAID } from '../actions/classroomActions';
+import ActivityControlPanelLink from '../components/ActivityControlPanelLink.jsx';
 import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
 
 //import ClassListDefaultItem from './ClassListDefaultItem.jsx';
 
 class ActivityItem extends React.Component {
-    componentWillMount() {
-        this.props.setAID(this.props.activity.id);
-    }
-
     render() {
         return (
             <li key={this.props.activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
@@ -21,9 +17,7 @@ class ActivityItem extends React.Component {
               </label>
               <div className="right">
                 <ActivityDeleteModal activity={this.props.activity}/>
-                <Link to="/controlPanel">
-                    <i className="mdi-action-settings"></i>
-                </Link>
+                <ActivityControlPanelLink activityID={this.props.activity.id}/>
                 <Link to="/presentation">
                     <i className="mdi-image-color-lens"></i>
                 </Link>
@@ -34,11 +28,7 @@ class ActivityItem extends React.Component {
 }
 
 ActivityItem.propTypes = {
-    activity: PropTypes.object.isRequired,
-    setAID: PropTypes.func.isRequired
+    activity: PropTypes.object.isRequired
 };
 
-export default connect(
-    state => ({ classroomAppState: state.classroomAppState}),
-        { setAID }
-)(ActivityItem);
+export default ActivityItem;

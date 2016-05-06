@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 import _ from 'lodash';
 
-
 import HighCharts from 'highcharts';
 import Tag from '../components/Tag.jsx';
 import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities } from '../actions/classroomActions';
@@ -167,7 +166,7 @@ class ClassRoom extends React.Component {
 
         this.props.classroomAppState.activities.forEach(function(activity){
             activityList.push(
-                <li key={activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+                <li key={activity.id} className="collection-item" style={{touchAction: 'pan-y'}}>
                   <label htmlFor="task1" style={{textDecoration: 'none'}}>
                     <Link to="/presentation">
                       {activity.activityName}

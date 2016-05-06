@@ -96,17 +96,26 @@ exports.login = (req, res) => {
                         res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
                     }
                 }
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
-        });
+            })
+            .catch((err) => {
+                res.status(error.LOG_FAIL.code).send({LOG_FAIL: error.LOG_FAIL.message});
+            });
+        }
+    });
+
+}
+
+
+exports.logout = (req, res) => {
+    if (req.session.key) {
+        req.session.destroy();
+        res.status(200).send({status:'logged out'});
+    } else {
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH});
     }
 }
 
 exports.forgotPassword = (req, res) => {
-
     Account.findOne({ where: {EmailAddress: req.body.email} })
     .then((user) => {
         if(user) {
@@ -189,7 +198,6 @@ exports.forgotPassword = (req, res) => {
 }
 
 exports.resetPassword = (req, res) => {
-
     Account.findOne({
         where: {
             tokenExpiry: {
@@ -216,7 +224,6 @@ exports.resetPassword = (req, res) => {
 }
 
 exports.changePassword = (req, res) => {
-
     let query = 'UPDATE Accounts SET password = (SELECT MD5(SHA1(?))), ' +
                 'token = NULL, tokenExpiry = NULL where emailAddress = ?' +
                 ' AND username = ?';
@@ -255,14 +262,5 @@ exports.changePassword = (req, res) => {
         .catch((err) => {
             res.sendStatus(500);
         });
-    }
-}
-
-exports.logout = (req, res) => {
-    if (req.session.key) {
-        req.session.destroy();
-        res.status(200).send({status:'logged out'});
-    } else {
-        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH});
     }
 }

@@ -5,7 +5,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-import '../styles/index_style.css';
+import NavBar from '../components/NavBarLanding.jsx';
 
 const Materialize = window.Materialize;
 const $ = window.$;
@@ -70,46 +70,7 @@ class LandingPage extends React.Component {
         </div>
 
         {/*<!--Navigation-->*/}
-        <div className="navbar-fixed" >
-            <nav id="nav_f" className="default_color">
-                <div className="container" style={{zDepth: '0'}}>
-                    <div className="nav-wrapper">
-                        <a href="#" id="logo-container" className="brand-logo">pickr</a>
-                        <ul className="right hide-on-med-and-down">
-                            <li>
-                                <a href="#intro">About</a>
-                            </li>
-                            <li>
-                                <Link to="login">Log in</Link>
-                            </li>
-                            <li>
-                                <Link to="signup">Sign up</Link>
-                            </li>
-                            <li>
-                                <a href="#contact">Contact</a>
-                            </li>
-                        </ul>
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <a href="#intro">About</a>
-                            </li>
-                            <li>
-                                <Link to="login">Log in</Link>
-                            </li>
-                            <li>
-                                <Link to="signup">Sign up</Link>
-                            </li>
-                            <li>
-                                <a href="#contact">Contact</a>
-                            </li>
-                        </ul>
-                        <a data-activates="nav-mobile" className="button-collapse">
-                            <i className="mdi-navigation-menu"></i>
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
+        <NavBar/>
 
         {/*<!--Hero-->*/}
         <div className="section no-pad-bot" id="index-banner" style={hero}>
@@ -164,11 +125,6 @@ class LandingPage extends React.Component {
                 </div>
             </div>
             </div>
-
-                {/*<!--Work-->*/}
-                <div className="parallax-container hide-on-med-and-down" >
-                  <div className="parallax"><img src="/img/room.jpg "/></div>
-                  </div>
 
                 <div className="container" id="login">
                     <div className="row">

@@ -5,8 +5,6 @@ import Tag from './Tag.jsx';
 
 import { modifyStudents } from '../actions/controlpanelActions';
 
-import '../styles/oneUI.css';
-
 class StudentFilterForm extends React.Component {
 
     componentWillMount() {

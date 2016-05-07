@@ -90,6 +90,7 @@ class Presentation extends React.Component {
         if(listOfStudents.length > 0) {
             return (
                 <div style={{backgroundImage: 'url('+bgUrl+')',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
+                    <div style={{zIndex: '10', width: '100vw', height: '100vh', position: 'absolute'}}></div>
                     <div id="deck" className="carousel">
                         {listOfStudents.map(student => (
                             <PresentationCarouselItem

@@ -31,6 +31,10 @@ class Presentation extends React.Component {
 
     }
 
+    componentDidMount() {
+        $('.carousel').carousel();
+    }
+
     componentDidUpdate() {
         const { presentationState, success } = this.props;
 
@@ -83,13 +87,23 @@ class Presentation extends React.Component {
     render() {
         let listOfStudents = this.props.presentationState.students;
         let cardBgUrl = '/img/one-fourth.jpg';
-        
-        $('.carousel').carousel();
         let bgUrl = '/img/black-board.jpg';
+        
+        const containerStyle = {
+            backgroundImage: 'url('+bgUrl+')',
+            maxWidth: '100%',
+            height: '100vh',
+            width: '100%',
+            backgroundSize: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center' 
+        };
+        
         // let bgUrl = '/img/classhover.gif';
         if(listOfStudents.length > 0) {
             return (
-                <div style={{backgroundImage: 'url('+bgUrl+')',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
+                <div style={containerStyle}>
                     <div style={{zIndex: '10', width: '100vw', height: '100vh', position: 'absolute'}}></div>
                     <div id="deck" className="carousel">
                         {listOfStudents.map(student => (

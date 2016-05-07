@@ -21,9 +21,9 @@ class ChangePassword extends React.Component {
         .then((res) => {
             switch (res.status) {
                 case 404: message = 'Invalid Link!'; break;
-                default: message = 'Invalid Link'; break;
             }
-            Materialize.toast(message, 4000);
+
+            if (message !== '') Materialize.toast(message, 4000);
             if (res.status != 200) {
                 Materialize.toast('Invalid Link', 4000, 'toast-error');
                 window.location.href = '/forgotpassword';
@@ -39,7 +39,8 @@ class ChangePassword extends React.Component {
     change(e){
         e.preventDefault();
 
-        let account= 'token=' + window.location.pathname.substring(7) + '&password=' + $('#password').val()+
+        let account= 'token=' + window.location.pathname.substring(7) +
+            '&password=' + $('#password').val()+
             '&confirm_password=' + $('#password-again').val();
         let message = '';
         let password = $('#password').val();

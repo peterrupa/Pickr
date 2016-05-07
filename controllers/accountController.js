@@ -223,8 +223,7 @@ exports.resetPassword = (req, res) => {
 
 exports.changePassword = (req, res) => {
     let query = 'UPDATE Accounts SET password = (SELECT MD5(SHA1(?))), ' +
-                'token = NULL, tokenExpiry = NULL where emailAddress = ?' +
-                ' AND username = ?';
+                'token = NULL, tokenExpiry = NULL where token = ?';
 
     if (req.body.password !== req.body.confirm_password) {
         res.sendStatus(401);
@@ -232,8 +231,7 @@ exports.changePassword = (req, res) => {
     else {
         Account.findOne({
             where: {
-                username: req.body.username,
-                emailAddress: req.body.email
+                token: req.body.token
             }
         })
         .then((user) => {
@@ -243,7 +241,7 @@ exports.changePassword = (req, res) => {
             else {
                 sequelize.query(query, {
                     replacements: [
-                        req.body.password, req.body.email, req.body.username
+                        req.body.password, req.body.token
                     ],
                     type: sequelize.QueryTypes.UPDATE
                 })

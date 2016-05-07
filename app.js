@@ -77,7 +77,6 @@ app.use('*', (req, res, next) => {
 
 },
 (req, res, next) => {
-
     if (!(unauth_paths).test(req.path)) {
         return next();
     }
@@ -86,7 +85,6 @@ app.use('*', (req, res, next) => {
     } else {
         res.redirect('/class');
     }
-
 },
 (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');

@@ -29,11 +29,11 @@ class Presentation extends React.Component {
             fetchRandomizedVolunteers(volunteers);
         });
 
-    } 
+    }
 
     componentDidUpdate() {
         const { presentationState, success } = this.props;
-        
+
         $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
@@ -82,29 +82,14 @@ class Presentation extends React.Component {
 
     render() {
         let listOfStudents = this.props.presentationState.students;
-
-        /*let students = [];
-        for(let i = 0; i < listOfStudents.length; i++) {
-            students.push(
-                <a key={listOfStudents[i].id} className="carousel-item">
-                    <div className="studentPhoto">
-                        <img className="" src="img/defaultPP.png" style={{width:'80%'}}/>
-                    </div>
-                    <div className="ribbon">
-                        <div className="ribbon-stitches-top"></div>
-                        <strong className="ribbon-content">
-                            <h1>{listOfStudents[i].fname} {listOfStudents[i].lname} </h1>
-                        </strong>
-                        <div className="ribbon-stitches-bottom"></div>
-                    </div>
-                </a>
-            );
-        }
-        $('.carousel').carousel();*/
-
+        let cardBgUrl = '/img/one-fourth.jpg';
+        
+        $('.carousel').carousel();
+        let bgUrl = '/img/black-board.jpg';
+        // let bgUrl = '/img/classhover.gif';
         if(listOfStudents.length > 0) {
-            return (                
-                <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
+            return (
+                <div style={{backgroundImage: 'url('+bgUrl+')',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
                     <div id="deck" className="carousel">
                         {listOfStudents.map(student => (
                             <PresentationCarouselItem
@@ -118,7 +103,7 @@ class Presentation extends React.Component {
         }
 
         return (
-            <div style={{backgroundColor:'black',maxWidth: '100%', height:'750px', width:'100%',backgroundSize:'cover'}}>
+            <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
                 <h1 className="center">Loading students...</h1>
             </div>
         );

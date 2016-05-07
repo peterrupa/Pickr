@@ -74,19 +74,12 @@ app.use('*', (req, res, next) => {
 
 },
 (req, res, next) => {
-
-    if (!(req.path in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''})) {
-        return next();
-    }
-    if (req.originalUrl === '/class') {
-        return next();
-    } else {
+    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
         res.redirect('/class');
     }
-
-},
-(req, res, next) => {
-    res.sendFile(__dirname + '/src/index.html');
+    else {
+        res.sendFile(__dirname + '/src/index.html');
+    }
 });
 
 export default app;

@@ -119,7 +119,7 @@ class StudentPage extends React.Component {
 
                                 <div id="profile-page" className="section">
                                     {/*<!-- profile-page-header -->*/}
-                                    <div id="profile-page-header" className="card-panel" style={{marginTop:'6em'}}>
+                                    <div id="profile-page-header" className="card-panel">
 
                                         <div className="row">
                                             <div className="col s12 m12 l12">

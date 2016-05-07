@@ -1,9 +1,10 @@
-import {GET_CLASS, GET_STUDENTS, GET_ACTIVITIES} from '../constants/ActionTypes';
+import {GET_CLASS, GET_STUDENTS, GET_ACTIVITIES, GET_VOLUNTEERS} from '../constants/ActionTypes';
 
 const initialState = {
     classViewed: '',
     activities: [],
-    students: []
+    students: [],
+    volunteers: []
 };
 
 export default function classroomAppState(state = initialState, action) {
@@ -19,6 +20,10 @@ export default function classroomAppState(state = initialState, action) {
         case GET_ACTIVITIES:
             return Object.assign({}, state, {
                 activities: action.activities
+            });
+        case GET_VOLUNTEERS:
+            return Object.assign({}, state, {
+                volunteers: action.volunteers
             });
         default:
             return state;

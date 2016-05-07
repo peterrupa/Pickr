@@ -9,18 +9,18 @@ import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
 class ActivityItem extends React.Component {
     render() {
         return (
-            <li key={this.props.activity.id} className="collection-item dismissable" style={{touchAction: 'pan-y'}}>
+            <li key={this.props.activity.id} className="collection-item" style={{touchAction: 'pan-y'}}>
               <label htmlFor="task1" style={{textDecoration: 'none'}}>
                 <Link to="/presentation">
                   {this.props.activity.activityName}
                 </Link>
               </label>
               <div className="right">
-                <ActivityDeleteModal activity={this.props.activity}/>
                 <ActivityControlPanelLink activityID={this.props.activity.id}/>
-                <Link to="/presentation">
-                    <i className="mdi-image-color-lens"></i>
+                <Link to="/presentation" style={{marginRight: '2em'}}>
+                  <i className="small mdi-image-color-lens"></i>
                 </Link>
+                <ActivityDeleteModal activity={this.props.activity}/>
               </div>
             </li>
         );

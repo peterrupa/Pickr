@@ -21,6 +21,13 @@ export function setStudents(students) {
     };
 }
 
+export function setVolunteers(volunteers) {
+    return {
+        type: types.GET_VOLUNTEERS,
+        volunteers: volunteers
+    };
+}
+
 export function addActivity(activity) {
     return (dispatch) => {
         return fetch('/api/class/'+activity.path+'/activity', {
@@ -47,7 +54,6 @@ export function addStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
             credentials: 'include',
@@ -177,5 +183,18 @@ export function setCID(data){
         .catch((err) => {
             throw err;
         });
+    };
+}
+
+export function fetchVolunteers(data){
+    return (dispatch) => {
+      // ajax request to /api/sample
+        return fetch('/api/volunteer/class/'+data.id, {
+            method: 'GET'
+        })
+       .then((res) =>  res.json())
+       .then((volunteers) => {
+           dispatch(setVolunteers(volunteers));
+       });
     };
 }

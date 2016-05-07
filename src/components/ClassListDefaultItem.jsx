@@ -10,7 +10,8 @@ class ClassListDefaultItem extends React.Component {
             <div>
               <Link to={'/classroom/' + this.props.classItem.id}>
                 <div className="card-panel cyan darken-3 class-card" style={{
-                    minHeight: '200px'
+                    minHeight: '150px',
+                    borderRadius: '25px'
                 }}>
                       <div>
                           <h5>

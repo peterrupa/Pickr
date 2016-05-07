@@ -165,7 +165,7 @@ class ControlPanel extends React.Component {
                 }
 
                 if($('#timer-checkbox')[0].checked) {
-                    this.addTimer(controlPanelState.students[i].id);
+                    this.addTimer(student.id);
                 }
                 selectedVolunteers.push(student);
             }
@@ -173,7 +173,7 @@ class ControlPanel extends React.Component {
                 let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
 
                 if($('#timer-checkbox')[0].checked) {
-                    this.addTimer(controlPanelState.students[i].id);
+                    this.addTimer(student.id);
                 }
                 selectedVolunteers.push(student);
                 if($('#remember-checkbox')[0].checked) {
@@ -196,9 +196,9 @@ class ControlPanel extends React.Component {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    activityID: '1',
-                    studentID: selectedVolunteers[i].id,
-                    classCode: selectedVolunteers[i].ClassId,
+                    ActivityId: '1',
+                    StudentId: selectedVolunteers[i].id,
+                    ClassId: selectedVolunteers[i].ClassId,
                     note: ''
                 })
             });

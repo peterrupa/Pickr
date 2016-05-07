@@ -18,7 +18,7 @@ let timerInterval;
 class ControlPanel extends React.Component {
     componentWillMount() {
         const { fetchAvailableVolunteers, controlPanelState } = this.props;
-        fetchAvailableVolunteers('1');
+        fetchAvailableVolunteers();
         this.socket = io();
 
         this.formValues = {

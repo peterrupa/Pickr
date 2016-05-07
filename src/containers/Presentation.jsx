@@ -103,8 +103,7 @@ class Presentation extends React.Component {
         }
 
         return (
-            <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
-                <h1 className="center">Loading students...</h1>
+            <div style={{backgroundImage: 'url('+bgUrl+')',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
             </div>
         );
     }

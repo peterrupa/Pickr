@@ -28,8 +28,9 @@ export function success() {
 
 export function fetchListOfStudents() {
     return ((dispatch) => {
-        fetch('/api/students/fetchAll', {
-            method: 'GET'
+        fetch('/api/student/fetchAll', {
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             return res.json();
         }).then((students) => {

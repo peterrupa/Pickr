@@ -25,7 +25,7 @@ import volunteer from './routes/volunteer';
 
 //add all paths that do not need authentication here
 const paths = ['/signup$', '/#$', '/$','/login$',
-               '/forgotpassword$', '/reset'];
+               '/forgotpassword$', '/reset/'];
 const unauthPaths = new RegExp( '(' + paths.join('|') + ')');
 
 let app = express();

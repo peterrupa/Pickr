@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // Import actions associated to this page
-import { create } from '../actions/userActions';
+// import { create } from '../actions/userActions';
 
 const Materialize = window.Materialize;
 
@@ -22,9 +22,7 @@ class SignUp extends React.Component {
             $('.button-collapse').css({visibility: 'visible'});
 
         });
-
-        let body = document.getElementByTagName('body');
-        body.background = "/img/full-classroom.jpg";
+        
         $('.hidden').hide();
     }
     create(e) {
@@ -81,15 +79,17 @@ class SignUp extends React.Component {
             })
             .then((res) => {
                 switch (res.status) {
-                    case 200: message = 'Successfully added account!'; break;
                     case 400: message = 'Invalid data!'; break;
                     case 401: message = 'Username already taken!'; break;
                     case 403: message = 'Register failed! Please try again.'; break;
                     default: message = 'Error adding account!'; break;
                 }
-                Materialize.toast(message, 4000);
+                
                 if (res.status === 200) {
                     window.location.href = '/login';
+                }
+                else {
+                    Materialize.toast(message, 4000);
                 }
             })
             .catch((err) => {
@@ -132,17 +132,11 @@ class SignUp extends React.Component {
                                 </div >
                             </nav>
                         </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
                 <div style={{
-                    height: '400px',
                     width: '800px',
                     margin: '0 auto'
                 }}>
-                    <div id="signup-page" className="row">
+                    <div id="signup-page" className="row no-margin">
                         <div className="col s12 card-panel">
                             <form className="signup-form" onSubmit={(e) => this.create(e)}>
                                 <div className="row">
@@ -228,7 +222,7 @@ class SignUp extends React.Component {
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password" type="password"  pattern="[A-Za-z0-9!@]{8,32}"/>
+                                        <input id="password" type="password"/>
                                         <label htmlFor="password">Password</label>
                                         <p className="red-text errorPassword hidden"
                                             style={{
@@ -250,7 +244,7 @@ class SignUp extends React.Component {
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password-again" type="password"  pattern="[A-Za-z0-9!@]{8,32}"/>
+                                        <input id="password-again" type="password"/>
                                         <label htmlFor="password-again">Re-type password</label>
                                     </div>
                                     <p className="red-text errorPassword hidden"
@@ -271,7 +265,7 @@ class SignUp extends React.Component {
 
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input type="submit" value="register" className="btn waves-effect waves-light col s12"/>
+                                        <input type="submit" value="register" className="btn waves-effect waves-light col s12 z-depth-0"/>
                                     </div>
                                     <div className="input-field col s12">
                                         <p className="margin center medium-small sign-up">Already have an account?
@@ -289,15 +283,5 @@ class SignUp extends React.Component {
     }
 }
 // connect to redux store
-//export default SignUp;
 
-SignUp.propTypes = {
-    SignUpAppState: PropTypes.object.isRequired,
-    create: PropTypes.func.isRequired
-};
-
-// connect to redux store
-export default connect(
-state => ({ SignUpAppState: state.SignUpAppState }),
-    { create }
-)(SignUp);
+export default SignUp;

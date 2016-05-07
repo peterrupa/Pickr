@@ -39,9 +39,7 @@ class ChangePassword extends React.Component {
     change(e){
         e.preventDefault();
 
-        let account= 'username=' + $('#username').val() +
-            '&email=' + $('#email').val() +
-            '&password=' + $('#password').val()+
+        let account= 'token=' + window.location.pathname.substring(7) + '&password=' + $('#password').val()+
             '&confirm_password=' + $('#password-again').val();
         let message = '';
         let password = $('#password').val();
@@ -126,20 +124,6 @@ class ChangePassword extends React.Component {
                                             Pickr Change Password Form
                                         </p>
                                     </div >
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s12">
-                                        <i className="mdi-communication-email prefix"></i>
-                                        <input id="email" type="email" className="validate"/>
-                                        <label htmlFor="email" className="center-align">Email</label>
-                                    </div>
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s12">
-                                        <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="username" type="text" className="validate"/>
-                                        <label htmlFor="username" className="center-align">Username</label>
-                                    </div>
                                 </div>
                                 <div className="row margin">
                                     <div className="input-field col s12">

@@ -4,9 +4,7 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
 import NavBar from '../components/NavBar.jsx';
-import './../styles/style.css';
-import './../styles/styles.scss';
-//import classListJS from '../../externalDependencies/js/classList.js';
+
 import ClassListCarousel from '../components/ClassListCarousel.jsx';
 import ClassListDefault from '../components/ClassListDefault.jsx';
 

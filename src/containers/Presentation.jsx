@@ -8,8 +8,6 @@ import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../acti
 
 import PresentationCarouselItem from '../components/PresentationCarouselItem.jsx';
 
-import './../styles/presentation.css';
-
 // Be sure to rename your class name
 class Presentation extends React.Component {
 

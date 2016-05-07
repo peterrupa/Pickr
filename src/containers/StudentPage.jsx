@@ -6,9 +6,6 @@ import {fetchStudent, editStudent } from '../actions/studentActions.js';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import HighCharts from 'highcharts';
 
-import './../styles/styles.scss';
-import './../styles/style.css';
-
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
 

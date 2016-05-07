@@ -5,8 +5,6 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
-import '../styles/index_style.css';
-
 const Materialize = window.Materialize;
 const $ = window.$;
 
@@ -164,11 +162,6 @@ class LandingPage extends React.Component {
                 </div>
             </div>
             </div>
-
-                {/*<!--Work-->*/}
-                <div className="parallax-container hide-on-med-and-down" >
-                  <div className="parallax"><img src="/img/room.jpg "/></div>
-                  </div>
 
                 <div className="container" id="login">
                     <div className="row">

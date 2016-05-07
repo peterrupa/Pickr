@@ -8,6 +8,7 @@ import multer from 'multer';
 const upload = multer({ dest: 'public/uploads/' });
 
 router.get('/:id/student', studentController.getAll);
+router.get('/fetchAll', studentController.fetchAllBySession);
 router.post('/:id/student', upload.single('image'), studentController.insert);
 router.get('/student/:studentId', studentController.getOne);
 router.put('/student/:studentId', upload.single('image'), studentController.update);

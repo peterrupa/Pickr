@@ -7,6 +7,8 @@ import { Class, Student } from '../models';
 import Jimp from 'jimp';
 import fs from 'fs-promise';
 
+import * as error from '../src/constants/ErrorTypes';
+
 export function getAll(req, res) {
     Student.findAll({where:{ClassId: req.params.id }})
     .then((students) => {
@@ -14,11 +16,9 @@ export function getAll(req, res) {
         let promises = students.map((student) => {
             return student.getTags().then((data) => {
                 student.dataValues.tags = data.map((tag) => tag.dataValues.name);
-
                 return student.dataValues;
             });
         });
-
         return Promise.all(promises);
       })
       .then((students) => {
@@ -105,7 +105,7 @@ function processImg(file) {
 //UPDATE ATTRIBUTES
 export function update(req, res) {
     let file = req.file;
-    
+
     // query class
     processImg(file).then((img) => {
         return Student.findById(req.params.studentId);
@@ -114,7 +114,7 @@ export function update(req, res) {
         // @TODO: Refactor
         if(file) {
             let image = file.filename + '.jpg';
-            
+
             return student.updateAttributes({
                 fname: req.body.fname,
                 lname: req.body.lname,
@@ -164,4 +164,25 @@ export function remove(req, res) {
             res.sendStatus(404);
         }
     });
+}
+
+export function fetchAllBySession(req, res) {
+    if(!req.session.key){
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    } else {
+        Student.findAll({where:{ClassId: req.session.classID }})
+        .then((students) => {
+            // fetch tags for each student
+            let promises = students.map((student) => {
+                return student.getTags().then((data) => {
+                    student.dataValues.tags = data.map((tag) => tag.dataValues.name);
+                    return student.dataValues;
+                });
+            });
+            return Promise.all(promises);
+          })
+          .then((students) => {
+              res.send(students);
+          });
+    }
 }

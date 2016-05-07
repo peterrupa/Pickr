@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // Import actions associated to this page
-import { create } from '../actions/userActions';
+import NavBar from '../components/NavBarLanding.jsx';
 
 const Materialize = window.Materialize;
 
 // Be sure to rename your class name
 class SignUp extends React.Component {
-    componentDidMount(){
+    componentDidMount() {
+
+        $('.button-collapse').click(function() {
+            $('.side-nav').css({position: 'static', marginLeft: '-50px'});
+            $('.button-collapse').css({visibility: 'hidden'});
+        });
+        $(window).scroll(function() {
+
+            $('.side-nav').css({position: 'fixed'});
+            $('.button-collapse').css({visibility: 'visible'});
+
+        });
+        
         $('.hidden').hide();
     }
     create(e) {
@@ -67,15 +79,17 @@ class SignUp extends React.Component {
             })
             .then((res) => {
                 switch (res.status) {
-                    case 200: message = 'Successfully added account!'; break;
                     case 400: message = 'Invalid data!'; break;
                     case 401: message = 'Username already taken!'; break;
                     case 403: message = 'Register failed! Please try again.'; break;
                     default: message = 'Error adding account!'; break;
                 }
-                Materialize.toast(message, 4000);
+                
                 if (res.status === 200) {
                     window.location.href = '/login';
+                }
+                else {
+                    Materialize.toast(message, 4000);
                 }
             })
             .catch((err) => {
@@ -86,44 +100,13 @@ class SignUp extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <Link id="logo-container" to="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>Pickr</Link>
-                        <ul className="right hide-on-med-and-down">
-
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/#intro">About</Link>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <Link to="index.html#about">About</Link>
-                            </li>
-                        </ul>
-                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </Link>
-                    </div>
-                </nav>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            <div>
+                <NavBar/>
                 <div style={{
-                    height: '400px',
                     width: '800px',
                     margin: '0 auto'
                 }}>
-                    <div id="signup-page" className="row">
+                    <div id="signup-page" className="row no-margin">
                         <div className="col s12 card-panel">
                             <form className="signup-form" onSubmit={(e) => this.create(e)}>
                                 <div className="row">
@@ -209,7 +192,7 @@ class SignUp extends React.Component {
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password" type="password"  pattern="[A-Za-z0-9!@]{8,32}"/>
+                                        <input id="password" type="password"/>
                                         <label htmlFor="password">Password</label>
                                         <p className="red-text errorPassword hidden"
                                             style={{
@@ -231,7 +214,7 @@ class SignUp extends React.Component {
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
-                                        <input id="password-again" type="password"  pattern="[A-Za-z0-9!@]{8,32}"/>
+                                        <input id="password-again" type="password"/>
                                         <label htmlFor="password-again">Re-type password</label>
                                     </div>
                                     <p className="red-text errorPassword hidden"
@@ -252,11 +235,10 @@ class SignUp extends React.Component {
 
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input type="submit" value="register" className="btn waves-effect waves-light col s12"/>
+                                        <input type="submit" value="register" className="btn waves-effect waves-light col s12 z-depth-0"/>
                                     </div>
                                     <div className="input-field col s12">
-                                        <p className="margin center medium-small sign-up">Already have an account?
-                                            <Link to="/login"> Login</Link>
+                                        <p className="margin center medium-small sign-up">Already have an account? <Link to="/login">Login</Link>
                                         </p>
                                     </div>
                                 </div>
@@ -269,15 +251,5 @@ class SignUp extends React.Component {
     }
 }
 // connect to redux store
-//export default SignUp;
 
-SignUp.propTypes = {
-    SignUpAppState: PropTypes.object.isRequired,
-    create: PropTypes.func.isRequired
-};
-
-// connect to redux store
-export default connect(
-state => ({ SignUpAppState: state.SignUpAppState }),
-    { create }
-)(SignUp);
+export default SignUp;

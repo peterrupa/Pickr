@@ -6,9 +6,6 @@ import {fetchStudent, editStudent } from '../actions/studentActions.js';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import HighCharts from 'highcharts';
 
-import './../styles/styles.scss';
-import './../styles/style.css';
-
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
 
@@ -119,7 +116,7 @@ class StudentPage extends React.Component {
 
                                 <div id="profile-page" className="section">
                                     {/*<!-- profile-page-header -->*/}
-                                    <div id="profile-page-header" className="card-panel" style={{marginTop:'6em'}}>
+                                    <div id="profile-page-header" className="card-panel">
 
                                         <div className="row">
                                             <div className="col s12 m12 l12">

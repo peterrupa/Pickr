@@ -8,8 +8,6 @@ import { fetchRandomizedVolunteers, fetchListOfStudents, success } from '../acti
 
 import PresentationCarouselItem from '../components/PresentationCarouselItem.jsx';
 
-import './../styles/presentation.css';
-
 // Be sure to rename your class name
 class Presentation extends React.Component {
 
@@ -17,7 +15,7 @@ class Presentation extends React.Component {
         const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
 
         // TODO: fetch the list of students based on the current session
-        fetchListOfStudents('1');
+        fetchListOfStudents();
 
         this.students = [];
         this.carouselConfig = {
@@ -29,11 +27,15 @@ class Presentation extends React.Component {
             fetchRandomizedVolunteers(volunteers);
         });
 
-    } 
+    }
+
+    componentDidMount() {
+        $('.carousel').carousel();
+    }
 
     componentDidUpdate() {
         const { presentationState, success } = this.props;
-        
+
         $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
@@ -82,29 +84,25 @@ class Presentation extends React.Component {
 
     render() {
         let listOfStudents = this.props.presentationState.students;
-
-        /*let students = [];
-        for(let i = 0; i < listOfStudents.length; i++) {
-            students.push(
-                <a key={listOfStudents[i].id} className="carousel-item">
-                    <div className="studentPhoto">
-                        <img className="" src="img/defaultPP.png" style={{width:'80%'}}/>
-                    </div>
-                    <div className="ribbon">
-                        <div className="ribbon-stitches-top"></div>
-                        <strong className="ribbon-content">
-                            <h1>{listOfStudents[i].fname} {listOfStudents[i].lname} </h1>
-                        </strong>
-                        <div className="ribbon-stitches-bottom"></div>
-                    </div>
-                </a>
-            );
-        }
-        $('.carousel').carousel();*/
-
+        let cardBgUrl = '/img/one-fourth.jpg';
+        let bgUrl = '/img/black-board.jpg';
+        
+        const containerStyle = {
+            backgroundImage: 'url('+bgUrl+')',
+            maxWidth: '100%',
+            height: '100vh',
+            width: '100%',
+            backgroundSize: 'cover',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center' 
+        };
+        
+        // let bgUrl = '/img/classhover.gif';
         if(listOfStudents.length > 0) {
-            return (                
-                <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
+            return (
+                <div style={containerStyle}>
+                    <div style={{zIndex: '10', width: '100vw', height: '100vh', position: 'absolute'}}></div>
                     <div id="deck" className="carousel">
                         {listOfStudents.map(student => (
                             <PresentationCarouselItem
@@ -118,8 +116,7 @@ class Presentation extends React.Component {
         }
 
         return (
-            <div style={{backgroundColor:'black',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
-                <h1 className="center">Loading students...</h1>
+            <div style={{backgroundImage: 'url('+bgUrl+')',maxWidth: '100%', height:'100vh', width:'100%',backgroundSize:'cover'}}>
             </div>
         );
     }

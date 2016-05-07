@@ -1,4 +1,4 @@
-import _ from 'lodash'; 
+import _ from 'lodash';
 
 // import your action type constants
 import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS } from '../constants/ActionTypes';
@@ -28,37 +28,37 @@ export default function controlPanelState(state = initialState, action) {
             return Object.assign({}, state, {
                 tags: action.tags
             });
-            
+
         case ADD_TIMER: {
             let newTimer = state.timer;
-            
+
             newTimer.push({
                 studentId: action.studentId,
                 timer: 0
             });
-        
+
             return Object.assign({}, state, {
                 timer: newTimer
             });
         }
-        
+
         case REMOVE_TIMER: {
             let newTimer = state.timer;
-            
+
             newTimer = _.filter(newTimer, (o) => {
-                return o.studentId !== action.studentId; 
+                return o.studentId !== action.studentId;
             });
-        
+
             return Object.assign({}, state, {
                 timer: newTimer
             });
         }
-        
+
         case INCREMENT_TIMERS: {
             return Object.assign({}, state, {
                 timer: state.timer.map((timer) => {
                     timer.timer++;
-                    
+
                     return timer;
                 })
             });

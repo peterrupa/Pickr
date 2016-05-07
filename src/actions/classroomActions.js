@@ -21,11 +21,18 @@ export function setStudents(students) {
     };
 }
 
+export function setVolunteers(volunteers) {
+    return {
+        type: types.GET_VOLUNTEERS,
+        volunteers: volunteers
+    };
+}
+
 export function addActivity(activity) {
     return (dispatch) => {
-        // ajax request to /api/sample
         return fetch('/api/class/'+activity.path+'/activity', {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -47,10 +54,9 @@ export function addStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
-        // ajax request to /api/sample
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
+            credentials: 'include',
             body: formData
         })
         .then((res) =>  res.json())
@@ -68,9 +74,10 @@ export function editStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
+
         return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
+            credentials: 'include',
             body: formData
         })
         .then((res) =>  res.json())
@@ -83,9 +90,9 @@ export function editStudent(student) {
 
 export function deleteStudent(student) {
     return (dispatch) => {
-        // ajax request to /api/sample
         return fetch('/api/class/student/'+student.id, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -102,9 +109,9 @@ export function deleteStudent(student) {
 
 export function deleteActivity(activity) {
     return (dispatch) => {
-        // ajax request to /api/sample
         return fetch('/api/class/activity/'+activity.id, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -121,9 +128,9 @@ export function deleteActivity(activity) {
 
 export function fetchClass(data){
     return (dispatch) => {
-      // ajax request to /api/sample
         return fetch('/api/account/class/'+data.id, {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         })
        .then((res) =>  res.json())
        .then((classData) => {
@@ -137,9 +144,9 @@ export function fetchClass(data){
 
 export function fetchActivities(data){
     return (dispatch) => {
-      // ajax request to /api/sample
         return fetch('/api/class/'+data.id+'/activity', {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         })
        .then((res) =>  res.json())
        .then((activities) => {
@@ -150,13 +157,44 @@ export function fetchActivities(data){
 
 export function fetchStudents(data){
     return (dispatch) => {
-      // ajax request to /api/sample
         return fetch('/api/class/'+data.id+'/student', {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         })
        .then((res) =>  res.json())
        .then((students) => {
            dispatch(setStudents(students));
+       });
+    };
+}
+
+export function setCID(data){
+    return (dispatch) => {
+        return fetch('/api/account/class/setCID', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id:parseInt(data.id)})
+        })
+        .then((res) =>  res.json())
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function fetchVolunteers(data){
+    return (dispatch) => {
+      // ajax request to /api/sample
+        return fetch('/api/volunteer/class/'+data.id, {
+            method: 'GET'
+        })
+       .then((res) =>  res.json())
+       .then((volunteers) => {
+           dispatch(setVolunteers(volunteers));
        });
     };
 }

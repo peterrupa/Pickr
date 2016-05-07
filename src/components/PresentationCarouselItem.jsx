@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import './../styles/presentation.css';
-
 class PresentationCarouselItem extends React.Component {
     render() {
         const { studentItem } = this.props;
@@ -16,7 +14,7 @@ class PresentationCarouselItem extends React.Component {
 
         return (
             <a className="carousel-item">
-                <div className="studentPhoto">
+                <div className="studentPhoto center">
                     <img src={img} style={{width:'80%'}}/>
                 </div>
                 <div className="ribbon">

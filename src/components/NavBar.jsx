@@ -71,7 +71,7 @@ class NavBar extends React.Component {
                                 </Link>
                                 <ul className="right hide-on-med-and-down">
                                     <li>
-                                        <a href="/">Logout</a>
+                                        <a href="/" onClick={(e) => this.logout(e)}>Logout</a>
                                     </li>
                                 </ul>
                                 <ul id="nav-mobile" className="side-nav">

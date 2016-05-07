@@ -8,7 +8,7 @@ const Materialize = window.Materialize;
 
 class ChangePassword extends React.Component {
     componentWillMount(){
-        let token= 'token=' + window.location.pathname.substring(6);
+        let token= 'token=' + window.location.pathname.substring(7);
         let message = '';
         fetch('/api/account/resetPassword', {
             method: 'PUT',
@@ -26,15 +26,15 @@ class ChangePassword extends React.Component {
             Materialize.toast(message, 4000);
             if (res.status != 200) {
                 Materialize.toast('Invalid Link', 4000, 'toast-error');
-                window.location.href = '/forgotpassword';  
-            } 
+                window.location.href = '/forgotpassword';
+            }
         })
         .catch((err) => {
             Materialize.toast('Error opening link!', 4000, 'toast-error');
         });
     }
     componentDidMount(){
-    
+
     }
     change(e){
         e.preventDefault();
@@ -67,7 +67,7 @@ class ChangePassword extends React.Component {
             else{
                 Materialize.toast('Error changing password!', 4000, 'toast-error');
             }
-            
+
         })
         .catch((err) => {
             Materialize.toast('Error changing password!', 4000, 'toast-error');

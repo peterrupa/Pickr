@@ -21,7 +21,7 @@ import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
 let app = express();
-const paths = ['/signup$', '/#$', '/$', '/login$', '/forgotpassword$', '/reset'];
+const paths = ['/signup$', '/#$', '/$', '/login$', '/forgotpassword$', '/reset/'];
 const unauth_paths = new RegExp( '(' + paths.join('|') + ')');
 
 app.set('view engine', 'ejs');

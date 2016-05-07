@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 // Import actions associated to this page
-// import { create } from '../actions/userActions';
+import NavBar from '../components/NavBarLanding.jsx';
 
 const Materialize = window.Materialize;
 
@@ -100,38 +100,8 @@ class SignUp extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url(/img/full-classroom.jpg)',margin:'0'}}>
-                        <div className="navbar-fixed" >
-                            <nav id="nav_f" className="default_color">
-                                <div className="container" style={{zDepth: '0'}}>
-                                    <div className="nav-wrapper">
-                                         <img id="logo" className="hide-on-med-and-down" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                             height: '50px'
-                                         }}/>
-                                        <a href="#" id="logo-container" className="brand-logo">pickr</a >
-                                        <ul className="right hide-on-med-and-down">
-                                            <li>
-                                                <Link to="/">Home</Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/#intro">About</Link>
-                                            </li>
-                                        </ul>
-                                        <ul id="nav-mobile" className="side-nav">
-                                            <li>
-                                                <Link to="/">Home</Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/#intro">About</Link>
-                                            </li>
-                                        </ul>
-                                        <a data-activates="nav-mobile" className="button-collapse">
-                                            <i className="mdi-navigation-menu"></i>
-                                        </a>
-                                    </div>
-                                </div >
-                            </nav>
-                        </div>
+            <div>
+                <NavBar/>
                 <div style={{
                     width: '800px',
                     margin: '0 auto'
@@ -268,9 +238,7 @@ class SignUp extends React.Component {
                                         <input type="submit" value="register" className="btn waves-effect waves-light col s12 z-depth-0"/>
                                     </div>
                                     <div className="input-field col s12">
-                                        <p className="margin center medium-small sign-up">Already have an account?
-                                            <Link to="/login">
-                                                Login</Link>
+                                        <p className="margin center medium-small sign-up">Already have an account? <Link to="/login">Login</Link>
                                         </p>
                                     </div>
                                 </div>

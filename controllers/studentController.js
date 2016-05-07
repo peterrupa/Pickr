@@ -7,6 +7,8 @@ import { Class, Student } from '../models';
 import Jimp from 'jimp';
 import fs from 'fs-promise';
 
+import * as error from '../src/constants/ErrorTypes';
+
 export function getAll(req, res) {
     Student.findAll({where:{ClassId: req.params.id }})
     .then((students) => {

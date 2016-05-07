@@ -44,7 +44,7 @@ class LogIn extends React.Component {
             <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
                 <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
                     <div className="nav-wrapper container">
-                        <a id="logo-container" href="#" className="brand-logo">
+                        <a id="logo-container" href="/" className="brand-logo">
                             <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
                                 height: '50px'
                             }}/>Pickr</a>

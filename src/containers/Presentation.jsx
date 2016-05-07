@@ -16,7 +16,6 @@ class Presentation extends React.Component {
     componentWillMount() {
         const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
 
-        // TODO: fetch the list of students based on the current session
         fetchListOfStudents();
 
         this.students = [];
@@ -25,7 +24,7 @@ class Presentation extends React.Component {
         };
 
         this.socket = io();
-        this.socket.on('recieve volunteers', function(volunteers) {
+        this.socket.on('recieve volunteers', (volunteers) => {
             fetchRandomizedVolunteers(volunteers);
         });
 
@@ -34,6 +33,8 @@ class Presentation extends React.Component {
     componentDidUpdate() {
         const { presentationState, success } = this.props;
 
+        let socket = this.socket;
+
         $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
@@ -41,6 +42,7 @@ class Presentation extends React.Component {
             carouselConfig = this.carouselConfig;
 
         if(presentationState.recievedVolunteer) {
+            let totalTime = 0;
             for(let i = 0; i < listOfVolunteers.length; i++) {
                 setTimeout(function() {
                     let targetIndex = -1;
@@ -57,9 +59,13 @@ class Presentation extends React.Component {
                         carouselConfig.currentIndex = carouselConfig.targetIndex;
                         success();
                     }
-                }, 3500 * i + (Math.random() % i));
+                }, 3500 * i);
+                totalTime += 3500 * i;
                 this.carouselConfig = carouselConfig;
             }
+            setTimeout(function() {
+                socket.emit('enable button');
+            }, totalTime + 500);
         }
     }
 

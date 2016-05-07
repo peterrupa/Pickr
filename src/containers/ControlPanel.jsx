@@ -20,6 +20,9 @@ class ControlPanel extends React.Component {
         const { fetchAvailableVolunteers, controlPanelState } = this.props;
         fetchAvailableVolunteers();
         this.socket = io();
+        this.socket.on('enable button', () => {
+            $('#randomize').attr('disabled', false);
+        });
 
         this.formValues = {
             nVolunteers: 1,
@@ -125,6 +128,7 @@ class ControlPanel extends React.Component {
         }
 
         if(selectedVolunteers.length == this.formValues.nVolunteers) {
+            $('#randomize').attr('disabled', true);
             this.socket.emit('send volunteers', selectedVolunteers);
             return;
         }
@@ -203,6 +207,7 @@ class ControlPanel extends React.Component {
                 })
             });
         }
+        $('#randomize').attr('disabled', true);
         this.socket.emit('send volunteers', selectedVolunteers);
     }
 
@@ -342,7 +347,7 @@ class ControlPanel extends React.Component {
                                         </div>
                                         <div className="row" style={{padding: '5px 35px'}}>
                                             <div className="col s12 m12 l12">
-                                                <button className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
+                                                <button id="randomize" className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
                                             </div>
                                         </div>
                                         <br/><hr/><br/>

@@ -1,0 +1,43 @@
+[33m289d52c[m HEAD@{0}: pull origin integration_control_panel: Merge made by the 'recursive' strategy.
+[33me5f8f9f[m HEAD@{1}: pull origin logout-hotfix: Fast-forward
+[33m476ccc8[m HEAD@{2}: checkout: moving from logout-hotfix to dev
+[33me5f8f9f[m HEAD@{3}: commit: Fix broken logout button
+[33m476ccc8[m HEAD@{4}: checkout: moving from dev to logout-hotfix
+[33m476ccc8[m HEAD@{5}: reset: moving to HEAD^
+[33mc76992e[m HEAD@{6}: commit: Fix broken logout button
+[33m476ccc8[m HEAD@{7}: checkout: moving from integration_control_panel to dev
+[33mced9810[m HEAD@{8}: checkout: moving from integration_control_panel to integration_control_panel
+[33mced9810[m HEAD@{9}: commit: Integrate sessions with control panel and presentation pages
+[33m93a8b96[m HEAD@{10}: checkout: moving from integration_control_panel to integration_control_panel
+[33m93a8b96[m HEAD@{11}: checkout: moving from dev to integration_control_panel
+[33m476ccc8[m HEAD@{12}: checkout: moving from integration_control_panel to dev
+[33m93a8b96[m HEAD@{13}: commit: Fix missing lines of code due to merge-conflicts
+[33m081ea5f[m HEAD@{14}: commit: Rmove www~ file
+[33m26373f2[m HEAD@{15}: commit (merge): Merge branch 'dev' of https://github.com/megatricycle/Pickr into integration_control_panel
+[33m821e913[m HEAD@{16}: checkout: moving from dev to integration_control_panel
+[33m476ccc8[m HEAD@{17}: checkout: moving from integration_control_panel to dev
+[33m821e913[m HEAD@{18}: checkout: moving from integration_control_panel to integration_control_panel
+[33m821e913[m HEAD@{19}: pull: Fast-forward
+[33m4c5bab1[m HEAD@{20}: pull: Fast-forward
+[33m597099c[m HEAD@{21}: checkout: moving from dev to integration_control_panel
+[33m476ccc8[m HEAD@{22}: checkout: moving from controlpanel-update to dev
+[33m858f530[m HEAD@{23}: checkout: moving from dev to controlpanel-update
+[33m476ccc8[m HEAD@{24}: pull: Fast-forward
+[33m5e31e8e[m HEAD@{25}: checkout: moving from controlpanel-update to dev
+[33m858f530[m HEAD@{26}: commit: Max repetition filter
+[33m5e31e8e[m HEAD@{27}: checkout: moving from dev to controlpanel-update
+[33m5e31e8e[m HEAD@{28}: pull: Fast-forward
+[33m7ee86ac[m HEAD@{29}: checkout: moving from dev to dev
+[33m7ee86ac[m HEAD@{30}: checkout: moving from controlpanel-update to dev
+[33m4453bcd[m HEAD@{31}: commit: Remove undefined reference to bcrypt
+[33m7ee86ac[m HEAD@{32}: checkout: moving from dev to controlpanel-update
+[33m7ee86ac[m HEAD@{33}: reset: moving to @{u}
+[33m05409e8[m HEAD@{34}: checkout: moving from controlpanel-update to dev
+[33m05409e8[m HEAD@{35}: checkout: moving from dev to controlpanel-update
+[33m05409e8[m HEAD@{36}: commit: Remove undefined reference to bcrypt
+[33m7ee86ac[m HEAD@{37}: pull: Fast-forward
+[33mbff270c[m HEAD@{38}: checkout: moving from integration_control_panel to dev
+[33m597099c[m HEAD@{39}: checkout: moving from dev to integration_control_panel
+[33mbff270c[m HEAD@{40}: checkout: moving from dev to dev
+[33mbff270c[m HEAD@{41}: checkout: moving from master to dev
+[33m27ee47c[m HEAD@{42}: clone: from https://github.com/megatricycle/Pickr

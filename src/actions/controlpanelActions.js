@@ -43,8 +43,9 @@ export function modifyStudents(students) {
 
 export function fetchAvailableVolunteers(classcode) {
     return (dispatch) => {
-        fetch('/api/class/' + classcode + '/student', {
-            method: 'GET'
+        fetch('/api/student/fetchAll', {
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             return res.json();
         }).then((students) => {

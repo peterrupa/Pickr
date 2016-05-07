@@ -6,12 +6,13 @@ import _ from 'lodash';
 
 import HighCharts from 'highcharts';
 import Tag from '../components/Tag.jsx';
-import {addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, fetchVolunteers} from '../actions/classroomActions';
+
+import { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, setCID, fetchVolunteers } from '../actions/classroomActions';
 import '../styles/oneUI.css';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import StudentDeleteModal from '../components/StudentDeleteModal.jsx';
-import ActivityDeleteModal from '../components/ActivityDeleteModal.jsx';
-import Tooltips from '../components/Tooltips.jsx';
+import ActivityItem from '../components/ActivityItem.jsx';
+
 
 const Materialize = window.Materialize;
 
@@ -22,6 +23,7 @@ class ClassRoom extends React.Component {
         let data = {
             id: path.substring(11)
         };
+        this.props.setCID(data);
         this.props.fetchClass(data);
         this.props.fetchStudents(data);
         this.props.fetchActivities(data);
@@ -266,22 +268,9 @@ class ClassRoom extends React.Component {
 
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
-                <li key={activity.id} className="collection-item" style={{touchAction: 'pan-y'}}>
-                  <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                    <Link to="/presentation">
-                      {activity.activityName}
-                    </Link>
-                  </label>
-                  <div className="right">
-                    <Link to="/controlPanel">
-                        <i className="small mdi-action-settings"></i>
-                    </Link>
-                    <Link to="/presentation" style={{marginRight: '2em'}}>
-                        <i className="small mdi-image-color-lens"></i>
-                    </Link>
-                    <ActivityDeleteModal activity={activity}/>
-                  </div>
-                </li>
+                <ActivityItem
+                    activity={activity}
+                />
             );
         });
 
@@ -546,11 +535,12 @@ ClassRoom.propTypes = {
     fetchClass: PropTypes.func.isRequired,
     fetchStudents: PropTypes.func.isRequired,
     fetchActivities: PropTypes.func.isRequired,
+    setCID: PropTypes.func.isRequired,
     fetchVolunteers: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
 state => ({ classroomAppState: state.classroomAppState}),
-    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities , fetchVolunteers}
+    { addActivity, addStudent, fetchClass, fetchStudents, fetchActivities, setCID, fetchVolunteers }
 )(ClassRoom);

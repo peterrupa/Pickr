@@ -163,3 +163,24 @@ export function remove(req, res) {
         }
     });
 }
+
+export function fetchAllBySession(req, res) {
+    if(!req.session.key){
+        res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    } else {
+        Student.findAll({where:{ClassId: req.session.classID }})
+        .then((students) => {
+            // fetch tags for each student
+            let promises = students.map((student) => {
+                return student.getTags().then((data) => {
+                    student.dataValues.tags = data.map((tag) => tag.dataValues.name);
+                    return student.dataValues;
+                });
+            });
+            return Promise.all(promises);
+          })
+          .then((students) => {
+              res.send(students);
+          });
+    }
+}

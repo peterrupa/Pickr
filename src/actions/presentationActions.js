@@ -26,9 +26,9 @@ export function success() {
     };
 }
 
-export function fetchListOfStudents(classcode) {
+export function fetchListOfStudents() {
     return ((dispatch) => {
-        fetch('/api/class/' + classcode + '/student', {
+        fetch('/api/students/fetchAll', {
             method: 'GET'
         }).then((res) => {
             return res.json();

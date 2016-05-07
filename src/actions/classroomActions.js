@@ -21,6 +21,13 @@ export function setStudents(students) {
     };
 }
 
+export function setVolunteers(volunteers) {
+    return {
+        type: types.GET_VOLUNTEERS,
+        volunteers: volunteers
+    };
+}
+
 export function addActivity(activity) {
     return (dispatch) => {
         // ajax request to /api/sample
@@ -47,7 +54,7 @@ export function addStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
+
         // ajax request to /api/sample
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
@@ -68,7 +75,7 @@ export function editStudent(student) {
         for(name in student) {
             formData.append(name, student[name]);
         }
-        
+
         return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
             body: formData
@@ -157,6 +164,19 @@ export function fetchStudents(data){
        .then((res) =>  res.json())
        .then((students) => {
            dispatch(setStudents(students));
+       });
+    };
+}
+
+export function fetchVolunteers(data){
+    return (dispatch) => {
+      // ajax request to /api/sample
+        return fetch('/api/volunteer/class/'+data.id, {
+            method: 'GET'
+        })
+       .then((res) =>  res.json())
+       .then((volunteers) => {
+           dispatch(setVolunteers(volunteers));
        });
     };
 }

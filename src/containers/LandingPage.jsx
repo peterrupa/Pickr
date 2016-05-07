@@ -49,6 +49,15 @@ class LandingPage extends React.Component {
             height:'90%'
         };
 
+        let imgUrl2 = '/img/full-classroom-darker.jpg';
+        let hero = {
+            backgroundImage: 'url(' + imgUrl2 + ')',
+            backgroundColor: '#3E3E4B',
+            height:'90%',
+            align: 'center',
+            width:'100%'
+        };
+
         let best = ["best", "hottest", "coolest"];
 
         return (
@@ -65,7 +74,7 @@ class LandingPage extends React.Component {
             <nav id="nav_f" className="default_color">
                 <div className="container" style={{zDepth: '0'}}>
                     <div className="nav-wrapper">
-                        <a href="#" id="logo-container" className="brand-logo">pickr</a >
+                        <a href="#" id="logo-container" className="brand-logo">pickr</a>
                         <ul className="right hide-on-med-and-down">
                             <li>
                                 <a href="#intro">About</a>
@@ -98,19 +107,22 @@ class LandingPage extends React.Component {
                             <i className="mdi-navigation-menu"></i>
                         </a>
                     </div>
-                </div >
+                </div>
             </nav>
         </div>
 
         {/*<!--Hero-->*/}
-        <div className="section no-pad-bot" id="index-banner" style={divStyle}>
+        <div className="section no-pad-bot" id="index-banner" style={hero}>
             <div className="container">
                 <img className="center animated zoomIn" src="/img/logo.gif" style={{display: 'block',marginLeft:'auto', marginRight:'auto'}}/>
                 <h1 className="text_h center header cd-headline letters type animated zoomIn" style={{fontFamily: 'Indie Flower'}}>
-                    <span>We pick the </span >
+                    <span>Made to </span>
+
+                           <b className="underline is-visible">pick</b>
+                             <span> the </span>
                          <b className="underline is-visible">{best[0]}</b>
                 </h1>
-            </div >
+            </div>
         </div>
 
         {/*<!--Intro and service-->*/}

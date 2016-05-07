@@ -38,7 +38,7 @@ let server = http.createServer(app);
  * Connect ORM.
  */
 models.sequelize.sync({
-    //force: true
+    // force: true
 }).then(() => {
     /**
      * Listen on provided port, on all network interfaces.

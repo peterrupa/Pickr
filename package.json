@@ -15,7 +15,7 @@
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "build:html": "babel-node tools/buildHtml.js",
     "prebuild": "npm run clean-dist && npm run build:html",
-    "build": "npm run test && babel-node tools/build.js",
+    "build": "babel-node tools/build.js",
     "test": "cross-env NODE_ENV=test mocha --reporter progress --compilers js:babel-core/register --recursive \"./**/*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "seed": "sequelize db:seed:undo:all && sequelize db:seed --seed account-seeder && sequelize db:seed --seed class-seeder && sequelize db:seed --seed activity-seeder && sequelize db:seed --seed student-seeder && sequelize db:seed --seed tags-seeder"

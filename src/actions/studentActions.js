@@ -26,7 +26,8 @@ export function fetchStudent(studentId) {
     return (dispatch) => {
         // ajax request to /api/sample
         fetch('/api/class/student/'+studentId, {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             // convert response to json
             return res.json();
@@ -41,7 +42,8 @@ export function fetchStudentVolunteer(studentId) {
     return (dispatch) => {
         // ajax request to /api/sample
         fetch('/api/volunteer/'+studentId+'/info', {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             // convert response to json
             return res.json();
@@ -57,7 +59,8 @@ export function fetchVolunteerActivities(studentId) {
     return (dispatch) => {
         // ajax request to /api/sample
         fetch('/api/volunteer/'+studentId+'/activities', {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             // convert response to json
             return res.json();
@@ -73,6 +76,7 @@ export function editStudent(student) {
     return (dispatch) => {
         return fetch('/api/class/student/'+student.path, {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

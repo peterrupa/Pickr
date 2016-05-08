@@ -14,7 +14,7 @@ class LogIn extends React.Component {
 
     post(e){
         e.preventDefault();
-        console.log("============BOOM");
+        
         let username = $('#username').val();
         let password = $('#password').val();
         let data = "username=" + username + "&password=" + password;

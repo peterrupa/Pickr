@@ -30,13 +30,12 @@ render(
             <Route path="/login" component={Containers.LogIn}/>
             <Route path="/signup" component={Containers.SignUp}/>
             <Route path="/forgotpassword" component={Containers.ForgotPassword}/>
+            <Route path="/reset/:token" component={Containers.ChangePassword}/>
             <Route path="/" component={Containers.App}>
                 <Route path="/student/:studentId" component={Containers.StudentPage}/>
                 <Route path="/class" component={Containers.ClassList}/>
                 <Route path="/controlPanel" component={Containers.ControlPanel}/>
                 <Route path="/classroom/:ClassId" component={Containers.ClassRoom}/>
-                <Route path="/reset/:token" component={Containers.ChangePassword}/>
-                <Route path="/index" component={Containers.LandingPage}/>
             </Route>
             <Route path="*" component={Containers.NotFoundPage}/>
         </Router>

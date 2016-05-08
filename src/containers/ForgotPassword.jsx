@@ -27,13 +27,15 @@ class ForgotPassword extends React.Component {
         })
         .then((res) => {
             switch (res.status) {
-                case 200: message = 'Successfully sent email!'; break;
                 case 400: message = 'Invalid data!'; break;
                 default: message = 'Error sending email!'; break;
             }
-            Materialize.toast(message, 4000);
+            
             if (res.status === 200) {
                 window.location.href = '/login';
+            }
+            else {
+                Materialize.toast(message, 4000);
             }
         })
         .catch((err) => {

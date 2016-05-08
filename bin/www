@@ -9,6 +9,7 @@ import app from '../app';
 let debug = require('debug')('pickr-backend:server');
 import http from 'http';
 import models from '../models';
+import accounts from '../seeders/account-seeder';
 import SocketIO from 'socket.io';
 
 /**

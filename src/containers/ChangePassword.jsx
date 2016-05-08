@@ -13,6 +13,7 @@ class ChangePassword extends React.Component {
         let message = '';
         fetch('/api/account/resetPassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept':'application/json'
@@ -49,6 +50,7 @@ class ChangePassword extends React.Component {
 
         fetch('/api/account/changePassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept':'application/json'

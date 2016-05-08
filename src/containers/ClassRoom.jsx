@@ -31,7 +31,6 @@ class ClassRoom extends React.Component {
     }
 
     componentDidMount() {
-
         $('.modal-trigger').leanModal();
     }
 
@@ -124,7 +123,6 @@ class ClassRoom extends React.Component {
         let student = this.props.classroomAppState.students;
 
         this.props.classroomAppState.volunteers.forEach(function(volunteer){
-        //  console.log(volunteer);
           //gets counter for all volunteers called in the todays date
             if(volunteer.createdAt.substring(0,10) == new Date().toJSON().substring(0,10)){ //compares string of year, month, date
                 todayVolunteers++;
@@ -136,7 +134,7 @@ class ClassRoom extends React.Component {
                 tagMapCount.push(tag);
             });
 
-            if(studentCount[volunteer.StudentId] == undefined || studentCount[volunteer.StudentId] == null) studentCount[volunteer.StudentId] = 0;
+            if(studentCount[volunteer.StudentId] == undefined || studentCount[volunteer.StudentId] == null) studentCount[volunteer.StudentId] = 1;
             else studentCount[volunteer.StudentId] += 1;
         });
 
@@ -253,11 +251,9 @@ class ClassRoom extends React.Component {
                         // generate an array of random data
                         let values = [];
                         let keysSorted = Object.keys(studentCount).sort(function(a,b){return studentCount[b]-studentCount[a];});
-                        values.push(studentCount[keysSorted[0]]);
-                        values.push(studentCount[keysSorted[1]]);
-                        values.push(studentCount[keysSorted[2]]);
-                        values.push(studentCount[keysSorted[3]]);
-                        values.push(studentCount[keysSorted[4]]);
+                        for(let i = 0; i < 5 ; i++){
+                            values.push(studentCount[keysSorted[i]]);
+                        }
                         return values;
                     }())
                 }
@@ -508,7 +504,7 @@ class ClassRoom extends React.Component {
                         </div>
                     </div>
                 </div>
-                
+
                 <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
                     <div className="pull-right">
                         Crafted with &nbsp;<i className="tiny material-icons">favorite</i>&nbsp; by&nbsp;

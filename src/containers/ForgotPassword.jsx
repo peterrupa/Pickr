@@ -20,6 +20,7 @@ class ForgotPassword extends React.Component {
 
         fetch('/api/account/forgotPassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Accept':'application/json'

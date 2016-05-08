@@ -77,12 +77,10 @@ app.use('*', (req, res, next) => {
 
 },
 (req, res, next) => {
-    if (!(unauth_paths).test(req.path)) {
+    if (!unauth_paths.test(req.originalUrl)) {
         return next();
     }
-    if (req.originalUrl === '/class') {
-        return next();
-    } else {
+    else {
         res.redirect('/class');
     }
 },

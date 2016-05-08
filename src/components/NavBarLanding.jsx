@@ -10,21 +10,44 @@ class NavBarLanding extends React.Component {
                 <nav id="nav_f" className="default_color">
                     <div className="container" style={{zDepth: '0'}}>
                         <div className="nav-wrapper">
-                            <Link to="/" id="logo-container" className="brand-logo">pickr</Link>
+                            <Link to="/" id="logo-container" className="brand-logo" style={{
+                                letterSpacing: '1px'
+                            }}>
+                                <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
+                                    height: '50px'
+                                }}/>
+                                pickr
+                            </Link>
                             <ul className="right hide-on-med-and-down">
                                 <li>
-                                    <Link to="login">Log in</Link>
+                                    <Link to="login" style={{
+                                        letterSpacing: '0px'
+                                    }}>
+                                        <i className="mdi-action-assignment-ind left" ></i>Log in
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="signup">Sign up</Link>
+                                    <Link to="signup" style={{
+                                        letterSpacing: '0px'
+                                    }}>
+                                        <i className="mdi-action-assignment left"></i>Sign up
+                                    </Link>
                                 </li>
                             </ul>
                             <ul id="nav-mobile" className="side-nav">
                                 <li>
-                                    <Link to="login">Log in</Link>
+                                    <Link to="login" style={{
+                                        letterSpacing: '0px'
+                                    }}>
+                                        <i className="mdi-action-assignment-ind left" ></i>Log in
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="signup">Sign up</Link>
+                                    <Link to="signup" style={{
+                                        letterSpacing: '0px'
+                                    }}>
+                                        <i className="mdi-action-assignment left"></i>Sign up
+                                    </Link>
                                 </li>
                             </ul>
                             <a data-activates="nav-mobile" className="button-collapse">

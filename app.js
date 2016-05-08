@@ -39,7 +39,7 @@ app.use(session({
     cookie: {
         httpOnly: false,
         secure: false, // set "true" if https
-        maxAge: 1000 * 60 * 60 * 5 // 5 hours
+        maxAge: 600000 * 60 * 5 //Not sure now 
     }
 }));
 
@@ -66,6 +66,7 @@ app.get('/api/*', (req, res) => {
 
 // send routing to client
 app.use('*', (req, res, next) => {
+    console.log(req.session.cookie.maxAge);
     if (req.session.key) {
         return next();
     }

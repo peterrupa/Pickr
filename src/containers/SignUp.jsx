@@ -22,17 +22,14 @@ class SignUp extends React.Component {
             $('.button-collapse').css({visibility: 'visible'});
 
         });
-        
+
         $('.hidden').hide();
     }
     create(e) {
         e.preventDefault();
 
         let account =
-            'fname=' + $('#fname').val() +
-            '&mi=' + $('#mi').val() +
-            '&lname=' + $('#lname').val() +
-            '&username=' + $('#username').val() +
+            'username=' + $('#username').val() +
             '&email=' + $('#email').val() +
             '&password=' + $('#password').val();
 
@@ -45,15 +42,6 @@ class SignUp extends React.Component {
         }
         if (confirmPassword === '') {
             $('.errorPasswordAgainReq').show();
-        }
-        if ($('#fname').val() === '') {
-            $('.errorFnameReq').show();
-        }
-        if ($('#lname').val() === '') {
-            $('.errorLnameReq').show();
-        }
-        if ($('#mi').val() === '') {
-            $('.errorMIReq').show();
         }
         if ($('#username').val() === '') {
             $('.errorUsernameReq').show();
@@ -84,7 +72,7 @@ class SignUp extends React.Component {
                     case 403: message = 'Register failed! Please try again.'; break;
                     default: message = 'Error adding account!'; break;
                 }
-                
+
                 if (res.status === 200) {
                     window.location.href = '/login';
                 }
@@ -103,7 +91,7 @@ class SignUp extends React.Component {
             <div>
                 <NavBar/>
                 <div style={{
-                    width: '800px',
+                    width: '400px',
                     margin: '0 auto'
                 }}>
                     <div id="signup-page" className="row no-margin">
@@ -121,46 +109,6 @@ class SignUp extends React.Component {
                                     </div >
                                 </div>
 
-                                 <div className="row">
-                                    <div className="input-field col s12">
-                                        <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="lname" type="text"  pattern="[A-Za-z \.]{2,50}"/>
-                                        <label htmlFor="lname" className="center-align">Last Name</label>
-                                        <p className="red-text errorRequired errorLnameReq hidden"
-                                            style={{
-                                                marginTop: '0px',
-                                                marginLeft: '50px'
-                                            }}>
-                                            This field is required.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="row margin">
-                                    <div className="input-field col s9">
-                                        <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="fname" type="text"  pattern="[A-Za-z ]{2,50}"/>
-                                        <label htmlFor="fname" className="center-align">First Name</label>
-                                        <p className="red-text errorRequired errorFnameReq hidden"
-                                            style={{
-                                                marginTop: '0px',
-                                                marginLeft: '50px'
-                                            }}>
-                                            This field is required.
-                                        </p>
-                                    </div>
-                                    <div className="input-field col s3">
-                                        <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="mi" type="text" pattern="[A-Za-z \.]{1,50}"/>
-                                        <label htmlFor="mi">Middle Initial</label>
-                                        <p className="red-text errorRequired errorMIReq hidden"
-                                            style={{
-                                                marginTop: '0px',
-                                                marginLeft: '50px'
-                                            }}>
-                                            This field is required.
-                                        </p>
-                                    </div>
-                                </div>
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>

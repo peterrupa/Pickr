@@ -15,12 +15,7 @@ import { Account } from '../models';
 
 exports.insert = (req, res) => {
 
-    if (typeof req.body.fname === 'undefined' &&
-        typeof req.body.mi === 'undefined' &&
-        typeof req.body.lname === 'undefined' &&
-        typeof req.body.username === 'undefined' &&
-        typeof req.body.email === 'undefined' &&
-        typeof req.body.password=== 'undefined') {
+    if (!req.body.username && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
     else {
@@ -36,14 +31,11 @@ exports.insert = (req, res) => {
             }
             else {
                 let query = 'INSERT INTO Accounts' +
-                            '(fname,mi,lname,emailAddress,username,password,createdAt,updatedAt) ' +
-                            'values(?,?,?,?,?,(SELECT MD5(SHA1(?))),?,?)';
+                            '(emailAddress,username,password,createdAt,updatedAt) ' +
+                            'values(?,?,(SELECT MD5(SHA1(?))),?,?)';
 
                 sequelize.query(query, {
                     replacements:[
-                        req.body.fname,
-                        req.body.mi,
-                        req.body.lname,
                         req.body.email,
                         req.body.username,
                         req.body.password,

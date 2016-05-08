@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
-import {fetchStudent, editStudent } from '../actions/studentActions.js';
+import { fetchStudent, editStudent , fetchStudentVolunteer, fetchVolunteerActivities } from '../actions/studentActions.js';
 import StudentEditModal from '../components/StudentEditModal.jsx';
 import HighCharts from 'highcharts';
 
@@ -14,57 +14,13 @@ class StudentPage extends React.Component {
     componentWillMount() {
         let studentId = window.location.pathname.substring(9);
         this.props.fetchStudent(studentId);
+        this.props.fetchStudentVolunteer(studentId);
+        this.props.fetchVolunteerActivities(studentId);
     }
 
     componentDidMount(){
-        let student = this.props.studentAppState.student;
+        //let student = this.props.studentAppState.student;
         $('.modal-trigger').leanModal();
-        
-        $('#container').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: '5 Most Participated Activities'
-            },
-            subtitle: {
-                text: ''
-            },
-            xAxis: {
-                categories: [
-                    'activity1',
-                    'activity2',
-                    'activity3',
-                    'activity4',
-                    'activity5'
-                ],
-                crosshair: true
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Number of times used/called'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
-                footerFormat: '</table>',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'Activity',
-                data: [15,23,12,5,8]
-            }]
-        });
     }
 
     edit(e){
@@ -91,6 +47,75 @@ class StudentPage extends React.Component {
 
     render() {
         let student = this.props.studentAppState.student;
+        let attempts = this.props.studentAppState.attempts;
+        let activities = this.props.studentAppState.activities;
+      //  console.log(activities);
+        let attemptCount = {};
+        attempts.forEach(function(attempt){
+            if(attemptCount[attempt.ActivityId] == undefined || attemptCount[attempt.ActivityId] == null) attemptCount[attempt.ActivityId] = 1;
+            else attemptCount[attempt.ActivityId] += 1;
+        });
+
+
+        $('#container').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '5 Most Participated Activities'
+            },
+            subtitle: {
+                text: ''
+            },
+            xAxis: {
+                categories:(function() {
+                    let labels = [];
+                    let keysSorted = Object.keys(attemptCount).sort(function(a,b){return attemptCount[b]-attemptCount[a];});
+                    keysSorted.forEach(function(key){
+                        for(let i = 0; i < activities.length; i++){
+                            if(activities[i].id.toString() == key){
+                                labels.push(activities[i].activityName.toString());
+                            }
+                        }
+                    });
+                    return labels;
+                }()),
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Number of times used/called'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:f} times</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Activity',
+                data: (function() {
+                    // generate an array of random data
+                    let values = [];
+                    let keysSorted = Object.keys(attemptCount).sort(function(a,b){return attemptCount[b]-attemptCount[a];});
+                    for(let i = 0; i < 5 ; i++){
+                        values.push(attemptCount[keysSorted[i]]);
+                    }
+                    return values;
+                }())
+            }]
+        });
+
         let image;
 
         if(!student.image) {
@@ -136,7 +161,7 @@ class StudentPage extends React.Component {
                                                     <p className="medium-small grey-text">Student</p>
                                                 </div>
                                                 <div className="col s12 m12 l6 center">
-                                                    <h4 className="card-title grey-text text-darken-4">10</h4>
+                                                    <h4 className="card-title grey-text text-darken-4">{attempts.length}</h4>
                                                     <p className="medium-small grey-text">Number of times called</p>
                                                 </div>
                                             </div>
@@ -224,7 +249,9 @@ class StudentPage extends React.Component {
 StudentPage.propTypes = {
     studentAppState: PropTypes.object.isRequired,
     fetchStudent: PropTypes.func.isRequired,
-    editStudent: PropTypes.func.isRequired
+    editStudent: PropTypes.func.isRequired,
+    fetchStudentVolunteer: PropTypes.func.isRequired,
+    fetchVolunteerActivities: PropTypes.func.isRequired
 };
 
 // connect to redux store
@@ -232,5 +259,7 @@ export default connect(state => ({
     studentAppState: state.studentAppState
 }), {
     fetchStudent,
-    editStudent
+    editStudent,
+    fetchStudentVolunteer,
+    fetchVolunteerActivities
 })(StudentPage);

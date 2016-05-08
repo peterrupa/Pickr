@@ -15,4 +15,3 @@ router.put('/student/:studentId', upload.single('image'), studentController.upda
 router.delete('/student/:studentId', studentController.remove);
 
 export default router;
-

@@ -48,8 +48,7 @@ class LogIn extends React.Component {
                 
                 <div style={{
                     width: '400px',
-                    margin: '0 auto',
-                    paddingTop: '64px'
+                    margin: '0 auto'
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">

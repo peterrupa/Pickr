@@ -100,9 +100,7 @@ class ClassRoom extends React.Component {
                         mname: entries.shift(),
                         tags: entries
                     };
-                    this.props.addStudent(student).then((res) => {
-                        Materialize.toast('Successfully added student.', 4000, 'toast-success');
-                    }).catch((err) => {
+                    this.props.addStudent(student).catch((err) => {
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });
                 }

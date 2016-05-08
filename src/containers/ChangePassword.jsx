@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
 // Be sure to rename your className name
-import { reset, change } from '../actions/userActions';
 const Materialize = window.Materialize;
+
+import NavBar from '../components/NavBarLanding.jsx';
 
 class ChangePassword extends React.Component {
     componentWillMount(){
@@ -56,14 +57,13 @@ class ChangePassword extends React.Component {
         })
         .then((res) => {
             switch (res.status) {
-                case 200: message = 'Successfully changed password!'; break;
                 case 400: message = 'Error changing password!'; break;
             }
             Materialize.toast(message, 4000);
             if (res.status === 200) {
                 window.location.href = '/login';
             }
-            else{
+            else {
                 Materialize.toast('Error changing password!', 4000, 'toast-error');
             }
 
@@ -74,50 +74,19 @@ class ChangePassword extends React.Component {
     }
     render() {
         return (
-            <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <Link id="logo-container" to="#" className="brand-logo">
-                            <img src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '40px',
-                                width: '40px'
-                            }}/>Pickr</Link>
-                        <ul className="right hide-on-med-and-down">
-
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/#intro">About</Link>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <Link to="index.html#about">About</Link>
-                            </li>
-                        </ul>
-                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </Link>
-                    </div>
-                </nav>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            <div>
+                <NavBar/>
+                
                 <div style={{
-                    height: '900px',
                     width: '400px',
                     margin: '0 auto'
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                            <form className="login-form">
+                            <form className="login-form" onSubmit={(e) => this.change(e)}>
                                 <div className="row">
                                     <div className="input-field col s12 center">
-                                        <img src="img/CMSC_Prince_cropped.png " alt=" " className="responsive-img valign profile-image-login" style={{
+                                        <img src="/img/CMSC_Prince_cropped.png " alt=" " className="responsive-img valign profile-image-login" style={{
                                             height: '60px',
                                             width: '60px'
                                         }}/>
@@ -142,7 +111,7 @@ class ChangePassword extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <Link to="/login" className="btn waves-effect waves-light col s12" onClick={(e) => this.change(e)} >Change Password</Link>
+                                        <input type="submit" className="btn waves-effect waves-light col s12" value="Change Password"/>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -161,15 +130,6 @@ class ChangePassword extends React.Component {
         );
     }
 }
-// connect to redux store
-ChangePassword.propTypes = {
-    ChangePasswordAppState: PropTypes.object.isRequired,
-    reset: PropTypes.func.isRequired,
-    change: PropTypes.func.isRequired
-};
 
 // connect to redux store
-export default connect(
-state => ({ ChangePasswordAppState: state.ChangePasswordAppState }),
-    { reset, change }
-)(ChangePassword);
+export default ChangePassword;

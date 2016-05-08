@@ -32,7 +32,7 @@ export default function (sequelize, DataTypes) {
                     classCode: data.classCode
                 });
             }
-        }//*/
+        }
     });
 
     return Account;

@@ -81,10 +81,10 @@ exports.login = (req, res) => {
                 type: sequelize.QueryTypes.SELECT
             })
             .then((user) => {
-                if(!user[0]  && !req.session.key){
+                if(!user[0]  && typeof req.session.key === 'undefined'){
                     res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 } else {
-                    if (!req.session.key) {
+                    if (typeof req.session.key === 'undefined') {
                         req.session.key = user[0].id;
                         res.status(200).send({username:user[0].username, status:'logged in'});
                     } else {

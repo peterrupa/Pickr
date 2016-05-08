@@ -26,10 +26,11 @@ export function success() {
     };
 }
 
-export function fetchListOfStudents(classcode) {
+export function fetchListOfStudents() {
     return ((dispatch) => {
-        fetch('/api/class/' + classcode + '/student', {
-            method: 'GET'
+        fetch('/api/student/fetchAll', {
+            method: 'GET',
+            credentials: 'include'
         }).then((res) => {
             return res.json();
         }).then((students) => {

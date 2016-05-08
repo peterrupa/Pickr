@@ -6,6 +6,10 @@ import configureStore from './store/configureStore';
 // stylesheets
 import './styles/style.css';
 import './styles/styles.scss';
+import './styles/presentation.css';
+import './styles/oneUI.css';
+import './styles/index_style.css';
+import './styles/presentation.css';
 
 // js
 import '../externalDependencies/js/jquery-1.12.2.js';

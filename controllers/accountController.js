@@ -32,7 +32,7 @@ exports.insert = (req, res) => {
             }
             else {
                 let query = 'INSERT INTO Accounts' +
-                            '(fname,mi,lname,emailAddress,username,password,' + 'createdAt,updatedAt) ' +
+                            '(fname,mi,lname,emailAddress,username,password,createdAt,updatedAt) ' +
                             'values(?,?,?,?,?,(SELECT MD5(SHA1(?))),?,?)';
 
                 sequelize.query(query, {
@@ -52,6 +52,7 @@ exports.insert = (req, res) => {
                     res.status(200).sendStatus(200);
                 })
                 .catch((err) => {
+                    console.log(err);
                     res.status(error.NO_RECORD_CREATED.code).send({NO_RECORD_CREATED: error.NO_RECORD_CREATED.message});
                 });
             }

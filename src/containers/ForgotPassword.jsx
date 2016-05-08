@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+import NavBar from '../components/NavBarLanding.jsx';
 
 // Be sure to rename your className name
 import { sendMail } from '../actions/userActions';
@@ -46,40 +47,9 @@ class ForgotPassword extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <Link id="logo-container" to="#" className="brand-logo">
-                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>Pickr</Link>
-                        <ul className="right hide-on-med-and-down">
-
-                            <li>
-                                <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                                <Link to="/#intro">About</Link>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <Link to="index.html#about">About</Link>
-                            </li>
-                        </ul>
-                        <Link to="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </Link>
-                    </div>
-                </nav>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            <div>
+                <NavBar/>
                 <div style={{
-                    height: '900px',
                     width: '400px',
                     margin: '0 auto'
                 }}>

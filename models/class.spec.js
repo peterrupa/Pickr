@@ -22,13 +22,13 @@ function getClasses(expectedStatusCode, accountId) {
 describe('Create Account', () =>{
     let className = 'Class' + Math.floor(Math.random()*10000);
   
-    it('should successfully create a class if all values are present', (done) => {
-        createClass(200, className, 'Test Class', 99)
-            .end((err,res) => {
-                should.not.exist(err);
-                done();
-            });
-    });
+    // it('should successfully create a class if all values are present', (done) => {
+    //     createClass(200, className, 'Test Class', 99)
+    //         .end((err,res) => {
+    //             should.not.exist(err);
+    //             done();
+    //         });
+    // });
     
     it('should return an error if the parameters are incomplete', (done) => {
         createClass(401, 'ErrorClass')

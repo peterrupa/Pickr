@@ -4,11 +4,7 @@
 }
 
     html {
-      background: url(/img/presentation1.png) no-repeat center center fixed;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
+      background: #f5f5f5;
     }
     .choice {
     transform: scale(1.8);

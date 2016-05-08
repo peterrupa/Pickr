@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import { Link } from 'react-router';
 
+import NavBar from '../components/NavBarLanding.jsx';
+
 import $ from 'jquery';
 
 const Materialize = window.Materialize;
@@ -41,42 +43,13 @@ class LogIn extends React.Component {
     render() {
 
         return (
-            <div style={{backgroundImage:'url('+'/img/full-classroom.jpg'+')'}}>
-                <nav className="navbar navbar-default navbar-fixed-top" role="navigation">
-                    <div className="nav-wrapper container">
-                        <a id="logo-container" href="/" className="brand-logo">
-                            <img id="logo" src="img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                height: '50px'
-                            }}/>Pickr</a>
-                        <ul className="right hide-on-med-and-down">
-
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/#intro">About</a>
-                            </li>
-                        </ul>
-
-                        <ul id="nav-mobile" className="side-nav">
-                            <li>
-                                <a href="index.html#about">About</a>
-                            </li>
-                        </ul>
-                        <a href="#" data-activates="nav-mobile" className="button-collapse">
-                            <i className="material-icons">menu</i>
-                        </a>
-                    </div>
-                </nav>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+            <div>
+                <NavBar/>
+                
                 <div style={{
-                    height: '900px',
                     width: '400px',
-                    margin: '0 auto'
+                    margin: '0 auto',
+                    paddingTop: '64px'
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">

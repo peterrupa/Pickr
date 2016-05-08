@@ -1,8 +1,5 @@
 export default function (sequelize, DataTypes) {
     let Account = sequelize.define("Account", {
-        fname: DataTypes.STRING,
-        mi: DataTypes.STRING,
-        lname: DataTypes.STRING,
         username: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -22,7 +19,7 @@ export default function (sequelize, DataTypes) {
             unique: true
         },
         tokenExpiry: DataTypes.DATE,
-    }, {    
+    }, {
         classMethods: {
             associate(models) {
                 Account.hasMany(models.Class);
@@ -35,7 +32,7 @@ export default function (sequelize, DataTypes) {
                     classCode: data.classCode
                 });
             }
-        }//*/
+        }
     });
 
     return Account;

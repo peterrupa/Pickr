@@ -120,7 +120,7 @@ exports.forgotPassword = (req, res) => {
             return user;
         }
         else {
-            res.sendStatus(404);
+            throw new Error('User not found.');
         }
     })
     .then((user) => {
@@ -182,6 +182,7 @@ exports.forgotPassword = (req, res) => {
                     }
                 });
             },(err) => {
+                console.log(err);
                 res.sendStatus(500);
             });
 
@@ -191,6 +192,7 @@ exports.forgotPassword = (req, res) => {
         }
     })
     .catch((err) => {
+        console.log(err);
         res.sendStatus(500);
     });
 }

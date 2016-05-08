@@ -15,8 +15,12 @@ import { Account } from '../models';
 
 exports.insert = (req, res) => {
 
-    if (!req.body.fname && !req.body.mi && !req.body.lname &&
-        !req.body.username && !req.body.email && !req.body.password) {
+    if (typeof req.body.fname === 'undefined' &&
+        typeof req.body.mi === 'undefined' &&
+        typeof req.body.lname === 'undefined' &&
+        typeof req.body.username === 'undefined' &&
+        typeof req.body.email === 'undefined' &&
+        typeof req.body.password=== 'undefined') {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
     else {

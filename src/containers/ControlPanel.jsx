@@ -111,6 +111,7 @@ class ControlPanel extends React.Component {
             selectedVolunteers.push(controlPanelState.students[i]);
             fetch('/api/volunteer/', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
@@ -191,6 +192,7 @@ class ControlPanel extends React.Component {
 
             fetch('/api/volunteer/', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'

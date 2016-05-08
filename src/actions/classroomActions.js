@@ -190,7 +190,8 @@ export function fetchVolunteers(data){
     return (dispatch) => {
       // ajax request to /api/sample
         return fetch('/api/volunteer/class/'+data.id, {
-            method: 'GET'
+            method: 'GET',
+            credentials: 'include'
         })
        .then((res) =>  res.json())
        .then((volunteers) => {

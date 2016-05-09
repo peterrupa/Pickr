@@ -3,9 +3,6 @@ import { Link } from 'react-router';
 import React, { PropTypes } from 'react';
 import $ from 'jquery';
 import { fetchClasses } from '../actions/classListActions';
-import './../styles/style.css';
-
-import '../../externalDependencies/js/materialize.js';
 
 class NavBar extends React.Component {
     componentWillMount(){
@@ -71,7 +68,7 @@ class NavBar extends React.Component {
                                 </Link>
                                 <ul className="right hide-on-med-and-down">
                                     <li>
-                                        <a href="/">Logout</a>
+                                        <a href="/" onClick={(e) => this.logout(e)}>Logout</a>
                                     </li>
                                 </ul>
                                 <ul id="nav-mobile" className="side-nav">

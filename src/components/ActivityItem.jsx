@@ -11,13 +11,13 @@ class ActivityItem extends React.Component {
         return (
             <li key={this.props.activity.id} className="collection-item" style={{touchAction: 'pan-y'}}>
               <label htmlFor="task1" style={{textDecoration: 'none'}}>
-                <Link to="/presentation">
+                <Link to="/presentation" target="_blank">
                   {this.props.activity.activityName}
                 </Link>
               </label>
               <div className="right">
                 <ActivityControlPanelLink activityID={this.props.activity.id}/>
-                <Link to="/presentation" style={{marginRight: '2em'}}>
+                <Link to="/presentation" style={{marginRight: '2em'}} target="_blank">
                   <i className="small mdi-image-color-lens"></i>
                 </Link>
                 <ActivityDeleteModal activity={this.props.activity}/>

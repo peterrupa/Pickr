@@ -278,7 +278,7 @@ class ControlPanel extends React.Component {
             <div>
                 {/* START MAIN */}
                 <div id="main" >
-                {/* START WRAPPER */} <br /><br /><br /> <div className="wrapper">
+                {/* START WRAPPER */} <div className="wrapper">
                     <div className="container">
                         <div className="row">
                             <div className="col s12 m5 l4" data-collapsible="accordion">

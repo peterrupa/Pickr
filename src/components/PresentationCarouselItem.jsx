@@ -1,8 +1,6 @@
 import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 
-import './../styles/presentation.css';
-
 class PresentationCarouselItem extends React.Component {
     render() {
         const { studentItem } = this.props;

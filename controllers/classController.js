@@ -39,10 +39,38 @@ export function getAll(req, res) {
         }
     })
     .then(function(classes) {
-        if(classes)
-        	res.send(classes);
-        else
-        	res.sendstatus(404);
+      	if(classes){
+      		let promises = classes.map((classData) => {
+      			return classData.getActivities().then((activities) => {
+							let promises2 =  activities.map((activity) => {
+								return activity.getNotes().then((notes) =>{
+									activity.dataValues.notes = notes.map((note) => note.dataValues.note);
+									return activity.dataValues;
+								});
+							})
+							return Promise.all(promises2)
+						}).then((activities) => {
+							let notes = [];
+							activities.map((activity) => {
+								activity.notes.map((note) => {
+									notes.push(note);
+								});
+							});
+							classData.dataValues.notes = notes;
+							return classData.dataValues;
+						});     			
+      		});
+      		return Promise.all(promises);
+      	} else {
+      		res.sendStatus(400);	
+      	}
+    })
+    .then((classes) => {
+    	res.send(classes);
+    })
+    .catch((err) =>{
+    	console.log(err);
+    	res.sendStatus(500);
     });
 }
 
@@ -50,7 +78,7 @@ export function getOne(req, res) {
     Class.findById(req.params.id)
     .then((classInstance) => {
         if(classInstance) {
-            res.status(200).send(classInstance);
+            res.send(classInstance);
         }
         else {
             res.sendStatus(400);

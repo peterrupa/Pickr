@@ -7,5 +7,6 @@ router.get('/class/:id', volunteerController.getAll);
 router.get('/:id', volunteerController.getOne);
 router.get('/:id/info',volunteerController.getStudentInfo);
 router.get('/:id/activities',volunteerController.getVolunteerActivities);
+router.get('/previous/all', volunteerController.getPreviousVolunteersFromActivity);
 
 export default router;

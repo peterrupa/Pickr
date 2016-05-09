@@ -85,7 +85,7 @@ class Presentation extends React.Component {
         let listOfStudents = this.props.presentationState.students;
         let cardBgUrl = '/img/one-fourth.jpg';
         let bgUrl = '/img/black-board.jpg';
-        
+
         const containerStyle = {
             backgroundImage: 'url('+bgUrl+')',
             maxWidth: '100%',
@@ -94,9 +94,9 @@ class Presentation extends React.Component {
             backgroundSize: 'cover',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center' 
+            alignItems: 'center'
         };
-        
+
         // let bgUrl = '/img/classhover.gif';
         if(listOfStudents.length > 0) {
             return (

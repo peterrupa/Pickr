@@ -21,7 +21,7 @@ class ActivityControlPanelLink extends React.Component {
 
     render() {
         return (
-                <Link to="/controlPanel" onClick={(e) => this.redirect(e)}>
+                <Link to="/controlPanel" onClick={(e) => this.redirect(e)} style={{marginRight: '2em'}}>
                     <i className="small mdi-action-settings"></i>
                 </Link>
 

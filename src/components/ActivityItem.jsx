@@ -16,10 +16,10 @@ class ActivityItem extends React.Component {
                 </Link>
               </label>
               <div className="right">
-                <ActivityControlPanelLink activityID={this.props.activity.id}/>
-                <Link to="/presentation" style={{marginRight: '2em'}} target="_blank">
-                  <i className="small mdi-image-color-lens"></i>
+                <Link to="/presentation" target="_blank">
+                  <i className="small mdi-av-play-arrow"></i>
                 </Link>
+                <ActivityControlPanelLink activityID={this.props.activity.id}/>
                 <ActivityDeleteModal activity={this.props.activity}/>
               </div>
             </li>

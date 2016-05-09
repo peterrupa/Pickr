@@ -3,7 +3,9 @@
     Controller for the model "account".
 */
 
+import crypto from 'crypto';
 import express from 'express';
+import nodemailer from 'nodemailer';
 import sequelize from '../tools/sequelize';
 let router  = express.Router();
 
@@ -13,8 +15,7 @@ import { Account } from '../models';
 
 exports.insert = (req, res) => {
 
-    if (!req.body.fname && !req.body.mi && !req.body.lname &&
-        !req.body.username && !req.body.email && !req.body.password) {
+    if (!req.body.username && !req.body.email && !req.body.password) {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
     else {
@@ -30,14 +31,11 @@ exports.insert = (req, res) => {
             }
             else {
                 let query = 'INSERT INTO Accounts' +
-                            '(fname,mi,lname,emailAddress,username,password,createdAt,updatedAt) ' +
-                            'values(?,?,?,?,?,(SELECT MD5(SHA1(?))),?,?)';
+                            '(emailAddress,username,password,createdAt,updatedAt) ' +
+                            'values(?,?,(SELECT MD5(SHA1(?))),?,?)';
 
                 sequelize.query(query, {
                     replacements:[
-                        req.body.fname,
-                        req.body.mi,
-                        req.body.lname,
                         req.body.email,
                         req.body.username,
                         req.body.password,
@@ -62,8 +60,6 @@ exports.insert = (req, res) => {
 }
 
 exports.login = (req, res) => {
-    req.session.something = true;
-
     Account.findOne({
         where: {
             username: req.body.username
@@ -85,10 +81,10 @@ exports.login = (req, res) => {
                 type: sequelize.QueryTypes.SELECT
             })
             .then((user) => {
-                if(!user[0]  && !req.session.key){
+                if(!user[0]  && typeof req.session.key === 'undefined'){
                     res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 } else {
-                    if (!req.session.key) {
+                    if (typeof req.session.key === 'undefined') {
                         req.session.key = user[0].id;
                         res.status(200).send({username:user[0].username, status:'logged in'});
                     } else {
@@ -104,11 +100,183 @@ exports.login = (req, res) => {
 
 }
 
+
 exports.logout = (req, res) => {
     if (req.session.key) {
         req.session.destroy();
         res.status(200).send({status:'logged out'});
     } else {
         res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH});
+    }
+}
+
+exports.getUsername = (req, res) => {
+    if(!req.session.key) res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    else{
+        let query = 'SELECT username, id FROM Accounts WHERE id=?';
+
+        sequelize.query(query,{
+            replacements: [
+                req.session.key
+            ],
+            type: sequelize.QueryTypes.SELECT
+        })
+        .then((user) => {
+            if (!user) {
+                res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+            } else {
+                res.status(200).send({username:user[0].username});
+            }
+        });
+    }
+}
+
+exports.forgotPassword = (req, res) => {
+    Account.findOne({ where: {EmailAddress: req.body.email} })
+    .then((user) => {
+        if(user) {
+            return user;
+        }
+        else {
+            throw new Error('User not found.');
+        }
+    })
+    .then((user) => {
+        if (user) {
+            let promise = new Promise((resolve, reject) => {
+                crypto.randomBytes(20, (err, buf) => {
+                    if (!err) {
+                        resolve(buf.toString('hex'));
+                    }
+                    else {
+                        reject(err);
+                    }
+                });
+            });
+
+            promise.then((token) => {
+
+                let message = 'Please click the link provided below to reset'
+                    + ' your password: \n' + 'http://128.199.233.118/reset/'
+                    + token + ' \n  <b>If you did not forget your password,'
+                    + ' please disregard this message.</b>';
+
+                let transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'cmsc128ab3l@gmail.com',
+                        pass: 'icsuseruser'
+                    }
+                });
+
+                let mailOptions = {
+                    from: '"Pickr👥" <cmsc128ab3l@gmail.com>',
+                    to: user.dataValues.emailAddress,
+                    subject: 'Password Reset ✔',
+                    text: message,
+                    html: message
+                };
+
+                let query = 'UPDATE Accounts SET token = ?, tokenExpiry = ' +
+                '(SELECT NOW()+INTERVAL 5 HOUR) where emailAddress = ?';
+
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        console.log(error);
+                        res.sendStatus(500);
+                    }
+                    else {
+                        sequelize.query(query,{
+                            replacements:[token, user.dataValues.emailAddress],
+                            type: sequelize.QueryTypes.UPDATE
+                        })
+                        .then((status) => {
+                            res.sendStatus(200);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                            res.sendStatus(500);
+                        });
+                    }
+                });
+            },(err) => {
+                console.log(err);
+                res.sendStatus(500);
+            });
+
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        res.sendStatus(500);
+    });
+}
+
+exports.resetPassword = (req, res) => {
+    Account.findOne({
+        where: {
+            tokenExpiry: {
+                $gt: new Date(),
+                $ne: null
+            },
+            token: {
+                $ne: null
+            },
+            token: req.body.token
+        }
+    })
+    .then((user) => {
+        if (!user) {
+            res.sendStatus(404);
+        }
+        else {
+            res.sendStatus(200);
+        }
+    })
+    .catch((err) => {
+        res.sendStatus(500);
+    });
+}
+
+exports.changePassword = (req, res) => {
+    let query = 'UPDATE Accounts SET password = (SELECT MD5(SHA1(?))), ' +
+                'token = NULL, tokenExpiry = NULL where token = ?';
+
+    if (req.body.password !== req.body.confirm_password) {
+        res.sendStatus(401);
+    }
+    else {
+        Account.findOne({
+            where: {
+                token: req.body.token
+            }
+        })
+        .then((user) => {
+            if (!user) {
+                res.sendStatus(404);
+            }
+            else {
+                sequelize.query(query, {
+                    replacements: [
+                        req.body.password, req.body.token
+                    ],
+                    type: sequelize.QueryTypes.UPDATE
+                })
+                .then((response) => {
+                    console.log(response);
+                    res.sendStatus(200);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.sendStatus(500);
+                });
+            }
+        })
+        .catch((err) => {
+            res.sendStatus(500);
+        });
     }
 }

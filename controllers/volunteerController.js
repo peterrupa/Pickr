@@ -3,7 +3,7 @@
 import express from 'express';
 let router  = express.Router();
 
-import { Volunteer, Student } from '../models';
+import { Volunteer, Student, Activity } from '../models';
 
 export function insert(req, res) {
 
@@ -56,6 +56,32 @@ export function getAll(req, res) {
       return Promise.all(promises);
     }).then((volunteers) => {
         res.send(volunteers);
+    }).catch((err) => {
+        console.log(err)
+        res.sendStatus(500);
+    });
+}
+
+export function getStudentInfo(req, res) {
+    Student.findOne({where:{id: req.params.id}})
+    .then((student) => {
+      Volunteer.findAll({where:{StudentId: student.id, ClassId: student.ClassId}})
+      .then((volunteers) => {
+        res.send(volunteers);
+      });
+    }).catch((err) => {
+        console.log(err)
+        res.sendStatus(500);
+    });
+}
+
+export function getVolunteerActivities(req, res) {
+    Student.findOne({where:{id: req.params.id}})
+    .then((student) => {
+        Activity.findAll({where:{ClassId: student.ClassId}})
+        .then((activities) => {
+            res.send(activities)
+        });
     }).catch((err) => {
         console.log(err)
         res.sendStatus(500);

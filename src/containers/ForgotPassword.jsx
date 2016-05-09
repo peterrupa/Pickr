@@ -4,8 +4,45 @@ import { Link } from 'react-router';
 
 import NavBar from '../components/NavBarLanding.jsx';
 
+// Be sure to rename your className name
+import { sendMail } from '../actions/userActions';
+
+const Materialize = window.Materialize;
+
 class ForgotPassword extends React.Component {
     componentDidMount(){
+    }
+    sendMail(e){
+        e.preventDefault();
+        
+        let email= 'email=' + $('#email').val();
+        let message = '';
+
+        fetch('/api/account/forgotPassword', {
+            method: 'PUT',
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept':'application/json'
+            },
+            body: email
+        })
+        .then((res) => {
+            switch (res.status) {
+                case 400: message = 'Invalid data!'; break;
+                default: message = 'Error sending email!'; break;
+            }
+            
+            if (res.status === 200) {
+                window.location.href = '/login';
+            }
+            else {
+                Materialize.toast(message, 4000);
+            }
+        })
+        .catch((err) => {
+            Materialize.toast('Error sending email!', 4000, 'toast-error');
+        });
     }
 
     render() {
@@ -40,7 +77,7 @@ class ForgotPassword extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <Link to="/login" className="btn waves-effect waves-light col s12">Recover my Password</Link>
+                                        <Link to="/login" className="btn waves-effect waves-light col s12" onClick={(e) => this.sendMail(e)}>Recover my Password</Link>
                                     </div>
                                 </div>
                                 <div className="row">
@@ -60,4 +97,13 @@ class ForgotPassword extends React.Component {
     }
 }
 // connect to redux store
-export default ForgotPassword;
+ForgotPassword.propTypes = {
+    ForgotPasswordAppState: PropTypes.object.isRequired,
+    sendMail: PropTypes.func.isRequired
+};
+
+// connect to redux store
+export default connect(
+state => ({ ForgotPasswordAppState: state.ForgotPasswordAppState }),
+    { sendMail }
+)(ForgotPassword);

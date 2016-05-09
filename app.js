@@ -6,6 +6,8 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
+import referer from './tools/referer';
+import auth from './tools/authentication';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -21,6 +23,9 @@ import classRoute from './routes/class';
 import volunteer from './routes/volunteer';
 
 let app = express();
+const paths = ['/signup$', '/#$', '/$', '/login$', '/forgotpassword$', '/reset/'];
+const unauth_paths = new RegExp( '(' + paths.join('|') + ')');
+
 app.set('view engine', 'ejs');
 
 app.use(session({
@@ -36,7 +41,7 @@ app.use(session({
     cookie: {
         httpOnly: false,
         secure: false, // set "true" if https
-        maxAge: 1000 * 60 * 60 * 5 // 5 hours
+        maxAge: 600000 * 60 * 5 //Not sure now
     }
 }));
 
@@ -48,13 +53,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api/student', student);
-app.use('/api/sample', sample);
-app.use('/api/account', account);
-app.use('/api/class', activity);
-app.use('/api/account/', classRoute);
-app.use('/api/class', student);
-app.use('/api/volunteer', volunteer);
+app.use('/api/account',   referer,           account);
+app.use('/api/sample',    referer,           sample);
+app.use('/api/student',   referer,   auth,   student);
+app.use('/api/class',     referer,   auth,   activity);
+app.use('/api/account/',  referer,   auth,   classRoute);
+app.use('/api/class',     referer,   auth,   student);
+app.use('/api/volunteer', referer,   auth,   volunteer);
 
 // 404 for api
 app.get('/api/*', (req, res) => {
@@ -66,7 +71,7 @@ app.use('*', (req, res, next) => {
     if (req.session.key) {
         return next();
     }
-    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
+    if ((unauth_paths).test(req.originalUrl)) {
         res.sendFile(__dirname + '/src/index.html');
     } else {
         res.redirect('/');
@@ -74,12 +79,15 @@ app.use('*', (req, res, next) => {
 
 },
 (req, res, next) => {
-    if (req.originalUrl in {'/signup':'', '/register':'', '/#':'', '/':'', '/login':''}) {
-        res.redirect('/class');
+    if (!unauth_paths.test(req.originalUrl)) {
+        return next();
     }
     else {
-        res.sendFile(__dirname + '/src/index.html');
+        res.redirect('/class');
     }
+},
+(req, res, next) => {
+    res.sendFile(__dirname + '/src/index.html');
 });
 
 export default app;

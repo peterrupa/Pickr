@@ -1,26 +1,24 @@
 export default function (sequelize, DataTypes) {
     let Account = sequelize.define("Account", {
-        fname: DataTypes.STRING,
-        mi: DataTypes.STRING,
-        lname: DataTypes.STRING,
         username: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
+            allowNull: false,
+            unique: true
         },
         emailAddress: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
+            allowNull: false,
+            unique: true
         },
         password: {
             type: DataTypes.STRING,
-            validate: {
-                notNull: true
-            }
-        }
+            allowNull: false
+        },
+        token: {
+            type: DataTypes.STRING,
+            unique: true
+        },
+        tokenExpiry: DataTypes.DATE,
     }, {
         classMethods: {
             associate(models) {
@@ -36,6 +34,6 @@ export default function (sequelize, DataTypes) {
             }
         }
     });
-    
+
     return Account;
 };

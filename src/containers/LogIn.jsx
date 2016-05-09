@@ -18,6 +18,7 @@ class LogIn extends React.Component {
         let username = $('#username').val();
         let password = $('#password').val();
         let data = "username=" + username + "&password=" + password;
+        let message = '';
 
         if (username !== '' && password !== '') {
             fetch('/api/account/login', {
@@ -30,11 +31,21 @@ class LogIn extends React.Component {
                 body: data
             })
             .then((res) => {
-                if (res.status === 200 || res.status === 403) {
+                switch (res.status) {
+                    case 403: message = 'Username and Password combination'
+                        + ' does not match!'; break;
+                    case 404: message = 'Username is not registered to'
+                     + ' any account!'; break;
+                    case 500: message = 'Log-in failed. Please try again.';
+                        break;
+                    default: message = 'Error logging in!'; break;
+                }
+
+                if (res.status === 200) {
                     window.location.href = '/class';
                 }
                 else {
-                    window.location.href = '/login';
+                    Materialize.toast(message, 4000);
                 }
             });
         }
@@ -45,59 +56,58 @@ class LogIn extends React.Component {
         return (
             <div>
                 <NavBar/>
-                
+
                 <div style={{
                     width: '400px',
-                    margin: '0 auto',
-                    paddingTop: '64px'
+                    margin: '0 auto'
                 }}>
                     <div id="login-page" className="row">
                         <div className="col s12 card-panel">
-                          <form onSubmit={(e) => this.post(e)} className="login-form">
-        <div className="row">
-          <div className="input-field col s12 center">
-            <img src="/img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
-            <p className="center login-form-text">Pickr Log-In Form</p>
-          </div>
-        </div>
-        <div className="row margin">
-          <div className="input-field col s12">
-            <i className="mdi-social-person-outline prefix"></i>
-            <input id="username" type="text"/>
-            <label htmlFor="username" className="center-align">Username</label>
-          </div>
-        </div>
-        <div className="row margin">
-          <div className="input-field col s12">
-            <i className="mdi-action-lock-outline prefix"></i>
-            <input id="password" type="password"/>
-            <label htmlFor="password">Password</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field login-text">
-              <input type="checkbox" id="remember-me"/>
-              <label htmlFor="remember-me">Remember me</label>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s12">
-            <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
-          </div>
-        </div>
-        <div className="row">
-          <div className="input-field col s6 m6 l6">
-            <p className="margin medium-small">
-                <Link to="signup">Register Now!</Link>
-            </p>
-          </div>
-          <div className="input-field col s6 m6 l6">
-              <p className="margin right-align medium-small">
-                <Link to="forgotpassword"> Forgot password?</Link>
-              </p>
-          </div>
-        </div>
-    </form>
+                            <form onSubmit={(e) => this.post(e)} className="login-form">
+                                <div className="row">
+                                    <div className="input-field col s12 center">
+                                    <img src="/img/CMSC_Prince_cropped.png" alt="" className="responsive-img valign profile-image-login" style={{height:'60px',width:'60px'}}/>
+                                    <p className="center login-form-text">Pickr Log-In Form</p>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-social-person-outline prefix"></i>
+                                        <input id="username" type="text"/>
+                                        <label htmlFor="username" className="center-align">Username</label>
+                                    </div>
+                                </div>
+                                <div className="row margin">
+                                    <div className="input-field col s12">
+                                        <i className="mdi-action-lock-outline prefix"></i>
+                                        <input id="password" type="password"/>
+                                        <label htmlFor="password">Password</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field login-text">
+                                        <input type="checkbox" id="remember-me"/>
+                                        <label htmlFor="remember-me">Remember me</label>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s12">
+                                        <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="input-field col s6 m6 l6">
+                                        <p className="margin medium-small">
+                                        <Link to="signup">Register Now!</Link>
+                                        </p>
+                                    </div>
+                                    <div className="input-field col s6 m6 l6">
+                                        <p className="margin right-align medium-small">
+                                        <Link to="forgotpassword"> Forgot password?</Link>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

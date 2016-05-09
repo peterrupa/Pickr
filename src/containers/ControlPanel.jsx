@@ -275,6 +275,7 @@ class ControlPanel extends React.Component {
             <div>
                 {/* START MAIN */}
                 <div id="main" >
+                  <Link className="waves-effect waves-light btn-floating btn-large modal-trigger" to="/presentation" style={{position: 'fixed', bottom:'20px',right:'20px'}}><i className="tiny material-icons">play_arrow</i></Link>
                 {/* START WRAPPER */} <div className="wrapper">
                     <div className="container">
                         <div className="row">

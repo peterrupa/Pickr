@@ -62,19 +62,16 @@ class NavBar extends React.Component {
                     <nav id="nav_f" className="default_color">
                         <div className="container" style={{zDepth: '0'}}>
                             <div className="nav-wrapper">
-                                <Link id="logo-container" to="/class" className="brand-logo" style={{
-                                    letterSpacing: '1px'
-                                }}>
-                                    <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo" style={{
-                                        height: '50px'
-                                    }}/>
+                                <Link id="logo-container" to="/class" className="brand-logo"
+                                style={{letterSpacing: '1px'}}>
+                                    <img id="logo" src="/img/CMSC_Prince_wbox.png" alt="logo"
+                                    style={{height: '50px'}}
+                                    className="hide-on-med-and-down"/>
                                     Pickr
                                 </Link>
                                 <ul className="right hide-on-med-and-down">
                                     <li>
-                                        <Link to="/class" style={{
-                                            letterSpacing: '0px'
-                                        }}>
+                                        <Link to="/class" style={{letterSpacing: '0px'}}>
                                             <i className="mdi-social-person-outline left"></i>{username}
                                         </Link>
                                     </li>
@@ -86,18 +83,21 @@ class NavBar extends React.Component {
                                         </a>
                                     </li>
                                 </ul>
-                                <ul id="nav-mobile" className="side-nav">
-                                    <li>
-                                        <a href="/" onClick={(e) => this.logout(e)} style={{
-                                            letterSpacing: '0px'
-                                        }}>
-                                            <i className="mdi-action-exit-to-app left"></i>Logout
-                                        </a>
-                                    </li>
-                                </ul>
-                                <a data-activates="nav-mobile" className="button-collapse">
-                                    <i className="mdi-navigation-menu"></i>
-                                </a>
+                                <span className="left hide-on-large-only">
+                                    <Link to="/class" style={{letterSpacing: '0px'}}>
+                                        <img src="/img/CMSC_Prince_wbox.png" alt="logo"
+                                            style={{
+                                                height: '40px',
+                                                marginTop: '8px'
+                                            }}/>
+                                    </Link>
+                                </span>
+                                <span className="right hide-on-large-only">
+                                    <a href="/" onClick={(e) => this.logout(e)}
+                                        style={{letterSpacing: '0px'}}>
+                                        <i className="mdi-action-exit-to-app left"></i>
+                                    </a>
+                                </span>
                             </div>
                         </div >
                     </nav>

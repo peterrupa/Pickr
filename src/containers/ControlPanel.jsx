@@ -342,7 +342,7 @@ class ControlPanel extends React.Component {
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
                                                 </p>
                                                 <p>
-                                                    <input type="checkbox" id="remember-checkbox" defaultChecked="true" onChange={() => this.formActions.rememberingOnChange}/>
+                                                    <input type="checkbox" id="remember-checkbox" defaultChecked="true"/>
                                                     <label htmlFor="remember-checkbox">Enable Remembering</label>
                                                 </p>
                                             </div>

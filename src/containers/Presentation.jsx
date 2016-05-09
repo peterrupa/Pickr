@@ -14,7 +14,6 @@ class Presentation extends React.Component {
     componentWillMount() {
         const { fetchRandomizedVolunteers, fetchListOfStudents } = this.props;
 
-        // TODO: fetch the list of students based on the current session
         fetchListOfStudents();
 
         this.students = [];

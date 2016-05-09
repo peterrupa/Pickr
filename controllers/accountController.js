@@ -110,6 +110,27 @@ exports.logout = (req, res) => {
     }
 }
 
+exports.getUsername = (req, res) => {
+    if(!req.session.key) res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+    else{
+        let query = 'SELECT username, id FROM Accounts WHERE id=?';
+
+        sequelize.query(query,{
+            replacements: [
+                req.session.key
+            ],
+            type: sequelize.QueryTypes.SELECT
+        })
+        .then((user) => {
+            if (!user) {
+                res.status(error.UNAUTH.code).send({UNAUTH: error.UNAUTH.message});
+            } else {
+                res.status(200).send({username:user[0].username});
+            }
+        });
+    }
+}
+
 exports.forgotPassword = (req, res) => {
     Account.findOne({ where: {EmailAddress: req.body.email} })
     .then((user) => {

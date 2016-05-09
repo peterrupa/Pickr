@@ -38,10 +38,6 @@ class ControlPanel extends React.Component {
                     this.formValues.nVolunteers = value ? value : 1;
                 }
             }
-            /*rememberingOnChange: () => {
-                this.formValues.remembering = !this.formValues.remembering;
-                $('#remember-checkbox').prop('checked', this.formValues.remembering);
-            }*/
         };
     }
 

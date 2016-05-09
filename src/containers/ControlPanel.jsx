@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer } from '../actions/controlpanelActions';
 
 import Tag from '../components/Tag.jsx';
 import Timer from '../components/Timer.jsx';
@@ -17,30 +17,17 @@ let timerInterval;
 
 class ControlPanel extends React.Component {
     componentWillMount() {
-        const { fetchAvailableVolunteers, controlPanelState } = this.props;
+        const { fetchAvailableVolunteers, fetchPreviousVolunteers, controlPanelState } = this.props;
         fetchAvailableVolunteers();
+        fetchPreviousVolunteers();
         this.socket = io();
         this.socket.on('enable button', () => {
             $('#randomize').attr('disabled', false);
         });
 
         this.formValues = {
-            nVolunteers: 1,
             tags: [],
-            students: [],
-            remembering: true
-        };
-
-        this.formActions = {
-            nVolunteersOnChange: () => {
-                let value = $('#nStudents').val();
-                if($.isNumeric(value)) {
-                    this.formValues.nVolunteers = value < 1 ? 1 : value;
-                } else {
-                    $('#nStudents').val(value.replace(/[^0-9]/g, ''));
-                    this.formValues.nVolunteers = value ? value : 1;
-                }
-            }
+            students: []
         };
     }
 
@@ -84,82 +71,107 @@ class ControlPanel extends React.Component {
     }
 
     get() {
-        const { controlPanelState } = this.props;
-
+        const { controlPanelState, insertRandomizedVolunteer } = this.props;
+                
         if(controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
             return;
         }
 
-        let studentsToChooseFrom = [];
-        controlPanelState.availableVolunteers.forEach((volunteer) => {
-            studentsToChooseFrom.push(volunteer);
-        });
+        let studentsToChooseFrom = [],
+            selectedVolunteers = [],
+            volunteerTags = [],
+            count = {},
+            nVolunteers = $.isNumeric($('#nVolunteers').val()) ? $('#nVolunteers').val() : 1,
+            maxRepeats = $.isNumeric($('#maxRepeats').val()) ? $('#maxRepeats').val() : 1;
+        
+        if($('#remember-checkbox')[0].checked) {
+            controlPanelState.previousVolunteers.forEach((volunteer) => {
+                count[volunteer.StudentId] = count[volunteer.StudentId] ? count[volunteer.StudentId] + 1 : 1;
+            });
+            
+            // count how many times the student has been volunteered in this activity
+            controlPanelState.availableVolunteers.forEach((student) => {
+                if(!count[student.id] || count[student.id] < maxRepeats) {
+                    studentsToChooseFrom.push(student);
+                }
+            });
+        } else {
+            studentsToChooseFrom = _.map(controlPanelState.availableVolunteers, _.clone);
+        }
 
-        let selectedVolunteers = [];
-        let volunteerTags = [];
-
-        if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
+        if(nVolunteers > controlPanelState.availableVolunteers.length) {
             Materialize.toast('Number of volunteers to select is too large!', 4000);
             return;
         }
+        
+        // if "Students To Call" is not empty
+        if(controlPanelState.students.length > 0) {
+            let studentsToCall = _.map(controlPanelState.students, _.clone);
+            for(let i = 0; i < nVolunteers; i++) {
+                if(i == controlPanelState.students.length) {
+                    break;
+                }
+                
+                let student = studentsToCall[Math.floor(Math.random() * studentsToCall.length)];
 
-        for(let i = 0; i < this.formValues.nVolunteers; i++) {
-            if(i == controlPanelState.students.length) {
-                break;
+                if($('#timer-checkbox')[0].checked) {
+                    this.addTimer(student.id);
+                }
+                selectedVolunteers.push(student);
+                insertRandomizedVolunteer(student);
+                studentsToCall.splice(studentsToCall.indexOf(student), 1);
             }
-
-            if($('#timer-checkbox')[0].checked) {
-                this.addTimer(controlPanelState.students[i].id);
-            }
-            selectedVolunteers.push(controlPanelState.students[i]);
-            fetch('/api/volunteer/', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    activityID: '1',
-                    studentID: controlPanelState.students[i].id,
-                    classCode: controlPanelState.students[i].ClassId,
-                    note: ''
-                })
-            });
         }
-
-        if(selectedVolunteers.length == this.formValues.nVolunteers) {
+        
+        // if enough volunteers has been selected
+        if(selectedVolunteers.length == nVolunteers) {
             $('#randomize').attr('disabled', true);
             this.socket.emit('send volunteers', selectedVolunteers);
             return;
         }
-
-        this.formValues.tags.forEach((tag) => {
-            controlPanelState.availableVolunteers.forEach((volunteer) => {
-                let tags = [];
-                volunteer.tags.forEach((volunteerTag) => {
-                    tags.push(volunteerTag.toLowerCase());
+        
+        if(studentsToChooseFrom.length == 0) {
+            Materialize.toast('With the current filters, no more students can be volunteered for this class!', 4000);
+            return;
+        }
+        
+        // if "Tags" is not empty
+        if(this.formValues.tags.length > 0) {
+            this.formValues.tags.forEach((tag) => {
+                studentsToChooseFrom.forEach((volunteer) => {
+                    let tags = [];
+                    volunteer.tags.forEach((volunteerTag) => {
+                        tags.push(volunteerTag.toLowerCase());
+                    });
+                    if(tags.indexOf(tag) != -1) {
+                        volunteerTags.push(volunteer);
+                    }
                 });
-                if(tags.indexOf(tag) != -1) {
-                    volunteerTags.push(volunteer);
-                }
             });
-        });
-
-        for(let i = selectedVolunteers.length; i < this.formValues.nVolunteers; i++) {
+        }
+        
+        // actual randomization
+        for(let i = selectedVolunteers.length; i < nVolunteers; i++) {            
             if (this.formValues.tags.length > 0) {
+                if(volunteerTags.length == 0) {
+                    Materialize.toast('No more students can be volunteered for this activity!', 4000);
+                    break;
+                }
+                
                 if(volunteerTags.length == 0) {
                     Materialize.toast('Number of volunteers to select is too large! Untick "Enable Remembering" and try again.', 4000);
                     return;
                 }
 
-                if(this.formValues.nVolunteers > controlPanelState.availableVolunteers.length) {
+                if(nVolunteers > controlPanelState.availableVolunteers.length) {
                     Materialize.toast('Number of volunteers to select is too large!', 4000);
                     return;
                 }
 
                 let student = volunteerTags[Math.floor(Math.random() * volunteerTags.length)];
+                volunteerTags.splice(student, 1);
+                studentsToChooseFrom.splice(student, 1);
 
                 if(!student) {
                     Materialize.toast('No one matched the filters you have provided!', 4000);
@@ -176,8 +188,15 @@ class ControlPanel extends React.Component {
                 selectedVolunteers.push(student);
             }
             else {
+                if(studentsToChooseFrom.length == 0) {
+                    Materialize.toast('No more students can be volunteered for this activity!', 4000);
+                    break;
+                }
+                
                 let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
-
+                volunteerTags.splice(student, 1);
+                studentsToChooseFrom.splice(student, 1);
+                
                 if($('#timer-checkbox')[0].checked) {
                     this.addTimer(student.id);
                 }
@@ -194,20 +213,7 @@ class ControlPanel extends React.Component {
                 });
             }
 
-            fetch('/api/volunteer/', {
-                method: 'POST',
-                credentials: 'include',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ActivityId: '1',
-                    StudentId: selectedVolunteers[i].id,
-                    ClassId: selectedVolunteers[i].ClassId,
-                    note: ''
-                })
-            });
+            insertRandomizedVolunteer(selectedVolunteers[i]);
         }
         $('#randomize').attr('disabled', true);
         this.socket.emit('send volunteers', selectedVolunteers);
@@ -228,9 +234,9 @@ class ControlPanel extends React.Component {
     render() {
         const { controlPanelState } = this.props;
 
-        let listOfTags = [];
-        let listOfStudents = [];
-        let classStudents = [];
+        let listOfTags = [],
+            listOfStudents = [],
+            classStudents = [];
 
         for(let i = 0; i < controlPanelState.tags.length; i++) {
             listOfTags.push(
@@ -302,17 +308,17 @@ class ControlPanel extends React.Component {
                                             <div style={{padding: '5px 35px'}}>
                                                 <br/>
                                                 <h4 className="bold">Filters</h4>
-                                                <form className="col s4 m6 l5">
+                                                <div className="col s4 m6 l5">
                                                     <h6>N Students to Call</h6>
-                                                    <input id="nStudents" type="text" className="validate" onChange={this.formActions.nVolunteersOnChange}/>
+                                                    <input id="nVolunteers" type="text" className="validate" defaultValue="1"/>
                                                     {/* <label for="nStudents">N Students to Call</label> */}
 
-                                                </form>
-                                                <form className="col s4 m6 l5">
-                                                    <h6>N Students Per Tag</h6>
-                                                    <input id="nStudentsPerTag" type="text" className="validate"/>
-                                                    {/* <label for="nStudents">N Students Per Tag</label> */}
-                                                </form>
+                                                </div>
+                                                <div className="col s4 m6 l5">
+                                                    <h6>Max Repetition</h6>
+                                                    <input id="maxRepeats" type="text" className="validate" defaultValue="1"/>
+                                                    {/* <label for="maxRepeats">Max Repetition</label> */}
+                                                </div>
 
                                             </div>
                                         </div>
@@ -412,11 +418,13 @@ ControlPanel.propTypes = {
     addTimer: PropTypes.func.isRequired,
     incrementTimers: PropTypes.func.isRequired,
     removeTimer: PropTypes.func.isRequired,
-    modifyStudents: PropTypes.func.isRequired
+    modifyStudents: PropTypes.func.isRequired,
+    insertRandomizedVolunteer: PropTypes.func.isRequired,
+    fetchPreviousVolunteers: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents }
+    { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer }
 )(ControlPanel);

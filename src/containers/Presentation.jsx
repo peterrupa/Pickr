@@ -35,13 +35,12 @@ class Presentation extends React.Component {
     componentDidUpdate() {
         const { presentationState, success } = this.props;
 
-        let socket = this.socket;
-
         $('.carousel').carousel();
 
         let listOfStudents = presentationState.students,
             listOfVolunteers = presentationState.volunteers,
-            carouselConfig = this.carouselConfig;
+            carouselConfig = this.carouselConfig,
+            socket = this.socket;
 
         if(presentationState.recievedVolunteer) {
             let totalTime = 0;
@@ -67,7 +66,7 @@ class Presentation extends React.Component {
             }
             setTimeout(function() {
                 socket.emit('enable button');
-            }, totalTime + 500);
+            }, totalTime + 1000);
         }
     }
 

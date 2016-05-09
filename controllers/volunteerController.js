@@ -13,8 +13,8 @@ export function insert(req, res) {
         ClassId: req.body.ClassId,
         dateVolunteered: new Date(),
         note: req.body.note
-    }).then(function(volunteer) {
-        res.status(200).send(volunteer);
+    }).then((volunteer) => {
+        res.send(volunteer);
     });
 }
 
@@ -25,22 +25,26 @@ export function getOne(req, res) {
             volunteerID: req.params.id
         }
     }).then(function(volunteer) {
-        Student.findOne({
-            where: {
-                id: volunteer.dataValues.StudentId,
-                ClassId: volunteer.dataValues.ClassId
-            }
-        }).then(function(student) {
-            if (!student) {
-              res.status(404).send();
-            }
-            else {
-              return student.getTags();
-              res.send(student);
-            }
-        }).then((student) => {
-            res.send(student);
-        });
+        if(volunteer) {
+            Student.findOne({
+                where: {
+                    id: volunteer.StudentId,
+                }
+            }).then(function(student) {
+                if(student) {
+                    student.getTags().then((data) => {
+                        student.dataValues.tags = data.map((tag) => tag.dataValues.name);
+
+                        res.send(student);
+                    });
+                }
+                else {
+                    res.sendStatus(404);
+                }
+            });
+        } else {
+            res.sendStatus(404);
+        }
     });
 }
 
@@ -83,6 +87,22 @@ export function getVolunteerActivities(req, res) {
             res.send(activities)
         });
     }).catch((err) => {
+        console.log(err)
+        res.sendStatus(500);
+    });
+}
+
+export function getPreviousVolunteersFromActivity(req, res) {
+    Volunteer.findAll({
+        where: {
+            ClassId: req.session.classID,
+            ActivityId: req.session.activityID
+        }
+    })
+    .then((volunteers) => {
+        res.send(volunteers); 
+    })
+    .catch((err) => {
         console.log(err)
         res.sendStatus(500);
     });

@@ -1,6 +1,7 @@
-import { FETCH_CLASSES, GET_SESSION } from '../constants/ActionTypes';
+import { FETCH_CLASSES, GET_USERNAME } from '../constants/ActionTypes';
 
 const initialState = {
+    username: '',
     classes: []
 };
 
@@ -9,6 +10,11 @@ export default function classroomAppState(state = initialState, action) {
         case FETCH_CLASSES:
             return Object.assign({}, state, {
                 classes: action.classes
+            });
+
+        case GET_USERNAME:
+            return Object.assign({}, state, {
+                username: action.username
             });
 
         default:

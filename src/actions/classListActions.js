@@ -7,6 +7,12 @@ export function setClasses(classes) {
     };
 }
 
+export function setUsername(username) {
+    return {
+        type: types.GET_USERNAME,
+        username
+    };
+}
 
 export function addClass(data) {
     return (dispatch) => {
@@ -79,6 +85,21 @@ export function fetchClasses() {
         }).then((classes) => {
             // dispatch action with data from server
             dispatch(setClasses(classes));
+        });
+    };
+}
+
+export function getUsername() {
+    return (dispatch) => {
+        fetch('/api/account/getUsername', {
+            method: 'GET',
+            credentials: 'include'
+        }).then((res) => {
+            // convert response to json
+            return res.json();
+        }).then((username) => {
+            // dispatch action with data from server
+            dispatch(setUsername(username.username));
         });
     };
 }

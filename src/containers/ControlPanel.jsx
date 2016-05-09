@@ -24,7 +24,8 @@ class ControlPanel extends React.Component {
         this.formValues = {
             nVolunteers: 1,
             tags: [],
-            students: []
+            students: [],
+            remembering: true
         };
 
         this.formActions = {
@@ -37,6 +38,10 @@ class ControlPanel extends React.Component {
                     this.formValues.nVolunteers = value ? value : 1;
                 }
             }
+            /*rememberingOnChange: () => {
+                this.formValues.remembering = !this.formValues.remembering;
+                $('#remember-checkbox').prop('checked', this.formValues.remembering);
+            }*/
         };
     }
 
@@ -337,7 +342,7 @@ class ControlPanel extends React.Component {
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
                                                 </p>
                                                 <p>
-                                                    <input type="checkbox" id="remember-checkbox" checked/>
+                                                    <input type="checkbox" id="remember-checkbox" defaultChecked="true" onChange={() => this.formActions.rememberingOnChange}/>
                                                     <label htmlFor="remember-checkbox">Enable Remembering</label>
                                                 </p>
                                             </div>

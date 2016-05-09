@@ -59,6 +59,7 @@ class SignUp extends React.Component {
 
             fetch('/api/account/createAccount', {
                 method: 'POST',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Accept':'application/json'

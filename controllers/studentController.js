@@ -42,6 +42,7 @@ export function getOne(req, res) {
     });
 }
 
+
 //CREATE Student
 export function insert(req, res) {
     let file = req.file;

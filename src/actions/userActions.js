@@ -22,6 +22,7 @@ export function sendMail(email) {
         // ajax request to /api/sample
         return fetch('/api/account/forgotPassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -41,6 +42,7 @@ export function reset(token) {
         // ajax request to /api/sample
         return fetch('/api/account/resetPassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -60,6 +62,7 @@ export function change(account) {
         // ajax request to /api/sample
         return fetch('/api/account/changePassword', {
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

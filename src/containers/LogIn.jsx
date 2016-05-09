@@ -14,10 +14,11 @@ class LogIn extends React.Component {
 
     post(e){
         e.preventDefault();
-        
+
         let username = $('#username').val();
         let password = $('#password').val();
         let data = "username=" + username + "&password=" + password;
+        let message = '';
 
         if (username !== '' && password !== '') {
             fetch('/api/account/login', {
@@ -30,11 +31,21 @@ class LogIn extends React.Component {
                 body: data
             })
             .then((res) => {
-                if (res.status === 200 || res.status === 403) {
+                switch (res.status) {
+                    case 403: message = 'Username and Password combination'
+                        + ' does not match!'; break;
+                    case 404: message = 'Username is not registered to'
+                     + ' any account!'; break;
+                    case 500: message = 'Log-in failed. Please try again.';
+                        break;
+                    default: message = 'Error logging in!'; break;
+                }
+
+                if (res.status === 200) {
                     window.location.href = '/class';
                 }
                 else {
-                    window.location.href = '/login';
+                    Materialize.toast(message, 4000);
                 }
             });
         }

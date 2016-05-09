@@ -6,6 +6,8 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
+import referer from './tools/referer';
+import auth from './tools/authentication';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -51,13 +53,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/api/student', student);
-app.use('/api/sample', sample);
-app.use('/api/account', account);
-app.use('/api/class', activity);
-app.use('/api/account/', classRoute);
-app.use('/api/class', student);
-app.use('/api/volunteer', volunteer);
+app.use('/api/account',   referer,           account);
+app.use('/api/sample',    referer,           sample);
+app.use('/api/student',   referer,   auth,   student);
+app.use('/api/class',     referer,   auth,   activity);
+app.use('/api/account/',  referer,   auth,   classRoute);
+app.use('/api/class',     referer,   auth,   student);
+app.use('/api/volunteer', referer,   auth,   volunteer);
 
 // 404 for api
 app.get('/api/*', (req, res) => {

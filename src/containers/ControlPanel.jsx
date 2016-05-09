@@ -41,10 +41,6 @@ class ControlPanel extends React.Component {
                     this.formValues.nVolunteers = value ? value : 1;
                 }
             }
-            /*rememberingOnChange: () => {
-                this.formValues.remembering = !this.formValues.remembering;
-                $('#remember-checkbox').prop('checked', this.formValues.remembering);
-            }*/
         };
     }
 
@@ -189,7 +185,6 @@ class ControlPanel extends React.Component {
                 if($('#remember-checkbox')[0].checked) {
                     studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);
                 }
-                //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
 
             // add timer if applicable

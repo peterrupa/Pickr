@@ -24,7 +24,8 @@ class ControlPanel extends React.Component {
         this.formValues = {
             nVolunteers: 1,
             tags: [],
-            students: []
+            students: [],
+            remembering: true
         };
 
         this.formActions = {
@@ -180,7 +181,6 @@ class ControlPanel extends React.Component {
                 if($('#remember-checkbox')[0].checked) {
                     studentsToChooseFrom.splice(studentsToChooseFrom.indexOf(student), 1);
                 }
-                //selectedVolunteers.push(controlPanelState.availableVolunteers[Math.floor(Math.random() * controlPanelState.availableVolunteers.length)]);
             }
 
             // add timer if applicable
@@ -337,7 +337,7 @@ class ControlPanel extends React.Component {
                                                     <label htmlFor="timer-checkbox">Enable Timer</label>
                                                 </p>
                                                 <p>
-                                                    <input type="checkbox" id="remember-checkbox" checked/>
+                                                    <input type="checkbox" id="remember-checkbox" defaultChecked="true" onChange={() => this.formActions.rememberingOnChange}/>
                                                     <label htmlFor="remember-checkbox">Enable Remembering</label>
                                                 </p>
                                             </div>

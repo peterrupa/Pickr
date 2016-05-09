@@ -10,6 +10,15 @@ const Materialize = window.Materialize;
 
 class LogIn extends React.Component {
     componentDidMount(){
+        if (localStorage.checkbox && localStorage.checkbox != '') {
+            $('#remember-me').attr('checked', 'checked');
+            $('#username').val(localStorage.username);
+            $('#password').val(localStorage.password);
+        } else {
+            $('#remember-me').removeAttr('checked');
+            $('#username').val('');
+            $('#password').val('');
+        }
     }
 
     post(e){
@@ -39,6 +48,16 @@ class LogIn extends React.Component {
                     case 500: message = 'Log-in failed. Please try again.';
                         break;
                     default: message = 'Error logging in!'; break;
+                }
+
+                if ($('#remember-me')[0].checked) {
+                    localStorage.username = username;
+                    localStorage.password = password;
+                    localStorage.checkbox = $('#remember-me').val();
+                } else {
+                    localStorage.username = '';
+                    localStorage.password = '';
+                    localStorage.checkbox = '';
                 }
 
                 if (res.status === 200) {
@@ -86,7 +105,7 @@ class LogIn extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field login-text">
-                                        <input type="checkbox" id="remember-me"/>
+                                        <input type="checkbox" id="remember-me" value="checked"/>
                                         <label htmlFor="remember-me">Remember me</label>
                                     </div>
                                 </div>

@@ -263,6 +263,7 @@ class ClassRoom extends React.Component {
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
                 <ActivityItem
+                    key={activity.id}
                     activity={activity}
                 />
             );

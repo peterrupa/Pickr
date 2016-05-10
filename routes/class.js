@@ -1,7 +1,8 @@
 import express from 'express';
 let router = express.Router();
 import * as classController from '../controllers/classController';
-
+import classAuth from '../tools/classAuth';
+ 
 router.get('/class/fetchAll', classController.getAll);
 router.post('/class/setAID', classController.setActivityID);
 router.post('/class/setCID', classController.setClassID);

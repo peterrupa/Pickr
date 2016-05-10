@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
 import referer from './tools/referer';
 import auth from './tools/authentication';
+import classAuth from './tools/classAuth';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -80,12 +81,12 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
     if (!unauth_paths.test(req.originalUrl)) {
-        return next();
+            next();
     }
     else {
         res.redirect('/class');
     }
-},
+}, classAuth,
 (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');
 });

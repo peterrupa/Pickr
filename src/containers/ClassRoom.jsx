@@ -263,6 +263,7 @@ class ClassRoom extends React.Component {
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
                 <ActivityItem
+                    key={activity.id}
                     activity={activity}
                 />
             );
@@ -310,12 +311,19 @@ class ClassRoom extends React.Component {
                             <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
                             <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
                             <div>
-                                <Link className="waves-effect waves-light btn grey darken-3" to="/class"
+                                <Link className="waves-effect waves-light btn grey darken-3 hide-on-small-only" to="/class"
                                 style={{
                                     float: 'right',
                                     bottom: '50px'
                                 }}>
-                                    <i className="mdi-navigation-apps left" ></i>Classes
+                                    <i className="mdi-navigation-apps left"></i>Classes
+                                </Link>
+                                <Link className="waves-effect waves-light btn grey darken-3 hide-on-med-and-up" to="/class"
+                                style={{
+                                    float: 'right',
+                                    bottom: '50px'
+                                }}>
+                                    <i className="mdi-navigation-apps"></i>
                                 </Link>
                             </div>
                         </div>

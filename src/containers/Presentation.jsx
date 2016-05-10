@@ -64,9 +64,6 @@ class Presentation extends React.Component {
                 totalTime += 3500 * i;
                 this.carouselConfig = carouselConfig;
             }
-            setTimeout(function() {
-                socket.emit('enable button');
-            }, totalTime + 1000);
         }
     }
 

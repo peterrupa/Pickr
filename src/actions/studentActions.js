@@ -90,3 +90,20 @@ export function editStudent(student) {
         });
     };
 }
+
+
+export function deleteStudent(student) {
+    return fetch('/api/class/student/'+student.id, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(student)
+    })
+    .then((res) =>  res.json())
+    .catch((err) => {
+        throw err;
+    });
+}

@@ -12,6 +12,9 @@ class StudentFilterForm extends React.Component {
     }
 
     addStudent(student) {
+        if(this.studentsToCall.indexOf(student) != -1) {
+            return;
+        }
         this.studentsToCall.push(student);
         this.props.modifyStudents(this.studentsToCall);
     }

@@ -22,7 +22,7 @@ class Presentation extends React.Component {
         };
 
         this.socket = io();
-        this.socket.on('recieve volunteers', function(volunteers) {
+        this.socket.on('recieve volunteers', (volunteers) => {
             fetchRandomizedVolunteers(volunteers);
         });
 
@@ -39,9 +39,11 @@ class Presentation extends React.Component {
 
         let listOfStudents = presentationState.students,
             listOfVolunteers = presentationState.volunteers,
-            carouselConfig = this.carouselConfig;
+            carouselConfig = this.carouselConfig,
+            socket = this.socket;
 
         if(presentationState.recievedVolunteer) {
+            let totalTime = 0;
             for(let i = 0; i < listOfVolunteers.length; i++) {
                 setTimeout(function() {
                     let targetIndex = -1;
@@ -58,9 +60,13 @@ class Presentation extends React.Component {
                         carouselConfig.currentIndex = carouselConfig.targetIndex;
                         success();
                     }
-                }, 3500 * i + (Math.random() % i));
+                }, 3500 * i);
+                totalTime += 3500 * i;
                 this.carouselConfig = carouselConfig;
             }
+            setTimeout(function() {
+                socket.emit('enable button');
+            }, totalTime + 1000);
         }
     }
 
@@ -85,7 +91,7 @@ class Presentation extends React.Component {
         let listOfStudents = this.props.presentationState.students;
         let cardBgUrl = '/img/one-fourth.jpg';
         let bgUrl = '/img/black-board.jpg';
-        
+
         const containerStyle = {
             backgroundImage: 'url('+bgUrl+')',
             maxWidth: '100%',
@@ -94,9 +100,9 @@ class Presentation extends React.Component {
             backgroundSize: 'cover',
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center' 
+            alignItems: 'center'
         };
-        
+
         // let bgUrl = '/img/classhover.gif';
         if(listOfStudents.length > 0) {
             return (

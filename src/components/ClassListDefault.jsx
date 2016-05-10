@@ -13,7 +13,7 @@ class ClassListDefault extends React.Component {
                     <ul>
                         {this.props.classes.map((classItem) => (
                             <li key={classItem.id}>
-                                <div className="col s12 m6 l3">
+                                <div className="col s12 m12 l3">
                                     <ClassListDefaultItem
                                         classItem={classItem}
                                     />

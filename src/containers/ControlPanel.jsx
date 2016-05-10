@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import io from 'socket.io-client';
 import _ from 'lodash';
 
-import { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer } from '../actions/controlpanelActions';
+import { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer, fetchClassName } from '../actions/controlpanelActions';
 
 import Tag from '../components/Tag.jsx';
 import Timer from '../components/Timer.jsx';
@@ -17,7 +17,8 @@ let timerInterval;
 
 class ControlPanel extends React.Component {
     componentWillMount() {
-        const { fetchAvailableVolunteers, fetchPreviousVolunteers, controlPanelState } = this.props;
+        const { fetchClassName, fetchAvailableVolunteers, fetchPreviousVolunteers, controlPanelState } = this.props;
+        fetchClassName();
         fetchAvailableVolunteers();
         fetchPreviousVolunteers();
         this.socket = io();
@@ -295,7 +296,7 @@ class ControlPanel extends React.Component {
                                 <ul className="collection  with-header">
                                     <li className="collection-header center">
                                         <div className="container">
-                                            <h5>CMSC 128</h5>
+                                            <h5>{controlPanelState.className}</h5>
                                         </div>
                                     </li>
                                     {classStudents}
@@ -421,11 +422,12 @@ ControlPanel.propTypes = {
     removeTimer: PropTypes.func.isRequired,
     modifyStudents: PropTypes.func.isRequired,
     insertRandomizedVolunteer: PropTypes.func.isRequired,
-    fetchPreviousVolunteers: PropTypes.func.isRequired
+    fetchPreviousVolunteers: PropTypes.func.isRequired,
+    fetchClassName: PropTypes.func.isRequired
 };
 
 // connect to redux store
 export default connect(
     state => ({ controlPanelState: state.controlPanelState }),
-    { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer }
+    { fetchAvailableVolunteers, fetchPreviousVolunteers, modifyTags, addTimer, incrementTimers, removeTimer, modifyStudents, insertRandomizedVolunteer, fetchClassName }
 )(ControlPanel);

@@ -10,7 +10,7 @@ import { Class, Activity, Note } from '../models';
 //GET ACTIVITY
 export function getAll(req, res) {
     Activity.findAll({where:{ClassId: req.params.id}})
-    .then((activities) => {
+    /*.then((activities) => {
         let promises = activities.map((activity) => {
           return activity.getNotes().then((data) => {
               activity.dataValues.notes = data.map((note) => note.dataValues.note);
@@ -19,7 +19,7 @@ export function getAll(req, res) {
       	}); 
       	
       	return Promise.all(promises);
-    })
+    })*/
     .then((activities) => {
     	res.send(activities);
     });

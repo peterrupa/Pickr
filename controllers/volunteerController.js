@@ -8,11 +8,10 @@ import { Volunteer, Student, Activity } from '../models';
 export function insert(req, res) {
 
     Volunteer.create({
-        ActivityId: req.body.ActivityId,
+        ActivityId: req.session.activityId,
         StudentId: req.body.StudentId,
         ClassId: req.body.ClassId,
         dateVolunteered: new Date(),
-        note: req.body.note
     }).then(function(volunteer) {
         res.status(200).send(volunteer);
     });

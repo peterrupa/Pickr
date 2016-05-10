@@ -38,8 +38,8 @@ export function getAll(req, res) {
             AccountId: req.session.key
         }
     })
-    .then(function(classes) {
-      	if(classes){
+    /*.then(function(classes) {
+      	/if(classes){
       		let promises = classes.map((classData) => {
       			return classData.getActivities().then((activities) => {
 							let promises2 =  activities.map((activity) => {
@@ -64,7 +64,7 @@ export function getAll(req, res) {
       	} else {
       		res.sendStatus(400);	
       	}
-    })
+    })*/
     .then((classes) => {
     	res.send(classes);
     })

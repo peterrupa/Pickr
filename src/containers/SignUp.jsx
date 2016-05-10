@@ -11,17 +11,30 @@ const Materialize = window.Materialize;
 // Be sure to rename your class name
 class SignUp extends React.Component {
     componentDidMount() {
+        let usernameDOM = document.getElementById('username');
 
-        $('.button-collapse').click(function() {
+        $('.button-collapse').click(() => {
             $('.side-nav').css({position: 'static', marginLeft: '-50px'});
             $('.button-collapse').css({visibility: 'hidden'});
         });
-        $(window).scroll(function() {
+        $(window).scroll(() => {
 
             $('.side-nav').css({position: 'fixed'});
             $('.button-collapse').css({visibility: 'visible'});
 
         });
+
+        $('#username')
+            .focusin(() => {
+                $('.errorUsernamePattern').hide();
+            })
+            .focusout(() => {
+                if(usernameDOM.validity.patternMismatch) {
+                    $('.errorUsernamePattern').show();
+                } else {
+                    $('.errorUsernamePattern').hide();
+                }
+            });
 
         $('.hidden').hide();
     }
@@ -36,24 +49,30 @@ class SignUp extends React.Component {
         let password = $('#password').val();
         let confirmPassword = $('#password-again').val();
         let message = '';
+        let err = false;
 
         if (password === '') {
             $('.errorPasswordReq').show();
+            err = true;
         }
         if (confirmPassword === '') {
             $('.errorPasswordAgainReq').show();
+            err = true;
         }
         if ($('#username').val() === '') {
             $('.errorUsernameReq').show();
+            err = true;
         }
         if ($('#email').val() === '') {
             $('.errorEmailReq').show();
+            err = true;
         }
-
         if (password !== confirmPassword) {
             $('.errorPassword').show();
+            err = true;
         }
-        else {
+
+        if(!err) {
             $('.errorRequired').hide();
             $('.errorPassword').hide();
 
@@ -122,6 +141,13 @@ class SignUp extends React.Component {
                                             }}>
                                             This field is required.
                                         </p>
+                                        <p className="red-text errorRequired errorUsernamePattern hidden"
+                                            style={{
+                                                marginTop: '0px',
+                                                marginLeft: '50px'
+                                            }}>
+                                            Username must contain 7-32 characters.
+                                        </p>
                                     </div>
                                 </div>
                                 <div className="row margin">
@@ -184,7 +210,7 @@ class SignUp extends React.Component {
 
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input type="submit" value="register" className="btn waves-effect waves-light col s12 z-depth-0"/>
+                                        <input id="submitInput" type="submit" value="register" className="btn waves-effect waves-light col s12 z-depth-0"/>
                                     </div>
                                     <div className="input-field col s12">
                                         <p className="margin center medium-small sign-up">Already have an account? <Link to="/login">Login</Link>

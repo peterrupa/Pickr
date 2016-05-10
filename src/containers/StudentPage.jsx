@@ -186,8 +186,18 @@ class StudentPage extends React.Component {
                     </div>
                 </div>
                 <div className="row center">
-                  <a href="#editstudent"className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
-                  <a className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
+                    <a href="#editstudent"className="waves-effect waves-light btn modal-trigger hide-on-med-and-down" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
+                    <a className="waves-effect waves-light btn red modal-trigger hide-on-med-and-down" style={{marginLeft: '10px'}}><i className="material-icons left">delete</i>Delete</a>
+                    <a href="#editstudent"className="waves-effect waves-light btn modal-trigger hide-on-large-only" style={{color:'white',
+                        paddingLeft:'20px',
+                        paddingRight:'20px'}}>
+                        <i className="mdi-image-edit"></i>
+                    </a>
+                    <a className="waves-effect waves-light btn red modal-trigger hide-on-large-only" style={{marginLeft: '5px',
+                        paddingLeft:'20px',
+                        paddingRight:'20px'}}>
+                        <i className="mdi-action-delete"></i>
+                    </a>
                 </div>
 
                 <div id="editstudent" className="modal">

@@ -295,7 +295,7 @@ class ControlPanel extends React.Component {
                                 <ul className="collection  with-header">
                                     <li className="collection-header center">
                                         <div className="container">
-                                            <h5>CMSC 128</h5>
+                                            <h5>STUDENTS</h5>
                                         </div>
                                     </li>
                                     {classStudents}

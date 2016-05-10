@@ -21,9 +21,6 @@ class ControlPanel extends React.Component {
         fetchAvailableVolunteers();
         fetchPreviousVolunteers();
         this.socket = io();
-        this.socket.on('enable button', () => {
-            $('#randomize').attr('disabled', false);
-        });
 
         this.formValues = {
             tags: [],
@@ -127,6 +124,9 @@ class ControlPanel extends React.Component {
         // if enough volunteers has been selected
         if(selectedVolunteers.length == nVolunteers) {
             $('#randomize').attr('disabled', true);
+            setTimeout(function() {
+                $('#randomize').attr('disabled', false);
+            }, selectedVolunteers.length * 3500);
             this.socket.emit('send volunteers', selectedVolunteers);
             return;
         }
@@ -216,6 +216,9 @@ class ControlPanel extends React.Component {
             insertRandomizedVolunteer(selectedVolunteers[i]);
         }
         $('#randomize').attr('disabled', true);
+        setTimeout(function() {
+            $('#randomize').attr('disabled', false);
+        }, selectedVolunteers.length * 3500);
         this.socket.emit('send volunteers', selectedVolunteers);
     }
 

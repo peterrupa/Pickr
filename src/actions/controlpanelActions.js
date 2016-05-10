@@ -7,6 +7,13 @@ export function setVolunteers(students) {
     };
 }
 
+export function setPreviousVolunteers(volunteers) {
+    return {
+        type: types.FETCH_PREVIOUS_VOLUNTEERS,
+        volunteers
+    };
+}
+
 export function modifyTags(tags) {
     return {
         type: types.MODIFY_TAGS,
@@ -18,6 +25,13 @@ export function addTimer(studentId) {
     return {
         type: types.ADD_TIMER,
         studentId
+    };
+}
+
+export function updatePreviousVolunteers(volunteer) {
+    return {
+        type: types.UPDATE_PREVIOUS_VOLUNTEERS,
+        volunteer
     };
 }
 
@@ -46,10 +60,53 @@ export function fetchAvailableVolunteers(classcode) {
         fetch('/api/student/fetchAll', {
             method: 'GET',
             credentials: 'include'
-        }).then((res) => {
-            return res.json();
-        }).then((students) => {
-            dispatch(setVolunteers(students));
+        })
+        .then((res) => res.json())
+        .then((volunteers) => {
+            dispatch(setVolunteers(volunteers));
+        })
+        .catch((err) => {
+            throw err;
+        });
+    };
+}
+
+export function insertRandomizedVolunteer(student) {
+    return (dispatch) => {
+        fetch('/api/volunteer/', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                StudentId: student.id,
+                ClassId: student.ClassId
+            })
+        })
+        .then((res) =>  res.json())
+        .then((volunteer) => {
+            dispatch(updatePreviousVolunteers(volunteer));
+        })
+        .catch((err) =>{
+            throw err;
+        });
+    };
+}
+
+export function fetchPreviousVolunteers() {
+    return (dispatch) => {
+        fetch('/api/volunteer/previous/all', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then((res) => res.json())
+        .then((volunteers) => {
+            dispatch(setPreviousVolunteers(volunteers));
+        })
+        .catch((err) => {
+            throw err;
         });
     };
 }

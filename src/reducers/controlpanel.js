@@ -1,15 +1,20 @@
 import _ from 'lodash';
 
 // import your action type constants
-import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS, FETCH_PREVIOUS_VOLUNTEERS, UPDATE_PREVIOUS_VOLUNTEERS, MODIFY_N_VOLUNTEERS, MODIFY_MAX_REPEATS } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
+    filters: {
+        nVolunteers: 1,
+        maxRepeats: 1
+    },
     availableVolunteers: [],
     volunteer: [],
     tags: [],
     timer: [],
-    students: []
+    students: [],
+    previousVolunteers: []
 };
 
 //IMPORTANT: Note that with Redux, state should NEVER be changed.
@@ -68,6 +73,42 @@ export default function controlPanelState(state = initialState, action) {
             return Object.assign({}, state, {
                 students: action.students
             });
+            
+        case FETCH_PREVIOUS_VOLUNTEERS:
+            return Object.assign({}, state, {
+                previousVolunteers: action.volunteers
+            });
+            
+        case UPDATE_PREVIOUS_VOLUNTEERS: {
+            let previousVolunteers = state.previousVolunteers;
+            previousVolunteers.push(action.volunteer);
+            
+            return Object.assign({}, state, {
+                previousVolunteers: previousVolunteers
+            });
+        }
+        
+        case MODIFY_N_VOLUNTEERS: {
+            let value = parseInt(action.value.replace(/[^0-9]/g, '')),
+                filters = state.filters;
+                
+            filters.nVolunteers = action.value;
+
+            return Object.assign({}, state, {
+                filters: filters
+            });
+        }
+        
+        case MODIFY_MAX_REPEATS: {
+            let value = parseInt(action.value.replace(/[^0-9]/g, '')),
+                filters = state.filters;
+                
+            filters.maxRepeats = action.value;
+            
+            return Object.assign({}, state, {
+                filters: filters
+            });
+        }
 
         default:
             return state;

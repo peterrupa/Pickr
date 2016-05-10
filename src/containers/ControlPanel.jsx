@@ -275,7 +275,7 @@ class ControlPanel extends React.Component {
             <div>
                 {/* START MAIN */}
                 <div id="main" >
-                  <Link className="waves-effect waves-light btn-floating btn-large modal-trigger" to="/presentation" style={{position: 'fixed', bottom:'20px',right:'20px'}}><i className="tiny material-icons">play_arrow</i></Link>
+                  <Link className="waves-effect waves-light btn-floating btn-large modal-trigger" target="_blank" to="/presentation" style={{position: 'fixed', bottom:'20px',right:'20px'}}><i className="material-icons">play_arrow</i></Link>
                 {/* START WRAPPER */} <div className="wrapper">
                     <div className="container">
                         <div className="row">
@@ -284,7 +284,7 @@ class ControlPanel extends React.Component {
                                 <ul className="collection  with-header">
                                     <li className="collection-header center">
                                         <div className="container">
-                                            <h5>CMSC 128</h5>
+                                            <h5>STUDENTS</h5>
                                         </div>
                                     </li>
                                     {classStudents}

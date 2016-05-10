@@ -4,6 +4,7 @@ import * as classController from '../controllers/classController';
 import classAuth from '../tools/classAuth';
  
 router.get('/class/fetchAll', classController.getAll);
+router.get('/class/getClass/session', classController.getClassBySessionId);
 router.post('/class/setAID', classController.setActivityID);
 router.post('/class/setCID', classController.setClassID);
 router.post('/class/addClass', classController.insert);

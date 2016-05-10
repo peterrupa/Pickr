@@ -33,9 +33,6 @@ let server = http.createServer(app);
     socket.on('send volunteers', function(data) {
         io.emit('recieve volunteers', data);
     });
-    socket.on('enable button', function() {
-        io.emit('enable button');
-    });
  });
 
 /**

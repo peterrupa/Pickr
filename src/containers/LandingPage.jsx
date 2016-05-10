@@ -130,7 +130,7 @@ class LandingPage extends React.Component {
                     <div className="row">
                         <div className="col s12 l3">
                             <div>
-                                <img src="/img/samp1.png " className=" product "/>
+                                <img src="/img/profCroppedSmall.png " className=" product "/>
                             </div>
                         </div >
                         <div className="col s12 l6 offset-l3 hideme">
@@ -146,11 +146,11 @@ class LandingPage extends React.Component {
                     <div className="row">
                         <div className="col s12 l6 hideme">
                             <br/>
-                            <p className="light">Lets work together by sending us an email (walangtulugan@cmscpamore.com) about your suggestions and inquiries!</p>
+                            <p className="light">We welcome and value your inquiries and suggestions to Pickr. Let's work together by sending us an email at cmsc128ab3l@gmail.com and we'll ensure that Pickr will be at its best to provide you a more user-friendly environment.</p>
                         </div>
                         <div className="col s12 l3 offset-l2">
                             <div>
-                                <img src="/img/samp1.png" className="product"/>
+                                <img src="/img/profCards.png" className="product"/>
                             </div>
                         </div>
                     </div>

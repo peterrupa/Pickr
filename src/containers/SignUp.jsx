@@ -24,17 +24,15 @@ class SignUp extends React.Component {
 
         });
 
-        $('#username')
-            .focusin(() => {
+        $('#username').focusin(() => {
+
+        }).focusout(() => {
+            if(usernameDOM.validity.patternMismatch) {
+                $('.errorUsernamePattern').show();
+            } else {
                 $('.errorUsernamePattern').hide();
-            })
-            .focusout(() => {
-                if(usernameDOM.validity.patternMismatch) {
-                    $('.errorUsernamePattern').show();
-                } else {
-                    $('.errorUsernamePattern').hide();
-                }
-            });
+            }
+        });
 
         $('.hidden').hide();
     }

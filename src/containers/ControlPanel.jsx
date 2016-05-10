@@ -72,7 +72,7 @@ class ControlPanel extends React.Component {
 
     get() {
         const { controlPanelState, insertRandomizedVolunteer } = this.props;
-                
+
         if(controlPanelState.availableVolunteers.length === 0) {
             Materialize.toast('Your class has no students yet.', 4000);
             return;
@@ -84,12 +84,12 @@ class ControlPanel extends React.Component {
             count = {},
             nVolunteers = $.isNumeric($('#nVolunteers').val()) ? $('#nVolunteers').val() : 1,
             maxRepeats = $.isNumeric($('#maxRepeats').val()) ? $('#maxRepeats').val() : 1;
-        
+
         if($('#remember-checkbox')[0].checked) {
             controlPanelState.previousVolunteers.forEach((volunteer) => {
                 count[volunteer.StudentId] = count[volunteer.StudentId] ? count[volunteer.StudentId] + 1 : 1;
             });
-            
+
             // count how many times the student has been volunteered in this activity
             controlPanelState.availableVolunteers.forEach((student) => {
                 if(!count[student.id] || count[student.id] < maxRepeats) {
@@ -104,7 +104,7 @@ class ControlPanel extends React.Component {
             Materialize.toast('Number of volunteers to select is too large!', 4000);
             return;
         }
-        
+
         // if "Students To Call" is not empty
         if(controlPanelState.students.length > 0) {
             let studentsToCall = _.map(controlPanelState.students, _.clone);
@@ -112,7 +112,7 @@ class ControlPanel extends React.Component {
                 if(i == controlPanelState.students.length) {
                     break;
                 }
-                
+
                 let student = studentsToCall[Math.floor(Math.random() * studentsToCall.length)];
 
                 if($('#timer-checkbox')[0].checked) {
@@ -123,19 +123,19 @@ class ControlPanel extends React.Component {
                 studentsToCall.splice(studentsToCall.indexOf(student), 1);
             }
         }
-        
+
         // if enough volunteers has been selected
         if(selectedVolunteers.length == nVolunteers) {
             $('#randomize').attr('disabled', true);
             this.socket.emit('send volunteers', selectedVolunteers);
             return;
         }
-        
+
         if(studentsToChooseFrom.length == 0) {
             Materialize.toast('With the current filters, no more students can be volunteered for this class!', 4000);
             return;
         }
-        
+
         // if "Tags" is not empty
         if(this.formValues.tags.length > 0) {
             this.formValues.tags.forEach((tag) => {
@@ -150,15 +150,15 @@ class ControlPanel extends React.Component {
                 });
             });
         }
-        
+
         // actual randomization
-        for(let i = selectedVolunteers.length; i < nVolunteers; i++) {            
+        for(let i = selectedVolunteers.length; i < nVolunteers; i++) {
             if (this.formValues.tags.length > 0) {
                 if(volunteerTags.length == 0) {
                     Materialize.toast('No more students can be volunteered for this activity!', 4000);
                     break;
                 }
-                
+
                 if(volunteerTags.length == 0) {
                     Materialize.toast('Number of volunteers to select is too large! Untick "Enable Remembering" and try again.', 4000);
                     return;
@@ -192,11 +192,11 @@ class ControlPanel extends React.Component {
                     Materialize.toast('No more students can be volunteered for this activity!', 4000);
                     break;
                 }
-                
+
                 let student = studentsToChooseFrom[Math.floor(Math.random() * studentsToChooseFrom.length)];
                 volunteerTags.splice(student, 1);
                 studentsToChooseFrom.splice(student, 1);
-                
+
                 if($('#timer-checkbox')[0].checked) {
                     this.addTimer(student.id);
                 }
@@ -334,7 +334,7 @@ class ControlPanel extends React.Component {
                                                                 <input id="addTagInput" type="text" />
                                                             </div>
                                                             <div className="col s2 center">
-                                                                <button className="btn waves-effect waves-light grey darken-3" onClick={() => this.addTag()}><i className="material-icons">add</i></button>
+                                                                <button className="btn waves-effect waves-light grey darken-3 z-depth-0" onClick={() => this.addTag()}><i className="material-icons">add</i></button>
                                                             </div>
                                                         </div>
                                                     </blockquote>
@@ -356,7 +356,7 @@ class ControlPanel extends React.Component {
                                         </div>
                                         <div className="row" style={{padding: '5px 35px'}}>
                                             <div className="col s12 m12 l12">
-                                                <button id="randomize" className="btn waves-effect waves-light grey darken-3" name="action" onClick={() => this.get()}>Randomize</button>
+                                                <button id="randomize" className="btn waves-effect waves-light grey darken-3 z-depth-0" name="action" onClick={() => this.get()}>Randomize</button>
                                             </div>
                                         </div>
                                         <br/><hr/><br/>

@@ -13,18 +13,18 @@ class NavBarLanding extends React.Component {
             case '/login':
                 if($('#loginBtn1').is(':visible')) $('#loginBtn1').hide("slow");
                 if($('#loginBtn1').is(':visible')) $('#loginBtn1').hide("slow");
-                    $('#signupBtn1').show("slow");
+                $('#signupBtn1').show("slow");
                 if($('#loginBtn2').is(':visible')) $('#loginBtn2').hide("slow");
                 if($('#loginBtn2').is(':visible')) $('#loginBtn2').hide("slow");
-                    $('#signupBtn2').show("slow");
+                $('#signupBtn2').show("slow");
                 break;
             case '/signup':
                 if($('#signupBtn1').is(':visible')) $('#signupBtn1').hide("slow");
                 if($('#signupBtn1').is(':visible')) $('#signupBtn1').hide("slow");
-                    $('#loginBtn1').show("slow");
+                $('#loginBtn1').show("slow");
                 if($('#signupBtn2').is(':visible')) $('#signupBtn2').hide("slow");
                 if($('#signupBtn2').is(':visible')) $('#signupBtn2').hide("slow");
-                    $('#loginBtn2').show("slow");
+                $('#loginBtn2').show("slow");
                 break;
             default:
                 if($('#signupBtn1').is(':hidden')) $('#signupBtn1').show("slow");

@@ -110,3 +110,26 @@ export function fetchPreviousVolunteers() {
         });
     };
 }
+
+export function setClassName(className) {
+    return {
+        type: types.SET_CLASS_NAME,
+        className  
+    };
+}
+
+export function fetchClassName() {
+    return (dispatch) => {
+        fetch('/api/account/class/getClass/session', {
+            method: 'GET',
+            credentials: 'include'
+        })
+        .then((res) => res.json())
+        .then((classInstance) => {
+            dispatch(setClassName(classInstance.classCode));
+        })
+        .catch((err) => {
+            throw err;
+        });
+    };
+}

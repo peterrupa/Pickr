@@ -1,10 +1,11 @@
 import _ from 'lodash';
 
 // import your action type constants
-import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS, FETCH_PREVIOUS_VOLUNTEERS, UPDATE_PREVIOUS_VOLUNTEERS, MODIFY_N_VOLUNTEERS, MODIFY_MAX_REPEATS } from '../constants/ActionTypes';
+import { FETCH_AVAILABLE_VOLUNTEERS, MODIFY_TAGS, ADD_TIMER, INCREMENT_TIMERS, REMOVE_TIMER, MODIFY_STUDENTS, FETCH_PREVIOUS_VOLUNTEERS, UPDATE_PREVIOUS_VOLUNTEERS, MODIFY_N_VOLUNTEERS, MODIFY_MAX_REPEATS, SET_CLASS_NAME } from '../constants/ActionTypes';
 
 // set your initial state here
 const initialState = {
+    className: '',
     filters: {
         nVolunteers: 1,
         maxRepeats: 1
@@ -109,6 +110,11 @@ export default function controlPanelState(state = initialState, action) {
                 filters: filters
             });
         }
+        
+        case SET_CLASS_NAME:
+            return Object.assign({}, state, {
+                className: action.className
+            });
 
         default:
             return state;

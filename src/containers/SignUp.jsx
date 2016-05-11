@@ -24,13 +24,29 @@ class SignUp extends React.Component {
 
         });
 
-        $('#username').focusin(() => {
-
-        }).focusout(() => {
+        $('#username').focusout(() => {
             if(usernameDOM.validity.patternMismatch) {
                 $('.errorUsernamePattern').show();
             } else {
                 $('.errorUsernamePattern').hide();
+            }
+        });
+
+        $('#password').focusout(() => {
+            let confirmPassword = $('#password-again').val();
+            if(confirmPassword !== ''){
+                if(confirmPassword !== $('#password').val()) {
+                    $('.errorPassword').show();
+                }
+            }
+        });
+
+        $('#password-again').focusout(() => {
+            let confirmPassword = $('#password').val();
+            if(confirmPassword !== ''){
+                if(confirmPassword !== $('#password-again').val()) {
+                    $('.errorPassword').show();
+                }
             }
         });
 
@@ -44,11 +60,16 @@ class SignUp extends React.Component {
             '&email=' + $('#email').val() +
             '&password=' + $('#password').val();
 
+        let username = $('#username').val();
         let password = $('#password').val();
         let confirmPassword = $('#password-again').val();
         let message = '';
         let err = false;
 
+        if (username.length < 7 || username.length > 32) {
+            $('.errorUsernamePattern').show();
+            err = true;
+        }
         if (password === '') {
             $('.errorPasswordReq').show();
             err = true;

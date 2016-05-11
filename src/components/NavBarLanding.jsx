@@ -6,15 +6,32 @@ import $ from 'jquery';
 
 
 class NavBarLanding extends React.Component {
-
     componentDidMount() {
         let path = window.location.pathname;
+
         switch (path) {
-            case '/login': $('#signupBtn').show();
-                $('#loginBtn').hide(); break;
-            case '/signup': $('#loginBtn').show();
-                $('#signupBtn').hide(); break;
-            default: break;
+            case '/login':
+                if($('#loginBtn1').is(':visible')) $('#loginBtn1').hide("slow");
+                if($('#loginBtn1').is(':visible')) $('#loginBtn1').hide("slow");
+                $('#signupBtn1').show("slow");
+                if($('#loginBtn2').is(':visible')) $('#loginBtn2').hide("slow");
+                if($('#loginBtn2').is(':visible')) $('#loginBtn2').hide("slow");
+                $('#signupBtn2').show("slow");
+                break;
+            case '/signup':
+                if($('#signupBtn1').is(':visible')) $('#signupBtn1').hide("slow");
+                if($('#signupBtn1').is(':visible')) $('#signupBtn1').hide("slow");
+                $('#loginBtn1').show("slow");
+                if($('#signupBtn2').is(':visible')) $('#signupBtn2').hide("slow");
+                if($('#signupBtn2').is(':visible')) $('#signupBtn2').hide("slow");
+                $('#loginBtn2').show("slow");
+                break;
+            default:
+                if($('#signupBtn1').is(':hidden')) $('#signupBtn1').show("slow");
+                if($('#signupBtn2').is(':hidden')) $('#signupBtn2').show("slow");
+                if($('#loginBtn1').is(':hidden')) $('#loginBtn1').show("slow");
+                if($('#loginBtn2').is(':hidden')) $('#loginBtn2').show("slow");
+                break;
         }
     }
 
@@ -34,12 +51,12 @@ class NavBarLanding extends React.Component {
                             </Link>
                             <ul className="right hide-on-med-and-down">
                                 <li>
-                                    <Link to="login" style={{letterSpacing: '0px'}}>
+                                    <Link to="login" id="loginBtn1" style={{letterSpacing: '0px'}}>
                                         <i className="mdi-action-assignment-ind left" ></i>Log in
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="signup" style={{letterSpacing: '0px'}}>
+                                    <Link to="signup" id="signupBtn1" style={{letterSpacing: '0px'}}>
                                         <i className="mdi-action-assignment left"></i>Sign up
                                     </Link>
                                 </li>
@@ -54,18 +71,18 @@ class NavBarLanding extends React.Component {
                                 </Link>
                             </span>
                             <span className="right hide-on-large-only">
-                                <Link to="login" id="loginBtn" style={{letterSpacing: '0px'}}>
+                                <Link to="login" id="loginBtn2" style={{letterSpacing: '0px'}}>
                                     <i className="mdi-action-assignment-ind left"
                                     style={{
                                         fontSize: '240%',
-                                        marginRight: '0px'
+                                        marginLeft: '5px'
                                     }}></i>
                                 </Link>
-                                <Link to="signup" id="signupBtn" style={{letterSpacing: '0px'}}>
+                                <Link to="signup" id="signupBtn2" style={{letterSpacing: '0px'}}>
                                     <i className="mdi-action-assignment left"
                                     style={{
                                         fontSize: '240%',
-                                        marginRight: '0px'
+                                        marginRight: '-5px'
                                     }}></i>
                                 </Link>
                             </span>

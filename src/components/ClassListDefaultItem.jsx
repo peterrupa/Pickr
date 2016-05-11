@@ -9,18 +9,37 @@ class ClassListDefaultItem extends React.Component {
         return (
             <div>
               <Link to={'/classroom/' + this.props.classItem.id}>
-                <div className="card-panel cyan darken-3 class-card" style={{
-                    minHeight: '150px',
-                    borderRadius: '25px'
-                }}>
-                      <div>
-                          <h5>
-                              {this.props.classItem.classCode}
-                          </h5>
-                          <h6>
-                              {this.props.classItem.className}
-                          </h6>
-                      </div>
+                <div className="card-panel cyan class-card"
+                    style={{
+                        minHeight: '170px',
+                        padding: '0px',
+                        borderRadius: '2px'
+                    }}>
+                    <div style={{
+                        height:'100px',
+                        backgroundImage: 'url(' + '/img/bg.jpg' + ')'
+                    }}></div>
+                    <div className="row">
+                        <div className="col s9 text-white"
+                            style={{
+                                height:'60px',
+                                paddingLeft: '10px'
+                            }}>
+                            <span style={{fontSize: '195\%'}}>
+                                {this.props.classItem.classCode}
+                            </span>
+                            <br/>
+                            <small>
+                                {this.props.classItem.className}
+                            </small>
+                        </div>
+                        <div className="col s3"
+                            style={{
+                                paddingTop: '10px',
+                                paddingLeft: '10px'
+                            }}>
+                        </div>
+                    </div>
                 </div>
               </Link>
               <ClassEditModal id={this.props.classItem.id+"edit"} classData={this.props.classItem}/>

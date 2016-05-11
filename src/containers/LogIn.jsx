@@ -111,7 +111,7 @@ class LogIn extends React.Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s12">
-                                        <input type="submit" value="login" className="btn waves-effect waves-light col s12"/>
+                                        <input type="submit" value="login" className="btn waves-effect waves-light col s12 z-depth-0"/>
                                     </div>
                                 </div>
                                 <div className="row">

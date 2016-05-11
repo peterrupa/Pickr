@@ -23,7 +23,7 @@ class ClassEditModal extends React.Component {
 
     render() {
         return (
-          <Modal trigger={<i className="material-icons right green-text">mode_edit</i>} header="Edit Class">
+          <Modal trigger={<i className="material-icons right" style={{color: '#008000'}}>mode_edit</i>} header="Edit Class">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">

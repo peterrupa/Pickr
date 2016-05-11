@@ -459,7 +459,7 @@ class ClassRoom extends React.Component {
                                      <li className="collection-header cyan">
                                          <span>
                                              <h3 className="task-card-title">Activities</h3>
-                                             <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
+                                             <p className="task-card-date">Note: Take advantage of our split screen feature by clicking play and setting icons<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
                                                      <i className="large material-icons">add</i>
                                                  </Link>
                                              </p>

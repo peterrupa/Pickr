@@ -15,6 +15,25 @@ export default function (sequelize, DataTypes) {
                 return this.createTag({
                     name: tag
                 });
+            }, 
+            updateStudent(data) {
+                return this.updateAttributes({
+                    fname: data.fname,
+                    lname: data.lname,
+                    mname: data.mname,
+                    image: data.image
+                }).then((student) => {
+                    // create tags
+                    let tags = data.tags.map((tag) => student.createTag({
+                        name: tag
+                    }));
+
+                    return Promise.all(tags).then((tagsResult) => {
+                        student.dataValues.tags = tagsResult.map((tag) => tag.name);
+
+                        return student;
+                    });
+                });
             }
         }
     });

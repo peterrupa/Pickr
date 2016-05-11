@@ -87,7 +87,7 @@ class Presentation extends React.Component {
     render() {
         let listOfStudents = this.props.presentationState.students;
         let cardBgUrl = '/img/one-fourth.jpg';
-        let bgUrl = '/img/black-board.jpg';
+        let bgUrl = '/img/black-board.png';
 
         const containerStyle = {
             backgroundImage: 'url('+bgUrl+')',

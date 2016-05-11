@@ -38,12 +38,12 @@ class ClassListDefaultItem extends React.Component {
                                 paddingTop: '10px',
                                 paddingLeft: '10px'
                             }}>
-                            <ClassEditModal id={this.props.classItem.id+"edit"} classData={this.props.classItem}/>
-                            <ClassDeleteModal id={this.props.classItem.id+"delete"}  classData={this.props.classItem}/>
                         </div>
                     </div>
                 </div>
               </Link>
+              <ClassEditModal id={this.props.classItem.id+"edit"} classData={this.props.classItem}/>
+              <ClassDeleteModal id={this.props.classItem.id+"delete"}  classData={this.props.classItem}/>
             </div>
         );
     }

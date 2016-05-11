@@ -26,7 +26,9 @@ class LogIn extends React.Component {
 
         let username = $('#username').val();
         let password = $('#password').val();
-        let data = "username=" + username + "&password=" + password;
+        let remember = $('#remember-me')[0].checked;
+        let data = "username=" + username + "&password=" + password +
+                   "&remember=" + remember;
         let message = '';
 
         if (username !== '' && password !== '') {
@@ -50,7 +52,7 @@ class LogIn extends React.Component {
                     default: message = 'Error logging in!'; break;
                 }
 
-                if ($('#remember-me')[0].checked) {
+                if (remember) {
                     localStorage.username = username;
                     localStorage.password = password;
                     localStorage.checkbox = $('#remember-me').val();

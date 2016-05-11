@@ -15,7 +15,9 @@ import { Account } from '../models';
 
 exports.insert = (req, res) => {
 
-    if (!req.body.username && !req.body.email && !req.body.password) {
+    if (typeof req.body.username === 'undefined' ||
+        typeof req.body.email === 'undefined' ||
+        typeof req.body.password === 'undefined') {
         res.status(error.INC_DATA.code).send({INC_DATA: error.INC_DATA.message});
     }
     else {
@@ -85,6 +87,9 @@ exports.login = (req, res) => {
                     res.status(error.INV_PASS.code).send({INV_PASS: error.INV_PASS.message});
                 } else {
                     if (typeof req.session.key === 'undefined') {
+                        if (req.body.remember) {
+                            req.session.cookie._expires = false;
+                        }
                         req.session.key = user[0].id;
                         res.status(200).send({username:user[0].username, status:'logged in'});
                     } else {

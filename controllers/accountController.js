@@ -88,7 +88,7 @@ exports.login = (req, res) => {
                 } else {
                     if (typeof req.session.key === 'undefined') {
                         if (req.body.remember) {
-                            req.session.cookie._expires = false;
+                            req.session.cookie.expires = false;
                         }
                         req.session.key = user[0].id;
                         res.status(200).send({username:user[0].username, status:'logged in'});

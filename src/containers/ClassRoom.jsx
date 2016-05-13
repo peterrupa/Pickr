@@ -46,6 +46,12 @@ class ClassRoom extends React.Component {
 
         this.props.addActivity(activity).then((res) => {
             Materialize.toast('Successfully added activity.', 4000, 'toast-success');
+            
+            // clear input values
+            $('#activityName').val('');
+            $('#activityNameLabel').removeClass('active');
+            $('#activityDesc').val('');
+            $('#activityDescLabel').removeClass('active');
         }).catch((err) => {
             Materialize.toast('Error adding activity.', 4000, 'toast-error');
         });
@@ -552,13 +558,13 @@ class ClassRoom extends React.Component {
                                      <div className="row">
                                          <div className="input-field col s12">
                                              <input id="activityName" type="text" className="validate"/>
-                                             <label htmlFor="activityName">Activity</label>
+                                             <label id="activityNameLabel" htmlFor="activityName">Activity</label>
                                          </div>
                                      </div>
                                      <div className="row">
                                          <div className="input-field col s12">
                                              <input id="activityDesc" type="text" className="validate"/>
-                                             <label htmlFor="activityDesc">Description</label>
+                                             <label id="activityDescLabel" htmlFor="activityDesc">Description</label>
                                          </div>
                                      </div>
                                  </div>

@@ -49,7 +49,7 @@ class StudentPage extends React.Component {
         e.preventDefault();
         
         deleteStudent(this.props.studentAppState.student).then((res) => {
-            window.location = "/classroom/"+this.props.studentAppState.student.ClassID;
+            window.location = "/classroom/"+this.props.studentAppState.student.ClassId;
         })
         .catch((err) => {
             Materialize.toast('Error deleting student.', 4000, 'toast-error');

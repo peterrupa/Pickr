@@ -46,6 +46,12 @@ class ClassRoom extends React.Component {
 
         this.props.addActivity(activity).then((res) => {
             Materialize.toast('Successfully added activity.', 4000, 'toast-success');
+            
+            // clear input values
+            $('#activityName').val('');
+            $('#activityNameLabel').removeClass('active');
+            $('#activityDesc').val('');
+            $('#activityDescLabel').removeClass('active');
         }).catch((err) => {
             Materialize.toast('Error adding activity.', 4000, 'toast-error');
         });
@@ -92,6 +98,7 @@ class ClassRoom extends React.Component {
                 let allTextLines = fileValue.split(/\r\n|\n/);
                 while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
+                    
                     // @TODO: validation
                     let student = {
                         path: window.location.pathname.substring(11),
@@ -100,6 +107,7 @@ class ClassRoom extends React.Component {
                         mname: entries.shift(),
                         tags: entries
                     };
+                    
                     this.props.addStudent(student).catch((err) => {
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });
@@ -264,6 +272,7 @@ class ClassRoom extends React.Component {
         this.props.classroomAppState.activities.forEach(function(activity) {
             activityList.push(
                 <ActivityItem
+                    key={activity.id}
                     activity={activity}
                 />
             );
@@ -302,223 +311,370 @@ class ClassRoom extends React.Component {
 
         return (
             <div className="wrapper">
-                <div className="tint">
-                    <div className="content bg-image overflow-hidden" style={{
+                <div className="tint z-depth-0">
+                    <div className="content bg-image overflow-hidden"
+                    style={{
                         backgroundImage: 'url(' + '/img/bg.jpg' + ')'
                     }}>
                         <div className="push-50-t push-20">
                             <h1 className="h2 text-white animated zoomIn">Welcome to {this.props.classroomAppState.classViewed.classCode}</h1>
                             <h2 className="h5 text-white-op animated zoomIn">{this.props.classroomAppState.classViewed.className}</h2>
                             <div>
-                                <Link className="waves-effect waves-light btn-large grey darken-3" to="/class" style={{
+                                <Link className="waves-effect waves-light btn grey darken-3 hide-on-small-only" to="/class"
+                                style={{
                                     float: 'right',
                                     bottom: '50px'
-                                }}>Return to Classes</Link>
+                                }}>
+                                    <i className="mdi-navigation-apps left"></i>Classes
+                                </Link>
+                                <Link className="waves-effect waves-light btn grey darken-3 hide-on-med-and-up" to="/class"
+                                style={{
+                                    float: 'right',
+                                    bottom: '50px'
+                                }}>
+                                    <i className="mdi-navigation-apps"></i>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="content bg-white border-b">
-                    <div className="row items-push text-uppercase">
-                        <div className="col s12 m6 l3">
-                            <div className="font-w700 text-gray-darker animated fadeIn">NUMBER OF STUDENTS</div>
-                            <div className="text-muted animated fadeIn">
-                                <small>
-                                    <i className="tiny material-icons">today</i>
-                                    Today</small>
+                <div className="content z-depth-1 border-b hide-on-med-and-down"
+                    style={{
+                        paddingTop: '15px',
+                        paddingBottom:'10px',
+                        borderBottom: 'thin solid 1px #e9e9e9'
+                    }}>
+                    <div className="row items-push text-uppercase"
+                        style={{height: '25px'}}>
+                        <div className="col l3">
+                            <div className="row">
+                                <div className="col s8">
+                                    <span className="font-w700 text-gray-darker animated fadeIn right">
+                                        NO. OF STUDENTS
+                                    </span>
+                                    <br/>
+                                    <small className="text-muted animated fadeIn right hide-on-med-and-down">
+                                        Today
+                                    </small>
+                                </div>
+                                <div className="col s4"
+                                    style={{
+                                        borderLeft: 'thick solid #00cccc'
+                                    }}>
+                                    <span className="h1 font-w300 text-primary animated flipInX hide-on-med-and-down">
+                                        {this.props.classroomAppState.students.length}
+                                    </span>
+                                </div>
                             </div>
-                            <p className="h2 font-w300 text-primary animated flipInX">{this.props.classroomAppState.students.length}</p>
                         </div>
-                        <div className="col s12 m6 l3">
-                            <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
-                            <div className="text-muted animated fadeIn">
-                                <small>
-                                    <i className="tiny material-icons">today</i>
-                                    Today</small>
+                        <div className="col l3">
+                            <div className="row">
+                                <div className="col s8">
+                                    <span className="font-w700 text-gray-darker animated fadeIn right">
+                                        TOTAL CALLED
+                                    </span>
+                                    <br/>
+                                    <small className="text-muted animated fadeIn right hide-on-med-and-down">
+                                        Today
+                                    </small>
+                                </div>
+                                <div className="col s4"
+                                    style={{
+                                        borderLeft: 'thick solid #00cccc'
+                                    }}>
+                                    <span className="h1 font-w300 text-primary animated flipInX hide-on-med-and-down">
+                                        {todayVolunteers}
+                                    </span>
+                                </div>
                             </div>
-                            <p className="h2 font-w300 text-primary animated flipInX">{todayVolunteers}</p>
                         </div>
-                        <div className="col s12 m6 l3">
-                            <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
-                            <div className="text-muted animated fadeIn">
-                                <small>
-                                    <i className="tiny material-icons">today</i>
-                                    This Month</small>
+                        <div className="col l3">
+                            <div className="row">
+                                <div className="col s8">
+                                    <span className="font-w700 text-gray-darker animated fadeIn right">
+                                        TOTAL CALLED
+                                    </span>
+                                    <br/>
+                                    <small className="text-muted animated fadeIn right hide-on-med-and-down">
+                                        This Month
+                                    </small>
+                                </div>
+                                <div className="col s4"
+                                    style={{
+                                        borderLeft: 'thick solid #00cccc'
+                                    }}>
+                                    <span className="h1 font-w300 text-primary animated flipInX hide-on-med-and-down">
+                                        {monthVolunteers}
+                                    </span>
+                                </div>
                             </div>
-                            <p className="h2 font-w300 text-primary animated flipInX">{monthVolunteers}</p>
                         </div>
-                        <div className="col s12 m6 l3">
-                            <div className="font-w700 text-gray-darker animated fadeIn">TOTAL CALLED</div>
-                            <div className="text-muted animated fadeIn">
-                                <small>
-                                    <i className="tiny material-icons">today</i>
-                                    All Time</small>
+                        <div className="col l3">
+                            <div className="row">
+                                <div className="col s8">
+                                    <span className="font-w700 text-gray-darker animated fadeIn right">
+                                        TOTAL CALLED
+                                    </span>
+                                    <br/>
+                                    <small className="text-muted animated fadeIn right hide-on-med-and-down">
+                                        All Time
+                                    </small>
+                                </div>
+                                <div className="col s4"
+                                    style={{
+                                        borderLeft: 'thick solid #00cccc'
+                                    }}>
+                                    <span className="h1 font-w300 text-primary animated flipInX hide-on-med-and-down">
+                                        {this.props.classroomAppState.volunteers.length}
+                                    </span>
+                                </div>
                             </div>
-                            <p className="h2 font-w300 text-primary animated flipInX">{this.props.classroomAppState.volunteers.length}</p>
                         </div>
                     </div>
                 </div>
 
-                <div style={{padding: '1em'}}>
-                    <div className="row">
-                        <div className="col s12 m12 l4">
-                            <div className="block block-bordered">
-                                <div className="block-header">
-                                    <ul className="block-options">
-                                        <li>
-                                            <Link className="modal-trigger" to="#addstudent">
-                                                <i className="material-icons right">add</i>
-                                            </Link>
-                                        </li>
-                                        <li>
-                                            <Link className="modal-trigger" to="#openFile">
-                                                <i className="material-icons right">folder</i>
-                                            </Link>
+                 <div style={{padding: '1em'}}>
+                     <div className="row">
+                         <div className="col s12 m12 l4">
+                             <div className="block block-bordered">
+                                 <div className="block-header">
+                                     <ul className="block-options">
+                                         <li>
+                                             <Link className="modal-trigger" to="#addstudent">
+                                                 <i className="material-icons right">add</i>
+                                             </Link>
+                                         </li>
+                                         <li>
+                                             <Link className="modal-trigger" to="#openFile">
+                                                 <i className="material-icons right">folder</i>
+                                             </Link>
 
-                                        </li>
-                                    </ul>
-                                    <h3 className="block-title">Students</h3>
-                                </div>
-                                <div className="block-content">
-                                    <ul className="task-card">
-                                        {studentList}
-                                    </ul>
-                                </div>
-                                {/*block cntent*/}
-                            </div>
-                        </div>
-                        {/* product-card */}
-                        <div className="col s12 m12 l8" style={{marginBottom: '1em'}}>
-                            <ul id="task-card" className="collection with-header no-margin">
-                                <span id="act">
-                                    <li className="collection-header cyan">
-                                        <span>
-                                            <h3 className="task-card-title">Activities</h3>
-                                            <p className="task-card-date">March 26, 2015<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
-                                                    <i className="large material-icons">add</i>
-                                                </Link>
-                                            </p>
-                                        </span>
+                                         </li>
+                                     </ul>
+                                     <h3 className="block-title">Students</h3>
+                                 </div>
+                                 <div className="block-content">
+                                     <ul className="task-card">
+                                         {studentList}
+                                     </ul>
+                                 </div>
+                                 {/*block cntent*/}
+                             </div>
+                         </div>
+                         {/* product-card */}
+                         <div className="col s12 m12 l8" style={{marginBottom: '1em'}}>
+                             <ul id="task-card" className="collection with-header no-margin">
+                                 <span id="act">
+                                     <li className="collection-header cyan">
+                                         <span>
+                                             <h3 className="task-card-title">Activities</h3>
+                                             <p className="task-card-date">Note: Take advantage of our split screen feature by clicking play and setting icons<Link className="btn-floating btn-tiny modal-trigger green right z-depth-0" to="#addactivity">
+                                                     <i className="large material-icons">add</i>
+                                                 </Link>
+                                             </p>
+                                         </span>
 
-                                    </li>
-                                </span>
-                                {activityList}
-                            </ul>
+                                     </li>
+                                 </span>
+                                 {activityList}
+                             </ul>
 
-                            {/* map-card */}
-                        </div>
-                        <div id="container" className="col s12 m12 l4" ></div>
-                        <div id="container2" className="col s12 m12 l4" ></div>
-                        <div id="addstudent" className="modal">
-                            <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
-                                <div className="modal-content">
-                                    <h3>Add Student</h3>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="firstName" required="required" type="text" className="validate"/>
-                                            <label htmlFor="firstName">First Name</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="middleName" type="text" required="required" className="validate"/>
-                                            <label htmlFor="middleName">Middle Name</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="lastName" type="text" required="required" className="validate"/>
-                                            <label htmlFor="lastName">Last Name</label>
-                                        </div>
-                                    </div>
-                                    <div className="tags">
-                                        <div className="row">
-                                            <div className="input-field col s12">
-                                                <input id="tags" type="text" required="required" className=""/>
-                                                <label htmlFor="tags">Tags (separated by comma and space)</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="col s12">
-                                            <span>Image (Optional)</span>
-                                        </div>
-                                        <div className="file-field input-field col s12">
-                                            <div className="btn">
-                                                <span>File</span>
-                                                <input id="image" type="file"/>
-                                            </div>
-                                            <div className="file-path-wrapper">
-                                                <input className="file-path validate" type="text"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                    <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
-                                </div>
-                            </form>
-                        </div>
+                             {/* map-card */}
+                         </div>
+                         <div id="container" className="col s12 m12 l4" ></div>
+                         <div id="container2" className="col s12 m12 l4" ></div>
+                         <div id="addstudent" className="modal">
+                             <form id="add-student-form" onSubmit={(e) => this.addStudent(e)}>
+                                 <div className="modal-content">
+                                     <h3>Add Student</h3>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="firstName" type="text" className="validate"/>
+                                             <label htmlFor="firstName">First Name</label>
+                                         </div>
+                                     </div>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="middleName" type="text" className="validate"/>
+                                             <label htmlFor="middleName">Middle Name</label>
+                                         </div>
+                                     </div>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="lastName" type="text" className="validate"/>
+                                             <label htmlFor="lastName">Last Name</label>
+                                         </div>
+                                     </div>
+                                     <div className="tags">
+                                         <div className="row">
+                                             <div className="input-field col s12">
+                                                 <input id="tags" type="text" className=""/>
+                                                 <label htmlFor="tags">Tags (separated by comma and space)</label>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div className="row">
+                                         <div className="col s12">
+                                             <span>Image (Optional)</span>
+                                         </div>
+                                         <div className="file-field input-field col s12">
+                                             <div className="btn">
+                                                 <span>File</span>
+                                                 <input id="image" type="file"/>
+                                             </div>
+                                             <div className="file-path-wrapper">
+                                                 <input className="file-path validate" type="text"/>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div className="modal-footer">
+                                     <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                     <button to="#" className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Student</button>
+                                 </div>
+                             </form>
+                         </div>
 
-                        <div id="openFile" className="modal">
-                            <form onSubmit={(e) => this.handleClick(e)}>
-                                <div className="modal-content">
-                                    <h3>Import Students from file</h3>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="fileInput" type="file" className="validate"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                    <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">
-                                        Import File
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                         <div id="openFile" className="modal">
+                             <form onSubmit={(e) => this.handleClick(e)}>
+                                 <div className="modal-content">
+                                     <h3>Import Students from file</h3>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="fileInput" type="file" className="validate"/>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div className="modal-footer">
+                                     <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                     <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">
+                                         Import File
+                                     </button>
+                                 </div>
+                             </form>
+                         </div>
 
-                        <div id="addactivity" className="modal">
-                            <form onSubmit={(e) => this.addActivity(e)}>
-                                <div className="modal-content">
-                                    <h3>Add Activity</h3>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="activityName" type="text" className="validate"/>
-                                            <label htmlFor="activityName">Activity</label>
-                                        </div>
-                                    </div>
-                                    <div className="row">
-                                        <div className="input-field col s12">
-                                            <input id="activityDesc" type="text" className="validate"/>
-                                            <label htmlFor="activityDesc">Description</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="modal-footer">
-                                    <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                                    <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                         <div id="addactivity" className="modal">
+                             <form onSubmit={(e) => this.addActivity(e)}>
+                                 <div className="modal-content">
+                                     <h3>Add Activity</h3>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="activityName" type="text" className="validate"/>
+                                             <label id="activityNameLabel" htmlFor="activityName">Activity</label>
+                                         </div>
+                                     </div>
+                                     <div className="row">
+                                         <div className="input-field col s12">
+                                             <input id="activityDesc" type="text" className="validate"/>
+                                             <label id="activityDescLabel" htmlFor="activityDesc">Description</label>
+                                         </div>
+                                     </div>
+                                 </div>
+                                 <div className="modal-footer">
+                                     <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                                     <button className="waves-effect waves-green btn-flat modal-action modal-close" type="submit">Add Activity</button>
+                                 </div>
+                             </form>
+                         </div>
+                     </div>
+                 </div>
 
-                <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
-                    <div className="pull-right">
-                        Crafted with &nbsp;<i className="tiny material-icons">favorite</i>&nbsp; by&nbsp;
-                        <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
-                    </div>
-                    <div className="pull-left">
-                        <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
-                        &copy;
-                        <span className="js-year-copy"></span>
-                    </div>
-                </footer>
-            </div>
+                 <div className="content z-depth-1 border-b hide-on-large-only">
+                     <div className="row items-push text-uppercase">
+                         <div className="col s6 m6">
+                             <div className="row">
+                                 <div className="col s3"
+                                 style={{
+                                     borderRight: 'thick solid #00cccc'
+                                 }}>
+                                     <span className="h1 font-w300 text-primary animated flipInX">
+                                         {this.props.classroomAppState.students.length}
+                                     </span>
+                                 </div>
+                                 <div className="col s9">
+                                     <span className="font-w700 text-gray-darker animated fadeIn">
+                                         NO. OF STUDENTS
+                                     </span>
+                                     <br/>
+                                     <small className="text-muted animated fadeIn">
+                                         Today
+                                     </small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div className="col s6 m6">
+                             <div className="row">
+                                 <div className="col s3"
+                                 style={{borderRight: 'thick solid #00cccc'}}>
+                                     <span className="h1 font-w300 text-primary animated flipInX">
+                                         {todayVolunteers}
+                                     </span>
+                                 </div>
+                                 <div className="col s9">
+                                     <span className="font-w700 text-gray-darker animated fadeIn">
+                                         TOTAL CALLED
+                                     </span>
+                                     <br/>
+                                     <small className="text-muted animated fadeIn">
+                                         Today
+                                     </small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div className="col s6 m6 right">
+                             <div className="row">
+                                 <div className="col s3"
+                                     style={{borderRight: 'thick solid #00cccc'}}>
+                                     <span className="h1 font-w300 text-primary animated flipInX">
+                                         {monthVolunteers}
+                                     </span>
+                                 </div>
+                                 <div className="col s9">
+                                     <span className="font-w700 text-gray-darker animated fadeIn">
+                                         TOTAL CALLED
+                                     </span>
+                                     <br/>
+                                     <small className="text-muted animated fadeIn">
+                                         This Month
+                                     </small>
+                                 </div>
+                             </div>
+                         </div>
+                         <div className="col s6 m6 right">
+                             <div className="row">
+                                 <div className="col s3"
+                                     style={{borderRight: 'thick solid #00cccc'}}>
+                                     <span className="h1 font-w300 text-primary animated flipInX">
+                                         {this.props.classroomAppState.volunteers.length}
+                                     </span>
+                                 </div>
+                                 <div className="col s9">
+                                     <span className="font-w700 text-gray-darker animated fadeIn">
+                                         TOTAL CALLED
+                                     </span>
+                                     <br/>
+                                     <small className="text-muted animated fadeIn">
+                                         All Time
+                                     </small>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
 
+                 <footer id="page-footer" className="content-mini content-mini-full font-s12 bg-gray-lighter clearfix">
+                     <div className="pull-right">
+                         Crafted with &nbsp;<i className="tiny material-icons">favorite</i>&nbsp; by&nbsp;
+                         <Link className="font-w600" to="#" target="_blank">CMSC128 AB-3L</Link>
+                     </div>
+                     <div className="pull-left">
+                         <Link className="font-w600" to="#" target="_blank">Pickr 1.0</Link>
+                         &copy;
+                         <span className="js-year-copy"></span>
+                     </div>
+                 </footer>
+             </div>
         );
     }
 }

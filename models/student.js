@@ -1,8 +1,17 @@
 export default function (sequelize, DataTypes) {
     let Student = sequelize.define("Student", {
-        fname: DataTypes.STRING,	//first name
-        lname: DataTypes.STRING,	//last name
-       	mname: DataTypes.STRING,	//middle initial
+        fname: {
+            type: DataTypes.STRING,
+            allowNull: false 
+        },
+        lname: {
+            type: DataTypes.STRING,
+            allowNull: false 
+        },
+       	mname: {
+            type: DataTypes.STRING,
+            allowNull: false 
+        },
         image: DataTypes.STRING
     }, {
         classMethods: {

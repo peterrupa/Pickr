@@ -65,6 +65,7 @@ class StudentPage extends React.Component {
         let attempts = this.props.studentAppState.attempts;
         let activities = this.props.studentAppState.activities;
         let attemptCount = {};
+        
         attempts.forEach(function(attempt){
             if(attemptCount[attempt.ActivityId] == undefined || attemptCount[attempt.ActivityId] == null) attemptCount[attempt.ActivityId] = 1;
             else attemptCount[attempt.ActivityId] += 1;
@@ -196,30 +197,6 @@ class StudentPage extends React.Component {
                             <div id="container" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
                         </div>
                     </div>
-                </div>
-                <div className="row center">
-                  <StudentPageEditModal student={student}/>
-                  <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
-                </div>
-
-               
-                
-                <div id="deletestudent" className="modal">
-                  <div className="modal-content">
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <span>
-                              <h2> Are you sure you want to delete this student?</h2>
-                              <br/>
-                              <h4> WARNING: Action cannot be undone </h4>
-                            </span>
-                        </div>
-                    </div>
-                  </div>
-                  <div className="modal-footer">
-                      <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                      <button onClick={(e) => this.delete(e)} className="waves-effect waves-green btn-flat modal-action modal-close"> Delete </button>
-                  </div>
                 </div>
             </div>
         );

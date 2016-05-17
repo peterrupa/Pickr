@@ -20,16 +20,22 @@ class ClassEditModal extends React.Component {
             Materialize.toast('Error editing class.', 4000, 'toast-error');
         });
     }
-
+    
     render() {
+        const triggerHTML = (
+            <a href="#">
+                <i className="material-icons right" style={{color: '#008000'}}>mode_edit</i>
+            </a>
+        );
+        
         return (
-          <Modal trigger={<i className="material-icons right green-text">mode_edit</i>} header="Edit Student">
+          <Modal trigger={triggerHTML} header="Edit Class">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">
                           <div className="input-field col s12">
                               <span>
-                                <label>First Name</label>
+                                <label>Class Code</label>
                               </span>
                               <br/>
                               <input id={"eclassCode"+this.props.classData.id} type="text" className="validate" defaultValue={this.props.classData.classCode}/>

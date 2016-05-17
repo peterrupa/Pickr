@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 import sequelize from './tools/sequelize';
 import referer from './tools/referer';
 import auth from './tools/authentication';
+import classAuth from './tools/classAuth';
 
 import redis from 'redis';
 const client = redis.createClient();
@@ -42,12 +43,13 @@ app.use(session({
         httpOnly: false,
         secure: false, // set "true" if https
         maxAge: 600000 * 60 * 5 //Not sure now
-    }
+    },
+    rolling: true
 }));
 
 app.use(express.static(__dirname+"/public"));
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -80,12 +82,12 @@ app.use('*', (req, res, next) => {
 },
 (req, res, next) => {
     if (!unauth_paths.test(req.originalUrl)) {
-        return next();
+            next();
     }
     else {
         res.redirect('/class');
     }
-},
+}, classAuth,
 (req, res, next) => {
     res.sendFile(__dirname + '/src/index.html');
 });

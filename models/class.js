@@ -1,6 +1,9 @@
 export default function (sequelize, DataTypes) {
     let Class = sequelize.define("Class", {
-        classCode: DataTypes.STRING,
+        classCode: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         className: DataTypes.STRING(1000)
     }, {
             classMethods: {

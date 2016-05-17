@@ -164,3 +164,18 @@ export function remove(req, res) {
       }
   });
 }
+
+export function getClassBySessionId(req, res) {
+    Class.findById(req.session.classID)
+    .then((classInstance) => {
+        if(classInstance) {
+            res.send(classInstance);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    })
+    .catch((err) => {
+    	res.sendStatus(500);
+    });
+}

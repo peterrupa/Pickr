@@ -60,8 +60,8 @@ class StudentPage extends React.Component {
         let student = this.props.studentAppState.student;
         let attempts = this.props.studentAppState.attempts;
         let activities = this.props.studentAppState.activities;
-      //  console.log(activities);
         let attemptCount = {};
+        
         attempts.forEach(function(attempt){
             if(attemptCount[attempt.ActivityId] == undefined || attemptCount[attempt.ActivityId] == null) attemptCount[attempt.ActivityId] = 1;
             else attemptCount[attempt.ActivityId] += 1;
@@ -194,89 +194,6 @@ class StudentPage extends React.Component {
                         <div className="col s12 m12 l12">
                             <div id="container" style={{minWidth: '310px', height: '400px', margin: '1% auto'}}></div>
                         </div>
-                    </div>
-                </div>
-                <div className="row center">
-                    <a href="#editstudent" className="waves-effect waves-light btn modal-trigger hide-on-med-and-down" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
-                    <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger hide-on-med-and-down" style={{marginLeft: '10px'}}><i className="material-icons left">delete</i>Delete</a>
-                    <a href="#editstudent" className="waves-effect waves-light btn modal-trigger hide-on-large-only" style={{color:'white',
-                        paddingLeft:'20px',
-                        paddingRight:'20px'}}>
-                        <i className="mdi-image-edit"></i>
-                    </a>
-                    <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger hide-on-large-only" style={{marginLeft: '5px',
-                        paddingLeft:'20px',
-                        paddingRight:'20px'}}>
-                        <i className="mdi-action-delete"></i>
-                    </a>
-                </div>
-
-                <div id="editstudent" className="modal">
-                  <form onSubmit={(e) => this.edit(e)} id="edit-student-form">
-                      <div className="modal-content">
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>Last Name</label>
-                                </span>
-                                <br/>
-                                <input id={"elastName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>First Name</label>
-                                </span>
-                                <br/>
-                                <input id={"efirstName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>Middle Name</label>
-                                </span>
-                                <br/>
-                                <input id={"emiddleName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                          <div className="col s12">
-                              <span>Image (Optional)</span>
-                          </div>
-                          <div className="file-field input-field col s12">
-                              <div className="btn">
-                                  <span>File</span>
-                                  <input id={"eimage"} type="file"/>
-                              </div>
-                              <div className="file-path-wrapper">
-                                  <input className="file-path validate" type="text"/>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="modal-footer">
-                          <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                          <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</button>
-                      </div>
-                  </form>
-                </div>
-                
-                <div id="deletestudent" className="modal">
-                    <div className="row">
-                        <div className="col s12">
-                            <h3> Are you sure you want to delete this student? </h3>
-                        </div>
-                        <div className="row">
-                            <div className="col s12">
-                            <h5> This action cannot be undone </h5>
-                        </div>
-                        </div>
-                    </div>
-                    <div className="modal-footer">
-                        <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                        <button onClick={(e) => this.delete(e)}className="waves-effect waves-green btn-flat modal-action modal-close">Delete Student</button>
                     </div>
                 </div>
             </div>

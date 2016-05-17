@@ -74,6 +74,10 @@ export function addStudent(student) {
 
 export function editStudent(student) {
     return (dispatch) => {
+        if(!student.fname || !student.mname || !student.lname) {
+            return Promise.reject("Invalid data.");
+        }
+        
         let formData  = new FormData();
 
         for(name in student) {

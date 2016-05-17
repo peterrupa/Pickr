@@ -20,7 +20,9 @@ class StudentDeleteModal extends React.Component {
     render() {
         return (
           <div>
-            <i onClick={(e) => this.delete(e)} className="material-icons right">delete</i>
+            <a href="#" onClick={(e) => this.delete(e)}>
+                <i className="material-icons right grey-text">delete</i>
+            </a>
           </div>
         );
     }

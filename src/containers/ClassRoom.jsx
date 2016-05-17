@@ -94,7 +94,8 @@ class ClassRoom extends React.Component {
         if (file.type.match(textType)) {
             let reader = new FileReader();
             reader.onload = (e) => {
-                let allTextLines = reader.result.trim().split(/\r\n|\n/);
+                let fileValue = reader.result.trim();
+                let allTextLines = fileValue.split(/\r\n|\n/);
                 while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
                     

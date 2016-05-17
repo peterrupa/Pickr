@@ -2,15 +2,15 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
-import { fetchStudent, editStudent, deleteStudent , fetchStudentVolunteer, fetchVolunteerActivities } from '../actions/studentActions.js';
-import StudentEditModal from '../components/StudentEditModal.jsx';
+import { fetchStudent, editStudent, deleteStudent, fetchStudentVolunteer, fetchVolunteerActivities } from '../actions/studentActions.js';
+import StudentPageEditModal from '../components/StudentPageEditModal.jsx';
 import HighCharts from 'highcharts';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
-
 // Be sure to rename your className name
 class StudentPage extends React.Component {
+
     componentWillMount() {
         let studentId = window.location.pathname.substring(9);
         this.props.fetchStudent(studentId);
@@ -19,23 +19,25 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount(){
-        //let student = this.props.studentAppState.student;
         $('.modal-trigger').leanModal();
     }
 
     edit(e){
         e.preventDefault();
-        let student = {
-            path: window.location.pathname.substring(9),
-            fname: $('#efirstName'+student.id).val(),
-            lname: $('#elastName'+student.id).val(),
-            mname: $('#emiddleName'+student.id).val()
-            //image: $('#image')[0].files[0]
+        let student = this.props.studentAppState.student;        
+			
+        let tags = $('#etags').val().split(', ');
+        let newStudent = {
+            id: student.id,
+            fname: $('#efirstName').val(),
+            lname: $('#elastName').val(),
+            mname: $('#emiddleName').val(),
+            image: $('#eimage')[0].files[0],
+            tags
         };
-
-        this.props.editStudent(student).then((res) => {
+				
+        this.props.editStudent(newStudent).then((res) => {
             Materialize.toast('Successfully edited student.', 4000, 'toast-success');
-            $('#edit-student-form')[0].reset();
             $('#editStudent').scrollTop(0);
         })
         .catch((err) => {
@@ -44,6 +46,7 @@ class StudentPage extends React.Component {
             $('#editStudent').scrollTop(0);
         });
     }
+    
     
     delete(e) {
         e.preventDefault();
@@ -58,6 +61,7 @@ class StudentPage extends React.Component {
 
     render() {
         let student = this.props.studentAppState.student;
+        
         let attempts = this.props.studentAppState.attempts;
         let activities = this.props.studentAppState.activities;
         let attemptCount = {};
@@ -66,8 +70,7 @@ class StudentPage extends React.Component {
             if(attemptCount[attempt.ActivityId] == undefined || attemptCount[attempt.ActivityId] == null) attemptCount[attempt.ActivityId] = 1;
             else attemptCount[attempt.ActivityId] += 1;
         });
-
-
+        
         $('#container').highcharts({
             chart: {
                 type: 'column'
@@ -135,7 +138,6 @@ class StudentPage extends React.Component {
         else {
             image = '/uploads/' + student.image;
         }
-
         return (
             <div>
                 <div id="main">

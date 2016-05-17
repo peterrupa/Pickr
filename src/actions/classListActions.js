@@ -17,6 +17,10 @@ export function setUsername(username) {
 export function addClass(data) {
     return (dispatch) => {
         // ajax request to /api/sample
+        if(!data.classCode) {
+            return Promise.reject("Invalid data.");
+        }
+        
         return fetch('/api/account/class/addClass', {
             method: 'POST',
             credentials: 'include',

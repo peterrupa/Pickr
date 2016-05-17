@@ -97,6 +97,7 @@ class ClassRoom extends React.Component {
                 let allTextLines = reader.result.trim().split(/\r\n|\n/);
                 while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
+                    
                     // @TODO: validation
                     let student = {
                         path: window.location.pathname.substring(11),
@@ -105,6 +106,7 @@ class ClassRoom extends React.Component {
                         mname: entries.shift(),
                         tags: entries
                     };
+                    
                     this.props.addStudent(student).catch((err) => {
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });

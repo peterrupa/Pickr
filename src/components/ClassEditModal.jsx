@@ -20,10 +20,16 @@ class ClassEditModal extends React.Component {
             Materialize.toast('Error editing class.', 4000, 'toast-error');
         });
     }
-
+    
     render() {
+        const triggerHTML = (
+            <a href="#">
+                <i className="material-icons right" style={{color: '#008000'}}>mode_edit</i>
+            </a>
+        );
+        
         return (
-          <Modal trigger={<i className="material-icons right" style={{color: '#008000'}}>mode_edit</i>} header="Edit Class">
+          <Modal trigger={triggerHTML} header="Edit Class">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">

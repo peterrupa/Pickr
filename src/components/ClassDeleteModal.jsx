@@ -26,7 +26,6 @@ class ClassDeleteModal extends React.Component {
                 <i className="material-icons right red-text">delete</i>
             </a>
           </div>
-
         );
     }
 }

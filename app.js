@@ -43,7 +43,8 @@ app.use(session({
         httpOnly: false,
         secure: false, // set "true" if https
         maxAge: 600000 * 60 * 5 //Not sure now
-    }
+    },
+    rolling: true
 }));
 
 app.use(express.static(__dirname+"/public"));

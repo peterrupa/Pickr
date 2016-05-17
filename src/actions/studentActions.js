@@ -74,17 +74,19 @@ export function fetchVolunteerActivities(studentId) {
 
 export function editStudent(student) {
     return (dispatch) => {
-        return fetch('/api/class/student/'+student.path, {
+        let formData  = new FormData();
+
+        for(name in student) {
+            formData.append(name, student[name]);
+        }
+
+        return fetch('/api/class/student/'+student.id, {
             method: 'PUT',
             credentials: 'include',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(student)
+            body: formData
         })
         .then((res) =>  res.json())
-        .then((student) => dispatch(setStudent(student)))
+        .then((student) => dispatch(fetchStudent(student.id)))
         .catch((err) => {
             throw err;
         });

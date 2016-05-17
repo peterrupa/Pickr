@@ -34,6 +34,7 @@ class StudentEditModal extends React.Component {
         this.props.student.tags.forEach((tag) => {
             defaultTags += (tag+", ");
         });
+        defaultTags = defaultTags.substring(0, defaultTags.length-2);
         return (
           <Modal trigger={<i className="material-icons right">mode_edit</i>} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>

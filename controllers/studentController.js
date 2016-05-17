@@ -73,7 +73,7 @@ export function insert(req, res) {
             });
         }
         else {
-            res.sendStatus(400);
+            res.sendStatus(404);
         }
     })
     // respond
@@ -142,12 +142,12 @@ export function update(req, res) {
     .then((student) => {
         if(student) {
         	res.send(student);
-        	studnet
         }
-        else res.send(400);
+        else res.sendStatus(400);
     })
     .catch((err) => {
-        res.send(500);
+    		console.log(err);
+        res.sendStatus(500);
     });
 }
 

@@ -88,7 +88,8 @@ class ClassRoom extends React.Component {
         if (file.type.match(textType)) {
             let reader = new FileReader();
             reader.onload = (e) => {
-                let allTextLines = reader.result.trim().split(/\r\n|\n/);
+                let fileValue = reader.result.trim();
+                let allTextLines = fileValue.split(/\r\n|\n/);
                 while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
                     // @TODO: validation
@@ -414,26 +415,26 @@ class ClassRoom extends React.Component {
                                     <h3>Add Student</h3>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="firstName" type="text" className="validate"/>
+                                            <input id="firstName" required="required" type="text" className="validate"/>
                                             <label htmlFor="firstName">First Name</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="middleName" type="text" className="validate"/>
+                                            <input id="middleName" type="text" required="required" className="validate"/>
                                             <label htmlFor="middleName">Middle Name</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="lastName" type="text" className="validate"/>
+                                            <input id="lastName" type="text" required="required" className="validate"/>
                                             <label htmlFor="lastName">Last Name</label>
                                         </div>
                                     </div>
                                     <div className="tags">
                                         <div className="row">
                                             <div className="input-field col s12">
-                                                <input id="tags" type="text" className=""/>
+                                                <input id="tags" type="text" required="required" className=""/>
                                                 <label htmlFor="tags">Tags (separated by comma and space)</label>
                                             </div>
                                         </div>

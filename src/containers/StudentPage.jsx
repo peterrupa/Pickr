@@ -2,15 +2,15 @@ import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import NavBar from '../components/NavBar.jsx';
-import { fetchStudent, editStudent, deleteStudent , fetchStudentVolunteer, fetchVolunteerActivities } from '../actions/studentActions.js';
-import StudentEditModal from '../components/StudentEditModal.jsx';
+import { fetchStudent, editStudent, deleteStudent, fetchStudentVolunteer, fetchVolunteerActivities } from '../actions/studentActions.js';
+import StudentPageEditModal from '../components/StudentPageEditModal.jsx';
 import HighCharts from 'highcharts';
 
 // IMPORTANT! Materialize functions are exposed in window object, so you might want to assign that to a Materialize variable.
 const Materialize = window.Materialize;
-
 // Be sure to rename your className name
 class StudentPage extends React.Component {
+
     componentWillMount() {
         let studentId = window.location.pathname.substring(9);
         this.props.fetchStudent(studentId);
@@ -19,23 +19,25 @@ class StudentPage extends React.Component {
     }
 
     componentDidMount(){
-        //let student = this.props.studentAppState.student;
         $('.modal-trigger').leanModal();
     }
 
     edit(e){
         e.preventDefault();
-        let student = {
-            path: window.location.pathname.substring(9),
-            fname: $('#efirstName'+student.id).val(),
-            lname: $('#elastName'+student.id).val(),
-            mname: $('#emiddleName'+student.id).val()
-            //image: $('#image')[0].files[0]
+        let student = this.props.studentAppState.student;        
+			
+        let tags = $('#etags').val().split(', ');
+        let newStudent = {
+            id: student.id,
+            fname: $('#efirstName').val(),
+            lname: $('#elastName').val(),
+            mname: $('#emiddleName').val(),
+            image: $('#eimage')[0].files[0],
+            tags
         };
-
-        this.props.editStudent(student).then((res) => {
+				
+        this.props.editStudent(newStudent).then((res) => {
             Materialize.toast('Successfully edited student.', 4000, 'toast-success');
-            $('#edit-student-form')[0].reset();
             $('#editStudent').scrollTop(0);
         })
         .catch((err) => {
@@ -45,11 +47,12 @@ class StudentPage extends React.Component {
         });
     }
     
+    
     delete(e) {
         e.preventDefault();
         
         deleteStudent(this.props.studentAppState.student).then((res) => {
-            window.location = "/classroom/"+this.props.studentAppState.student.ClassID;
+            window.location = "/classroom/"+this.props.studentAppState.student.ClassId;
         })
         .catch((err) => {
             Materialize.toast('Error deleting student.', 4000, 'toast-error');
@@ -58,16 +61,15 @@ class StudentPage extends React.Component {
 
     render() {
         let student = this.props.studentAppState.student;
+        
         let attempts = this.props.studentAppState.attempts;
         let activities = this.props.studentAppState.activities;
-      //  console.log(activities);
         let attemptCount = {};
         attempts.forEach(function(attempt){
             if(attemptCount[attempt.ActivityId] == undefined || attemptCount[attempt.ActivityId] == null) attemptCount[attempt.ActivityId] = 1;
             else attemptCount[attempt.ActivityId] += 1;
         });
-
-
+        
         $('#container').highcharts({
             chart: {
                 type: 'column'
@@ -135,7 +137,6 @@ class StudentPage extends React.Component {
         else {
             image = '/uploads/' + student.image;
         }
-
         return (
             <div>
                 <div id="main">
@@ -197,77 +198,28 @@ class StudentPage extends React.Component {
                     </div>
                 </div>
                 <div className="row center">
-                  <a href="#editstudent" className="waves-effect waves-light btn modal-trigger" style={{color:'white'}}><i className="material-icons left">mode_edit</i>Edit</a>
+                  <StudentPageEditModal student={student}/>
                   <a href="#deletestudent" className="waves-effect waves-light btn red modal-trigger"><i className="material-icons left">delete</i>Delete</a>
                 </div>
 
-                <div id="editstudent" className="modal">
-                  <form onSubmit={(e) => this.edit(e)} id="edit-student-form">
-                      <div className="modal-content">
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>Last Name</label>
-                                </span>
-                                <br/>
-                                <input id={"elastName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>First Name</label>
-                                </span>
-                                <br/>
-                                <input id={"efirstName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="input-field col s12">
-                                <span>
-                                  <label>Middle Name</label>
-                                </span>
-                                <br/>
-                                <input id={"emiddleName"+student.id} type="text" className="validate"/>
-                            </div>
-                        </div>
-                      </div>
-                      <div className="row">
-                          <div className="col s12">
-                              <span>Image (Optional)</span>
-                          </div>
-                          <div className="file-field input-field col s12">
-                              <div className="btn">
-                                  <span>File</span>
-                                  <input id={"eimage"} type="file"/>
-                              </div>
-                              <div className="file-path-wrapper">
-                                  <input className="file-path validate" type="text"/>
-                              </div>
-                          </div>
-                      </div>
-                      <div className="modal-footer">
-                          <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                          <button type="submit" className="waves-effect waves-green btn-flat modal-action modal-close">Edit Student</button>
-                      </div>
-                  </form>
-                </div>
+               
                 
                 <div id="deletestudent" className="modal">
+                  <div className="modal-content">
                     <div className="row">
-                        <div className="col s12">
-                            <h3> Are you sure you want to delete this student? </h3>
-                        </div>
-                        <div className="row">
-                            <div className="col s12">
-                            <h5> This action cannot be undone </h5>
-                        </div>
+                        <div className="input-field col s12">
+                            <span>
+                              <h2> Are you sure you want to delete this student?</h2>
+                              <br/>
+                              <h4> WARNING: Action cannot be undone </h4>
+                            </span>
                         </div>
                     </div>
-                    <div className="modal-footer">
-                        <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
-                        <button onClick={(e) => this.delete(e)}className="waves-effect waves-green btn-flat modal-action modal-close">Delete Student</button>
-                    </div>
+                  </div>
+                  <div className="modal-footer">
+                      <Link to={window.location.pathname} className="waves-effect waves-red btn-flat modal-action modal-close">Cancel</Link>
+                      <button onClick={(e) => this.delete(e)} className="waves-effect waves-green btn-flat modal-action modal-close"> Delete </button>
+                  </div>
                 </div>
             </div>
         );

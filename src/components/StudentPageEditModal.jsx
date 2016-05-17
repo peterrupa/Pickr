@@ -8,13 +8,17 @@ import {Modal} from 'react-materialize';
 class StudentPageEditModal extends React.Component {
     edit(e) {
         e.preventDefault();
+        let tags = $('#etags'+this.props.student.id).val().split(', ');
+        
         let newStudent = {
             id: this.props.student.id,
             fname: $('#efirstName'+this.props.student.id).val(),
             lname: $('#elastName'+this.props.student.id).val(),
             mname: $('#emiddleName'+this.props.student.id).val(),
             ClassId: this.props.student.ClassId,
-            image: $('#eimage'+this.props.student.id)[0].files[0]
+            image: $('#eimage'+this.props.student.id)[0].files[0],
+            tags
+            
         };
 
         this.props.editStudent(newStudent).then((res) => {
@@ -27,7 +31,11 @@ class StudentPageEditModal extends React.Component {
 
     render() {
         return (
-          <Modal trigger={<i className="material-icons right">mode_edit</i>} header="Edit Student">
+          <Modal trigger={
+			<div className="waves-effect waves-light btn green">
+			<i className="material-icons left">mode_edit</i>
+			Edit Student
+			</div>} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">
@@ -57,7 +65,17 @@ class StudentPageEditModal extends React.Component {
                               <input id={"emiddleName"+this.props.student.id} type="text" className="validate" defaultValue={this.props.student.mname}/>
                           </div>
                       </div>
-                    </div>
+                    </div>																
+                    <div className="tags">
+                        <div className="row">
+                            <span>
+                                <label>Tags (separated by comma and space </label>
+                            </span>
+                            <div className="input-field col s12">
+                                <input id={"etags"+this.props.student.id} type="text" className="validate"/>
+                            </div>
+                        </div>
+                    </div>																													
                     <div className="row">
                         <div className="col s12">
                             <span>Image (Optional)</span>
@@ -81,11 +99,11 @@ class StudentPageEditModal extends React.Component {
     }
 }
 
-StudentEditModal.propTypes = {
+StudentPageEditModal.propTypes = {
     student: PropTypes.object.isRequired,
     editStudent: PropTypes.func.isRequired
 };
 export default connect(
 state => ({ studentAppState: state.studentAppState }),
     { editStudent }
-)(StudentEditModal);
+)(StudentPageEditModal);

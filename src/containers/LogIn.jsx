@@ -10,6 +10,15 @@ const Materialize = window.Materialize;
 
 class LogIn extends React.Component {
     componentDidMount(){
+        if (localStorage.checkbox && localStorage.checkbox != '') {
+            $('#remember-me').attr('checked', 'checked');
+            $('#username').val(localStorage.username);
+            $('#password').val(localStorage.password);
+        } else {
+            $('#remember-me').removeAttr('checked');
+            $('#username').val('');
+            $('#password').val('');
+        }
     }
 
     post(e){
@@ -17,7 +26,9 @@ class LogIn extends React.Component {
 
         let username = $('#username').val();
         let password = $('#password').val();
-        let data = "username=" + username + "&password=" + password;
+        let remember = $('#remember-me')[0].checked;
+        let data = "username=" + username + "&password=" + password +
+                   "&remember=" + remember;
         let message = '';
 
         if (username !== '' && password !== '') {
@@ -39,6 +50,16 @@ class LogIn extends React.Component {
                     case 500: message = 'Log-in failed. Please try again.';
                         break;
                     default: message = 'Error logging in!'; break;
+                }
+
+                if (remember) {
+                    localStorage.username = username;
+                    localStorage.password = password;
+                    localStorage.checkbox = $('#remember-me').val();
+                } else {
+                    localStorage.username = '';
+                    localStorage.password = '';
+                    localStorage.checkbox = '';
                 }
 
                 if (res.status === 200) {
@@ -74,19 +95,19 @@ class LogIn extends React.Component {
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
                                         <input id="username" type="text"/>
-                                        <label htmlFor="username" className="center-align">Username</label>
+                                        <label htmlFor="username" className="center-align active">Username</label>
                                     </div>
                                 </div>
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-action-lock-outline prefix"></i>
                                         <input id="password" type="password"/>
-                                        <label htmlFor="password">Password</label>
+                                        <label htmlFor="password" className="active">Password</label>
                                     </div>
                                 </div>
                                 <div className="row">
                                     <div className="input-field login-text">
-                                        <input type="checkbox" id="remember-me"/>
+                                        <input type="checkbox" id="remember-me" value="checked"/>
                                         <label htmlFor="remember-me">Remember me</label>
                                     </div>
                                 </div>

@@ -2,7 +2,7 @@
     Controller for the model "student".
 */
 
-import { Class, Student } from '../models';
+import { Class, Student, Tag } from '../models';
 
 import Jimp from 'jimp';
 import fs from 'fs-promise';
@@ -73,12 +73,12 @@ export function insert(req, res) {
             });
         }
         else {
-            res.sendStatus(400);
+            res.sendStatus(404);
         }
     })
     // respond
-    .then((activity) => {
-        res.send(activity);
+    .then((student) => {
+        res.send(student);
     })
     .catch((err) => {
         res.sendStatus(500);
@@ -106,37 +106,48 @@ function processImg(file) {
 //UPDATE ATTRIBUTES
 export function update(req, res) {
     let file = req.file;
-
+		
     // query class
     processImg(file).then((img) => {
         return Student.findById(req.params.studentId);
     })
     .then((student) => {
-        // @TODO: Refactor
-        if(file) {
+    		return Tag.destroy({
+            where: {
+                StudentId: student.id
+            },
+        }).then((affectedCount) => {
+        	if(file) {
             let image = file.filename + '.jpg';
 
-            return student.updateAttributes({
+            return student.updateStudent({
                 fname: req.body.fname,
                 lname: req.body.lname,
                 mname: req.body.mname,
-                image
+                tags: req.body.tags.split(','),
+                image, 
+                
             });
-        }
-        else {
-            return student.updateAttributes({
-                fname: req.body.fname,
-                lname: req.body.lname,
-                mname: req.body.mname
-            });
-        }
+		      }
+		      else {
+		          return student.updateStudent({
+		              fname: req.body.fname,
+		              lname: req.body.lname,
+		              mname: req.body.mname,
+		              tags: req.body.tags.split(',')
+		          });
+        	}
+        });
     })
     .then((student) => {
-        if(student) res.send(student);
-        else res.send(400);
+        if(student) {
+        	res.send(student);
+        }
+        else res.sendStatus(400);
     })
     .catch((err) => {
-        res.send(500);
+    		console.log(err);
+        res.sendStatus(500);
     });
 }
 

@@ -8,6 +8,7 @@ import {Modal} from 'react-materialize';
 class StudentEditModal extends React.Component {
     edit(e) {
         e.preventDefault();
+        let tags = $('#etags'+this.props.student.id).val().split(', ');
         
         let newStudent = {
             id: this.props.student.id,
@@ -15,7 +16,9 @@ class StudentEditModal extends React.Component {
             lname: $('#elastName'+this.props.student.id).val(),
             mname: $('#emiddleName'+this.props.student.id).val(),
             ClassId: this.props.student.ClassId,
-            image: $('#eimage'+this.props.student.id)[0].files[0]
+            image: $('#eimage'+this.props.student.id)[0].files[0],
+            tags
+            
         };
 
         this.props.editStudent(newStudent).then((res) => {
@@ -27,8 +30,20 @@ class StudentEditModal extends React.Component {
     }
 
     render() {
+        let defaultTags = "";
+        this.props.student.tags.forEach((tag) => {
+            defaultTags += (tag+", ");
+        });
+        defaultTags = defaultTags.substring(0, defaultTags.length-2);
+        
+        const triggerHTML = (
+            <a href="#">
+                <i className="material-icons right grey-text">mode_edit</i>
+            </a>
+        );
+        
         return (
-          <Modal trigger={<i className="material-icons right">mode_edit</i>} header="Edit Student">
+          <Modal trigger={triggerHTML} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">
@@ -58,7 +73,17 @@ class StudentEditModal extends React.Component {
                               <input id={"emiddleName"+this.props.student.id} type="text" className="validate" defaultValue={this.props.student.mname}/>
                           </div>
                       </div>
-                    </div>
+                    </div>																
+                    <div className="tags">
+                        <div className="row">
+                            <span>
+                                <label>Tags (separated by comma and space </label>
+                            </span>
+                            <div className="input-field col s12">
+                                <input id={"etags"+this.props.student.id} type="text" className="" defaultValue={defaultTags}/>
+                            </div>
+                        </div>
+                    </div>																													
                     <div className="row">
                         <div className="col s12">
                             <span>Image (Optional)</span>

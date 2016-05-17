@@ -37,14 +37,12 @@ app.use(session({
         host: 'localhost',
         port: 6379,
         client: client,
-        ttl :  260
     }),
     cookie: {
         httpOnly: false,
         secure: false, // set "true" if https
-        maxAge: 600000 * 60 * 5 //Not sure now
-    },
-    rolling: true
+        maxAge: 3600000 * 5 //Not sure now //should be 5 hours since 3600000 is equivalent to 1 hour according to http://www.senchalabs.org/connect/session.html
+    }
 }));
 
 app.use(express.static(__dirname+"/public"));
@@ -71,6 +69,7 @@ app.get('/api/*', (req, res) => {
 // send routing to client
 app.use('*', (req, res, next) => {
     if (req.session.key) {
+        console.log(req.session.cookie);
         return next();
     }
     if ((unauth_paths).test(req.originalUrl)) {

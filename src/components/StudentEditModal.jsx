@@ -35,8 +35,15 @@ class StudentEditModal extends React.Component {
             defaultTags += (tag+", ");
         });
         defaultTags = defaultTags.substring(0, defaultTags.length-2);
+        
+        const triggerHTML = (
+            <a href="#">
+                <i className="material-icons right grey-text">mode_edit</i>
+            </a>
+        );
+        
         return (
-          <Modal trigger={<i className="material-icons right">mode_edit</i>} header="Edit Student">
+          <Modal trigger={triggerHTML} header="Edit Student">
                 <form onSubmit={(e) => this.edit(e)}>
                     <div className="modal-content">
                       <div className="row">

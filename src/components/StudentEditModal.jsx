@@ -8,6 +8,7 @@ import {Modal} from 'react-materialize';
 class StudentEditModal extends React.Component {
     edit(e) {
         e.preventDefault();
+        
         let newStudent = {
             id: this.props.student.id,
             fname: $('#efirstName'+this.props.student.id).val(),

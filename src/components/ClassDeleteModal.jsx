@@ -8,6 +8,9 @@ import {Modal} from 'react-materialize';
 class ClassDeleteModal extends React.Component {
     delete(e) {
         e.preventDefault();
+        
+        if(!window.confirm("Are you sure?")) return;
+        
         this.props.deleteClass(this.props.classData).then((res) => {
             Materialize.toast('Successfully deleted class.', 4000, 'toast-success');
         })
@@ -19,8 +22,11 @@ class ClassDeleteModal extends React.Component {
     render() {
         return (
           <div>
-            <i onClick={(e) => this.delete(e)} className="material-icons right red-text">delete</i>
+            <a href="#" onClick={(e) => this.delete(e)}>
+                <i className="material-icons right red-text">delete</i>
+            </a>
           </div>
+
         );
     }
 }

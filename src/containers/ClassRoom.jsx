@@ -46,6 +46,12 @@ class ClassRoom extends React.Component {
 
         this.props.addActivity(activity).then((res) => {
             Materialize.toast('Successfully added activity.', 4000, 'toast-success');
+            
+            // clear input values
+            $('#activityName').val('');
+            $('#activityNameLabel').removeClass('active');
+            $('#activityDesc').val('');
+            $('#activityDescLabel').removeClass('active');
         }).catch((err) => {
             Materialize.toast('Error adding activity.', 4000, 'toast-error');
         });
@@ -91,6 +97,7 @@ class ClassRoom extends React.Component {
                 let allTextLines = reader.result.trim().split(/\r\n|\n/);
                 while (allTextLines.length > 0) {
                     let entries = allTextLines.shift().split(',');
+                    
                     // @TODO: validation
                     let student = {
                         path: window.location.pathname.substring(11),
@@ -99,6 +106,7 @@ class ClassRoom extends React.Component {
                         mname: entries.shift(),
                         tags: entries
                     };
+                    
                     this.props.addStudent(student).catch((err) => {
                         Materialize.toast('Error adding student.', 4000, 'toast-error');
                     });
@@ -552,13 +560,13 @@ class ClassRoom extends React.Component {
                                      <div className="row">
                                          <div className="input-field col s12">
                                              <input id="activityName" type="text" className="validate"/>
-                                             <label htmlFor="activityName">Activity</label>
+                                             <label id="activityNameLabel" htmlFor="activityName">Activity</label>
                                          </div>
                                      </div>
                                      <div className="row">
                                          <div className="input-field col s12">
                                              <input id="activityDesc" type="text" className="validate"/>
-                                             <label htmlFor="activityDesc">Description</label>
+                                             <label id="activityDescLabel" htmlFor="activityDesc">Description</label>
                                          </div>
                                      </div>
                                  </div>

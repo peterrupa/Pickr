@@ -49,11 +49,16 @@ export function addActivity(activity) {
 
 export function addStudent(student) {
     return (dispatch) => {
+        if(!student.fname || !student.mname || !student.lname || !student.tags) {
+            return Promise.reject('Invalid input.');
+        }
+        
         let formData  = new FormData();
 
         for(name in student) {
             formData.append(name, student[name]);
         }
+        
         return fetch('/api/class/'+student.path+'/student', {
             method: 'POST',
             credentials: 'include',
@@ -69,6 +74,10 @@ export function addStudent(student) {
 
 export function editStudent(student) {
     return (dispatch) => {
+        if(!student.fname || !student.mname || !student.lname) {
+            return Promise.reject("Invalid data.");
+        }
+        
         let formData  = new FormData();
 
         for(name in student) {

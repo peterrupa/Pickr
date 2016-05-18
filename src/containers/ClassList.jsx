@@ -65,13 +65,13 @@ class ClassList extends React.Component {
                                   <h3>Add Class</h3>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="classCode" type="text" className="validate" required="required"/>
+                                            <input id="classCode" type="text"/>
                                             <label htmlFor="classCode">Class Code</label>
                                         </div>
                                     </div>
                                     <div className="row">
                                         <div className="input-field col s12">
-                                            <input id="class-name" type="text" className="validate" required="required"/>
+                                            <input id="class-name" type="text"/>
                                             <label htmlFor="class-name">Class Name</label>
                                         </div>
                                     </div>

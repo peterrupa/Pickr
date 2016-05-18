@@ -12,6 +12,7 @@ const Materialize = window.Materialize;
 class SignUp extends React.Component {
     componentDidMount() {
         let usernameDOM = document.getElementById('username');
+        let emailDOM = document.getElementById('email');
 
         $('.button-collapse').click(() => {
             $('.side-nav').css({position: 'static', marginLeft: '-50px'});
@@ -29,6 +30,14 @@ class SignUp extends React.Component {
                 $('.errorUsernamePattern').show();
             } else {
                 $('.errorUsernamePattern').hide();
+            }
+        });
+
+        $('#email').focusout(() => {
+            if(emailDOM.validity.patternMismatch) {
+                $('.errorEmailPattern').show();
+            } else {
+                $('.errorEmailPattern').hide();
             }
         });
 
@@ -151,7 +160,7 @@ class SignUp extends React.Component {
                                 <div className="row margin">
                                     <div className="input-field col s12">
                                         <i className="mdi-social-person-outline prefix"></i>
-                                        <input id="username" type="text"  pattern="[A-Z-a-z][A-Za-z0-9]{7,32}"/>
+                                        <input id="username" type="text"  pattern="[A-Z-a-z][A-Za-z0-9]{6,31}"/>
                                         <label htmlFor="username" className="center-align">Username</label>
                                         <p className="red-text errorRequired errorUsernameReq hidden"
                                             style={{
@@ -180,6 +189,13 @@ class SignUp extends React.Component {
                                                 marginLeft: '50px'
                                             }}>
                                             This field is required.
+                                        </p>
+                                        <p className="red-text errorRequired errorEmailPattern hidden"
+                                            style={{
+                                                marginTop: '0px',
+                                                marginLeft: '50px'
+                                            }}>
+                                            Email format must have an '@' and a domain name. '[name].com'.
                                         </p>
                                     </div>
                                 </div>
